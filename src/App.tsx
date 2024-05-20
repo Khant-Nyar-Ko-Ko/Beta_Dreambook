@@ -1,7 +1,10 @@
+import Navbar from "./components/Navbar"
 
 const App = () => {
   return (
-    <div>This is dev</div>
+    <div>
+      <Navbar/>
+    </div>
   )
 }
 
