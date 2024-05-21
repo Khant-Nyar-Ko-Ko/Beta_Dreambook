@@ -17,18 +17,18 @@ const UserInfoPage = () => {
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
         <div className="flex flex-col items-center gap-4">
           {/* logo */}
-            <div className="flex gap-4 w-[370px]">
-              <img src={logo} className="w-20 h-16 " alt="" />
-              <div className="w-[350px] flex flex-col gap-1">
-                <h3 className="text-xl font-bold text-white font-primary">
-                  Dream Book
-                </h3>
-                <p className="text-sm text-white font-primary">
-                  Book Reading & Publishing Platform
-                </p>
-              </div>
+          <div className="flex gap-4 w-[370px]">
+            <img src={logo} className="w-20 h-16 " alt="" />
+            <div className="w-[350px] flex flex-col gap-1">
+              <h3 className="text-xl font-bold text-white font-primary">
+                Dream Book
+              </h3>
+              <p className="text-sm text-white font-primary">
+                Book Reading & Publishing Platform
+              </p>
             </div>
-         
+          </div>
+
           <div className="flex flex-col gap-1 text-center">
             <h2 className="text-xl text-white font-primary">
               Create an account
@@ -48,8 +48,8 @@ const UserInfoPage = () => {
                 <Input type="number" className="w-full" placeholder="Phone" />
               </div>
               <Input placeholder="Full name" />
-             <Input placeholder="Gender"/>
-             <Textarea placeholder="Bio" className="" />
+              <Input placeholder="Gender" />
+              <Textarea placeholder="Bio" className="" />
             </div>
             <Button>Create an acccount</Button>
           </div>
