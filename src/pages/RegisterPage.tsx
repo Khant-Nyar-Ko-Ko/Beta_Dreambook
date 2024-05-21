@@ -19,15 +19,15 @@ const RegisterPage = () => {
           <div className="flex gap-4 w-[370px]">
             <img src={logo} className="w-20 h-16 " alt="" />
             <div className="w-[350px] gap-2">
-              <h3 className="text-2xl font-bold text-white">Dream Book</h3>
-              <p className="text-sm text-white ">
+              <h3 className="text-2xl font-bold text-white font-primary">Dream Book</h3>
+              <p className="text-sm text-white font-primary">
                 Book Reading & Publishing Platform
               </p>
             </div>
           </div>
           <div className="flex flex-col gap-2 text-center">
-            <h2 className="text-3xl text-white ">Create an account</h2>
-            <p className="text-white">Get started to share books & reading</p>
+            <h2 className="text-3xl text-white font-primary">Create an account</h2>
+            <p className="text-white font-primary">Get started to share books & reading</p>
           </div>
           <div className="flex flex-col text-center gap-9">
             <div className="flex flex-col gap-8 ">
@@ -36,9 +36,9 @@ const RegisterPage = () => {
               <Input inputType="password" placeholder="Confirm Password" />
             </div>
             <Button>Create an account</Button>
-            <p className="text-white ">
+            <p className="text-white font-primary">
               Already have an account?{" "}
-              <span className="font-semibold ">Login</span>
+              <span className="font-semibold font-primary">Login</span>
             </p>
           </div>
         </div>
