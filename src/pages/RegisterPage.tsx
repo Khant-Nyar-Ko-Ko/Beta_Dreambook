@@ -12,7 +12,7 @@ const RegisterPage = () => {
         className="absolute top-0 left-0 object-cover w-full h-full"
         alt="Background"
       />
-      <div className="absolute top-0 left-0 w-full h-full bg-[#022557] opacity-80 z-10"></div>
+      <div className="absolute top-0 left-0 z-10 w-full h-full bg-background opacity-80"></div>
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
         <div className="flex flex-col items-center gap-9">
           {/* logo */}
