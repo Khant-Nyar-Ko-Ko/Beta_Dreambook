@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "flex item-center justify-center text-center rounded-md text-sm font-medium px-4 py-2 duration-300 font-primary",
+  "flex item-center justify-center text-center rounded-md text-sm px-4 py-2 duration-300 font-primary",
   {
     variants: {
       variant: {
@@ -15,7 +15,7 @@ const buttonVariants = cva(
         destructive: "bg-red-500 text-white hover:bg-red-900",
         outline: "bg-transparent text-default border border-default hover:bg-dark hover:text-white",
         subtle: "bg-green-100 text-blue-100 hover:bg-blue-200",
-        ghost: "bg-transparent hover:bg-blue-100",
+        ghost: "bg-transparent text-white",
       },
       size: {
         default: "h-10 py-2 px-4",

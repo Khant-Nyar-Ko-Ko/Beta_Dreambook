@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import background from "../assets/images/AuthBgImage.avif";
 import logo from "../assets/images/Login/Vector 2.svg";
 import { Textarea } from "@/components/ui/textarea";
+import { NavLink } from "react-router-dom";
 
 const UserInfoPage = () => {
   return (
@@ -51,7 +52,9 @@ const UserInfoPage = () => {
               <Input placeholder="Gender" />
               <Textarea placeholder="Bio" className="" />
             </div>
-            <Button>Create an acccount</Button>
+            <NavLink to={"/auth/selectcategory"}>
+              <Button className="w-full ">Create an account</Button>
+            </NavLink>
           </div>
         </div>
       </div>
