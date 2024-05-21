@@ -20,16 +20,16 @@ const LoginPage = () => {
         <div className="flex gap-4 w-[370px]">
           <img src={logo} className="w-20 h-16 " alt="" />
           <div className="w-[350px] flex flex-col gap-1">
-            <h3 className="text-xl font-bold text-white">Dream Book</h3>
-            <p className="text-sm text-white ">
+            <h3 className="text-xl font-bold text-white font-primary">Dream Book</h3>
+            <p className="text-sm text-white font-primary">
               Book Reading & Publishing Platform
             </p>
           </div>
           </div>
         </div>
         <div className="flex flex-col gap-1 text-center">
-          <h2 className="text-3xl text-white ">Welcome again!</h2>
-          <p className="text-white">Please login to your account</p>
+          <h2 className="text-3xl text-white font-primary">Welcome again!</h2>
+          <p className="text-white font-primary">Please login to your account</p>
         </div>
         <div className="flex flex-col text-center gap-7">
           <div className="flex flex-col gap-8 ">
@@ -37,9 +37,9 @@ const LoginPage = () => {
             <Input inputType="password" placeholder="Password" />
           </div>
           <Button>Log in</Button>
-          <p className="text-white ">
+          <p className="text-white font-primary">
             Don't have an account? 
-            <span className="font-semibold "> Create an acccount</span>
+            <span className="font-semibold font-primary"> Create an acccount</span>
           </p>
         </div>
       </div>
