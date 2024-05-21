@@ -5,25 +5,22 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "yesinline-flex yesitems-center yesjustify-center yeswhitespace-nowrap yesrounded-md yestext-sm yesfont-medium yesring-offset-background yestransition-colors focus-visible:yesoutline-none focus-visible:yesring-2 focus-visible:yesring-ring focus-visible:yesring-offset-2 disabled:yespointer-events-none disabled:yesopacity-50",
+  "flex item-center justify-center text-center rounded-md text-sm font-medium px-4 py-2 duration-300",
   {
     variants: {
       variant: {
-        default: "yesbg-primary yestext-primary-foreground hover:yesbg-primary/90",
-        destructive:
-          "yesbg-destructive yestext-destructive-foreground hover:yesbg-destructive/90",
-        outline:
-          "yesborder yesborder-input yesbg-background hover:yesbg-accent hover:yestext-accent-foreground",
-        secondary:
-          "yesbg-secondary yestext-secondary-foreground hover:yesbg-secondary/80",
-        ghost: "hover:yesbg-accent hover:yestext-accent-foreground",
-        link: "yestext-primary yesunderline-offset-4 hover:yesunderline",
+        default: "bg-[#3A7AD5] text-white hover:bg-green-700",
+        white: "text-[#3A7AD5] hover:text-white hover:bg-[#3A7AD5] rounded-full",
+        menu: "text-black hover:text-white bg-transparent hover:bg-[#3A7AD5] rounded-full",
+        destructive: "bg-red-500 text-white hover:bg-red-900",
+        outline: "bg-transparent text-green-900 border border-green-900 hover:bg-green-700 hover:text-white",
+        subtle: "bg-green-100 text-blue-100 hover:bg-blue-200",
+        ghost: "bg-transparent hover:bg-blue-100",
       },
       size: {
-        default: "yesh-10 yespx-4 yespy-2",
-        sm: "yesh-9 yesrounded-md yespx-3",
-        lg: "yesh-11 yesrounded-md yespx-8",
-        icon: "yesh-10 yesw-10",
+        default: "h-10 py-2 px-4",
+        sm: "h-9 px-2 rounded-md",
+        lg: "h-11 px-8 rounded-md",
       },
     },
     defaultVariants: {
@@ -31,7 +28,7 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-)
+);
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
