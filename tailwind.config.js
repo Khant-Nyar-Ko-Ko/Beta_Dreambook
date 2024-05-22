@@ -12,7 +12,8 @@ export default {
         default: "#3A7AD5",
         light : "#89B0E6",
         lighter : "#CDDDF4",
-        background : "#022557"
+        background : "#022557",
+        primarybg : "#eeeeee"
       }
     },
   },
