@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import background from "../assets/images/AuthBgImage.avif";
-import logo from "../assets/images/Login/Vector 2.svg";
 import { Textarea } from "@/components/ui/textarea";
 import { NavLink } from "react-router-dom";
+import Logo from "@/components/Logo";
 
 const UserInfoPage = () => {
   return (
@@ -18,17 +18,7 @@ const UserInfoPage = () => {
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
         <div className="flex flex-col items-center gap-4">
           {/* logo */}
-          <div className="flex gap-4 w-[370px]">
-            <img src={logo} className="w-20 h-16 " alt="" />
-            <div className="w-[350px] flex flex-col gap-1">
-              <h3 className="text-xl font-bold text-white font-primary">
-                Dream Book
-              </h3>
-              <p className="text-sm text-white font-primary">
-                Book Reading & Publishing Platform
-              </p>
-            </div>
-          </div>
+        <Logo/>
 
           <div className="flex flex-col gap-1 text-center">
             <h2 className="text-xl text-white font-primary">

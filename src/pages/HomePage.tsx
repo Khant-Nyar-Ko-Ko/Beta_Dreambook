@@ -1,5 +1,6 @@
 import About from "@/components/About";
 import Faq from "@/components/Faq";
+import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import LatestBookCard from "@/components/LatestBookCard";
 import NewPublishingBook from "@/components/NewPublishingBook";
@@ -7,10 +8,9 @@ import PopularBookCard from "@/components/PopularBookCard";
 import TrendingCategory from "@/components/TrendingCategory";
 import ViewMore from "@/components/ViewMore";
 
-
 const HomePage = () => {
   return (
-    <div className="mb-10 ">
+    <div>
       {/* Hero Section */}
       <Hero />
       {/* About Section */}
@@ -46,10 +46,13 @@ const HomePage = () => {
         <LatestBookCard />
         <LatestBookCard />
       </div>
-      <NewPublishingBook  />
+      <NewPublishingBook />
       {/* FAQ */}
-      <h4 className="my-10 text-2xl text-center font-primary">FAQ</h4>
-      <Faq />
+      <div className="my-10">
+        <h4 className="my-10 text-2xl text-center font-primary">FAQ</h4>
+        <Faq />
+      </div>
+      <Footer />
     </div>
   );
 };

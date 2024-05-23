@@ -22,7 +22,7 @@ const cardData = [
 
 const About = () => {
   return (
-    <div className="flex justify-center gap-5 px-10 py-10">
+    <div className="flex justify-center gap-5 px-10 py-10 cursor-pointer">
         {cardData.map(({id, heading, subheading, desc}) => (
             <div key={id} className="flex flex-col h-auto gap-5 px-5 pt-5 pb-10 rounded-lg bg-default w-[300px]">
             <p className="text-white font-primary">{heading}</p>
