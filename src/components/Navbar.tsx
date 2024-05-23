@@ -10,9 +10,15 @@ const Navbar = () => {
         <img src={logo} className="w-20 h-16 " alt="" />
       </NavLink>
       <div className="flex gap-2  w-[375px] h-[40px] items-center">
-        <Button variant="menu">Home</Button>
-        <Button variant="menu">Library</Button>
-        <Button variant="menu">Book crafting</Button>
+        <NavLink to={"/"}>
+          <Button variant="menu">Home</Button>
+        </NavLink>
+        <NavLink to={"/library"}>
+          <Button variant="menu">Library</Button>
+        </NavLink>
+        <NavLink to={"/bookcrafting"}>
+          <Button variant="menu">Book crafting</Button>
+        </NavLink>
       </div>
       <div className="flex gap-[10px] items-center">
         <NavLink to={"/auth/login"}>
