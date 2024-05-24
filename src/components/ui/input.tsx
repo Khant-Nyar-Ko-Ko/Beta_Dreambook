@@ -9,9 +9,12 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: "bg-white text-black border-gray-300 focus:border-blue-500",
-        destructive: "bg-red-100 text-red-900 border-red-500 focus:border-red-700",
-        outline: "bg-transparent text-black border-gray-300 focus:border-blue-500",
-        subtle: "bg-gray-100 text-gray-700 border-gray-200 focus:border-blue-500",
+        destructive:
+          "bg-red-100 text-red-900 border-red-500 focus:border-red-700",
+        outline:
+          "bg-transparent text-black border-gray-300 focus:border-blue-500",
+        subtle:
+          "bg-gray-100 text-gray-700 border-gray-200 focus:border-blue-500",
         ghost: "bg-transparent text-black focus:border-blue-500",
       },
       inputSize: {
@@ -22,19 +25,20 @@ const inputVariants = cva(
       inputType: {
         default: "text",
         password: "password",
-        email : "email"
-      }
+        email: "email",
+      },
     },
     defaultVariants: {
       variant: "default",
       inputSize: "default",
-      inputType: "default"
+      inputType: "default",
     },
   }
 );
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {}
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof inputVariants> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
