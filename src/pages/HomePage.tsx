@@ -24,7 +24,7 @@ const HomePage = () => {
         <PopularBookCard />
       </div>
       {/* Trending Category */}
-      <div className="flex justify-around">
+      <div className="flex justify-between w-screen px-32">
         <h4 className="text-2xl text-center font-primary">Trending Category</h4>
         <ViewMore />
       </div>
@@ -34,7 +34,7 @@ const HomePage = () => {
         </div>
       </div>
       {/* Latest Book */}
-      <div className="flex justify-around">
+      <div className="flex justify-between w-screen px-32">
         <h4 className="text-2xl text-center font-primary">Latest Books</h4>
         <ViewMore />
       </div>
