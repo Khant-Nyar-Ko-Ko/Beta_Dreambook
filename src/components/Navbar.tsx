@@ -5,13 +5,17 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="w-screen h-[80px] flex justify-between items-center px-[120px] bg-white shadow">
+    <div className="w-screen h-[80px] flex justify-between items-center px-[120px] bg-white shadow sticky top-0 left-0  z-30">
       <NavLink to={"/"}>
         <img src={logo} className="w-20 h-16 " alt="" />
       </NavLink>
       <div className="flex gap-2  w-[375px] h-[40px] items-center">
-        <Button variant="menu">Home</Button>
-        <Button variant="menu">Library</Button>
+        <NavLink to={"/"}>
+          <Button variant="menu">Home</Button>
+        </NavLink>
+        <NavLink to={"/library"}>
+          <Button variant="menu">Library</Button>
+        </NavLink>
         <NavLink to={"/bookcrafting"}>
           <Button variant="menu">Book crafting</Button>
         </NavLink>
