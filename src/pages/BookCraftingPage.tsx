@@ -2,13 +2,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import bookImg from "../assets/images/bookCrafting/bookImg.png";
 import { Textarea } from "@/components/ui/textarea";
-import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { Badge, Bold, Italic, Underline } from "lucide-react";
 import { Button } from "@/components/ui/button";
 const BookCraftingPage = () => {
   return (
     <div>
-      <div className=" ml-28">
+      <div className="mb-10  ml-28">
         <div className="flex gap-20 mt-12 ml-28 col">
           <button className="text-default">Back</button>
           <h1 className="text-3xl font-bold font-primary">Creating New Book</h1>
