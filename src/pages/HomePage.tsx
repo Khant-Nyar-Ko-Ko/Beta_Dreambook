@@ -1,6 +1,5 @@
 import About from "@/components/About";
 import Faq from "@/components/Faq";
-import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import LatestBookCard from "@/components/LatestBookCard";
 import NewPublishingBook from "@/components/NewPublishingBook";
@@ -52,7 +51,6 @@ const HomePage = () => {
         <h4 className="my-10 text-2xl text-center font-primary">FAQ</h4>
         <Faq />
       </div>
-      <Footer />
     </div>
   );
 };
