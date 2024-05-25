@@ -4,6 +4,7 @@ import background from "../assets/images/AuthBgImage.avif";
 import { Textarea } from "@/components/ui/textarea";
 import { NavLink } from "react-router-dom";
 import Logo from "@/components/Logo";
+import { LuPhone } from "react-icons/lu";
 
 const UserInfoPage = () => {
   return (
@@ -18,7 +19,7 @@ const UserInfoPage = () => {
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
         <div className="flex flex-col items-center gap-4">
           {/* logo */}
-        <Logo/>
+          <Logo />
 
           <div className="flex flex-col gap-1 text-center">
             <h2 className="text-xl text-white font-primary">
@@ -36,11 +37,14 @@ const UserInfoPage = () => {
               </div>
               <div className="flex gap-3 ">
                 <Input type="number" className="w-20" placeholder="+95" />
-                <Input type="number" className="w-full" placeholder="Phone" />
+                <div className="relative w-full ">
+                  <Input type="number" className="w-full" placeholder="Phone" />
+                  <LuPhone color="slate" className="absolute right-5 top-3" />
+                </div>
               </div>
               <Input placeholder="Full name" />
               <Input placeholder="Gender" />
-              <Textarea placeholder="Bio" className="" />
+              <Textarea placeholder="Bio" className=" placeholder:text-slate-500" />
             </div>
             <NavLink to={"/auth/selectcategory"}>
               <Button className="w-full ">Create an account</Button>
