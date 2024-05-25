@@ -3,8 +3,18 @@ import background from "../assets/images/AuthBgImage.avif";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import Logo from "@/components/Logo";
+import { IoPerson } from "react-icons/io5";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 
 const LoginPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   return (
     <div className="relative w-screen h-screen">
       {/* background */}
@@ -17,7 +27,7 @@ const LoginPage = () => {
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
         <div className="flex flex-col items-center gap-9">
           {/* logo */}
-          <Logo/>
+          <Logo />
           <div className="flex flex-col gap-1 text-center">
             <h2 className="text-3xl text-white font-primary">Welcome again!</h2>
             <p className="text-white font-primary">
@@ -26,8 +36,27 @@ const LoginPage = () => {
           </div>
           <div className="flex flex-col text-center gap-7">
             <div className="flex flex-col gap-8 ">
-              <Input placeholder="Username" />
-              <Input inputType="password" placeholder="Password" />
+              <div className="relative ">
+                <Input placeholder="Username" />
+                <IoPerson color="slate" className="absolute right-5 top-3" />
+              </div>
+              <div className="relative">
+                <Input
+                  inputType={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-5 top-3 focus:outline-none"
+                >
+                  {showPassword ? (
+                    <FaEyeSlash color="slate" />
+                  ) : (
+                    <FaEye color="slate" />
+                  )}
+                </button>
+              </div>
             </div>
             <NavLink to={"/"}>
               <Button className="w-full">Log in</Button>
