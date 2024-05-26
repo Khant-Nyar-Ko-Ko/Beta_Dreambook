@@ -23,7 +23,7 @@ const RegisterPage = () => {
       />
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-background opacity-80"></div>
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
-        <div className="flex flex-col items-center gap-9">
+        <div className="flex flex-col items-center gap-7 md:gap-9">
           {/* logo */}
           <Logo />
           <div className="flex flex-col gap-2 text-center">
@@ -77,14 +77,20 @@ const RegisterPage = () => {
               </div>
             </div>
             <NavLink to={"/auth/userinfo"}>
-              <Button className="w-full ">Create an account</Button>
+              <Button className=" w-[300px] md:w-[350px ">
+                Create an account
+              </Button>
             </NavLink>
             <div className="flex items-center justify-center font-primary">
-              <p className="text-white "> Already have an account?</p>
+              <p className="text-sm text-white md:text-base ">
+                {" "}
+                Already have an account?
+              </p>
               <NavLink to={"/auth/register"}>
                 <Button
+                  size="sm"
                   variant="ghost"
-                  className="text-base font-semibold cursor-pointer "
+                  className="text-sm font-semibold cursor-pointer md:text-base"
                 >
                   Login
                 </Button>

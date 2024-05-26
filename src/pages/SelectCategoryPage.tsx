@@ -15,14 +15,14 @@ const SelectCategoryPage = () => {
       />
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-background opacity-80"></div>
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
-        <div className="flex flex-col items-center gap-5">
+        <div className="flex flex-col items-center gap-2 md:gap-5">
           {/* logo */}
          <Logo/>
-          <h2 className="text-xl text-white font-primary">
+          <h2 className="text-white md:text-xl font-primary">
             Select Your Interested Category
           </h2>
           <div className="flex flex-col text-center gap-7">
-            <div className="grid grid-cols-2 gap-5 ">
+            <div className="grid gap-5 md:grid-cols-2 ">
               <Categories />
             </div>
             <NavLink to={"/library"}>

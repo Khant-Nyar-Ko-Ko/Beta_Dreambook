@@ -68,11 +68,11 @@ const Categories = () => {
       {categories.map(({id, title, image}) => (
         <div
           key={id}
-          className="flex items-center gap-2 px-4 py-1 bg-white rounded "
+          className="flex items-center gap-2 px-2 py-1 bg-white rounded md:px-4 "
         >
           <input type="checkbox" />
-          <img className="w-10 h-10" src={image} alt="" />
-          <p className="text-sm ">{title}</p>
+          <img className="w-8 h-auto md:w-10 md:h-10" src={image} alt="" />
+          <p className=" text-[10px] md:text-sm ">{title}</p>
         </div>
       ))}
     </>
