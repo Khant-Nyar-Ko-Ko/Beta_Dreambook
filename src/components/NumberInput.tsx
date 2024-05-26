@@ -15,8 +15,8 @@ const NumberInput: React.FC = () => {
         defaultCountry="MM"
         className="bg-white rounded ps-2"
         inputComponent={() => (
-          <div className="relative w-[300px] ">
-            <Input type="number" className="w-full" placeholder="Phone" />
+          <div className="relative w-[250px] ">
+            <Input type="number" className=" w-[200px]" placeholder="Phone" />
             <LuPhone color="slate" className="absolute right-5 top-3" />
           </div>
         )}

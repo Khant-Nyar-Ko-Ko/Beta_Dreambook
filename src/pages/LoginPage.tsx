@@ -25,7 +25,7 @@ const LoginPage = () => {
       />
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-background opacity-80"></div>
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
-        <div className="flex flex-col items-center gap-9">
+        <div className="flex flex-col items-center justify-center gap-7 md:gap-9">
           {/* logo */}
           <Logo />
           <div className="flex flex-col gap-1 text-center">
@@ -35,7 +35,7 @@ const LoginPage = () => {
             </p>
           </div>
           <div className="flex flex-col text-center gap-7">
-            <div className="flex flex-col gap-8 ">
+            <div className="flex flex-col items-center gap-8 ">
               <div className="relative ">
                 <Input placeholder="Username" />
                 <IoPerson color="slate" className="absolute right-5 top-3" />
@@ -58,15 +58,20 @@ const LoginPage = () => {
                 </button>
               </div>
             </div>
-            <NavLink to={"/"}>
-              <Button className="w-full">Log in</Button>
-            </NavLink>
+            <div className="flex justify-center ">
+              <NavLink to={"/"}>
+                <Button className=" w-[300px] md:w-[350px]">Log in</Button>
+              </NavLink>
+            </div>
             <div className="flex items-center justify-center font-primary">
-              <p className="text-white ">Don't have an account?</p>
+              <p className="text-sm text-white  md:text-base">
+                Don't have an account?
+              </p>
               <NavLink to={"/auth/register"}>
                 <Button
+                  size="sm"
                   variant="ghost"
-                  className="text-base font-semibold cursor-pointer "
+                  className="text-sm font-semibold cursor-pointer md:text-base"
                 >
                   Create an acccount
                 </Button>

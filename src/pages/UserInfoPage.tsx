@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { NavLink } from "react-router-dom";
 import Logo from "@/components/Logo";
 import ImagePreview from "@/components/ImagePreview";
-import NumberInput from "@/components/NumberInpur";
+import NumberInput from "@/components/NumberInput";
 import GenderSelect from "@/components/GenderSelect";
 
 const UserInfoPage = () => {
