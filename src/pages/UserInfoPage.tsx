@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { NavLink } from "react-router-dom";
 import Logo from "@/components/Logo";
 import { LuPhone } from "react-icons/lu";
+import ImagePreview from "@/components/ImagePreview";
 
 const UserInfoPage = () => {
   return (
@@ -29,11 +30,12 @@ const UserInfoPage = () => {
           <div className="flex flex-col text-center gap-7">
             <div className="flex flex-col gap-5 ">
               <div className="flex items-center justify-center gap-4">
-                <Input
+                <ImagePreview/>
+                {/* <Input
                   type="file"
                   className="w-24 h-24 rounded-full bg-slate-200"
                 />
-                <p className="text-white font-primary">Upload Photo</p>
+                <p className="text-white font-primary">Upload Photo</p> */}
               </div>
               <div className="flex gap-3 ">
                 <Input type="number" className="w-20" placeholder="+95" />
