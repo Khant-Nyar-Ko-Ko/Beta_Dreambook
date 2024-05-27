@@ -2,7 +2,6 @@ import UserLayout from "@/layouts/UserLayout";
 import BookCraftingPage from "@/pages/BookCraftingPage";
 import HomePage from "@/pages/HomePage";
 import LibraryPage from "@/pages/LibraryPage";
-import BookDetailPage from "@/pages/BookDetailPage";
 import { Navigate, RouteObject } from "react-router-dom";
 
 const UserRouter: RouteObject[] = [
@@ -25,12 +24,6 @@ const UserRouter: RouteObject[] = [
       {
         path: "bookcrafting",
         element: <BookCraftingPage />,
-        children: [
-          {
-            path: "bookdetail",
-            element: <BookDetailPage />,
-          },
-        ],
       },
     ],
   },
