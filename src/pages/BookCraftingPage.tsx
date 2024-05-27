@@ -2,21 +2,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import bookImg from "../assets/images/bookCrafting/bookImg.png";
 import { Textarea } from "@/components/ui/textarea";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import { Badge, Bold, Italic, Underline } from "lucide-react";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Bold, Italic, Underline } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import CustomDropdown from "@/components/customDropDown";
+import { NavLink } from "react-router-dom";
+
 const BookCraftingPage = () => {
   return (
     <div>
-      <div className="mb-10  ml-28">
+      <div className="mb-10 ml-28">
         <div className="flex gap-20 mt-12 ml-28 col">
-          <button className="text-default">Back</button>
+          <NavLink to={"/home"}>
+            {" "}
+            <button className="text-default">Back</button>
+          </NavLink>
           <h1 className="text-3xl font-bold font-primary">Creating New Book</h1>
         </div>
 
-        <div className="flex flex-row mt-20 gap-28 font-primary">
+        <div className="flex mx-auto flex-row-3 gap-28 font-primary">
           <div>
-            <div className="py-40 border border-black border-dashed rounded-lg ml-28 w-72 ">
+            <div className="py-40 mt-20 border border-black border-dashed rounded-lg ml-28 w-72">
               <img className="w-10 mx-auto" src={bookImg} alt="" />
 
               <div className="text-xs font-bold text-center">
@@ -32,11 +39,11 @@ const BookCraftingPage = () => {
             </div>
           </div>
 
-          <div>
+          <div className="w-full mx-auto basis-1/2">
             <div className="mt-20 ">
               <Label htmlFor="email">Title</Label>
               <Input
-                className="font-bold border-4"
+                className="w-full font-bold border-none"
                 type="text"
                 id="text"
                 placeholder="Book Title"
@@ -47,23 +54,30 @@ const BookCraftingPage = () => {
                 htmlFor="default"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Default select
+                Category
               </label>
-              <select
-                id="default"
-                className="block w-full p-3 mb-6 text-sm text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option selected>Choose a country</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>
+              <CustomDropdown />
             </div>
 
-            <div>
+            <div className="mt-5">
               <Label>Keywords</Label>
-              <Badge>Badge</Badge>
+              <div className="flex flex-row">
+                <Badge variant="default">
+                  Secondary <button className="px-1">x</button>
+                </Badge>
+                <Badge variant="destructive">
+                  Secondary <button className="px-1">x</button>
+                </Badge>
+                <Badge variant="destructive">
+                  Secondary<button className="px-1">x</button>
+                </Badge>
+                <Badge variant="destructive">
+                  Secondary<button className="px-1">x</button>
+                </Badge>
+                <Badge variant="destructive">
+                  Secondary<button className="px-1">x</button>
+                </Badge>
+              </div>
             </div>
 
             <div className="mt-5 ">
@@ -74,7 +88,7 @@ const BookCraftingPage = () => {
                 id="message"
               />
             </div>
-            <div className="flex gap-4 mx-5 mt-5">
+            <div className="flex gap-4 mx-auto">
               <ToggleGroup type="multiple">
                 <ToggleGroupItem
                   className="p-4"
@@ -99,7 +113,9 @@ const BookCraftingPage = () => {
                 </ToggleGroupItem>
               </ToggleGroup>
             </div>
-            <Button className="w-full default:">Create Now</Button>
+            <NavLink to={"/bookdetail"}>
+              <Button className="w-full mt-5 default:">Create Now</Button>
+            </NavLink>
           </div>
         </div>
       </div>
