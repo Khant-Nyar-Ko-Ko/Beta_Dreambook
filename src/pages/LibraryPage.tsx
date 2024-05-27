@@ -1,17 +1,30 @@
 import LibCategory from "@/components/librarycomponents/LibCategory";
 import libraryBg from "../assets/images/library/librarybg.png";
 import { RiFilter3Line } from "react-icons/ri";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import LibraryBookCard from "@/components/librarycomponents/LibraryBookCard";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const LibraryPage = () => {
+  const bookCards = Array.from({ length: 12 }, (_, i) => (
+    <LibraryBookCard key={i} />
+  ));
   return (
     <div>
       {/* Headline */}
@@ -36,33 +49,71 @@ const LibraryPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-screen h-auto">
+      <div className="flex w-screen ">
         <LibCategory />
         <div className="w-full ">
-          <div className="flex items-center justify-around py-10">
+          <div className="flex justify-between gap-2 mx-10 my-5">
             <div className="flex items-center gap-5 ">
-              <div className="p-2 border rounded border-slate-400">
+              <div className="p-[7px] border rounded">
                 <RiFilter3Line size="22px" />
               </div>
-              <div className="p-2 border rounded border-slate-400">
+              <div className="p-2 border rounded ">
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center justify-between gap-2 px-2 text-sm">
+                  <DropdownMenuTrigger className="flex items-center justify-between gap-5 px-2 text-sm">
                     <p>Sort by default</p>
                     <IoIosArrowDown />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Billing</DropdownMenuItem>
-                    <DropdownMenuItem>Team</DropdownMenuItem>
-                    <DropdownMenuItem>Subscription</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Checkbox /> <p className="px-2">Sort by random</p>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Checkbox /> <p className="px-2">Sort by latest</p>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Checkbox /> <p className="px-2">Sort by A-Z</p>
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
             </div>
-            <div></div>
+            <div className="relative">
+              <IoIosSearch
+                className="absolute left-2 top-[10px]"
+                color="gray"
+                size="20"
+              />
+              <Input type="search" placeholder="      Search" />
+            </div>
           </div>
+          <div className="grid items-center grid-cols-4 my-10 ms-10 ">
+            {bookCards}
+          </div>
+          <div className="flex items-center justify-center ">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">2</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">3</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+          </div>
+          
         </div>
       </div>
     </div>
