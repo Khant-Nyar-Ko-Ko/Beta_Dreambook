@@ -4,8 +4,8 @@ import playstore from "../assets/images/landing/Play Store.png";
 const DownloadOnMobile = () => {
   return (
     <div className="flex gap-5">
-      <img src={applestore} className="w-40 cursor-pointer" alt="applestore" />
-      <img src={playstore} className="w-40 cursor-pointer" alt="applestore" />
+      <img src={applestore} className="w-32 h-auto cursor-pointer md:w-40" alt="applestore" />
+      <img src={playstore} className="w-32 h-auto cursor-pointer md:w-40" alt="applestore" />
     </div>
   );
 };

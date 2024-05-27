@@ -10,45 +10,51 @@ import { NavLink } from "react-router-dom";
 const Hero = () => {
   return (
     <div className="relative">
-      <img src={bg1} className="absolute top-0 left-0 w-[120px]" alt="bg1" />
+      <img
+        src={bg1}
+        className="absolute top-0 left-0 w-[70px] md:w-[120px]"
+        alt="bg1"
+      />
       <img
         src={bg2}
-        className="absolute z-0 bottom-0 right-1 w-[600px]"
+        className="absolute z-0 bottom-0 right-10 md:right-1 w-[100px] md:w-[600px]"
         alt="bg2"
       />
       <img
         src={pot}
-        className="absolute z-0 bottom-0 right-0 w-[200px]"
+        className="absolute z-0 bottom-5 md:bottom-0 right-0 w-[100px] md:w-[200px]"
         alt="bg2"
       />
-      <div className="flex w-screen px-[150px] h-auto bg-primarybg py-5">
-        <div className="z-10 flex flex-col items-center justify-center w-1/2 gap-5">
-          <div className="flex flex-col gap-8">
-            <div className="text-5xl font-semibold font-primary">
+      <div className="flex flex-col md:flex-row w-screen px-5 md:px-[150px] h-auto bg-primarybg py-5 md:py-32">
+        <div className="z-10 flex flex-col justify-center w-auto gap-5 md:items-center md:w-1/2">
+          <div className="flex flex-col gap-8 px-10 mt-10 md:px-0 md:mt-0">
+            <div className="text-3xl font-semibold md:text-5xl font-primary">
               <h2>Discover</h2>
               <h2>Magic of Books</h2>
             </div>
-            <p className=" w-[450px] font-primary">
+            <p className=" w-[300px] md:w-[450px] text-sm md:text-base font-primary">
               "Unlock worlds, one page at a time: Dive into the stories that
               shape us. Welcome to a sanctuary for book lovers, where words
               ignite passions and journeys never end."
             </p>
             <NavLink to={"/library"}>
-              <Button className="py-5 font-semibold text-center w-60 h-14">
-                Explore Now
-              </Button>
+              <Button>Explore Now</Button>
             </NavLink>
             <div className="flex flex-col gap-3 ">
-              <p className="text-sm uppercase text-light font-primary">
+              <p className=" text-[10px] md:text-sm uppercase text-light font-primary">
                 Try on mobile
               </p>
               <DownloadOnMobile />
             </div>
           </div>
         </div>
-        <div className="z-10 flex flex-col items-center justify-center w-1/2 gap-5 my-20">
-          <img className="h-auto w-[500px]" src={landing1} alt="" />
-          <p className=" font-primary">Most Popular Books This Week</p>
+        <div className="z-10 flex flex-col items-center w-auto gap-5 md:justify-center md:w-1/2">
+          <img
+            className="h-auto mt-10 md:mt-0 w-[250px] md:w-[500px]"
+            src={landing1}
+            alt=""
+          />
+          <p className="z-10 font-primary">Most Popular Books This Week</p>
         </div>
       </div>
     </div>
