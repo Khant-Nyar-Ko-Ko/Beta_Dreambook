@@ -7,7 +7,7 @@ import {
 
 const Faq = () => {
   return (
-    <div className="mx-[200px] ">
+    <div className=" mx-10 md:mx-[200px] ">
     <Accordion type="multiple">
       <AccordionItem value="item-1">
         <AccordionTrigger>What is Dream Book?</AccordionTrigger>

@@ -4,10 +4,10 @@ import { Button } from "./ui/button";
 
 const Footer = () => {
   return (
-    <div className=" bg-default w-screen h-[400px] flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center w-screen h-auto py-10 bg-default">
       <Logo />
-      <div className="flex gap-10">
-        <div className="flex gap-5 mt-10 font-primary">
+      <div className="flex flex-col gap-10 md:flow-row">
+        <div className="flex flex-col items-start gap-2 mt-10 md:items-center md:gap-5 md:flex-row font-primary">
           <Button>Home</Button>
           <Button>Recommended Books</Button>
           <Button>Latest Books</Button>
@@ -18,8 +18,8 @@ const Footer = () => {
           <DownloadOnMobile />
         </div>
       </div>
-      <div className="w-3/4 my-10 border border-white"></div>
-       <p className="text-sm text-white  font-primary">Copyright 2024 dream book. All Rights reserved.</p>
+      <div className="w-screen my-5 border border-white md:my-10 md:w-3/4"></div>
+       <p className="text-sm text-white font-primary">Copyright 2024 dream book. All Rights reserved.</p>
     </div>
   );
 };
