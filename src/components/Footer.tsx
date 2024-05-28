@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className="flex flex-col items-center justify-center w-screen h-auto py-10 bg-default">
       <Logo />
-      <div className="flex flex-col gap-10 md:flow-row">
+      <div className="flex flex-col gap-10 md:flex-row">
         <div className="flex flex-col items-start gap-2 mt-10 md:items-center md:gap-5 md:flex-row font-primary">
           <Button>Home</Button>
           <Button>Recommended Books</Button>
