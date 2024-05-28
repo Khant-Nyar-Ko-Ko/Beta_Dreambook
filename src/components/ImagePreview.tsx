@@ -31,7 +31,7 @@ const ImagePreview = () => {
       )}
       <label
         htmlFor="img"
-        className="px-4 py-2 mt-5 text-white rounded-lg cursor-pointer font-primary "
+        className="px-4 py-2 mt-5 text-white rounded-lg cursor-pointer font-primary hover:text-default"
       >
         Upload Photo
       </label>

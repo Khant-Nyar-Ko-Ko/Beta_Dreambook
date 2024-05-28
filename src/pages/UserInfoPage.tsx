@@ -36,7 +36,7 @@ const UserInfoPage = () => {
               <div className="flex gap-3 ">
                 <NumberInput />
               </div>
-              <Input placeholder="Full name" />
+              <Input className=" w-[300px] px-4 py-3" placeholder="Full name" />
               <GenderSelect />
               <Textarea
                 placeholder="Bio"

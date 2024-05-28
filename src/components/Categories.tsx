@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import digitalmarket from "../assets/images/categories/digitalmarket.png";
 import personaldev from "../assets/images/categories/personaldev.png";
 import technology from "../assets/images/categories/tech.png";
@@ -57,22 +58,36 @@ const categories = [
   },
   {
     id: 10,
-    title: "Bussiness",
+    title: "Business",
     image: bussiness,
   },
 ];
 
 const Categories = () => {
+  const [checkedItems, setCheckedItems] = useState<Record<number, boolean>>({});
+
+  const handleDivClick = ({id} : {id : number}) => {
+    setCheckedItems((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
+
   return (
     <>
-      {categories.map(({id, title, image}) => (
+      {categories.map(({ id, title, image }) => (
         <div
           key={id}
-          className="flex items-center gap-2 px-2 py-1 bg-white rounded md:px-4 "
+          className="flex items-center gap-2 px-2 py-1 bg-white rounded cursor-pointer md:px-4"
+          onClick={() => handleDivClick({id})}
         >
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={checkedItems[id] || false}
+            onChange={() => handleDivClick({id})}
+          />
           <img className="w-8 h-auto md:w-10 md:h-10" src={image} alt="" />
-          <p className=" text-[10px] md:text-sm ">{title}</p>
+          <p className="text-[10px] md:text-sm">{title}</p>
         </div>
       ))}
     </>

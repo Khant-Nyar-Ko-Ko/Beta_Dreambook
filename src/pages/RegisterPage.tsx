@@ -37,19 +37,27 @@ const RegisterPage = () => {
           <div className="flex flex-col text-center gap-9">
             <div className="flex flex-col gap-8 ">
               <div className="relative ">
-                <Input inputType="email" placeholder="Email" />
-                <IoPerson color="slate" className="absolute right-5 top-3" />
+                <Input
+                  className="w-full"
+                  inputType="email"
+                  placeholder="Email"
+                />
+                <IoPerson
+                  color="slate"
+                  className="absolute right-5 top-2 md:top-3"
+                />
               </div>
 
               <div className="relative">
                 <Input
+                  className="w-full"
                   inputType={showPassword ? "text" : "password"}
                   placeholder="Password"
                 />
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute right-5 top-3 focus:outline-none"
+                  className="absolute right-5 top-2 md:top-3 focus:outline-none"
                 >
                   {showPassword ? (
                     <FaEyeSlash color="slate" />
@@ -60,13 +68,15 @@ const RegisterPage = () => {
               </div>
               <div className="relative">
                 <Input
+                  className="w-full"
+                  inputSize="lg"
                   inputType={showPassword ? "text" : "password"}
-                  placeholder="Password"
+                  placeholder="Confirm Password"
                 />
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute right-5 top-3 focus:outline-none"
+                  className="absolute right-5 top-2 md:top-3 focus:outline-none"
                 >
                   {showPassword ? (
                     <FaEyeSlash color="slate" />
@@ -86,7 +96,7 @@ const RegisterPage = () => {
                 {" "}
                 Already have an account?
               </p>
-              <NavLink to={"/auth/register"}>
+              <NavLink to={"/auth/login"}>
                 <Button
                   size="sm"
                   variant="ghost"
