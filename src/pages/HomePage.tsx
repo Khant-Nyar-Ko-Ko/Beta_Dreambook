@@ -18,22 +18,18 @@ const HomePage = () => {
       {/* Popular Books */}
       <PopularBook />
       {/* Trending Category */}
-      <div className="flex items-center justify-between w-screen px-7 md:px-32">
-        <h4 className="text-lg text-center md:text-2xl font-primary">
-          Trending Category
-        </h4>
+      <div className="flex items-center justify-between w-screen px-10 md:px-[130px]">
+        <h4 className="text-lg md:text-2xl font-primary">Trending Category</h4>
         <ViewMore />
       </div>
       <div className="flex justify-center mb-10">
-        <div className="grid justify-center grid-cols-1 gap-5 my-5 md:grid-cols-3">
+        <div className="grid justify-center grid-cols-1 my-5 gap-7 md:grid-cols-3">
           <TrendingCategory />
         </div>
       </div>
       {/* Latest Book */}
-      <div className="flex items-center justify-between w-screen px-7 md:px-32">
-        <h4 className="text-lg text-center md:text-2xl font-primary">
-          Latest Books
-        </h4>
+      <div className="flex items-center justify-between w-screen px-10 md:px-[130px]">
+        <h4 className="text-lg md:text-2xl font-primary">Latest Books</h4>
         <ViewMore />
       </div>
       <LatestBook />

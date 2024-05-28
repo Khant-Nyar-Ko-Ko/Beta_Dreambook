@@ -44,7 +44,7 @@ const TrendingCategory = () => {
     {trendingCategories.map(({id, title, image}) => (
       <div
         key={id}
-        className="flex items-center w-[270px] md:w-[370px] gap-10 px-4 py-2 bg-white border rounded"
+        className="flex items-center w-[300px] md:w-[370px] gap-10 px-4 py-2 bg-white border rounded cursor-pointer"
       >
         <img className="w-10 h-10" src={image} alt="" />
         <p className="text-sm font-semibold ">{title}</p>
