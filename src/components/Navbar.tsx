@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-screen h-[80px] flex justify-between items-center px-4 md:px-[120px] bg-white shadow sticky top-0 left-0 z-30">
+    <div className=" w-screen h-[80px] flex justify-between items-center px-4 md:px-[130px] bg-white shadow sticky top-0 left-0 z-30">
       <div className="flex items-center gap-2">
         <div className="flex md:hidden">
           <button onClick={toggleMenu} className="text-3xl">
@@ -24,14 +24,41 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div className="hidden md:flex gap-2 w-auto h-[40px] items-center">
-        <NavLink to={"/"}>
-          <Button variant="menu">Home</Button>
+        <NavLink to="/home">
+          {({ isActive }) => (
+            <Button
+              variant="menu"
+              className={
+                isActive ? "text-white bg-default" : "text-black bg-transparent"
+              }
+            >
+              Home
+            </Button>
+          )}
         </NavLink>
-        <NavLink to={"/library"}>
-          <Button variant="menu">Library</Button>
+        <NavLink to="/library">
+          {({ isActive }) => (
+            <Button
+              variant="menu"
+              className={
+                isActive ? "text-white bg-default" : "text-black bg-transparent"
+              }
+            >
+              Library
+            </Button>
+          )}
         </NavLink>
-        <NavLink to={"/bookcrafting"}>
-          <Button variant="menu">Book crafting</Button>
+        <NavLink to="/bookcrafting">
+          {({ isActive }) => (
+            <Button
+              variant="menu"
+              className={
+                isActive ? "text-white bg-default" : "text-black bg-transparent"
+              }
+            >
+              Book crafting
+            </Button>
+          )}
         </NavLink>
       </div>
       <div className="hidden md:flex gap-[10px] items-center">
@@ -46,30 +73,62 @@ const Navbar = () => {
         </NavLink>
       </div>
       {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="fixed top-0 left-0 z-40 w-full h-full bg-black opacity-60" onClick={toggleMenu}></div>
+      )}
       <div
-        className={`fixed top-0 left-0 w-[250px] h-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
-          isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } md:hidden`}
+        className={`fixed top-0 left-0 w-full h-full shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isMenuOpen ? "translate-x-0 " : "-translate-x-full"
+        } md:hidden z-50`}
       >
-        <div className="flex flex-col gap-4 p-4">
-          <button onClick={toggleMenu} className="self-end text-3xl">
-            <IoClose />
-          </button>
-          <NavLink to={"/"} onClick={toggleMenu}>
-            <Button variant="menu">Home</Button>
-          </NavLink>
-          <NavLink to={"/library"} onClick={toggleMenu}>
-            <Button variant="menu">Library</Button>
-          </NavLink>
-          <NavLink to={"/bookcrafting"} onClick={toggleMenu}>
-            <Button variant="menu">Book crafting</Button>
-          </NavLink>
-          <NavLink to={"/auth/login"} onClick={toggleMenu}>
-            <Button variant="white">
-              <IoPersonCircle className="w-6 h-6 rounded" />
-              Login
-            </Button>
-          </NavLink>
+        <div className="h-screen bg-white w-[250px]">
+          <div className="flex flex-col gap-4 p-4">
+            <button onClick={toggleMenu} className="self-end text-3xl">
+              <IoClose />
+            </button>
+            <NavLink to="/home">
+              {({ isActive }) => (
+                <Button
+                  variant="menu"
+                  className={
+                    isActive ? "text-default" : "text-black"
+                  }
+                >
+                  Home
+                </Button>
+              )}
+            </NavLink>
+            <NavLink to="/library">
+              {({ isActive }) => (
+                <Button
+                  variant="menu"
+                  className={
+                    isActive ? "text-default" : "text-black"
+                  }
+                >
+                  Library
+                </Button>
+              )}
+            </NavLink>
+            <NavLink to="/bookcrafting">
+              {({ isActive }) => (
+                <Button
+                  variant="menu"
+                  className={
+                    isActive ? "text-default" : "text-black"
+                  }
+                >
+                  Book crafting
+                </Button>
+              )}
+            </NavLink>
+            <NavLink to={"/auth/login"} onClick={toggleMenu}>
+              <Button variant="white">
+                <IoPersonCircle className="w-6 h-6 rounded" />
+                Login
+              </Button>
+            </NavLink>
+          </div>
         </div>
       </div>
       <div className="block md:hidden">
@@ -78,6 +137,7 @@ const Navbar = () => {
         </NavLink>
       </div>
     </div>
+    // </div>
   );
 };
 

@@ -25,7 +25,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       key={id}
-      className=" flex flex-col w-[230px] gap-5 h-[260px] pb-3 bg-white border border-slate-100 shadow-lg"
+      className=" flex flex-col w-[220px] gap-5 h-[260px] pb-3 bg-white border border-slate-100 shadow"
     >
       <div className="w-[200px] h-[130px] flex justify-center px-10 py-3 mx-3 mt-3 bg-slate-200 relative group overflow-hidden">
         <div className="absolute flex flex-col gap-3 duration-200 transform translate-x-10 group-hover:translate-x-0 right-3 top-10">

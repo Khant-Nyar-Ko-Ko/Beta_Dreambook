@@ -5,11 +5,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "flex item-center justify-center item-center rounded-md text-sm duration-300 font-primary",
+  "flex items-center justify-center item-center rounded-md text-sm duration-300 font-primary",
   {
     variants: {
       variant: {
         default: "bg-default text-white hover:bg-dark",
+        active: "text-white bg-default",
         white: "text-default hover:text-white hover:bg-default rounded-full",
         menu: "text-black hover:text-white bg-transparent hover:bg-default rounded-full",
         destructive: "bg-red-500 text-white hover:bg-red-900",
@@ -19,7 +20,7 @@ const buttonVariants = cva(
         ghost: "bg-transparent text-white",
       },
       size: {
-        default: "h-10 py-2 px-4 md:px-10",
+        default: "h-10 py-2 px-4",
         sm: "h-9 p-2 rounded-md",
         lg: "h-11 px-8 rounded-md",
       },
