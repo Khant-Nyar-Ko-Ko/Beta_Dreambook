@@ -4,7 +4,7 @@ import LatestBookCard from "./LatestBookCard";
 
 const LatestBook = () => {
   return (
-    <><div className="flex justify-center mx-10 my-10 md:px-[120px]">
+    <><div className="flex justify-center mx-10 md:mx-4 my-10 md:px-[120px]">
     <Swiper
       spaceBetween={20}
       slidesPerView={1.4}
