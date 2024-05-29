@@ -60,6 +60,20 @@ const Navbar = () => {
             </Button>
           )}
         </NavLink>
+        {/* Need to delete later */}
+        <NavLink to="/personalinfo">
+          {({ isActive }) => (
+            <Button
+              variant="menu"
+              className={
+                isActive ? "text-white bg-default" : "text-black bg-transparent"
+              }
+            >
+              Personal info
+            </Button>
+          )}
+        </NavLink>
+        {/* Need to delete later */}
       </div>
       <div className="hidden md:flex gap-[10px] items-center">
         <NavLink to={"/auth/login"}>
