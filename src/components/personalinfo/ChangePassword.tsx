@@ -11,17 +11,17 @@ const ChangePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   return (
-    <div className="flex flex-col items-center justify-center w-4/5 text-center gap-9">
-      <div className="flex flex-col gap-2 text-center">
-        <h2 className="text-2xl font-primary">Change Your Password</h2>
-        <p className="text-sm w-[300px] opacity-50 font-primary">
-          The new password you set must be different ot the previous one
+    <div className="flex flex-col items-center justify-center w-4/5 h-full text-center gap-9">
+      <div className="flex flex-col gap-2 px-4 py-8 text-center md:px-0">
+        <h2 className="text-base md:text-2xl font-primary">Change Your Password</h2>
+        <p className=" text-xs md:text-sm w-[300px] opacity-50 font-primary">
+          The new password you set must be different the previous one
         </p>
       </div>
       <div className="flex flex-col gap-8 ">
         <div className="relative">
           <Input
-            className="w-full"
+            className=" w-[200px] md:w-[350px]"
             inputType={showPassword ? "text" : "password"}
             placeholder="Enter Old Password"
           />
@@ -39,7 +39,7 @@ const ChangePassword = () => {
         </div>
         <div className="relative">
           <Input
-            className="w-full"
+           className=" w-[200px] md:w-[350px]"
             inputType={showPassword ? "text" : "password"}
             placeholder="Enter New Password"
           />
@@ -57,7 +57,7 @@ const ChangePassword = () => {
         </div>
         <div className="relative">
           <Input
-            className="w-full"
+            className=" w-[200px] md:w-[350px]"
             inputType={showPassword ? "text" : "password"}
             placeholder="Confirm Password"
           />
@@ -75,7 +75,7 @@ const ChangePassword = () => {
         </div>
       </div>
       <NavLink to={"/"}>
-        <Button className=" w-[300px] md:w-[350px ">Change Password</Button>
+        <Button className=" w-[200px] md:w-[350px] ">Change Password</Button>
       </NavLink>
     </div>
   );

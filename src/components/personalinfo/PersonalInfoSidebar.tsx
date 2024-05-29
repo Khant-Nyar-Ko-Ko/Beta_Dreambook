@@ -10,15 +10,15 @@ import { NavLink } from "react-router-dom";
 
 const PersonalInfoSidebar = () => {
   return (
-    <div className="w-1/5 h-full border">
-      <div className="flex flex-col items-center justify-center my-20 gap-14">
-        <div className="flex items-center gap-3">
+    <div className="w-1/5 max-h-full border">
+      <div className="flex flex-col items-center justify-center gap-10 py-2 my-10 md:py-0 md:my-20 md:gap-14">
+        <div className="flex flex-col items-center gap-3 md:flex-row">
           <img
             src={profile}
-            className="object-cover w-16 h-16 rounded-full"
+            className="object-cover w-10 h-10 rounded-full md:w-16 md:h-16"
             alt="profile"
           />
-          <p className="text-lg font-primary">Giga Chad</p>
+          <p className="text-xs md:text-lg font-primary">Giga Chad</p>
         </div>
         <div className="flex flex-col gap-5">
           <NavLink to="info">
@@ -32,8 +32,12 @@ const PersonalInfoSidebar = () => {
                 }
               >
                 <IoPersonSharp />
-                Personal Information
-                <IoIosArrowForward />
+                <p className="hidden font-primary md:block">
+                  {" "}
+                  Personal Information
+                </p>
+
+                <IoIosArrowForward className="hidden font-primary md:block" />
               </Button>
             )}
           </NavLink>
@@ -49,8 +53,9 @@ const PersonalInfoSidebar = () => {
                 }
               >
                 <PiBooks />
-                Book Lists
-                <IoIosArrowForward />
+                <p className="hidden font-primary md:block"> Book Lists</p>
+
+                <IoIosArrowForward className="hidden font-primary md:block" />
               </Button>
             )}
           </NavLink>
@@ -66,8 +71,9 @@ const PersonalInfoSidebar = () => {
                 }
               >
                 <CiHeart />
-                Favorite Books
-                <IoIosArrowForward />
+                <p className="hidden font-primary md:block"> Favorite Books</p>
+
+                <IoIosArrowForward className="hidden font-primary md:block" />
               </Button>
             )}
           </NavLink>
@@ -83,8 +89,9 @@ const PersonalInfoSidebar = () => {
                 }
               >
                 <LuBookMarked />
-                History
-                <IoIosArrowForward />
+                <p className="hidden font-primary md:block"> History</p>
+
+                <IoIosArrowForward className="hidden font-primary md:block" />
               </Button>
             )}
           </NavLink>
@@ -100,19 +107,22 @@ const PersonalInfoSidebar = () => {
                 }
               >
                 <IoPersonSharp />
-                Change Password
-                <IoIosArrowForward />
+                <p className="hidden font-primary md:block"> Change Password</p>
+
+                <IoIosArrowForward className="hidden font-primary md:block" />
               </Button>
             )}
           </NavLink>
         </div>
+        <NavLink to="/">
         <Button
           variant="personalinfo"
           className="justify-center gap-3 py-10 border-t border-gray-300 rounded-none font-primary"
         >
           <IoExitOutline size="30" />
-          Sign Out
+          <p className="hidden font-primary md:block">Sign Out</p>
         </Button>
+        </NavLink>
       </div>
     </div>
   );
