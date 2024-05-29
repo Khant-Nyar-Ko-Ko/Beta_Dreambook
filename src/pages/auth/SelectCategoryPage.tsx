@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import background from "../assets/images/AuthBgImage.avif";
+import background from "../../assets/images/AuthBgImage.avif";
 import { NavLink } from "react-router-dom";
 import Categories from "@/components/Categories";
 import Logo from "@/components/Logo";

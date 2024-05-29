@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import bookImg from "../assets/images/bookCrafting/bookImg.png";
+import bookImg from "../../assets/images/bookCrafting/bookImg.png";
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Bold, Italic, Underline } from "lucide-react";

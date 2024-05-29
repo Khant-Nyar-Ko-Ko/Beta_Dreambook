@@ -1,5 +1,5 @@
 import LibCategory from "@/components/librarycomponents/LibCategory";
-import libraryBg from "../assets/images/library/librarybg.png";
+import libraryBg from "../../assets/images/library/librarybg.png";
 import { RiFilter3Line } from "react-icons/ri";
 import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import {
