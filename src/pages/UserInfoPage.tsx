@@ -33,7 +33,7 @@ const UserInfoPage = () => {
               <div className="flex items-center justify-center gap-4">
                 <ImagePreview />
               </div>
-              <div className="flex gap-3 ">
+              <div className="flex gap-3">
                 <NumberInput />
               </div>
               <Input className=" w-[300px] px-4 py-3" placeholder="Full name" />

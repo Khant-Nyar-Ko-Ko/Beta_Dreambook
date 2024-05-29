@@ -10,8 +10,8 @@ import { NavLink } from "react-router-dom";
 
 const PersonalInfoSidebar = () => {
   return (
-    <div className="w-1/5 h-screen border">
-      <div className="flex flex-col items-center justify-center gap-10 my-10">
+    <div className="w-1/5 h-full border">
+      <div className="flex flex-col items-center justify-center my-20 gap-14">
         <div className="flex items-center gap-3">
           <img
             src={profile}
@@ -22,39 +22,88 @@ const PersonalInfoSidebar = () => {
         </div>
         <div className="flex flex-col gap-5">
           <NavLink to="info">
-            <Button variant="personalinfo">
-              <IoPersonSharp />
-              Personal Information
-              <IoIosArrowForward />
-            </Button>
+            {({ isActive }) => (
+              <Button
+                variant="personalinfo"
+                className={
+                  isActive
+                    ? "text-white bg-default"
+                    : "text-black bg-transparent"
+                }
+              >
+                <IoPersonSharp />
+                Personal Information
+                <IoIosArrowForward />
+              </Button>
+            )}
           </NavLink>
+
           <NavLink to="book-lists">
-            <Button variant="personalinfo">
-              <PiBooks />
-              Book Lists
-              <IoIosArrowForward />
-            </Button>
+            {({ isActive }) => (
+              <Button
+                variant="personalinfo"
+                className={
+                  isActive
+                    ? "text-white bg-default"
+                    : "text-black bg-transparent"
+                }
+              >
+                <PiBooks />
+                Book Lists
+                <IoIosArrowForward />
+              </Button>
+            )}
           </NavLink>
+
           <NavLink to="fav-books">
-            <Button variant="personalinfo">
-              <CiHeart />
-              Favorite Books
-              <IoIosArrowForward />
-            </Button>
+            {({ isActive }) => (
+              <Button
+                variant="personalinfo"
+                className={
+                  isActive
+                    ? "text-white bg-default"
+                    : "text-black bg-transparent"
+                }
+              >
+                <CiHeart />
+                Favorite Books
+                <IoIosArrowForward />
+              </Button>
+            )}
           </NavLink>
+
           <NavLink to="history">
-            <Button variant="personalinfo">
-              <LuBookMarked />
-              History
-              <IoIosArrowForward />
-            </Button>
+            {({ isActive }) => (
+              <Button
+                variant="personalinfo"
+                className={
+                  isActive
+                    ? "text-white bg-default"
+                    : "text-black bg-transparent"
+                }
+              >
+                <LuBookMarked />
+                History
+                <IoIosArrowForward />
+              </Button>
+            )}
           </NavLink>
+
           <NavLink to="change-pw">
-            <Button variant="personalinfo">
-              <IoPersonSharp />
-              Change Password
-              <IoIosArrowForward />
-            </Button>
+            {({ isActive }) => (
+              <Button
+                variant="personalinfo"
+                className={
+                  isActive
+                    ? "text-white bg-default"
+                    : "text-black bg-transparent"
+                }
+              >
+                <IoPersonSharp />
+                Change Password
+                <IoIosArrowForward />
+              </Button>
+            )}
           </NavLink>
         </div>
         <Button
