@@ -1,18 +1,48 @@
 import { Input } from "@/components/ui/input";
 import background from "../../assets/images/AuthBgImage.avif";
 import { Button } from "@/components/ui/button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "@/components/Logo";
 import { IoPerson } from "react-icons/io5";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSignInUser } from "@/hooks/useAuthApi";
+import {  Loader2 } from "lucide-react";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [signinData, setSigninData] = useState({
+    email: "tonystark12@gmail.com",
+    password: "ironman"
+  })
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const signinMutation = useSignInUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (signinMutation.isSuccess) {
+      console.log(signinMutation.data);
+      navigate('/')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [signinMutation.isSuccess]);
+
+  useEffect(() => {
+    if (signinMutation.isError) {
+      console.log(signinMutation.error.message);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [signinMutation.isError]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = { ...signinData };
+    signinMutation.mutate(data);
   };
 
   return (
@@ -38,12 +68,14 @@ const LoginPage = () => {
             </p>
           </div>
           <div className="flex flex-col text-center gap-9">
-            <div className="flex flex-col gap-8 ">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8 ">
               <div className="relative ">
                 <Input
                   className="w-full"
-                  inputType="text"
+                  inputType="email"
                   placeholder="Username"
+                  value={signinData.email}
+                  onChange={(e) => setSigninData((prev) => ({...prev,email: e.target.value}))}
                 />
                 <IoPerson
                   color="slate"
@@ -56,6 +88,8 @@ const LoginPage = () => {
                   className="w-full"
                   inputType={showPassword ? "text" : "password"}
                   placeholder="Password"
+                  value={signinData.password}
+                  onChange={(e) => setSigninData((prev) => ({...prev,password: e.target.value}))}
                 />
                 <button
                   type="button"
@@ -69,12 +103,12 @@ const LoginPage = () => {
                   )}
                 </button>
               </div>
-            </div>
-            <NavLink to={"/"}>
-              <Button className=" w-[300px] md:w-[350px ">
-                Login
+              <div className="flex justify-center w-full">
+              <Button type="submit" className=" w-[300px] md:w-[350px ">
+                {signinMutation.isPending ? <Loader2/> : "Login"}
               </Button>
-            </NavLink>
+              </div>
+            </form>
             <div className="flex items-center justify-center font-primary">
               <p className="text-sm text-white md:text-base ">
                 {" "}

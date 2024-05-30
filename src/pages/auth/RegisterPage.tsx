@@ -1,20 +1,24 @@
 import { Input } from "@/components/ui/input";
 import background from "../../assets/images/AuthBgImage.avif";
 import { Button } from "@/components/ui/button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "@/components/Logo";
 import { IoPerson } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSignUpUser } from "@/hooks/useAuthApi";
+import { Loader2 } from "lucide-react";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signupData, setSignupData] = useState({
     email: "",
     password: "",
+    name: "",
+    gender: null
   });
   const signupMutation = useSignUpUser();
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -23,6 +27,7 @@ const RegisterPage = () => {
   useEffect(() => {
     if (signupMutation.isSuccess) {
       console.log(signupMutation.data);
+      navigate('/auth/userinfo')
     }
   }, [signupMutation.isSuccess]);
 
@@ -123,7 +128,8 @@ const RegisterPage = () => {
               </div>
               <div className="flex justify-center w-full">
                 <Button type="submit" className="w-[300px] md:w-[350px]">
-                  Create an account
+                {signupMutation.isPending ? <Loader2/> : "Create an account"}
+                  
                 </Button>
               </div>
             </form>
