@@ -1,3 +1,3 @@
-import {signUpUser} from "./authApi";
+import {signUpUser, signInUser} from "./authApi";
 
-export {signUpUser};
+export {signUpUser, signInUser};

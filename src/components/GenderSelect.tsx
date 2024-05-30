@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
-const GenderSelect: React.FC = () => {
-  const [gender, setGender] = useState<string | null>(null);
+interface GenderSelectProps {
+  gender: string | null;
+  onGenderChange: (gender: string) => void;
+}
 
+const GenderSelect: React.FC<GenderSelectProps> = ({ gender, onGenderChange }) => {
   const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setGender(event.target.value);
+    onGenderChange(event.target.value);
   };
 
   return (
