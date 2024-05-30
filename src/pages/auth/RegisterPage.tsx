@@ -5,26 +5,49 @@ import { NavLink } from "react-router-dom";
 import Logo from "@/components/Logo";
 import { IoPerson } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSignUpUser } from "@/hooks/useAuthApi";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [signupData, setSignupData] = useState({
+    email: "",
+    password: "",
+  });
+  const signupMutation = useSignUpUser();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
+  useEffect(() => {
+    if (signupMutation.isSuccess) {
+      console.log(signupMutation.data);
+    }
+  }, [signupMutation.isSuccess]);
+
+  useEffect(() => {
+    if (signupMutation.isError) {
+      console.log(signupMutation.error.message);
+    }
+  }, [signupMutation.isError]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = { ...signupData };
+    signupMutation.mutate(data);
+  };
+
   return (
     <div className="relative w-screen h-screen">
-      {/* background */}
       <img
         src={background}
         className="absolute top-0 left-0 object-cover w-full h-full"
         alt="Background"
       />
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-background opacity-80"></div>
-      <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
+      <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full">
         <div className="flex flex-col items-center gap-7 md:gap-9">
-          {/* logo */}
           <Logo />
           <div className="flex flex-col gap-2 text-center">
             <h2 className="text-3xl text-white font-primary">
@@ -35,12 +58,19 @@ const RegisterPage = () => {
             </p>
           </div>
           <div className="flex flex-col text-center gap-9">
-            <div className="flex flex-col gap-8 ">
-              <div className="relative ">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+              <div className="relative">
                 <Input
                   className="w-full"
-                  inputType="email"
+                  type="email"
                   placeholder="Email"
+                  value={signupData.email}
+                  onChange={(e) =>
+                    setSignupData((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }))
+                  }
                 />
                 <IoPerson
                   color="slate"
@@ -51,8 +81,15 @@ const RegisterPage = () => {
               <div className="relative">
                 <Input
                   className="w-full"
-                  inputType={showPassword ? "text" : "password"}
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
+                  value={signupData.password}
+                  onChange={(e) =>
+                    setSignupData((prev) => ({
+                      ...prev,
+                      password: e.target.value,
+                    }))
+                  }
                 />
                 <button
                   type="button"
@@ -69,8 +106,7 @@ const RegisterPage = () => {
               <div className="relative">
                 <Input
                   className="w-full"
-                  inputSize="lg"
-                  inputType={showPassword ? "text" : "password"}
+                  type={showPassword ? "text" : "password"}
                   placeholder="Confirm Password"
                 />
                 <button
@@ -85,12 +121,13 @@ const RegisterPage = () => {
                   )}
                 </button>
               </div>
-            </div>
-            <NavLink to={"/auth/userinfo"}>
-              <Button className=" w-[300px] md:w-[350px ">
-                Create an account
-              </Button>
-            </NavLink>
+              <div className="flex justify-center w-full">
+                <Button type="submit" className="w-[300px] md:w-[350px]">
+                  Create an account
+                </Button>
+              </div>
+            </form>
+
             <div className="flex items-center justify-center font-primary">
               <p className="text-sm text-white md:text-base ">
                 {" "}
