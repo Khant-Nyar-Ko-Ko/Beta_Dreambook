@@ -20,8 +20,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useFetchBooks } from "@/hooks/useBookApi";
 
 const LibraryPage = () => {
+
+  const { data : books } = useFetchBooks();
+  console.log(books);
+  
+
   const bookCards = Array.from({ length: 12 }, (_, i) => (
     <LibraryBookCard key={i} />
   ));
