@@ -18,8 +18,12 @@ const buttonVariants = cva(
           "bg-transparent text-default border border-default hover:bg-dark hover:text-white",
         subtle: "bg-green-100 text-blue-100 hover:bg-blue-200",
         ghost: "bg-transparent text-white",
-        personalinfo: " w-[250px] flex justify-between font-primary hover:text-white hover:bg-blue-500 active:bg-default active:text-white"
+        personalinfo:
+          " w-[250px] flex justify-between font-primary hover:text-white hover:bg-blue-500 active:bg-default active:text-white",
+        detail:
+          "w-[250px] flex justify-start gap-5 text-center hover:bg-blue-400 w-full rounded-none active:border-r-4 border-blue-300 ",
       },
+
       size: {
         default: "h-10 py-2 px-4",
         sm: "h-9 p-2 rounded-md",

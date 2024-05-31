@@ -6,6 +6,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Bold, Italic, Underline } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import Toolbar from "@/components/Toolbar";
 import CustomDropdown from "@/components/customDropDown";
 import { NavLink } from "react-router-dom";
 
@@ -80,7 +81,7 @@ const BookCraftingPage = () => {
               </div>
             </div>
 
-            <div className="mt-5 ">
+            {/* <div className="mt-5 ">
               <Label htmlFor="message">Description</Label>
               <Textarea
                 className="mt-2"
@@ -112,7 +113,12 @@ const BookCraftingPage = () => {
                   <Underline className="w-4 h-4" />
                 </ToggleGroupItem>
               </ToggleGroup>
+            </div> */}
+
+            <div className="mt-5 mb-5 border-2 border-black">
+              <Toolbar />
             </div>
+
             <NavLink to={"/bookdetail"}>
               <Button className="w-full mt-5 default:">Create Now</Button>
             </NavLink>
