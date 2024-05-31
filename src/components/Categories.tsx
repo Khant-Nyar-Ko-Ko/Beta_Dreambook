@@ -1,93 +1,44 @@
-import { useState } from 'react';
-import digitalmarket from "../assets/images/categories/digitalmarket.png";
-import personaldev from "../assets/images/categories/personaldev.png";
-import technology from "../assets/images/categories/tech.png";
-import timemanagement from "../assets/images/categories/timemanage.png";
-import health from "../assets/images/categories/health.png";
-import contentmarketing from "../assets/images/categories/content.png";
-import selfmanagement from "../assets/images/categories/selfmanage.png";
-import success from "../assets/images/categories/success.png";
-import productivity from "../assets/images/categories/productivity.png";
-import bussiness from "../assets/images/categories/bussiness.png";
-
-const categories = [
-  {
-    id: 1,
-    title: "Digital Marketing",
-    image: digitalmarket,
-  },
-  {
-    id: 2,
-    title: "Personal Development",
-    image: personaldev,
-  },
-  {
-    id: 3,
-    title: "Technology",
-    image: technology,
-  },
-  {
-    id: 4,
-    title: "Time Management",
-    image: timemanagement,
-  },
-  {
-    id: 5,
-    title: "Health",
-    image: health,
-  },
-  {
-    id: 6,
-    title: "Content Marketing",
-    image: contentmarketing,
-  },
-  {
-    id: 7,
-    title: "Self-Management",
-    image: selfmanagement,
-  },
-  {
-    id: 8,
-    title: "Success",
-    image: success,
-  },
-  {
-    id: 9,
-    title: "Productivity",
-    image: productivity,
-  },
-  {
-    id: 10,
-    title: "Business",
-    image: bussiness,
-  },
-];
+import { useState } from "react";
+import { useFetchCategories } from "@/hooks/useCategoryApi";
 
 const Categories = () => {
   const [checkedItems, setCheckedItems] = useState<Record<number, boolean>>({});
+  const { data: categories, isLoading, error } = useFetchCategories();
 
-  const handleDivClick = ({id} : {id : number}) => {
+  const handleDivClick = ({ id }: { id: number }) => {
     setCheckedItems((prevState) => ({
       ...prevState,
       [id]: !prevState[id],
     }));
   };
 
+  if (isLoading) {
+    return <div className="text-white">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-white">Error loading categories</div>;
+  }
+
+  if (!categories || categories.length === 0) {
+    return <div className="text-white">No categories available</div>;
+  }
+
   return (
     <>
-      {categories.map(({ id, title, image }) => (
+      {categories.map(({ id, title, icon }) => (
         <div
           key={id}
           className="flex items-center gap-2 px-2 py-1 bg-white rounded cursor-pointer md:px-4"
-          onClick={() => handleDivClick({id})}
+          onClick={() => handleDivClick({ id })}
         >
           <input
             type="checkbox"
             checked={checkedItems[id] || false}
-            onChange={() => handleDivClick({id})}
+            onChange={() => handleDivClick({ id })}
           />
-          <img className="w-8 h-auto md:w-10 md:h-10" src={image} alt="" />
-          <p className="text-[10px] md:text-sm">{title}</p>
+          <img className="w-8 h-auto md:w-10 md:h-10" src={icon} alt={title} />
+          <p className="text-[10px] md:text-sm font-primary">{title}</p>
         </div>
       ))}
     </>
@@ -95,3 +46,4 @@ const Categories = () => {
 };
 
 export default Categories;
+// import bussiness from "../assets/images/categories/bussiness.png";

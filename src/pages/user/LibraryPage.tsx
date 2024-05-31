@@ -1,5 +1,5 @@
 import LibCategory from "@/components/librarycomponents/LibCategory";
-import libraryBg from "../assets/images/library/librarybg.png";
+import libraryBg from "../../assets/images/library/librarybg.png";
 import { RiFilter3Line } from "react-icons/ri";
 import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import {
@@ -20,8 +20,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useFetchBooks } from "@/hooks/useBookApi";
 
 const LibraryPage = () => {
+
+  const { data : books } = useFetchBooks();
+  console.log(books);
+  
+
   const bookCards = Array.from({ length: 12 }, (_, i) => (
     <LibraryBookCard key={i} />
   ));

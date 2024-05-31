@@ -1,14 +1,47 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import background from "../assets/images/AuthBgImage.avif";
+import background from "../../assets/images/AuthBgImage.avif";
 import { Textarea } from "@/components/ui/textarea";
 import { NavLink } from "react-router-dom";
 import Logo from "@/components/Logo";
 import ImagePreview from "@/components/ImagePreview";
 import NumberInput from "@/components/NumberInput";
 import GenderSelect from "@/components/GenderSelect";
+import { useEffect, useState } from "react";
+import { useSignUpUser } from "@/hooks/useAuthApi";
 
 const UserInfoPage = () => {
+  const [signupData, setSignupData] = useState({
+    email: "",
+    password: "",
+    name: "",
+    gender: ""
+  });
+  const signupMutation = useSignUpUser();
+  // const navigate = useNavigate();
+
+  useEffect(() => {
+    if (signupMutation.isSuccess) {
+      console.log(signupMutation.data);
+      // navigate('/auth/selectcategory')
+    }
+  }, [signupMutation.isSuccess]);
+
+  const handleGenderChange = (gender: string) => {
+    setSignupData((prev) => ({
+      ...prev,
+      gender,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = { ...signupData };
+    signupMutation.mutate(data);
+    console.log(data.gender, data.name);
+    
+  };
+
   return (
     <div className="relative w-screen h-screen">
       {/* background */}
@@ -28,7 +61,7 @@ const UserInfoPage = () => {
               Create an account
             </h2>
           </div>
-          <div className="flex flex-col text-center gap-7">
+          <form onSubmit={handleSubmit} className="flex flex-col text-center gap-7">
             <div className="flex flex-col gap-5 ">
               <div className="flex items-center justify-center gap-4">
                 <ImagePreview />
@@ -36,17 +69,27 @@ const UserInfoPage = () => {
               <div className="flex gap-3">
                 <NumberInput />
               </div>
-              <Input className=" w-[300px] px-4 py-3" placeholder="Full name" />
-              <GenderSelect />
+              <Input
+                className=" w-[300px] px-4 py-3"
+                placeholder="Full name"
+                value={signupData.name}
+                onChange={(e) =>
+                  setSignupData((prev) => ({
+                    ...prev,
+                    name: e.target.value,
+                  }))
+                }
+              />
+              <GenderSelect gender={signupData.gender} onGenderChange={handleGenderChange} />
               <Textarea
                 placeholder="Bio"
                 className=" placeholder:text-slate-500"
               />
             </div>
             <NavLink to={"/auth/selectcategory"}>
-              <Button className="w-full ">Create an account</Button>
+              <Button type="submit" className="w-full ">Create an account</Button>
             </NavLink>
-          </div>
+          </form>
         </div>
       </div>
     </div>

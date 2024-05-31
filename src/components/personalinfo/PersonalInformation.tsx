@@ -13,23 +13,23 @@ const PersonalInformation = () => {
     setGender(event.target.value);
   };
   return (
-    <div className="flex flex-col items-center justify-center w-4/5 gap-5">
+    <div className="flex flex-col items-center justify-center w-4/5 gap-3 md:gap-5">
       <ChangeProfile />
       <Input placeholder="Username" variant="info" />
       <Input type="email" placeholder="Email" variant="info" />
       <PhoneInput
-        className=" w-[500px] bg-white px-6 py-2 rounded border"
+        className=" w-[250px] md:w-[500px] bg-white px-3 md:px-6 py-1 md:py-2 rounded border"
         defaultCountry="MM"
         value={value}
         onChange={setValue}
         placeholder="Phone"
       />
-      <Textarea className=" w-[500px]"/>
+      <Textarea className=" w-[250px] md:w-[500px]"/>
       <select
         id="gender"
         value={gender || ""}
         onChange={handleGenderChange}
-        className="w-[500px] p-2 text-sm border border-gray-200 rounded-lg shadow-sm text-slate-500 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        className="w-[250px] md:w-[500px] p-2 text-sm border border-gray-200 rounded-lg shadow-sm text-slate-500 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
       >
         <option value="" disabled>
           Gender
