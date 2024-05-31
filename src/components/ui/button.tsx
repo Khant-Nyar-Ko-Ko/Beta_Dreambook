@@ -21,7 +21,7 @@ const buttonVariants = cva(
         personalinfo:
           "  w-12 md:w-[250px] flex justify-between font-primary hover:text-white hover:bg-blue-500 active:bg-default active:text-white",
         detail:
-          "w-[250px] flex justify-start gap-5 text-center hover:bg-blue-400 w-full rounded-none active:border-r-4 border-blue-300 ",
+          "w-[250px] flex justify-start gap-5 text-center hover:bg-blue-400 w-full rounded-none active:border-r-4 border-blue-300 duration-100",
       },
 
       size: {
