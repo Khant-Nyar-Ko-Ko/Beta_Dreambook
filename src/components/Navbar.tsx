@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/Logo.svg";
 import { useAuth } from "@/contexts/AuthContext";
+import Profile from "./Profile";
+import { FaHeart } from "react-icons/fa";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {token, logout} = useAuth();
-  console.log(token);
+  const { token, logout } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -22,7 +23,7 @@ const Navbar = () => {
             <IoMenu />
           </button>
         </div>
-        <NavLink to={"/"}>
+        <NavLink to={"/home"}>
           <img src={logo} className="w-20 h-16" alt="Logo" />
         </NavLink>
       </div>
@@ -51,56 +52,69 @@ const Navbar = () => {
             </Button>
           )}
         </NavLink>
-        <NavLink to="/bookcrafting">
-          {({ isActive }) => (
-            <Button
-              variant="menu"
-              className={
-                isActive ? "text-white bg-default" : "text-black bg-transparent"
-              }
-            >
-              Book crafting
-            </Button>
-          )}
-        </NavLink>
-        {/* Need to delete later */}
-        <NavLink to="/personalinfo">
-          {({ isActive }) => (
-            <Button
-              variant="menu"
-              className={
-                isActive ? "text-white bg-default" : "text-black bg-transparent"
-              }
-            >
-              Personal info
-            </Button>
-          )}
-        </NavLink>
-        {/* Need to delete later */}
+        {token ? (
+          <NavLink to="/bookcrafting">
+            {({ isActive }) => (
+              <Button
+                variant="menu"
+                className={
+                  isActive
+                    ? "text-white bg-default"
+                    : "text-black bg-transparent"
+                }
+              >
+                Book crafting
+              </Button>
+            )}
+          </NavLink>
+        ) : (
+          <NavLink to="/auth/login">
+            {({ isActive }) => (
+              <Button
+                variant="menu"
+                className={
+                  isActive
+                    ? "text-white bg-default"
+                    : "text-black bg-transparent"
+                }
+              >
+                Book crafting
+              </Button>
+            )}
+          </NavLink>
+        )}
       </div>
       {token ? (
-          <div className="hidden md:flex gap-[10px] items-center">
-            <NavLink to="/profile">
-              <Button variant="menu">Profile</Button>
-            </NavLink>
-            <NavLink to="/">
-              <Button variant="menu" onClick={logout}>Logout</Button>
-            </NavLink>
-          </div>
-        ) : ( <div className="hidden md:flex gap-[10px] items-center">
-        <NavLink to={"/auth/login"}>
-          <Button variant="white">
-            <IoPersonCircle  className="w-6 h-6 rounded" />
-            Login
-          </Button>
-        </NavLink>
-        <NavLink to={"/auth/register"}>
-          <Button variant="white">Register</Button>
-        </NavLink>
-      </div>)}
+        <div className="hidden md:flex gap-[10px] items-center">
+          <NavLink to="/">
+            <Button variant="ghost" onClick={logout}>
+              <div className="flex flex-col items-center gap-1">
+                <FaHeart color="red" size="20" />
+                <p className="text-black font-primary">Fav Books</p>
+              </div>
+            </Button>
+          </NavLink>
+          <Profile />
+        </div>
+      ) : (
+        <div className="hidden md:flex gap-[10px] items-center">
+          <NavLink to={"/auth/login"}>
+            <Button variant="white">
+              <IoPersonCircle className="w-6 h-6 rounded" />
+              Login
+            </Button>
+          </NavLink>
+          <NavLink to={"/auth/register"}>
+            <Button variant="white">Register</Button>
+          </NavLink>
+        </div>
+      )}
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="fixed top-0 left-0 z-40 w-full h-full bg-black opacity-60" onClick={toggleMenu}></div>
+        <div
+          className="fixed top-0 left-0 z-40 w-full h-full bg-black opacity-60"
+          onClick={toggleMenu}
+        ></div>
       )}
       <div
         className={`fixed top-0 left-0 w-full h-full shadow-lg transform transition-transform duration-300 ease-in-out ${
@@ -116,9 +130,7 @@ const Navbar = () => {
               {({ isActive }) => (
                 <Button
                   variant="menu"
-                  className={
-                    isActive ? "text-default" : "text-black"
-                  }
+                  className={isActive ? "text-default" : "text-black"}
                 >
                   Home
                 </Button>
@@ -128,9 +140,7 @@ const Navbar = () => {
               {({ isActive }) => (
                 <Button
                   variant="menu"
-                  className={
-                    isActive ? "text-default" : "text-black"
-                  }
+                  className={isActive ? "text-default" : "text-black"}
                 >
                   Library
                 </Button>
@@ -140,28 +150,39 @@ const Navbar = () => {
               {({ isActive }) => (
                 <Button
                   variant="menu"
-                  className={
-                    isActive ? "text-default" : "text-black"
-                  }
+                  className={isActive ? "text-default" : "text-black"}
                 >
                   Book crafting
                 </Button>
               )}
             </NavLink>
-            <NavLink to={"/auth/login"} onClick={toggleMenu}>
-              <Button variant="white">
-                <IoPersonCircle className="w-6 h-6 rounded" />
-                Login
-              </Button>
-            </NavLink>
           </div>
         </div>
       </div>
-      <div className="block md:hidden">
-        <NavLink to={"/auth/register"} onClick={toggleMenu}>
-          <Button variant="default">Register</Button>
-        </NavLink>
-      </div>
+      {token ? (
+        <div className="flex md:hidden">
+          <NavLink to="/profile">
+            <Button variant="menu">Profile</Button>
+          </NavLink>
+          <NavLink to="/">
+            <Button variant="menu" onClick={logout}>
+              Logout
+            </Button>
+          </NavLink>
+        </div>
+      ) : (
+        <div className="flex md:hidden">
+          <NavLink to={"/auth/login"} onClick={toggleMenu}>
+            <Button variant="white">
+              <IoPersonCircle className="w-6 h-6 rounded" />
+              Login
+            </Button>
+          </NavLink>
+          <NavLink to={"/auth/register"} onClick={toggleMenu}>
+            <Button variant="default">Register</Button>
+          </NavLink>
+        </div>
+      )}
     </div>
     // </div>
   );
