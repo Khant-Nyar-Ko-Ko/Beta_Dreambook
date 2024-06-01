@@ -3,9 +3,12 @@ import { IoPersonCircle, IoMenu, IoClose } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/Logo.svg";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {token, logout} = useAuth();
+  console.log(token);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -75,17 +78,26 @@ const Navbar = () => {
         </NavLink>
         {/* Need to delete later */}
       </div>
-      <div className="hidden md:flex gap-[10px] items-center">
+      {token ? (
+          <div className="hidden md:flex gap-[10px] items-center">
+            <NavLink to="/profile">
+              <Button variant="menu">Profile</Button>
+            </NavLink>
+            <NavLink to="/">
+              <Button variant="menu" onClick={logout}>Logout</Button>
+            </NavLink>
+          </div>
+        ) : ( <div className="hidden md:flex gap-[10px] items-center">
         <NavLink to={"/auth/login"}>
           <Button variant="white">
-            <IoPersonCircle className="w-6 h-6 rounded" />
+            <IoPersonCircle  className="w-6 h-6 rounded" />
             Login
           </Button>
         </NavLink>
         <NavLink to={"/auth/register"}>
           <Button variant="white">Register</Button>
         </NavLink>
-      </div>
+      </div>)}
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="fixed top-0 left-0 z-40 w-full h-full bg-black opacity-60" onClick={toggleMenu}></div>

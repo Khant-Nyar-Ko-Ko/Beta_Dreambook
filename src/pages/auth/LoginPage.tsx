@@ -4,18 +4,18 @@ import { Button } from "@/components/ui/button";
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "@/components/Logo";
 import { IoPerson } from "react-icons/io5";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSignInUser } from "@/hooks/useAuthApi";
-import {  Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext"; // Ensure this is correctly imported
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signinData, setSigninData] = useState({
     email: "tonystark12@gmail.com",
-    password: "ironman"
-  })
+    password: "ironman",
+  });
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -23,32 +23,36 @@ const LoginPage = () => {
 
   const signinMutation = useSignInUser();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   useEffect(() => {
+    const handleSuccess = async () => {
+      if (signinMutation.isSuccess && signinMutation.data?.access_token) {
+        const authToken = signinMutation.data.access_token;
+        login(authToken);
+        navigate("/");
+      }
+    };
     if (signinMutation.isSuccess) {
-      console.log(signinMutation.data);
-      navigate('/')
+      handleSuccess();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signinMutation.isSuccess]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [signinMutation.isSuccess, login, navigate, signinMutation.data?.access_token]);
 
   useEffect(() => {
     if (signinMutation.isError) {
       console.log(signinMutation.error.message);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signinMutation.isError]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = { ...signinData };
-    signinMutation.mutate(data);
+    signinMutation.mutate(signinData);
   };
 
   return (
-
     <div className="relative w-screen h-screen">
-      {/* background */}
       <img
         src={background}
         className="absolute top-0 left-0 object-cover w-full h-full"
@@ -57,14 +61,11 @@ const LoginPage = () => {
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-background opacity-80"></div>
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
         <div className="flex flex-col items-center gap-7 md:gap-9">
-          {/* logo */}
           <Logo />
           <div className="flex flex-col gap-2 text-center">
-            <h2 className="text-3xl text-white font-primary">
-            Welcome again!
-            </h2>
+            <h2 className="text-3xl text-white font-primary">Welcome again!</h2>
             <p className="text-white font-primary">
-            Please login to your account
+              Please login to your account
             </p>
           </div>
           <div className="flex flex-col text-center gap-9">
@@ -75,7 +76,12 @@ const LoginPage = () => {
                   inputType="email"
                   placeholder="Username"
                   value={signinData.email}
-                  onChange={(e) => setSigninData((prev) => ({...prev,email: e.target.value}))}
+                  onChange={(e) =>
+                    setSigninData((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }))
+                  }
                 />
                 <IoPerson
                   color="slate"
@@ -89,7 +95,12 @@ const LoginPage = () => {
                   inputType={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={signinData.password}
-                  onChange={(e) => setSigninData((prev) => ({...prev,password: e.target.value}))}
+                  onChange={(e) =>
+                    setSigninData((prev) => ({
+                      ...prev,
+                      password: e.target.value,
+                    }))
+                  }
                 />
                 <button
                   type="button"
@@ -104,14 +115,13 @@ const LoginPage = () => {
                 </button>
               </div>
               <div className="flex justify-center w-full">
-              <Button type="submit" className=" w-[300px] md:w-[350px ">
-                {signinMutation.isPending ? <Loader2/> : "Login"}
-              </Button>
+                <Button type="submit" className=" w-[300px] md:w-[350px]">
+                  {signinMutation.isPending ? <Loader2 /> : "Login"}
+                </Button>
               </div>
             </form>
             <div className="flex items-center justify-center font-primary">
               <p className="text-sm text-white md:text-base ">
-                {" "}
                 Don't have an account?
               </p>
               <NavLink to={"/auth/register"}>

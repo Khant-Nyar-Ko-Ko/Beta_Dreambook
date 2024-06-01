@@ -7,7 +7,8 @@ export type signupDataType = {
 
 export type signinDataType = {
     email : string,
-    password : string
+    password : string,
+    access_token? : string
 }
 
 export type categoryType = {
