@@ -4,11 +4,15 @@ import FavBooks from "@/components/personalinfo/FavBooks";
 import History from "@/components/personalinfo/History";
 import PersonalInformation from "@/components/personalinfo/PersonalInformation";
 import UserLayout from "@/layouts/UserLayout";
+import BookDetailPage from "@/pages/BookDetailPage";
+import ChildBookDetail from "@/components/ChildBookdetail";
 import BookCraftingPage from "@/pages/user/BookCraftingPage";
 import HomePage from "@/pages/user/HomePage";
 import LibraryPage from "@/pages/user/LibraryPage";
 import PersonalInfoPage from "@/pages/user/PersonalInfoPage";
 import { Navigate, RouteObject } from "react-router-dom";
+import Chapters from "@/components/Chapters";
+import Comment from "@/components/Comment";
 
 const UserRouter: RouteObject[] = [
   {
@@ -32,36 +36,57 @@ const UserRouter: RouteObject[] = [
         element: <BookCraftingPage />,
       },
       {
+        path: "bookdetail",
+        element: <BookDetailPage />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to={"childBookdetail"} />,
+          },
+          {
+            path: "childBookdetail",
+            element: <ChildBookDetail />,
+          },
+          {
+            path: "chapters",
+            element: <Chapters />,
+          },
+          {
+            path: "comment",
+            element: <Comment />,
+          },
+        ],
+      },
+      {
         path: "personalinfo",
-        element: <PersonalInfoPage/>,
-        children : [
+        element: <PersonalInfoPage />,
+        children: [
           {
             index: true,
             element: <Navigate to={"info"} />,
           },
           {
             path: "info",
-            element: <PersonalInformation/>
+            element: <PersonalInformation />,
           },
           {
             path: "book-lists",
-            element: <BookLists/>
+            element: <BookLists />,
           },
           {
             path: "fav-books",
-            element: <FavBooks/>
+            element: <FavBooks />,
           },
           {
             path: "history",
-            element: <History/>
+            element: <History />,
           },
           {
             path: "change-pw",
-            element: <ChangePassword/>
+            element: <ChangePassword />,
           },
-
-        ]
-      }
+        ],
+      },
     ],
   },
 ];
