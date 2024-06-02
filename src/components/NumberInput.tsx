@@ -9,7 +9,7 @@ const NumberInput: React.FC = () => {
   return (
     <div className="relative">
      <PhoneInput
-      className=" w-[300px] bg-white px-4 py-2 rounded"
+      className=" w-[300px] md:w-[350px] bg-white px-4 py-2 rounded"
       defaultCountry="MM"
       value={value}
       onChange={setValue}

@@ -1,4 +1,4 @@
-import profile from "../../assets/images/profile.jpeg";
+import profile from "../../assets/images/contact.jpeg";
 import { Button } from "../ui/button";
 import { IoPersonSharp } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
@@ -7,18 +7,23 @@ import { CiHeart } from "react-icons/ci";
 import { LuBookMarked } from "react-icons/lu";
 import { IoExitOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const PersonalInfoSidebar = () => {
+  const { user, logout } = useAuth();
+
   return (
     <div className="w-1/5 max-h-full border">
       <div className="flex flex-col items-center justify-center gap-10 py-2 my-10 md:py-0 md:my-20 md:gap-14">
         <div className="flex flex-col items-center gap-3 md:flex-row">
           <img
-            src={profile}
+            src={user?.image == null ? profile : user.image}
             className="object-cover w-10 h-10 rounded-full md:w-16 md:h-16"
             alt="profile"
           />
-          <p className="text-xs md:text-lg font-primary">Giga Chad</p>
+          <p className="text-xs md:text-lg font-primary">
+            {user?.name == null ? `User ${user?.id}` : user?.name}
+          </p>
         </div>
         <div className="flex flex-col gap-5">
           <NavLink to="info">
@@ -115,13 +120,14 @@ const PersonalInfoSidebar = () => {
           </NavLink>
         </div>
         <NavLink to="/">
-        <Button
-          variant="personalinfo"
-          className="justify-center gap-3 py-10 border-t border-gray-300 rounded-none font-primary"
-        >
-          <IoExitOutline size="30" />
-          <p className="hidden font-primary md:block">Sign Out</p>
-        </Button>
+          <Button
+            variant="personalinfo"
+            onClick={logout}
+            className="justify-center gap-3 py-10 border-t border-gray-300 rounded-none font-primary"
+          >
+            <IoExitOutline size="30" />
+            <p className="hidden font-primary md:block">Sign Out</p>
+          </Button>
         </NavLink>
       </div>
     </div>

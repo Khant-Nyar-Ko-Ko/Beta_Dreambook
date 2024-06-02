@@ -1,8 +1,10 @@
 import { useState } from "react";
 import profile from "../../assets/images/profile.jpeg";
+import { useAuth } from "@/contexts/AuthContext";
 
 
 const ChangeProfile = () => {
+  const {user} = useAuth();
   const [imageUrl, setImageUrl] = useState<string | ArrayBuffer | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
@@ -20,7 +22,7 @@ const ChangeProfile = () => {
     <div className="flex flex-col items-center">
       {imageUrl ? (
         <img
-          src={imageUrl as string}
+          src={user?.image == null ? imageUrl as string : user.image}
           alt="Image Preview"
           className="object-cover w-20 h-20 rounded-full"
         />

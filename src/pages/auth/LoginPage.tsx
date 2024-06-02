@@ -8,7 +8,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSignInUser } from "@/hooks/useAuthApi";
 import { Loader2 } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext"; // Ensure this is correctly imported
+import { useAuth } from "@/contexts/AuthContext"; 
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -37,7 +37,7 @@ const LoginPage = () => {
       handleSuccess();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signinMutation.isSuccess, login, navigate, signinMutation.data?.access_token]);
+  }, [signinMutation.isSuccess]);
 
   useEffect(() => {
     if (signinMutation.isError) {

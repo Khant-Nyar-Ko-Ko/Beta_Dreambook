@@ -2,30 +2,43 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import background from "../../assets/images/AuthBgImage.avif";
 import { Textarea } from "@/components/ui/textarea";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "@/components/Logo";
 import ImagePreview from "@/components/ImagePreview";
 import NumberInput from "@/components/NumberInput";
 import GenderSelect from "@/components/GenderSelect";
 import { useEffect, useState } from "react";
-import { useSignUpUser } from "@/hooks/useAuthApi";
+import { useUpdateUser } from "@/hooks/useAuthApi";
+import { login } from "@/service/authService";
+import { useAuth } from "@/contexts/AuthContext";
 
 const UserInfoPage = () => {
   const [signupData, setSignupData] = useState({
     email: "",
     password: "",
     name: "",
-    gender: ""
+    gender: "",
   });
-  const signupMutation = useSignUpUser();
-  // const navigate = useNavigate();
+  const { user } = useAuth();
+  const userId = user?.id;
+  const updateUserMutation = useUpdateUser(userId ? userId : "");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (signupMutation.isSuccess) {
-      console.log(signupMutation.data);
-      // navigate('/auth/selectcategory')
+    const handleSuccess = async () => {
+      if (
+        updateUserMutation.isSuccess &&
+        updateUserMutation.data.access_token
+      ) {
+        const authToken = updateUserMutation.data.access_token;
+        login(authToken);
+        navigate("/auth/selectcategory");
+      }
+    };
+    if (updateUserMutation.isSuccess) {
+      handleSuccess();
     }
-  }, [signupMutation.isSuccess]);
+  }, [updateUserMutation.isSuccess]);
 
   const handleGenderChange = (gender: string) => {
     setSignupData((prev) => ({
@@ -37,9 +50,7 @@ const UserInfoPage = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = { ...signupData };
-    signupMutation.mutate(data);
-    console.log(data.gender, data.name);
-    
+    updateUserMutation.mutate(data);
   };
 
   return (
@@ -61,7 +72,10 @@ const UserInfoPage = () => {
               Create an account
             </h2>
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col text-center gap-7">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col text-center gap-7"
+          >
             <div className="flex flex-col gap-5 ">
               <div className="flex items-center justify-center gap-4">
                 <ImagePreview />
@@ -80,14 +94,19 @@ const UserInfoPage = () => {
                   }))
                 }
               />
-              <GenderSelect gender={signupData.gender} onGenderChange={handleGenderChange} />
+              <GenderSelect
+                gender={signupData.gender}
+                onGenderChange={handleGenderChange}
+              />
               <Textarea
                 placeholder="Bio"
                 className=" placeholder:text-slate-500"
               />
             </div>
             <NavLink to={"/auth/selectcategory"}>
-              <Button type="submit" className="w-full ">Create an account</Button>
+              <Button type="submit" className="w-full ">
+                Create an account
+              </Button>
             </NavLink>
           </form>
         </div>

@@ -4,10 +4,12 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useState } from "react";
 import { Textarea } from "../ui/textarea";
+import { useAuth } from "@/contexts/AuthContext";
 
 const PersonalInformation = () => {
   const [value, setValue] = useState<string | undefined>();
   const [gender, setGender] = useState<string | null>(null);
+  const { user } = useAuth();
 
   const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setGender(event.target.value);
@@ -15,8 +17,8 @@ const PersonalInformation = () => {
   return (
     <div className="flex flex-col items-center justify-center w-4/5 gap-3 md:gap-5">
       <ChangeProfile />
-      <Input placeholder="Username" variant="info" />
-      <Input type="email" placeholder="Email" variant="info" />
+      <Input placeholder="Username" variant="info" value={user?.name} />
+      <Input type="email" placeholder="Email" variant="info" value={user?.email}/>
       <PhoneInput
         className=" w-[250px] md:w-[500px] bg-white px-3 md:px-6 py-1 md:py-2 rounded border"
         defaultCountry="MM"

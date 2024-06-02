@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import profile from "../assets/images/profile.jpeg";
+import profile from "../assets/images/contact.jpeg";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { IoMoonOutline, IoPersonSharp, IoSunnyOutline } from "react-icons/io5";
 import { PiBooks } from "react-icons/pi";
@@ -20,7 +20,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 
 const Profile = () => {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <div className="select-none ">
@@ -29,23 +29,23 @@ const Profile = () => {
           <div className="flex items-center gap-1">
             <img
               src={profile}
-              className="object-cover w-10 h-10 rounded-full md:w-12 md:h-12"
+              className="object-cover rounded-full w-9 h-9 md:w-12 md:h-12"
               alt="profile"
             />
             <RiArrowDropDownLine size="30" />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white w-[300px] rounded px-4 py-2">
+        <DropdownMenuContent className="bg-white w-[250px] md:w-[300px] rounded px-4 py-2 shadow">
           <DropdownMenuLabel>
             <div className="flex items-center gap-2 py-3">
               <img
-                src={profile}
+                src={user?.image == null ? profile : user.image}
                 className="object-cover w-10 h-10 rounded-full md:w-12 md:h-12"
                 alt="profile"
               />
               <div className="flex flex-col">
-                <h5 className="text-sm font-semibold">Giga Chad</h5>
-                <p className="text-xs text-gray-400">tonystark12@gmail.com</p>
+                <h5 className="text-sm font-semibold">{user?.name == null ? `User ${user?.id}` : user?.name}</h5>
+                <p className="text-xs text-gray-400">{user?.email}</p>
               </div>
             </div>
           </DropdownMenuLabel>
