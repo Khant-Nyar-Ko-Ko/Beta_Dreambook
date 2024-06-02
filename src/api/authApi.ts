@@ -1,5 +1,5 @@
 import { BaseURL } from "@/service/ApiEndpoints";
-import { login } from "@/service/authService";
+import { login , getToken } from "@/service/authService";
 import { signinDataType, signupDataType } from "@/utils/type";
 
 // Sign Up User Function
@@ -7,10 +7,9 @@ export const signUpUser = async ({
   data,
 }: {
   data: {
-    email: string;
+    email : string,
+    access_token? : string
     password: string;
-    name: string | "";
-    gender: string | null;
   };
 }): Promise<signupDataType> => {
   const response: Response = await fetch(`${BaseURL}/auth/signup`, {
@@ -26,7 +25,6 @@ export const signUpUser = async ({
 
   const result = await response.json();
   const token = result.access_token;
-  
 
   if (response.ok) {
     login(token);
@@ -60,7 +58,6 @@ export const signInUser = async ({
   const result = await response.json();
   const token = result.access_token;
 
-
   if (response.ok) {
     login(token);
   } else {
@@ -70,33 +67,38 @@ export const signInUser = async ({
   return result as signinDataType;
 };
 
-// // Get User Info Function (using token)
-// export const getUserInfo = async (): Promise<signinDataType | null> => {
-//   const token = getToken();
+// Update User Function
+export const updateUser = async ({
+  userId,
+  data,
+}: {
+  userId: string;
+  data: {
+    email: string;
+    phone?: string;
+    bio?: string;
+    name?: string;
+    profileImg?: string;
+    gender?: string;
+  };
+}): Promise<signinDataType> => {
+  const token = getToken(); 
+  const response: Response = await fetch(`${BaseURL}/users/${userId}`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "PATCH",
+    mode: "cors",
+    redirect: "follow",
+    body: JSON.stringify(data),
+  });
 
-//   if (!token) {
-//     return null;
-//   }
+  if (!response.ok) {
+    const result = await response.json();
+    throw new Error(result.message);
+  }
 
-//   const requestOptions: RequestInit = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//     mode: "cors",
-//     method: "GET",
-//     redirect: "follow",
-//   };
-
-//   const response: Response = await fetch(`${BaseURL}/users`, requestOptions);
-//   const data = await response.json();
-
-//   if (response.status === 401) {
-//     return null;
-//   }
-
-//   if (!response.ok) {
-//     throw new Error(data.message);
-//   }
-
-//   return data as signinDataType;
-// };
+  return response.json();
+};

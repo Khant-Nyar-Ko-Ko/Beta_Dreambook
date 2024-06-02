@@ -1,4 +1,5 @@
 import { signInUser, signUpUser } from "@/api"
+import { updateUser } from "@/api/authApi"
 import { signinDataType, signupDataType } from "@/utils/type"
 import { useMutation } from "@tanstack/react-query"
 
@@ -13,3 +14,9 @@ export const useSignInUser = () => {
         mutationFn: (data: signinDataType) => signInUser({data})
     })
 }
+
+export const useUpdateUser = (userId: string) => {
+    return useMutation({
+        mutationFn: (data: signupDataType) => updateUser({ userId, data })
+    });
+};

@@ -1,8 +1,7 @@
 export type signupDataType = {
     email : string,
     password : string,
-    name: string | "",
-    gender: string | null
+    access_token? : string
 };
 
 export type signinDataType = {

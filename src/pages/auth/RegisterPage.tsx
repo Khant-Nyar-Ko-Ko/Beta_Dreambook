@@ -8,43 +8,68 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSignUpUser } from "@/hooks/useAuthApi";
 import { Loader2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [samePassword, setSamePassword] = useState(true);
   const [signupData, setSignupData] = useState({
-    email: "",
-    password: "",
-    name: "",
-    gender: null
+
+    email : "",
+    access_token : "",
+    password : "",
+    confirmPassword: ""
   });
   const signupMutation = useSignUpUser();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(
+      (prevShowConfirmPassword) => !prevShowConfirmPassword
+    );
+  };
+
   useEffect(() => {
+    setSamePassword(signupData.password === signupData.confirmPassword);
+  }, [signupData.password, signupData.confirmPassword]);
+
+  useEffect(() => {
+    const handleSuccess = async () => {
+      if (signupMutation.isSuccess && signupMutation.data?.access_token) {
+        const authToken = signupMutation.data.access_token;
+        login(authToken);
+        navigate("/auth/userinfo");
+      }
+    };
     if (signupMutation.isSuccess) {
-      console.log(signupMutation.data);
-      navigate('/auth/userinfo')
+      handleSuccess();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signupMutation.isSuccess]);
 
   useEffect(() => {
     if (signupMutation.isError) {
       console.log(signupMutation.error.message);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signupMutation.isError]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = { ...signupData };
-    signupMutation.mutate(data);
+    if (samePassword && signupData.email && signupData.password) {
+      const data = { ...signupData };
+      signupMutation.mutate(data);
+    }
   };
 
   return (
-    <div className="relative w-screen h-screen">
+    <div className="relative h-screen w-scr een">
       <img
         src={background}
         className="absolute top-0 left-0 object-cover w-full h-full"
@@ -102,34 +127,53 @@ const RegisterPage = () => {
                   className="absolute right-5 top-2 md:top-3 focus:outline-none"
                 >
                   {showPassword ? (
-                    <FaEyeSlash color="slate" />
-                  ) : (
                     <FaEye color="slate" />
+                  ) : (
+                    <FaEyeSlash color="slate" />
                   )}
                 </button>
               </div>
               <div className="relative">
                 <Input
                   className="w-full"
-                  type={showPassword ? "text" : "password"}
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
+                  value={signupData.confirmPassword}
+                  onChange={(e) =>
+                    setSignupData((prev) => ({
+                      ...prev,
+                      confirmPassword: e.target.value,
+                    }))
+                  }
                 />
                 <button
                   type="button"
-                  onClick={togglePasswordVisibility}
+                  onClick={toggleConfirmPasswordVisibility}
                   className="absolute right-5 top-2 md:top-3 focus:outline-none"
                 >
-                  {showPassword ? (
-                    <FaEyeSlash color="slate" />
-                  ) : (
+                  {showConfirmPassword ? (
                     <FaEye color="slate" />
+                  ) : (
+                    <FaEyeSlash color="slate" />
                   )}
                 </button>
               </div>
               <div className="flex justify-center w-full">
-                <Button type="submit" className="w-[300px] md:w-[350px]">
-                {signupMutation.isPending ? <Loader2/> : "Create an account"}
-                  
+                <Button
+                  type="submit"
+                  className={`w-[300px] md:w-[350px] ${
+                    signupData.email && signupData.password && samePassword
+                      ? ""
+                      : "disabled"
+                  }`}
+                  disabled={
+                    !signupData.email ||
+                    !signupData.password ||
+                    !samePassword ||
+                    signupMutation.isPending
+                  }
+                >
+                  {signupMutation.isPending ? <Loader2 /> : "Create an account"}
                 </Button>
               </div>
             </form>

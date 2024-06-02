@@ -9,7 +9,12 @@ import { FaHeart } from "react-icons/fa";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
+  
+
+  
+
+  
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -86,8 +91,8 @@ const Navbar = () => {
       </div>
       {token ? (
         <div className="hidden md:flex gap-[10px] items-center">
-          <NavLink to="/">
-            <Button variant="ghost" onClick={logout}>
+          <NavLink to="/personalinfo/fav-books">
+            <Button variant="ghost">
               <div className="flex flex-col items-center gap-1">
                 <FaHeart color="red" size="20" />
                 <p className="text-black font-primary">Fav Books</p>
@@ -160,31 +165,31 @@ const Navbar = () => {
         </div>
       </div>
       {token ? (
-        <div className="flex md:hidden">
-          <NavLink to="/profile">
-            <Button variant="menu">Profile</Button>
-          </NavLink>
-          <NavLink to="/">
-            <Button variant="menu" onClick={logout}>
-              Logout
+        <div className="flex md:hidden gap-[5px] items-center">
+          <NavLink to="/personalinfo/fav-books">
+            <Button variant="ghost">
+              <div className="flex flex-col items-center gap-1">
+                <FaHeart color="red" size="15" />
+                <p className="text-sm text-black font-primary">Fav Books</p>
+              </div>
             </Button>
           </NavLink>
+          <Profile />
         </div>
       ) : (
-        <div className="flex md:hidden">
-          <NavLink to={"/auth/login"} onClick={toggleMenu}>
+        <div className="flex md:hidden gap-[5px] items-center">
+          <NavLink to={"/auth/login"}>
             <Button variant="white">
               <IoPersonCircle className="w-6 h-6 rounded" />
               Login
             </Button>
           </NavLink>
-          <NavLink to={"/auth/register"} onClick={toggleMenu}>
-            <Button variant="default">Register</Button>
+          <NavLink to={"/auth/register"}>
+            <Button variant="white">Register</Button>
           </NavLink>
         </div>
       )}
     </div>
-    // </div>
   );
 };
 
