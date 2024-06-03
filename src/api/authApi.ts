@@ -1,14 +1,13 @@
 import { BaseURL } from "@/service/ApiEndpoints";
-import { login , getToken } from "@/service/authService";
-import { signinDataType, signupDataType } from "@/utils/type";
+import { login, getToken } from "@/service/authService";
+import { signinDataType, signupDataType, userDataType } from "@/utils/type";
 
 // Sign Up User Function
 export const signUpUser = async ({
   data,
 }: {
   data: {
-    email : string,
-    access_token? : string
+    email: string;
     password: string;
   };
 }): Promise<signupDataType> => {
@@ -69,35 +68,35 @@ export const signInUser = async ({
 
 // Update User Function
 export const updateUser = async ({
-  userId,
   data,
 }: {
-  userId: string;
-  data: {
-    email: string;
-    phone?: string;
-    bio?: string;
-    name?: string;
-    profileImg?: string;
-    gender?: string;
-  };
-}): Promise<signinDataType> => {
-  const token = getToken(); 
-  const response: Response = await fetch(`${BaseURL}/users/${userId}`, {
+  data: userDataType
+}): Promise<userDataType> => {
+  const token = getToken();
+  const formData = new FormData();
+
+  
+  if (data.phone) formData.append("phone", data.phone);
+  if (data.bio) formData.append("bio", data.bio);
+  if (data.name) formData.append("name", data.name);
+  if (data.profileImg) formData.append("profileImg", data.profileImg);
+  if (data.gender) formData.append("gender", data.gender);
+
+  const response: Response = await fetch(`${BaseURL}/users`, {
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     method: "PATCH",
     mode: "cors",
     redirect: "follow",
-    body: JSON.stringify(data),
+    body: formData,
   });
 
   if (!response.ok) {
     const result = await response.json();
-    throw new Error(result.message);
+    console.error('Error response from server:', result);
+    throw new Error(result.message || 'Failed to update user');
   }
 
   return response.json();

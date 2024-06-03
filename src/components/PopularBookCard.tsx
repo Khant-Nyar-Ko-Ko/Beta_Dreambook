@@ -1,3 +1,4 @@
+import { useFetchBooks } from "@/hooks/useBookApi";
 import book20 from "../assets/images/Book 20.png";
 import productivity from "../assets/images/categories/productivity.png";
 import Card from "./Card";
@@ -14,6 +15,11 @@ const popularBooksData = [
 ];
 
 const PopularBookCard = () => {
+
+  const {data} = useFetchBooks();
+  console.log(data);
+  
+
   return (
     <>
       {popularBooksData?.map(

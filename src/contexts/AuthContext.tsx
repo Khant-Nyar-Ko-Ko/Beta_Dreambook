@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import React from "react";
 import * as authService from "@/service/authService";
 import { BaseURL } from "@/service/ApiEndpoints";
+import { User } from "@/utils/type";
 
 interface AuthContextType {
   token: string | null;
@@ -10,12 +11,7 @@ interface AuthContextType {
   logout: () => void;
 }
 
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  image: string;
-}
+
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 

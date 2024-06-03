@@ -2,34 +2,78 @@ import { Input } from "../ui/input";
 import ChangeProfile from "./ChangeProfile";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Textarea } from "../ui/textarea";
 import { useAuth } from "@/contexts/AuthContext";
 
 const PersonalInformation = () => {
-  const [value, setValue] = useState<string | undefined>();
-  const [gender, setGender] = useState<string | null>(null);
   const { user } = useAuth();
+  
+  const [formData, setFormData] = useState({
+    name: user?.name || "",
+    email: user?.mail || "",
+    phone: user?.phone || "",
+    bio: user?.bio || "",
+    gender: user?.gender || "",
+  });
 
-  const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setGender(event.target.value);
+  useEffect(() => {
+    setFormData({
+      name: user?.name || "",
+      email: user?.mail || "",
+      phone: user?.phone || "",
+      bio: user?.bio || "",
+      gender: user?.gender || "",
+    });
+  }, [user]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({ ...prevData, [name]: value }));
   };
+
+  const handlePhoneChange = (value: string | undefined) => {
+    setFormData(prevData => ({ ...prevData, phone: value || "" }));
+  };
+
+  const handleGenderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData(prevData => ({ ...prevData, gender: e.target.value }));
+  };
+
   return (
     <div className="flex flex-col items-center justify-center w-4/5 gap-3 md:gap-5">
       <ChangeProfile />
-      <Input placeholder="Username" variant="info" value={user?.name} />
-      <Input type="email" placeholder="Email" variant="info" value={user?.email}/>
+      <Input 
+        name="name"
+        placeholder="Username" 
+        variant="info" 
+        value={formData.name} 
+        onChange={handleChange} 
+      />
+      <Input 
+        name="email"
+        type="email" 
+        placeholder="Email" 
+        variant="info" 
+        value={formData.email} 
+        onChange={handleChange} 
+      />
       <PhoneInput
-        className=" w-[250px] md:w-[500px] bg-white px-3 md:px-6 py-1 md:py-2 rounded border"
+        className="w-[250px] md:w-[500px] bg-white px-3 md:px-6 py-1 md:py-2 rounded border"
         defaultCountry="MM"
-        value={value}
-        onChange={setValue}
+        value={formData.phone}
+        onChange={handlePhoneChange}
         placeholder="Phone"
       />
-      <Textarea className=" w-[250px] md:w-[500px]"/>
+      <Textarea
+        name="bio"
+        className="w-[250px] md:w-[500px]"
+        value={formData.bio}
+        onChange={handleChange}
+      />
       <select
         id="gender"
-        value={gender || ""}
+        value={formData.gender}
         onChange={handleGenderChange}
         className="w-[250px] md:w-[500px] p-2 text-sm border border-gray-200 rounded-lg shadow-sm text-slate-500 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
       >

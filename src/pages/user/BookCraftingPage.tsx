@@ -6,8 +6,25 @@ import { Button } from "@/components/ui/button";
 import Toolbar from "@/components/Toolbar";
 import CustomDropdown from "@/components/customDropDown";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 const BookCraftingPage = () => {
+  const [bookData, setBookData] = useState({
+    title : " ",
+    description : " ",
+    slug : " ",
+    categoryId : " ",
+    userId : " ",
+    keywords : " ",
+    coverImg : " ",
+  });
+
+  // const createBook = useCreateBook();
+  
+  // const handleAddBook = () => {
+  //     createBook.mutate(bookData)
+  // }
+
   return (
     <div>
       <div className="mb-10 ml-28">
@@ -19,7 +36,7 @@ const BookCraftingPage = () => {
           <h1 className="text-3xl font-bold font-primary">Creating New Book</h1>
         </div>
 
-        <div className="flex mx-auto flex-row-3 gap-28 font-primary">
+        <form className="flex mx-auto flex-row-3 gap-28 font-primary">
           <div>
             <div className="py-40 mt-20 border border-black border-dashed rounded-lg ml-28 w-72">
               <img className="w-10 mx-auto" src={bookImg} alt="" />
@@ -45,6 +62,8 @@ const BookCraftingPage = () => {
                 type="text"
                 id="text"
                 placeholder="Book Title"
+                value={bookData.title}
+                onChange={(e) => setBookData({...bookData, title: e.target.value})}
               />
             </div>
             <div className="mt-5">
@@ -120,7 +139,7 @@ const BookCraftingPage = () => {
               <Button className="w-full mt-5 default:">Create Now</Button>
             </NavLink>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -17,10 +17,10 @@ import { NavLink } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
-
-
 const Profile = () => {
   const { user, logout } = useAuth();
+  console.log(user);
+  
 
   return (
     <div className="select-none ">
@@ -39,13 +39,15 @@ const Profile = () => {
           <DropdownMenuLabel>
             <div className="flex items-center gap-2 py-3">
               <img
-                src={user?.image == null ? profile : user.image}
+                src={user?.profileImg == null ? profile : user.profileImg}
                 className="object-cover w-10 h-10 rounded-full md:w-12 md:h-12"
                 alt="profile"
               />
               <div className="flex flex-col">
-                <h5 className="text-sm font-semibold">{user?.name == null ? `User ${user?.id}` : user?.name}</h5>
-                <p className="text-xs text-gray-400">{user?.email}</p>
+                <h5 className="text-sm font-semibold">
+                  {user?.name}
+                </h5>
+                <p className="text-xs text-gray-400">{user?.mail}</p>
               </div>
             </div>
           </DropdownMenuLabel>
@@ -55,29 +57,29 @@ const Profile = () => {
               <div className="text-lg font-semibold font-primary">Account</div>
             </DropdownMenuLabel>
             <NavLink to="/personalinfo">
-            <DropdownMenuItem>
-              <div className="flex items-center gap-1 text-gray-500">
-                <IoPersonSharp />
-                <p>Profile</p>
-              </div>
-            </DropdownMenuItem>
+              <DropdownMenuItem>
+                <div className="flex items-center gap-1 text-gray-500">
+                  <IoPersonSharp />
+                  <p>Profile</p>
+                </div>
+              </DropdownMenuItem>
             </NavLink>
             <NavLink to="/personalinfo/book-lists">
-            <DropdownMenuItem>
-              <div className="flex items-center gap-1 text-gray-500">
-                <PiBooks />
+              <DropdownMenuItem>
+                <div className="flex items-center gap-1 text-gray-500">
+                  <PiBooks />
 
-                <p>Book Lists</p>
-              </div>
-            </DropdownMenuItem>
-              </NavLink>
-              <NavLink to="/personalinfo/fav-books">
-            <DropdownMenuItem>
-              <div className="flex items-center gap-1 text-gray-500">
-                <FaHeart />
-                <p>Favourite Books</p>
-              </div>
-            </DropdownMenuItem>
+                  <p>Book Lists</p>
+                </div>
+              </DropdownMenuItem>
+            </NavLink>
+            <NavLink to="/personalinfo/fav-books">
+              <DropdownMenuItem>
+                <div className="flex items-center gap-1 text-gray-500">
+                  <FaHeart />
+                  <p>Favourite Books</p>
+                </div>
+              </DropdownMenuItem>
             </NavLink>
           </div>
           <div className="flex flex-col gap-2 py-3 border-b-2 border-gray-300">
@@ -92,7 +94,7 @@ const Profile = () => {
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem>
-            <div className="flex items-center gap-2 text-gray-500">
+              <div className="flex items-center gap-2 text-gray-500">
                 <Checkbox className="border-2" />
                 <p>Dark Mode</p>
                 <IoMoonOutline />
@@ -106,12 +108,12 @@ const Profile = () => {
             </DropdownMenuItem>
           </div>
           <div className="py-2 ">
-          <NavLink to="/">
-            <Button variant="menu" onClick={logout}>
-              Logout
-            </Button>
-          </NavLink>
-      </div>
+            <NavLink to="/">
+              <Button variant="menu" onClick={logout}>
+                Logout
+              </Button>
+            </NavLink>
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

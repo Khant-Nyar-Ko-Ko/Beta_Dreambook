@@ -10,11 +10,6 @@ import { FaHeart } from "react-icons/fa";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { token } = useAuth();
-  
-
-  
-
-  
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
