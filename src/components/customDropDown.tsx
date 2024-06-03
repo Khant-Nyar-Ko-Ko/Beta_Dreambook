@@ -124,7 +124,7 @@ const CustomDropdown: React.FC = () => {
 
     <div className="relative inline-block w-full">
       <select
-        className="w-full p-2 bg-white border border-gray-300 rounded shadow"
+        className="w-full p-3 bg-white border border-gray-300 rounded-md shadow"
         value={selectedValue || ""}
         onChange={handleChange}
       >
@@ -138,7 +138,7 @@ const CustomDropdown: React.FC = () => {
         ))}
       </select>
       {selectedOption && (
-        <div className="flex items-center p-2 mt-2 border border-gray-300 rounded shadow bg-sky-100">
+        <div className="flex items-center p-3 mt-2 border border-gray-300 rounded shadow bg-sky-100">
           <img
             src={selectedOption.image}
             alt={selectedOption.label}

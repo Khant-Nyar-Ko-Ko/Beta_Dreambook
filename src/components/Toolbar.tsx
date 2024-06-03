@@ -22,43 +22,39 @@ export default function App() {
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
     initialContent: [
+      // {
+      //   type: "paragraph",
+      //   content: [
+      //     {
+      //       type: "text",
+      //       text: "You can now toggle ",
+      //       styles: {},
+      //     },
+      //     {
+      //       type: "text",
+      //       text: "blue",
+      //       styles: { textColor: "blue", backgroundColor: "blue" },
+      //     },
+      //     {
+      //       type: "text",
+      //       text: " and ",
+      //       styles: {},
+      //     },
+      //     {
+      //       type: "text",
+      //       text: "code",
+      //       styles: { code: true },
+      //     },
+      //     {
+      //       type: "text",
+      //       text: " styles with new buttons in the Formatting Toolbar",
+      //       styles: {},
+      //     },
+      //   ],
+      // },
       {
         type: "paragraph",
-        content: "Welcome to this demo!",
-      },
-      {
-        type: "paragraph",
-        content: [
-          {
-            type: "text",
-            text: "You can now toggle ",
-            styles: {},
-          },
-          {
-            type: "text",
-            text: "blue",
-            styles: { textColor: "blue", backgroundColor: "blue" },
-          },
-          {
-            type: "text",
-            text: " and ",
-            styles: {},
-          },
-          {
-            type: "text",
-            text: "code",
-            styles: { code: true },
-          },
-          {
-            type: "text",
-            text: " styles with new buttons in the Formatting Toolbar",
-            styles: {},
-          },
-        ],
-      },
-      {
-        type: "paragraph",
-        content: "Select some text to try them out",
+        content: "Write your Book Decription",
       },
       {
         type: "paragraph",
@@ -68,7 +64,12 @@ export default function App() {
 
   // Renders the editor instance.
   return (
-    <BlockNoteView editor={editor} formattingToolbar={false} theme={"light"}>
+    <BlockNoteView
+      editor={editor}
+      formattingToolbar={false}
+      theme={"light"}
+      className="w-full border border-gray-300"
+    >
       <FormattingToolbarController
         formattingToolbar={() => (
           <FormattingToolbar>
