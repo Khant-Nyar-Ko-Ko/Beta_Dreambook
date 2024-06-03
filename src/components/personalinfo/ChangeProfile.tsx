@@ -22,7 +22,7 @@ const ChangeProfile = () => {
     <div className="flex flex-col items-center">
       {imageUrl ? (
         <img
-          src={user?.image == null ? imageUrl as string : user.image}
+          src={user?.profileImg == null ? imageUrl as string : user.profileImg}
           alt="Image Preview"
           className="object-cover w-20 h-20 rounded-full"
         />

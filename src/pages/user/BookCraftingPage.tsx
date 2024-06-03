@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import Toolbar from "@/components/Toolbar";
 import CustomDropdown from "@/components/customDropDown";
 import { NavLink } from "react-router-dom";
-import { useCreateBook } from "@/hooks/useBookApi";
 import { useState } from "react";
 
 const BookCraftingPage = () => {
@@ -20,11 +19,11 @@ const BookCraftingPage = () => {
     coverImg : " ",
   });
 
-  const createBook = useCreateBook();
+  // const createBook = useCreateBook();
   
-  const handleAddBook = () => {
-      createBook.mutate(bookData)
-  }
+  // const handleAddBook = () => {
+  //     createBook.mutate(bookData)
+  // }
 
   return (
     <div>
@@ -137,7 +136,7 @@ const BookCraftingPage = () => {
             </div>
 
             <NavLink to={"/bookdetail"}>
-              <Button onClick={handleAddBook} className="w-full mt-5 default:">Create Now</Button>
+              <Button className="w-full mt-5 default:">Create Now</Button>
             </NavLink>
           </div>
         </form>
