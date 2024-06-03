@@ -2,15 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import background from "../../assets/images/AuthBgImage.avif";
 import { Textarea } from "@/components/ui/textarea";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Logo from "@/components/Logo";
 import ImagePreview from "@/components/ImagePreview";
 import NumberInput from "@/components/NumberInput";
 import GenderSelect from "@/components/GenderSelect";
 import { useEffect, useState } from "react";
 import { useUpdateUser } from "@/hooks/useAuthApi";
-import { login } from "@/service/authService";
-import { useAuth } from "@/contexts/AuthContext";
+import { getToken, login } from "@/service/authService";
 
 const UserInfoPage = () => {
   const [signupData, setSignupData] = useState({
@@ -18,21 +17,22 @@ const UserInfoPage = () => {
     password: "",
     name: "",
     gender: "",
+    phone: "",
+    bio: "",
+    profileImg: "",
   });
-  const { user } = useAuth();
-  const userId = user?.id;
-  const updateUserMutation = useUpdateUser(userId ? userId : "");
+
   const navigate = useNavigate();
+  const updateUserMutation = useUpdateUser();
 
   useEffect(() => {
     const handleSuccess = async () => {
-      if (
-        updateUserMutation.isSuccess &&
-        updateUserMutation.data.access_token
-      ) {
-        const authToken = updateUserMutation.data.access_token;
-        login(authToken);
-        navigate("/auth/selectcategory");
+      if (updateUserMutation.isSuccess && getToken()) {
+        const authToken = getToken();
+        if (authToken) {
+          login(authToken);
+          navigate("/auth/selectcategory");
+        }
       }
     };
     if (updateUserMutation.isSuccess) {
@@ -47,10 +47,19 @@ const UserInfoPage = () => {
     }));
   };
 
+  const handleProfileImg = (profileImg: string) => {
+    setSignupData((prev) => ({
+      ...prev,
+      profileImg,
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = { ...signupData };
+    console.log(data);
     updateUserMutation.mutate(data);
+    navigate("/auth/selectcategory");
   };
 
   return (
@@ -78,7 +87,10 @@ const UserInfoPage = () => {
           >
             <div className="flex flex-col gap-5 ">
               <div className="flex items-center justify-center gap-4">
-                <ImagePreview />
+                <ImagePreview
+                  profileImg={signupData.profileImg}
+                  onProfileImgChange={handleProfileImg}
+                />
               </div>
               <div className="flex gap-3">
                 <NumberInput />
@@ -101,13 +113,18 @@ const UserInfoPage = () => {
               <Textarea
                 placeholder="Bio"
                 className=" placeholder:text-slate-500"
+                value={signupData.bio}
+                onChange={(e) =>
+                  setSignupData((prev) => ({
+                    ...prev,
+                    bio: e.target.value,
+                  }))
+                }
               />
             </div>
-            <NavLink to={"/auth/selectcategory"}>
-              <Button type="submit" className="w-full ">
-                Create an account
-              </Button>
-            </NavLink>
+            <Button type="submit" className="w-full ">
+              Create an account
+            </Button>
           </form>
         </div>
       </div>

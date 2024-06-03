@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import contact from "../assets/images/defaultcontact.jpeg";
 
-const ImagePreview = () => {
-  const [imageUrl, setImageUrl] = useState<string | ArrayBuffer | null>(null);
+interface ProfileImgProps {
+    profileImg: string | null;
+    onProfileImgChange: (profileImg: string) => void;
+  }
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
+const ImagePreview: React.FC<ProfileImgProps> = ({profileImg,onProfileImgChange}) => {
+  const [imageUrl, setImageUrl] = useState<string | ArrayBuffer | null>(profileImg);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageUrl(reader.result);
+        if (typeof reader.result === 'string') {
+          onProfileImgChange(reader.result);
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -47,3 +55,4 @@ const ImagePreview = () => {
 };
 
 export default ImagePreview;
+
