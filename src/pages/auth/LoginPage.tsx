@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useSignInUser } from "@/hooks/useAuthApi";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext"; 
+import { getToken } from "@/service/authService";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,9 +28,9 @@ const LoginPage = () => {
 
   useEffect(() => {
     const handleSuccess = async () => {
-      if (signinMutation.isSuccess && signinMutation.data?.access_token) {
-        const authToken = signinMutation.data.access_token;
-        login(authToken);
+      if (signinMutation.isSuccess) {
+        const authToken = getToken();
+        if(authToken)login(authToken);
         navigate("/");
       }
     };

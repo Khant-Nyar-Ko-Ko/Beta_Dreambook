@@ -1,13 +1,29 @@
 export type signupDataType = {
     email : string,
     password : string,
-    access_token? : string
 };
 
 export type signinDataType = {
     email : string,
     password : string,
-    access_token? : string
+}
+
+export type userDataType = {
+    phone?: string | "",
+    bio: string | "",
+    name: string | "",
+    profileImg: string | "",
+    gender: string | "",
+}
+
+export type User = {
+    mail : string,
+    password : string,
+    phone?: string | "",
+    bio: string | "",
+    name: string | "",
+    profileImg: string | "",
+    gender: string | "",
 }
 
 export type categoryType = {
@@ -16,4 +32,16 @@ export type categoryType = {
     id: number,
     title : string,
     icon : string
+}
+
+
+export type  Book = {
+    title : string,
+    description : string,
+    slug : string,
+    categoryId : number,
+    userId : number,
+    keywords : string[],
+    coverImg : string,
+    formData : FormData
 }

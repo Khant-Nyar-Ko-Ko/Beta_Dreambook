@@ -9,6 +9,21 @@ import { useState } from "react";
 
 const BookCraftingPage = () => {
   const [tags, setTags] = useState<string[]>([]);
+  const [bookData, setBookData] = useState({
+    title: " ",
+    description: " ",
+    slug: " ",
+    categoryId: " ",
+    userId: " ",
+    keywords: " ",
+    coverImg: " ",
+  });
+
+  // const createBook = useCreateBook();
+
+  // const handleAddBook = () => {
+  //     createBook.mutate(bookData)
+  // }
   return (
     <div>
       <div className="mb-10 ml-28">
@@ -37,6 +52,10 @@ const BookCraftingPage = () => {
                 type="text"
                 id="text"
                 placeholder="Book Title"
+                value={bookData.title}
+                onChange={(e) =>
+                  setBookData({ ...bookData, title: e.target.value })
+                }
               />
             </div>
             <div className="mt-5">

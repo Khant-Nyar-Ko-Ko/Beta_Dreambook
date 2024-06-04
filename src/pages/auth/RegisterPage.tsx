@@ -9,17 +9,17 @@ import { useEffect, useState } from "react";
 import { useSignUpUser } from "@/hooks/useAuthApi";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { getToken } from "@/service/authService";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [samePassword, setSamePassword] = useState(true);
   const [signupData, setSignupData] = useState({
-
-    email : "",
-    access_token : "",
-    password : "",
-    confirmPassword: ""
+    email: "",
+    access_token: "",
+    password: "",
+    confirmPassword: "",
   });
   const signupMutation = useSignUpUser();
   const navigate = useNavigate();
@@ -41,10 +41,12 @@ const RegisterPage = () => {
 
   useEffect(() => {
     const handleSuccess = async () => {
-      if (signupMutation.isSuccess && signupMutation.data?.access_token) {
-        const authToken = signupMutation.data.access_token;
-        login(authToken);
-        navigate("/auth/userinfo");
+      if (signupMutation.isSuccess) {
+        const authToken = getToken();
+        if (authToken) {
+          login(authToken);
+          navigate("/auth/userinfo");
+        }
       }
     };
     if (signupMutation.isSuccess) {
