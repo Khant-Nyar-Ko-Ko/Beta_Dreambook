@@ -11,16 +11,17 @@ const PersonalInformation = () => {
   
   const [formData, setFormData] = useState({
     name: user?.name || "",
-    email: user?.mail || "",
+    email: user?.email || "",
     phone: user?.phone || "",
     bio: user?.bio || "",
     gender: user?.gender || "",
   });
 
   useEffect(() => {
+    console.log("User data updated:", user);
     setFormData({
       name: user?.name || "",
-      email: user?.mail || "",
+      email: user?.email || "",
       phone: user?.phone || "",
       bio: user?.bio || "",
       gender: user?.gender || "",

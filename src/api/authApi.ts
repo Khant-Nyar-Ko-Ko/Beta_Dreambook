@@ -67,15 +67,10 @@ export const signInUser = async ({
 };
 
 // Update User Function
-export const updateUser = async ({
-  data,
-}: {
-  data: userDataType
-}): Promise<userDataType> => {
+export const updateUser = async ({ data }: { data: userDataType }) => {
   const token = getToken();
   const formData = new FormData();
 
-  
   if (data.phone) formData.append("phone", data.phone);
   if (data.bio) formData.append("bio", data.bio);
   if (data.name) formData.append("name", data.name);
@@ -93,11 +88,5 @@ export const updateUser = async ({
     body: formData,
   });
 
-  if (!response.ok) {
-    const result = await response.json();
-    console.error('Error response from server:', result);
-    throw new Error(result.message || 'Failed to update user');
-  }
-
-  return response.json();
+  return response;
 };

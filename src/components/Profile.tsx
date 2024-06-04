@@ -47,7 +47,7 @@ const Profile = () => {
                 <h5 className="text-sm font-semibold">
                   {user?.name}
                 </h5>
-                <p className="text-xs text-gray-400">{user?.mail}</p>
+                <p className="text-xs text-gray-400">{user?.email}</p>
               </div>
             </div>
           </DropdownMenuLabel>

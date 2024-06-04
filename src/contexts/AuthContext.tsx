@@ -11,8 +11,6 @@ interface AuthContextType {
   logout: () => void;
 }
 
-
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -42,20 +40,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         Authorization: `Bearer ${token}`,
       },
     });
-    if (response.ok) {
-      return response.json();
-    } else {
+    if (!response.ok) {
       throw new Error("Failed to fetch");
     }
+    return response.json();
   };
 
   useEffect(() => {
     const storedToken = authService.getToken();
     if (storedToken) {
       setToken(storedToken);
-      fetchUserProfile(storedToken).then(setUser).catch(console.error);
+      if (token) {
+        fetchUserProfile(token).then(setUser).catch(console.error);
+      }
     }
-  }, []);
+  }, [token, user]);
+
 
   return (
     <AuthContext.Provider value={{ token, user, login, logout }}>
