@@ -17,7 +17,7 @@ export type userDataType = {
 }
 
 export type User = {
-    mail : string,
+    email : string,
     password : string,
     phone?: string | "",
     bio: string | "",
