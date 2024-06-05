@@ -25,9 +25,9 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       key={id}
-      className=" flex flex-col w-[220px] gap-5 h-[260px] pb-3 bg-white border border-slate-100 shadow"
+      className=" flex flex-col w-[220px] gap-5 h-[260px] pb-3 bg-white border border-slate-100 rounded"
     >
-      <div className="w-[200px] h-[130px] flex justify-center px-10 py-3 mx-3 mt-3 bg-slate-200 relative group overflow-hidden">
+      <div className="relative flex justify-center px-10 py-3 mx-3 mt-3 overflow-hidden bg-slate-200 group">
         <div className="absolute flex flex-col gap-3 duration-200 transform translate-x-10 group-hover:translate-x-0 right-3 top-10">
           <button
             onClick={() => setToggleFav(!toggleFav)}
@@ -46,7 +46,7 @@ const Card: React.FC<CardProps> = ({
         <img
           src={image}
           alt={title}
-          className="w-20 my-auto duration-200 group-hover:w-[75px]"
+          className="w-20 my-auto duration-200 group-hover:scale-105"
         />
       </div>
       <div className="flex flex-col gap-1 mx-3">

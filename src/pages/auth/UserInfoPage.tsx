@@ -54,6 +54,14 @@ const UserInfoPage = () => {
     }));
   };
 
+  const handlePhoneChange = (phone: string | undefined) => {
+    const phoneNumber = phone || "";
+    setSignupData((prev) => ({
+      ...prev,
+      phone : phoneNumber,
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = { ...signupData };
@@ -93,7 +101,7 @@ const UserInfoPage = () => {
                 />
               </div>
               <div className="flex gap-3">
-                <NumberInput />
+              <NumberInput phoneValue={signupData.phone} setPhoneValue={handlePhoneChange} />
               </div>
               <Input
                 className=" w-[300px] px-4 py-3"
