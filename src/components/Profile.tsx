@@ -33,7 +33,7 @@ const Profile = () => {
         <DropdownMenuTrigger>
           <div className="flex items-center gap-1">
             <img
-              src={profile}
+              src={user?.profileImg == null ? profile : user.profileImg}
               className="object-cover rounded-full w-9 h-9 md:w-12 md:h-12"
               alt="profile"
             />
