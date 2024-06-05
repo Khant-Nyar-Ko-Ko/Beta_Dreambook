@@ -15,11 +15,16 @@ import { Checkbox } from "./ui/checkbox";
 import { CiSettings } from "react-icons/ci";
 import { NavLink } from "react-router-dom";
 import { Button } from "./ui/button";
-import { useAuth } from "@/contexts/AuthContext";
+import { getToken, logout } from "@/service/authService";
+import { useUserApi } from "@/hooks/useUserApi";
 
 const Profile = () => {
-  const { user, logout } = useAuth();
-  console.log(user);
+
+  const token = getToken() || "";
+  const {data : user} = useUserApi(token);
+  const handleLogout = () => {
+    logout();
+  }
   
 
   return (
@@ -109,7 +114,7 @@ const Profile = () => {
           </div>
           <div className="py-2 ">
             <NavLink to="/">
-              <Button variant="menu" onClick={logout}>
+              <Button variant="menu" onClick={handleLogout}>
                 Logout
               </Button>
             </NavLink>

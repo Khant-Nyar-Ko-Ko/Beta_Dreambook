@@ -7,10 +7,14 @@ import { CiHeart } from "react-icons/ci";
 import { LuBookMarked } from "react-icons/lu";
 import { IoExitOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
+import { getToken, logout } from "@/service/authService";
+import { useUserApi } from "@/hooks/useUserApi";
 
 const PersonalInfoSidebar = () => {
-  const { user, logout } = useAuth();
+
+  const token = getToken() || "";
+
+  const {data : user} = useUserApi(token);
 
   const handleLogout = () => {
     logout();

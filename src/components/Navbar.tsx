@@ -3,13 +3,13 @@ import { IoPersonCircle, IoMenu, IoClose } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/Logo.svg";
-import { useAuth } from "@/contexts/AuthContext";
 import Profile from "./Profile";
 import { FaHeart } from "react-icons/fa";
+import { getToken } from "@/service/authService";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { token } = useAuth();
+  const  token  = getToken();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
