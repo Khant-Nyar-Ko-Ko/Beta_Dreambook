@@ -1,10 +1,12 @@
 import { useState } from "react";
 import profile from "../../assets/images/profile.jpeg";
-import { useAuth } from "@/contexts/AuthContext";
+import { getToken } from "@/service/authService";
+import { useUserApi } from "@/hooks/useUserApi";
 
 
 const ChangeProfile = () => {
-  const {user} = useAuth();
+  const token = getToken() || "";
+  const {data : user} = useUserApi(token);
   const [imageUrl, setImageUrl] = useState<string | ArrayBuffer | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) =>{

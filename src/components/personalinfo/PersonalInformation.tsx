@@ -4,11 +4,14 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useState, useEffect } from "react";
 import { Textarea } from "../ui/textarea";
-import { useAuth } from "@/contexts/AuthContext";
+import { getToken } from "@/service/authService";
+import { useUserApi } from "@/hooks/useUserApi";
 
 const PersonalInformation = () => {
-  const { user } = useAuth();
-  
+
+  const token = getToken() || "";
+  const {data : user} = useUserApi(token);
+
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
