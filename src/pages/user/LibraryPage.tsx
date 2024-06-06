@@ -20,17 +20,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-// import { useFetchBooks } from "@/hooks/useBookApi";
 
 const LibraryPage = () => {
-
-  // const { data : books } = useFetchBooks();
-  // console.log(books);
-  
-
-  const bookCards = Array.from({ length: 12 }, (_, i) => (
-    <LibraryBookCard key={i} />
-  ));
   return (
     <div>
       {/* Headline */}
@@ -96,10 +87,9 @@ const LibraryPage = () => {
               />
             </div>
           </div>
-          <div className="flex justify-center w-full">
-            <div className="grid items-center justify-center grid-cols-1 gap-5 md:grid-cols-4 w-fit">
-              {bookCards}
-            </div>
+
+          <div className="grid grid-cols-1 gap-6 py-5 mx-10 my-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mx-4">
+            <LibraryBookCard />
           </div>
           <div>
             <Pagination>
