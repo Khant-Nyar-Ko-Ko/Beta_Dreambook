@@ -25,7 +25,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       key={id}
-      className=" flex flex-col w-[220px] gap-5 h-[260px] pb-3 bg-white border border-slate-100 rounded"
+      className=" flex flex-col w-[230px] gap-5 h-[260px] pb-3 bg-white border border-slate-100 rounded"
     >
       <div className="relative flex justify-center px-10 py-3 mx-3 mt-3 overflow-hidden bg-slate-200 group">
         <div className="absolute flex flex-col gap-3 duration-200 transform translate-x-10 group-hover:translate-x-0 right-3 top-10">
@@ -46,11 +46,11 @@ const Card: React.FC<CardProps> = ({
         <img
           src={image}
           alt={title}
-          className="w-20 my-auto duration-200 group-hover:scale-105"
+          className="my-2 duration-200 group-hover:scale-105"
         />
       </div>
       <div className="flex flex-col gap-1 mx-3">
-        <p className="font-semibold font-primary text-start">{title}</p>
+        <p className="font-semibold w-[230px] font-primary text-start">{title}</p>
         <div className="flex gap-1 ">
           <img src={categorylogo} className="w-4 h-4" alt="categorylogo" />
           <p className="text-sm font-primary text-slate-500">{categorytitle}</p>

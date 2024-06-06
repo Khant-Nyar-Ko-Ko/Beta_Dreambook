@@ -1,6 +1,6 @@
 import productivity from "../../assets/images/categories/productivity.png";
 import Card from "../Card";
-import book20 from "../../assets/images/Book 20.png";
+import book20 from "../../assets/images/books/Book 20.png";
 
 
 const popularBooksData = [
