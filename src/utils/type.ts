@@ -36,13 +36,11 @@ export type categoryType = {
 }
 
 
-export type  Book = {
+export type  BookDataType = {
     title : string,
+    coverImg : File | string,
     description : string,
-    slug : string,
-    categoryId : number,
-    userId : number,
+    categoryId : string,
+    status : string,
     keywords : string[],
-    coverImg : string,
-    formData : FormData
 }

@@ -4,7 +4,7 @@ import FavBooks from "@/components/personalinfo/FavBooks";
 import History from "@/components/personalinfo/History";
 import PersonalInformation from "@/components/personalinfo/PersonalInformation";
 import UserLayout from "@/layouts/UserLayout";
-import BookDetailPage from "@/pages/BookDetailPage";
+import BookDetailPage from "@/pages/user/BookDetailPage";
 import ChildBookDetail from "@/components/ChildBookdetail";
 import BookCraftingPage from "@/pages/user/BookCraftingPage";
 import HomePage from "@/pages/user/HomePage";

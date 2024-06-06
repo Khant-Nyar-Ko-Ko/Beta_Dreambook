@@ -22,36 +22,7 @@ export default function App() {
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
     initialContent: [
-      // {
-      //   type: "paragraph",
-      //   content: [
-      //     {
-      //       type: "text",
-      //       text: "You can now toggle ",
-      //       styles: {},
-      //     },
-      //     {
-      //       type: "text",
-      //       text: "blue",
-      //       styles: { textColor: "blue", backgroundColor: "blue" },
-      //     },
-      //     {
-      //       type: "text",
-      //       text: " and ",
-      //       styles: {},
-      //     },
-      //     {
-      //       type: "text",
-      //       text: "code",
-      //       styles: { code: true },
-      //     },
-      //     {
-      //       type: "text",
-      //       text: " styles with new buttons in the Formatting Toolbar",
-      //       styles: {},
-      //     },
-      //   ],
-      // },
+
       {
         type: "paragraph",
         content: "Write your Book Decription",
