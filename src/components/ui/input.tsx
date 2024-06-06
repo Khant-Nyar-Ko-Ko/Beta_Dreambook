@@ -40,6 +40,8 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>,
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, variant, inputSize, inputType, ...props }, ref) => {
+    console.log(props);
+    
     return (
       <input
         type={inputType === "default" ? "text" : inputType}

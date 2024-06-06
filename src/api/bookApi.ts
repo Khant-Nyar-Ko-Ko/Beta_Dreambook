@@ -1,5 +1,6 @@
 import { BaseURL } from "@/service/ApiEndpoints";
-import { Book } from "@/utils/type";
+import { getToken } from "@/service/authService";
+import { BookDataType } from "@/utils/type";
 
 export const fetchBooks = async () => {
   const response: Response = await fetch(`${BaseURL}/books`);
@@ -10,20 +11,30 @@ export const fetchBooks = async () => {
   return result;
 };
 
-export const createBooks = async (data: Book): Promise<Book> => {
+export const createBooks = async (data: BookDataType): Promise<BookDataType> => {
+  const token = getToken();
   const formData = new FormData();
   formData.append("title", data.title);
-  formData.append("description", data.description);
-  formData.append("slug", data.slug);
-  formData.append("keyword", data.keywords[0]);
   formData.append("coverImg", data.coverImg);
+  formData.append("description", data.description);
+  data.keywords.forEach((keyword) => formData.append("keyword[]",keyword))
+  formData.append("status",data.status);
+  formData.append("categoryId", data.categoryId);
+
   const response: Response = await fetch(`${BaseURL}/books`, {
+    headers: {
+      Authorization : `Bearer ${token}`
+    },
+    mode: "cors",
     method: "POST",
+    redirect: "follow",
     body: formData,
   });
+
+  const result = await response.json();
   if (!response.ok) {
     throw new Error(response.statusText);
   }
 
-  return response.json();
-};
+  return result;
+}

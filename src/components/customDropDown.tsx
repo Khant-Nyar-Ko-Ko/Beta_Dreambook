@@ -82,49 +82,10 @@ const CustomDropdown: React.FC = () => {
   );
 
   return (
-    // <div className="relative inline-block w-full">
-    //   <div className="relative">
-    //     <select
-    //       className={`w-full appearance-none bg-white border border-gray-300 rounded shadow p-2 pr-8 ${
-    //         selectedValue ? "text-transparent" : "text-gray-700"
-    //       }`}
-    //       value={selectedValue}
-    //       onChange={handleChange}
-    //     >
-    //       <option value="" disabled>
-    //         Select an option
-    //       </option>
-    //       {options.map((option) => (
-    //         <option key={option.value} value={option.value}>
-    //           {option.label}
-    //         </option>
-    //       ))}
-    //     </select>
-    //     <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
-    //       <svg
-    //         className="w-4 h-4 fill-current"
-    //         xmlns="http://www.w3.org/2000/svg"
-    //         viewBox="0 0 20 20"
-    //       >
-    //         <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-    //       </svg>
-    //     </div>
-    //     {selectedOption && (
-    //       <div className="absolute inset-y-0 left-0 flex items-center p-2 pointer-events-none">
-    //         <img
-    //           src={selectedOption.image}
-    //           alt={selectedOption.label}
-    //           className="w-6 h-6 mr-2"
-    //         />
-    //         <span className="text-gray-700">{selectedOption.label}</span>
-    //       </div>
-    //     )}
-    //   </div>
-    // </div>
 
     <div className="relative inline-block w-full">
       <select
-        className="w-full p-3 bg-white border border-gray-300 rounded-md shadow"
+        className="w-full p-3 bg-white border border-gray-300 rounded"
         value={selectedValue || ""}
         onChange={handleChange}
       >

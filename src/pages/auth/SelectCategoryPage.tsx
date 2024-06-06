@@ -17,7 +17,7 @@ const SelectCategoryPage = () => {
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
         <div className="flex flex-col items-center gap-2 md:gap-5">
           {/* logo */}
-         <Logo/>
+          <Logo />
           <h2 className="text-white md:text-xl font-primary">
             Select Your Interested Category
           </h2>

@@ -1,15 +1,9 @@
-import { createBooks, fetchBooks } from "@/api";
-import { Book } from "@/utils/type";
-import { useMutation, useQuery } from "@tanstack/react-query";
-
-export const useFetchBooks = () =>
-  useQuery<Book[], Error>({
-    queryKey: ["books"],
-    queryFn: fetchBooks,
-  });
+import { createBooks } from "@/api";
+import { BookDataType } from "@/utils/type";
+import { useMutation } from "@tanstack/react-query";
 
 export const useCreateBook = () => {
   return useMutation({
-    mutationFn: createBooks
+    mutationFn: (data: BookDataType) => createBooks( data ),
   });
 };

@@ -5,25 +5,47 @@ import CustomDropdown from "@/components/customDropDown";
 import { NavLink } from "react-router-dom";
 import BookImagePreviewSec from "@/components/BookImagePreviewSec";
 import TagInput from "@/components/TagForm";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useCreateBook } from "@/hooks/useBookApi";
+import { BookDataType } from "@/utils/type";
+import { getToken } from "@/service/authService";
 
 const BookCraftingPage = () => {
-  const [tags, setTags] = useState<string[]>([]);
-  const [bookData, setBookData] = useState({
-    title: " ",
-    description: " ",
-    slug: " ",
-    categoryId: " ",
-    userId: " ",
-    keywords: " ",
-    coverImg: " ",
+  const createBookMutation = useCreateBook();
+  const [bookData, setBookData] = useState<BookDataType>({
+    title : "",
+    coverImg :"",
+    description : "",
+    categoryId : "",
+    status : "",
+    keywords : [""],
   });
 
-  // const createBook = useCreateBook();
+  useEffect(() => {
+    if (createBookMutation.isSuccess) {
+      getToken();
+    }
+  }, [createBookMutation.isSuccess]);
 
-  // const handleAddBook = () => {
-  //     createBook.mutate(bookData)
-  // }
+  useEffect(() => {
+    if (createBookMutation.isError) {
+      alert("Error");
+    }
+  }, [createBookMutation.isError]);
+
+  const handleTitleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setBookData((prev) => ({
+      ...prev,
+      title : e.target.value,
+    }))
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    createBookMutation.mutate(bookData!);
+  };
+
+  const [tags, setTags] = useState<string[]>([]);
   return (
     <div>
       <div className="mb-10 ml-28">
@@ -34,11 +56,14 @@ const BookCraftingPage = () => {
           <h1 className="text-3xl font-bold font-primary">Creating New Book</h1>
         </div>
 
-        <div className="flex mx-auto flex-row-3 gap-28 font-primary">
+        <form
+          onSubmit={handleSubmit}
+          className="flex mx-auto flex-row-3 gap-28 font-primary"
+        >
           <div className="mx-28">
             <BookImagePreviewSec title={""} />
           </div>
-          <div className="w-6/12 gap-5 px-5">
+          <div className="w-1/2 gap-5 px-5">
             <div className="mt-10">
               <label
                 htmlFor="default"
@@ -48,14 +73,12 @@ const BookCraftingPage = () => {
               </label>
               <Input
                 inputSize="lg"
-                className="w-full font-bold border"
+                className="w-full font-bold border rounded"
                 type="text"
                 id="text"
                 placeholder="Book Title"
                 value={bookData.title}
-                onChange={(e) =>
-                  setBookData({ ...bookData, title: e.target.value })
-                }
+                onChange={handleTitleChange}
               />
             </div>
             <div className="mt-5">
@@ -69,7 +92,7 @@ const BookCraftingPage = () => {
             </div>
             <div className="mt-5">
               <div className="flex items-center bg-gray-100">
-                <div className="w-full bg-white rounded shadow-md">
+                <div className="w-full bg-white rounded">
                   <label
                     htmlFor="default"
                     className="block mb-2 text-lg font-medium text-gray-900 rounded-md"
@@ -86,15 +109,17 @@ const BookCraftingPage = () => {
               </div>
             </div>
 
-            <div className="mt-5 mb-5 border-2 border-black">
+            <div className="my-5 border rounded">
               <Toolbar />
             </div>
 
             <NavLink to={"/bookdetail"}>
-              <Button className="w-full mt-5 default:">Create Now</Button>
+              <Button type="submit" className="w-full mt-5 default:">
+                Create Now
+              </Button>
             </NavLink>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
