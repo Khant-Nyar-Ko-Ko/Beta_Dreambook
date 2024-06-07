@@ -18,6 +18,23 @@ export const fetchBooks = async () => {
   return result;
 };
 
+export const fetchPaginatedBooks = async (pageNumber : number) => {
+
+  const response : Response = await fetch(`${BaseURL}/books/?page=${pageNumber}`,{
+    method: 'GET',
+    mode: "cors",
+    redirect: "follow"
+  })
+
+  const result = response.json();
+
+  if(!response.ok){
+    throw new Error
+  }
+
+  return result;
+}
+
 export const createBooks = async (
   data: BookDataType
 ): Promise<BookDataType> => {
