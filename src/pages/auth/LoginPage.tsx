@@ -14,8 +14,8 @@ import { getToken } from "@/service/authService";
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signinData, setSigninData] = useState({
-    email: "tonystark12@gmail.com",
-    password: "ironman",
+    email: "walterwhite@gmail.com",
+    password: "asdffdsa",
   });
 
   const togglePasswordVisibility = () => {
