@@ -21,37 +21,38 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useFetchPaginatedBooks } from "@/hooks/useBookApi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const LibraryPage = () => {
   const itemsPerPage = 12;
-  const [currentPage, setCurrentPage] = useState(1);
-  const { data, error, isLoading } = useFetchPaginatedBooks();
+  
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = parseInt(searchParams.get("page") || "1", 10);
+  const [currentPage, setCurrentPage] = useState(pageParam);
+
+  const { data, error, isLoading } = useFetchPaginatedBooks(currentPage);
   const books = data?.items;
   const totalPages = data?.meta?.totalPages || 1;
-  
+
+  useEffect(() => {
+    setCurrentPage(pageParam);
+  }, [pageParam]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handlePageChange = (page: any) => {
-    setCurrentPage(page);
+  const handlePageChange = (page:any) => {
+    setSearchParams({ page: page.toString() });
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, books?.length || 0);
-
-
   const paginatedBooks = books ? books.slice(startIndex, endIndex) : [];
 
   if (currentPage === totalPages && endIndex < books?.length) {
     const remainingBooks = books.length - endIndex;
     const additionalBooks = books.slice(endIndex, endIndex + remainingBooks);
     paginatedBooks.push(...additionalBooks);
-}
-
-  console.log(`Total books: ${books ? books.length : 0}`);
-  console.log(`Total pages: ${totalPages}`);
-  console.log(`Current page: ${currentPage}`);
-  console.log(`Books on current page: ${paginatedBooks.length}`);
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -63,7 +64,6 @@ const LibraryPage = () => {
 
   return (
     <div>
-      {/* Headline */}
       <div className="relative w-screen h-[340px]">
         <img
           src={libraryBg}
@@ -80,21 +80,20 @@ const LibraryPage = () => {
               Explore your favorite books
             </p>
             <p className="text-white font-primary">
-              Reading is the best for get idea , Keep Reading
+              Reading is the best for get idea, Keep Reading
             </p>
           </div>
         </div>
       </div>
-      <div className="flex w-screen ">
+      <div className="flex w-screen">
         <LibCategory />
-        <div className="w-full ">
+        <div className="w-full">
           <div className="flex justify-between items-center mx-3 md:mx-[100px] my-5">
-            <div className="flex items-center gap-5 ">
+            <div className="flex items-center gap-5">
               <div className="p-[7px] border rounded">
                 <RiFilter3Line className="text-[16px] md:text-[24px]" />
               </div>
-
-              <div className="px-1 py-2 border rounded md:px-2 ">
+              <div className="px-1 py-2 border rounded md:px-2">
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex items-center justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm">
                     <p>Sort by default</p>
@@ -137,17 +136,13 @@ const LibraryPage = () => {
                   <PaginationPrevious
                     className="text-center text-white rounded-full bg-default"
                     href="#"
-                    onClick={() =>
-                      handlePageChange(Math.max(currentPage - 1, 1))
-                    }
+                    onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
                   />
                 </PaginationItem>
                 {Array.from({ length: totalPages }, (_, i) => (
                   <PaginationItem key={i}>
                     <PaginationLink
-                      className={`text-black border ${
-                        currentPage === i + 1 ? "active:border-default" : ""
-                      }`}
+                      className={`text-black border ${currentPage === i + 1 ? "active:border-default" : ""}`}
                       href="#"
                       onClick={() => handlePageChange(i + 1)}
                     >
@@ -162,9 +157,7 @@ const LibraryPage = () => {
                   <PaginationNext
                     className="text-center text-white rounded-full bg-default"
                     href="#"
-                    onClick={() =>
-                      handlePageChange(Math.min(currentPage + 1, totalPages))
-                    }
+                    onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
                   />
                 </PaginationItem>
               </PaginationContent>

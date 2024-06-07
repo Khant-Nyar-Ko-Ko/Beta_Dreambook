@@ -5,10 +5,20 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 
 const ChangePassword = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showOldPassword, setOldShowPassword] = useState(false);
+  const [showNewPassword, setNewShowPassword] = useState(false);
+  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
+  const toggleOldPasswordVisibility = () => {
+    setOldShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const toggleNewPasswordVisibility = () => {
+    setNewShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmShowPassword((prevShowPassword) => !prevShowPassword);
   };
   return (
     <div className="flex flex-col items-center justify-center w-4/5 h-full text-center gap-9">
@@ -22,54 +32,54 @@ const ChangePassword = () => {
         <div className="relative">
           <Input
             className=" w-[200px] md:w-[350px]"
-            inputType={showPassword ? "text" : "password"}
+            inputType={showOldPassword ? "text" : "password"}
             placeholder="Enter Old Password"
           />
           <button
             type="button"
-            onClick={togglePasswordVisibility}
+            onClick={toggleOldPasswordVisibility}
             className="absolute right-5 top-2 md:top-3 focus:outline-none"
           >
-            {showPassword ? (
-              <FaEye color="slate" />
-            ) : (
+            {showOldPassword ? (
               <FaEyeSlash color="slate" />
+            ) : (
+              <FaEye color="slate" />
             )}
           </button>
         </div>
         <div className="relative">
           <Input
            className=" w-[200px] md:w-[350px]"
-            inputType={showPassword ? "text" : "password"}
+            inputType={showNewPassword ? "text" : "password"}
             placeholder="Enter New Password"
           />
           <button
             type="button"
-            onClick={togglePasswordVisibility}
+            onClick={toggleNewPasswordVisibility}
             className="absolute right-5 top-2 md:top-3 focus:outline-none"
           >
-            {showPassword ? (
-              <FaEye color="slate" />
-            ) : (
+            {showNewPassword ? (
               <FaEyeSlash color="slate" />
+            ) : (
+              <FaEye color="slate" />
             )}
           </button>
         </div>
         <div className="relative">
           <Input
             className=" w-[200px] md:w-[350px]"
-            inputType={showPassword ? "text" : "password"}
+            inputType={showConfirmPassword ? "text" : "password"}
             placeholder="Confirm Password"
           />
           <button
             type="button"
-            onClick={togglePasswordVisibility}
+            onClick={toggleConfirmPasswordVisibility}
             className="absolute right-5 top-2 md:top-3 focus:outline-none"
           >
-            {showPassword ? (
-              <FaEye color="slate" />
-            ) : (
+            {showConfirmPassword ? (
               <FaEyeSlash color="slate" />
+            ) : (
+              <FaEye color="slate" />
             )}
           </button>
         </div>
