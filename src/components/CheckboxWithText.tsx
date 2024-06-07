@@ -3,7 +3,6 @@ import { useFetchCategories } from "@/hooks/useCategoryApi";
 
 const CheckboxWithText = () => {
   const { data: category, isLoading, error } = useFetchCategories();
-  console.log(category);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -18,6 +17,17 @@ const CheckboxWithText = () => {
   }
   return (
     <>
+      <div className="flex space-x-2 items-top">
+        <Checkbox id="checkbox" />
+        <div className="grid gap-1.5 leading-none">
+          <label
+            htmlFor="checkbox"
+            className="text-sm font-medium leading-none select-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            All
+          </label>
+        </div>
+      </div>
       {category.map(({ id, title }) => (
         <div className="flex space-x-2 items-top" key={id}>
           <Checkbox id={`checkbox-${id}`} />

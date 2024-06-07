@@ -20,8 +20,47 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useFetchPaginatedBooks } from "@/hooks/useBookApi";
+import { useState } from "react";
 
 const LibraryPage = () => {
+  const itemsPerPage = 12;
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data, error, isLoading } = useFetchPaginatedBooks();
+  const books = data?.items;
+  const totalPages = data?.meta?.totalPages || 1;
+  
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handlePageChange = (page: any) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, books?.length || 0);
+
+
+  const paginatedBooks = books ? books.slice(startIndex, endIndex) : [];
+
+  if (currentPage === totalPages && endIndex < books?.length) {
+    const remainingBooks = books.length - endIndex;
+    const additionalBooks = books.slice(endIndex, endIndex + remainingBooks);
+    paginatedBooks.push(...additionalBooks);
+}
+
+  console.log(`Total books: ${books ? books.length : 0}`);
+  console.log(`Total pages: ${totalPages}`);
+  console.log(`Current page: ${currentPage}`);
+  console.log(`Books on current page: ${paginatedBooks.length}`);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading books</div>;
+  }
+
   return (
     <div>
       {/* Headline */}
@@ -89,7 +128,7 @@ const LibraryPage = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-6 py-5 mx-10 my-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mx-4">
-            <LibraryBookCard />
+            <LibraryBookCard books={paginatedBooks} />
           </div>
           <div>
             <Pagination>
@@ -98,32 +137,24 @@ const LibraryPage = () => {
                   <PaginationPrevious
                     className="text-center text-white rounded-full bg-default"
                     href="#"
+                    onClick={() =>
+                      handlePageChange(Math.max(currentPage - 1, 1))
+                    }
                   />
                 </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink
-                    className="text-black border active:border-default"
-                    href="#"
-                  >
-                    1
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink
-                    className="text-black border active:border-default"
-                    href="#"
-                  >
-                    2
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink
-                    className="text-black border active:border-default"
-                    href="#"
-                  >
-                    3
-                  </PaginationLink>
-                </PaginationItem>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <PaginationItem key={i}>
+                    <PaginationLink
+                      className={`text-black border ${
+                        currentPage === i + 1 ? "active:border-default" : ""
+                      }`}
+                      href="#"
+                      onClick={() => handlePageChange(i + 1)}
+                    >
+                      {i + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
                 <PaginationItem>
                   <PaginationEllipsis className="text-black" />
                 </PaginationItem>
@@ -131,6 +162,9 @@ const LibraryPage = () => {
                   <PaginationNext
                     className="text-center text-white rounded-full bg-default"
                     href="#"
+                    onClick={() =>
+                      handlePageChange(Math.min(currentPage + 1, totalPages))
+                    }
                   />
                 </PaginationItem>
               </PaginationContent>

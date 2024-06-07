@@ -1,5 +1,5 @@
 import {signUpUser, signInUser, updateUser} from "./authApi";
 import { fetchCategories } from "./categoryApi";
-import { fetchBooks, createBooks } from "./bookApi";
+import { fetchBooks, fetchPaginatedBooks, createBooks } from "./bookApi";
 
-export {signUpUser, signInUser, updateUser ,fetchCategories, fetchBooks, createBooks};
+export {signUpUser, signInUser, updateUser ,fetchCategories, fetchBooks, fetchPaginatedBooks, createBooks};
