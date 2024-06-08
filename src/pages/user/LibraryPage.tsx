@@ -26,12 +26,15 @@ import { useSearchParams } from "react-router-dom";
 
 const LibraryPage = () => {
   const itemsPerPage = 12;
-  
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageParam = parseInt(searchParams.get("page") || "1", 10);
-  const [currentPage, setCurrentPage] = useState(pageParam);
 
-  const { data, error, isLoading } = useFetchPaginatedBooks(currentPage);
+  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
+
+  const pageParam = searchParams.get("page");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [currentPage, setCurrentPage] = useState<any>(pageParam);
+  const page = Number(pageParam);
+
+  const { data, error, isLoading } = useFetchPaginatedBooks(page);
   const books = data?.items;
   const totalPages = data?.meta?.totalPages || 1;
 
@@ -40,7 +43,7 @@ const LibraryPage = () => {
   }, [pageParam]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handlePageChange = (page:any) => {
+  const handlePageChange = (page: any) => {
     setSearchParams({ page: page.toString() });
   };
 
@@ -136,13 +139,17 @@ const LibraryPage = () => {
                   <PaginationPrevious
                     className="text-center text-white rounded-full bg-default"
                     href="#"
-                    onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
+                    onClick={() =>
+                      handlePageChange(Math.max(currentPage - 1, 1))
+                    }
                   />
                 </PaginationItem>
                 {Array.from({ length: totalPages }, (_, i) => (
                   <PaginationItem key={i}>
                     <PaginationLink
-                      className={`text-black border ${currentPage === i + 1 ? "active:border-default" : ""}`}
+                      className={`text-black border ${
+                        currentPage === i + 1 ? "active:border-default" : ""
+                      }`}
                       href="#"
                       onClick={() => handlePageChange(i + 1)}
                     >
@@ -157,7 +164,9 @@ const LibraryPage = () => {
                   <PaginationNext
                     className="text-center text-white rounded-full bg-default"
                     href="#"
-                    onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
+                    onClick={() =>
+                      handlePageChange(Math.min(currentPage + 1, totalPages))
+                    }
                   />
                 </PaginationItem>
               </PaginationContent>
