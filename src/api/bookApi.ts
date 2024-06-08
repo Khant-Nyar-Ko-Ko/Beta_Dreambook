@@ -21,7 +21,7 @@ export const fetchBooks = async () => {
 export const fetchPaginatedBooks = async (pageNumber : number) => {
 
   const filterPage = pageNumber ? `page=${pageNumber}` : "";
-  const response : Response = await fetch(`${BaseURL}/books/${filterPage}`,{
+  const response : Response = await fetch(`${BaseURL}/books/?${filterPage}`,{
     method: 'GET',
     mode: "cors",
     redirect: "follow"

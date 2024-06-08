@@ -7,6 +7,8 @@ import "swiper/css";
 const PopularBookCard = () => {
   const { data, error, isLoading } = useFetchBooks();
   const popularBook = data?.items;
+  console.log(popularBook);
+  
 
   if (isLoading) {
     return <div>Loading...</div>;
