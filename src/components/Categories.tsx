@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useFetchCategories } from "@/hooks/useCategoryApi";
+import { useSelectCategory } from "@/hooks/useSelectCategoryApi";
 
 const Categories = () => {
+  const { mutate : selectCategory} = useSelectCategory();
   const [checkedItems, setCheckedItems] = useState<Record<number, boolean>>({});
   const { data: categories, isLoading, error } = useFetchCategories();
 
@@ -10,6 +12,7 @@ const Categories = () => {
       ...prevState,
       [id]: !prevState[id],
     }));
+    selectCategory(id);
   };
 
   if (isLoading) {

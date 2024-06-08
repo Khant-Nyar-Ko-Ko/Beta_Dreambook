@@ -3,8 +3,12 @@ import background from "../../assets/images/AuthBgImage.avif";
 import { NavLink } from "react-router-dom";
 import Categories from "@/components/Categories";
 import Logo from "@/components/Logo";
+import { useSelectCategory } from "@/hooks/useSelectCategoryApi";
 
 const SelectCategoryPage = () => {
+  const {data} = useSelectCategory();
+  console.log(data);
+  
   return (
     <div className="relative w-screen h-screen">
       {/* background */}
