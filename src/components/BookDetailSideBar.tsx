@@ -82,7 +82,7 @@ const BookDetailSideBar = () => {
               className="w-full gap-3 py-10 mt-5 border-t border-gray-300 rounded-none bg-default font-primary"
             >
               <FaArrowLeftLong size="20" />
-              Exist to Booklist
+              Exit to Booklist
             </Button>
           </NavLink>
         </div>
