@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Toolbar from "@/components/Toolbar";
@@ -7,12 +8,12 @@ import BookImagePreviewSec from "@/components/BookImagePreviewSec";
 import TagInput from "@/components/TagForm";
 import React, { useEffect, useState } from "react";
 import { useCreateBook } from "@/hooks/useBookApi";
-import { BookDataType } from "@/utils/type";
+// import { BookDataType } from "@/utils/type";
 import { getToken } from "@/service/authService";
 
 const BookCraftingPage = () => {
   const createBookMutation = useCreateBook();
-  const [bookData, setBookData] = useState<BookDataType>({
+  const [bookData, setBookData] = useState<any>({
     title : "",
     coverImg :"",
     description : "",
@@ -34,7 +35,7 @@ const BookCraftingPage = () => {
   }, [createBookMutation.isError]);
 
   const handleTitleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-    setBookData((prev) => ({
+    setBookData((prev : any) => ({
       ...prev,
       title : e.target.value,
     }))
