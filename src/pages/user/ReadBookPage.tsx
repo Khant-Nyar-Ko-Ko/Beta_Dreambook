@@ -7,17 +7,30 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import authorprofile from "../../assets/images/Author.png";
 import { Input } from "@/components/ui/input";
 import Card from "@/components/Card";
+import { usePostComment } from "@/hooks/useCommentApi";
 
 const ReadBookPage = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<any>(null);
   const navigate = useNavigate();
   const [relateBook, setRelateBook] = useState<any>([]);
+  const [comment, setComment] = useState<string>("");
 
   const { data: books } = useFetchBooks();
+  const { mutate } = usePostComment();
 
   const handleBack = () => {
-    navigate(-1);
+    navigate('/');
+  };
+
+  const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value);
+  };
+
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutate({ bookId: Number(id), text: comment });
+    setComment('');
   };
 
   useEffect(() => {
@@ -94,8 +107,12 @@ const ReadBookPage = () => {
         <hr />
         <div className="flex flex-col gap-5 my-5">
           <p>Leave a comment</p>
-          <Input />
-          <Button className=" w-[150px]">Post Comment</Button>
+          <form className="flex flex-col gap-5 " onSubmit={submitHandler}>
+            <Input value={comment} onChange={handleComment} />
+            <Button type="submit" className=" w-[150px]">
+              Post Comment
+            </Button>
+          </form>
         </div>
       </div>
       <div className="flex flex-col gap-3 overflow-scroll border-l-2">

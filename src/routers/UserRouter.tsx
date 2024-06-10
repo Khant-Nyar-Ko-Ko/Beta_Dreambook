@@ -14,6 +14,7 @@ import { Navigate, RouteObject } from "react-router-dom";
 import Chapters from "@/components/Chapters";
 import Comment from "@/components/Comment";
 import ReadBookPage from "@/pages/user/ReadBookPage";
+import ReadChapterPage from "@/pages/user/ReadChapterPage";
 
 const UserRouter: RouteObject[] = [
   {
@@ -39,6 +40,10 @@ const UserRouter: RouteObject[] = [
       {
         path: "readbook/:id",
         element: <ReadBookPage/>
+      },
+      {
+        path: "readchapter",
+        element: <ReadChapterPage/>
       },
       {
         path: "bookdetail",
