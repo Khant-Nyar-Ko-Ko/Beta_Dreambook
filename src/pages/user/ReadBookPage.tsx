@@ -2,27 +2,22 @@
 import { Button } from "@/components/ui/button";
 import { useFetchBooks } from "@/hooks/useBookApi";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import { useParams } from "react-router-dom";
 import authorprofile from "../../assets/images/Author.png";
 import { Input } from "@/components/ui/input";
 import Card from "@/components/Card";
 import { usePostComment } from "@/hooks/useCommentApi";
+import BackButton from "@/components/BackButton";
 
 const ReadBookPage = () => {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<any>(null);
-  const navigate = useNavigate();
   const [relateBook, setRelateBook] = useState<any>([]);
   const [comment, setComment] = useState<string>("");
 
   const { data: books } = useFetchBooks();
   const { mutate } = usePostComment();
-
-  const handleBack = () => {
-    navigate('/');
-  };
-
+  
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
   };
@@ -51,16 +46,8 @@ const ReadBookPage = () => {
 
   return (
     <div className="flex">
-      <div className="  sticky top-[100px] flex flex-col w-3/4 px-[150px] py-5 h-full ">
-        <div
-          className="flex items-center justify-start cursor-pointer text-default"
-          onClick={handleBack}
-        >
-          <IoIosArrowRoundBack size="30" />
-          <Button variant="ghost" className="text-default">
-            Back
-          </Button>
-        </div>
+      <div className="  sticky top-[100px] flex flex-col w-4/5 px-[200px] py-5 h-full ">
+       <BackButton/>
         {book && (
           <div className="relative flex justify-between py-3">
             <div className="absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-0 px-20"></div>
@@ -104,7 +91,7 @@ const ReadBookPage = () => {
           <p className="text-xl font-semibold font-primary">Book Overview</p>
           <p>{book?.description}</p>
         </div>
-        <hr />
+        <hr className="w-[900px]" />
         <div className="flex flex-col gap-5 my-5">
           <p>Leave a comment</p>
           <form className="flex flex-col gap-5 " onSubmit={submitHandler}>
@@ -115,9 +102,9 @@ const ReadBookPage = () => {
           </form>
         </div>
       </div>
-      <div className="flex flex-col gap-3 overflow-scroll border-l-2">
-        <p className="py-5 font-semibold px-28 font-primary">Related Books</p>
-        <div className="flex flex-col gap-5 px-28">
+      <div className="flex flex-col w-1/5 gap-3 overflow-scroll border-l-2">
+        <p className="px-5 py-5 font-semibold font-primary">Related Books</p>
+        <div className="flex flex-col gap-5 px-5">
           {relateBook.map(
             ({
               id,
