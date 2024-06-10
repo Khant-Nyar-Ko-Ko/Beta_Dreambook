@@ -3,7 +3,7 @@ import { fetchCategories } from "./categoryApi";
 import { fetchBooks, fetchPaginatedBooks, createBooks } from "./bookApi";
 import { addFavourite, fetchFavourite } from "../api/favouriteApi";
 import { selectCategory } from "../api/selectCategoryApi";
-import { postComment } from "../api/ commentApi";
+import { postComment } from "./commentApi";
 
 export {
   signUpUser,
