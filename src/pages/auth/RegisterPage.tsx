@@ -7,9 +7,9 @@ import { IoPerson } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSignUpUser } from "@/hooks/useAuthApi";
-import { Loader2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { getToken } from "@/service/authService";
+import Loading from "@/components/Loading";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -147,18 +147,19 @@ const RegisterPage = () => {
                       confirmPassword: e.target.value,
                     }))
                   }
-                />
+                  />
                 <button
                   type="button"
                   onClick={toggleConfirmPasswordVisibility}
                   className="absolute right-5 top-2 md:top-3 focus:outline-none"
-                >
+                  >
                   {showConfirmPassword ? (
                     <FaEye color="slate" />
-                  ) : (
-                    <FaEyeSlash color="slate" />
-                  )}
+                    ) : (
+                      <FaEyeSlash color="slate" />
+                      )}
                 </button>
+                    {signupMutation.isError && <p className="pt-2 text-xs text-red-500">Your Email or Password is invalid</p>} 
               </div>
               <div className="flex justify-center w-full">
                 <Button
@@ -175,7 +176,7 @@ const RegisterPage = () => {
                     signupMutation.isPending
                   }
                 >
-                  {signupMutation.isPending ? <Loader2 /> : "Create an account"}
+                  {signupMutation.isPending ? <Loading /> : "Create an account"}
                 </Button>
               </div>
             </form>
