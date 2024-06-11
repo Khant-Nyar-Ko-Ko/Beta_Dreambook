@@ -5,7 +5,7 @@ import { useFetchCategories } from "@/hooks/useCategoryApi";
 const TrendingCategory = () => {
 
   const {data : trendingCategory, isLoading, error} = useFetchCategories();
-  console.log(trendingCategory);
+  // console.log(trendingCategory);
 
   if (isLoading) {
     return <div>Loading...</div>;

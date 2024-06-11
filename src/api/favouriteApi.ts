@@ -1,6 +1,26 @@
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 
+export const fetchFavourite = async () => {
+  const token = getToken();
+  const response: Response = await fetch(`${BaseURL}/favourites/user`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "GET",
+    mode: "cors",
+    redirect: "follow",
+  });
+
+  const result = await response.json();
+  if (!response.ok) {
+    throw new Error();
+  }
+  return result;
+};
+
 export const addFavourite = async ({ bookId }: { bookId: number }) => {
   const token = getToken();
   const response: Response = await fetch(`${BaseURL}/favourites`, {
@@ -23,15 +43,16 @@ export const addFavourite = async ({ bookId }: { bookId: number }) => {
   return result;
 };
 
-export const fetchFavourite = async () => {
+export const removeFavourite = async ({ bookId }: { bookId: number }) => {
   const token = getToken();
-  const response: Response = await fetch(`${BaseURL}/favourites/user`, {
+
+  const response: Response = await fetch(`${BaseURL}/favourites/${bookId}`, {
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    method: "GET",
+    method: "DELETE",
     mode: "cors",
     redirect: "follow",
   });
@@ -40,27 +61,6 @@ export const fetchFavourite = async () => {
   if (!response.ok) {
     throw new Error();
   }
+
   return result;
 };
-
-export const removeFavourite = async({id} : {id : number}) => {
-  const token = getToken();
-
-  const response : Response = await fetch(`${BaseURL}/favourites/${id}`,{
-    headers: {
-      Accept : "application/json",
-      "Content-type" : "application/json",
-      Authorization : `Bearer ${token}`,
-    },
-    method: 'DELETE',
-    mode: "cors",
-    redirect: "follow",
-  })
-
-  const result = await response.json();
-  if(!response.ok){
-    throw new Error();
-  }
-
-  return result;
-}

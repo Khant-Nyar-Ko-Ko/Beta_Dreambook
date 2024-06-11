@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline, IoHeart } from "react-icons/io5";
 import authorprofile from "../assets/images/Author.png";
 import { NavLink } from "react-router-dom";
-import { useAddFavourite, useRemoveFavourite } from "@/hooks/useFavouriteApi";
+import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 
 interface CardProps {
   id: number;
@@ -14,6 +14,7 @@ interface CardProps {
   author: string;
 }
 
+
 const Card: React.FC<CardProps> = ({
   id,
   title,
@@ -22,17 +23,14 @@ const Card: React.FC<CardProps> = ({
   categorytitle,
   author,
 }) => {
-  const [toggleFav, setToggleFav] = useState(false);
-  const {mutate : addFavourite} = useAddFavourite();
-  const {mutate : removeFavourite} = useRemoveFavourite();
+  const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } = useFavouriteBooks();
 
-  const handleAddFav = () => {
-    setToggleFav(!toggleFav)
-    if(toggleFav == false){
-      addFavourite(id)
-    }else{
-      removeFavourite(id)
-    }
+
+  const handleAddFavouriteBook = (id: number) => {
+    addFavouriteBook(id);
+  };
+  const handleRemoveFavouriteBook = (id: number) => {
+    removeFavouriteBook(id);
   };
 
   return (
@@ -42,16 +40,22 @@ const Card: React.FC<CardProps> = ({
     >
       <div className="relative flex justify-center px-10 py-3 mx-3 mt-3 overflow-hidden bg-slate-200 group">
         <div className="absolute flex flex-col gap-3 duration-200 transform translate-x-10 group-hover:translate-x-0 right-3 top-10">
-          <button
-            onClick={handleAddFav}
-            className="p-1 bg-white rounded-full"
-          >
-            {toggleFav ? (
+          {favouriteBookIds.includes(id) ? (
+            <button
+              onClick={() => handleRemoveFavouriteBook(id)}
+              className="p-1 bg-white rounded-full"
+            >
               <IoHeart className="text-red-500" />
-            ) : (
+            </button>
+          ) : (
+            <button
+              onClick={() => handleAddFavouriteBook(id)}
+              className="p-1 bg-white rounded-full"
+            >
               <IoMdHeartEmpty />
-            )}
-          </button>
+            </button>
+          )}
+
           <NavLink to={`/readbook/${id}`}>
             <button className="p-1 bg-white rounded-full">
               <IoEyeOutline />

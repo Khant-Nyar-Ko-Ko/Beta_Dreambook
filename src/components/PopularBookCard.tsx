@@ -7,7 +7,7 @@ import "swiper/css";
 const PopularBookCard = () => {
   const { data, error, isLoading } = useFetchBooks();
   const popularBook = data?.items;
-  console.log(popularBook);
+  // console.log(popularBook);
   
 
   if (isLoading) {
@@ -53,7 +53,7 @@ const PopularBookCard = () => {
             const { name } = user;
 
             return (
-              <SwiperSlide>
+              <SwiperSlide key={id}>
                 <Card
                   key={id}
                   id={id}

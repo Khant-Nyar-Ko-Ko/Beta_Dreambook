@@ -50,7 +50,7 @@ const LatestBookCard = () => {
            const { name } = user;
 
            return (
-             <SwiperSlide>
+             <SwiperSlide key={id}>
                <Card
                  key={id}
                  id={id}
