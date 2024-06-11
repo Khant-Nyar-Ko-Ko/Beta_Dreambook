@@ -18,7 +18,8 @@ export const fetchBooks = async () => {
   return result;
 };
 
-export const fetchSingleBook = async ({ id }: { id: string }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const fetchSingleBook = async ({ id }: { id: any }) => {
   const response: Response = await fetch(`${BaseURL}/books/${id}`, {
     method: "GET",
     mode: "cors",

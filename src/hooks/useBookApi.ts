@@ -13,7 +13,8 @@ export const useFetchBooks = () => useQuery({
   queryFn: () => fetchBooks()
 });
 
-export const useFetchSingleBook = (id : number) => useQuery({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useFetchSingleBook = (id : any) => useQuery({
   queryKey: ['singleBook'],
   queryFn: () => fetchSingleBook({id})
 })
