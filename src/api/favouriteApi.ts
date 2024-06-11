@@ -42,3 +42,25 @@ export const fetchFavourite = async () => {
   }
   return result;
 };
+
+export const removeFavourite = async({id} : {id : number}) => {
+  const token = getToken();
+
+  const response : Response = await fetch(`${BaseURL}/favourites/${id}`,{
+    headers: {
+      Accept : "application/json",
+      "Content-type" : "application/json",
+      Authorization : `Bearer ${token}`,
+    },
+    method: 'DELETE',
+    mode: "cors",
+    redirect: "follow",
+  })
+
+  const result = await response.json();
+  if(!response.ok){
+    throw new Error();
+  }
+
+  return result;
+}

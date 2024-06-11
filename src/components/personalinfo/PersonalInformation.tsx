@@ -1,5 +1,4 @@
 import { Input } from "../ui/input";
-import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useState, useEffect } from "react";
 import { Textarea } from "../ui/textarea";
@@ -9,6 +8,7 @@ import ImagePreview from "../ImagePreview";
 import { Button } from "../ui/button";
 import { useUpdateUser } from "@/hooks/useAuthApi";
 import { useNavigate } from "react-router-dom";
+import NumberInput from "../NumberInput";
 
 const PersonalInformation = () => {
   const token = getToken() || "";
@@ -106,12 +106,9 @@ const PersonalInformation = () => {
         value={formData.email}
         onChange={handleChange}
       />
-      <PhoneInput
-        className="w-[250px] md:w-[500px] bg-white px-3 md:px-6 py-1 md:py-2 rounded border"
-        defaultCountry="MM"
-        value={formData.phone}
-        onChange={handlePhoneChange}
-        placeholder="Phone"
+      <NumberInput
+        phoneValue={formData.phone}
+        setPhoneValue={handlePhoneChange}
       />
       <Textarea
         name="bio"

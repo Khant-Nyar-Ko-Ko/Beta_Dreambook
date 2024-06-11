@@ -1,4 +1,4 @@
-import { createBooks, fetchBooks, fetchPaginatedBooks } from "@/api";
+import { createBooks, fetchBooks, fetchPaginatedBooks, fetchSingleBook } from "@/api";
 import { BookDataType } from "@/utils/type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -12,6 +12,11 @@ export const useFetchBooks = () => useQuery({
   queryKey: ['books'],
   queryFn: () => fetchBooks()
 });
+
+export const useFetchSingleBook = (id : number) => useQuery({
+  queryKey: ['singleBook'],
+  queryFn: () => fetchSingleBook({id})
+})
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useFetchPaginatedBooks = (page: any) => {

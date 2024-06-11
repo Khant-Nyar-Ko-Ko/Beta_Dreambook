@@ -3,7 +3,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline, IoHeart } from "react-icons/io5";
 import authorprofile from "../assets/images/Author.png";
 import { NavLink } from "react-router-dom";
-import { useAddFavourite } from "@/hooks/useFavouriteApi";
+import { useAddFavourite, useRemoveFavourite } from "@/hooks/useFavouriteApi";
 
 interface CardProps {
   id: number;
@@ -24,10 +24,15 @@ const Card: React.FC<CardProps> = ({
 }) => {
   const [toggleFav, setToggleFav] = useState(false);
   const {mutate : addFavourite} = useAddFavourite();
+  const {mutate : removeFavourite} = useRemoveFavourite();
 
   const handleAddFav = () => {
     setToggleFav(!toggleFav)
-    addFavourite(id)
+    if(toggleFav == false){
+      addFavourite(id)
+    }else{
+      removeFavourite(id)
+    }
   };
 
   return (
