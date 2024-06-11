@@ -1,21 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
-import { useFetchBooks } from "@/hooks/useBookApi";
+import { useFetchSingleBook } from "@/hooks/useBookApi";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import authorprofile from "../../assets/images/Author.png";
 import { Input } from "@/components/ui/input";
-import Card from "@/components/Card";
+// import Card from "@/components/Card";
 import { usePostComment } from "@/hooks/useCommentApi";
 import BackButton from "@/components/BackButton";
 
 const ReadBookPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [book, setBook] = useState<any>(null);
-  const [relateBook, setRelateBook] = useState<any>([]);
+  // const [book, setBook] = useState<any>(null);
+  // const [relateBook, setRelateBook] = useState<any>([]);
   const [comment, setComment] = useState<string>("");
 
-  const { data: books } = useFetchBooks();
+  const {data : singleBook} = useFetchSingleBook(id ?? '');
+  console.log(singleBook);
+  
   const { mutate } = usePostComment();
   
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,57 +31,52 @@ const ReadBookPage = () => {
   };
 
   useEffect(() => {
-    if (books) {
-      const selectedBook = books?.items.find(
-        (book: any) => book?.id === Number(id)
-      );
-      setBook(selectedBook || null);
+    if (singleBook) {
+      // const selectedBook = books?.items.find(
+      //   (book: any) => book?.id === Number(id)
+      // );
+      // setBook(selectedBook || null);
 
-      const relatedBook = books?.items.filter(
-        (book: any) =>
-          book.categoryId === selectedBook.categoryId &&
-          book.id !== selectedBook.id
-      );
-      setRelateBook(relatedBook);
+      
     }
-  }, [books, id]);
+  }, [singleBook, id]);
 
   return (
     <div className="flex">
       <div className="  sticky top-[100px] flex flex-col w-4/5 px-[200px] py-5 h-full ">
        <BackButton/>
-        {book && (
+        {singleBook && (
           <div className="relative flex justify-between py-3">
             <div className="absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-0 px-20"></div>
             <img
-              src={book.coverImg as string}
-              alt={book?.title}
+              src={singleBook.coverImg as string}
+              alt={singleBook?.title}
               className="w-40 h-auto ps-3"
             />
             <div>
               <div className="flex flex-col gap-5">
-                <h1 className="mt-4 text-2xl font-bold">{book?.title}</h1>
+                <h1 className="mt-4 text-2xl font-bold">{singleBook?.title}</h1>
                 <div className="flex items-center gap-1">
                   <img
                     src={authorprofile}
                     className="w-6 h-6 rounded-full"
                     alt="author"
                   />
-                  <p className="text-sm font-primary">By {book?.user?.name}</p>
+                  <p className="text-sm font-primary">By {singleBook?.user?.name}</p>
                 </div>
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-1">
                     <p> Category : </p>
                     <img
-                      src={book?.category?.icon}
+                      src={singleBook?.category?.icon}
                       className="w-4 h-4"
                       alt=""
                     />
-                    <p>{book?.category?.title}</p>
+                    <p>{singleBook?.category?.title}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <p> Keywords : </p>
-                    <p>{book?.keywords}</p>
+                    <p>{singleBook?.keywords}</p>
                   </div>
                 </div>
                 <Button>Start Reading</Button>
@@ -89,7 +86,7 @@ const ReadBookPage = () => {
         )}
         <div className="flex flex-col gap-3 my-10">
           <p className="text-xl font-semibold font-primary">Book Overview</p>
-          <p>{book?.description}</p>
+          <p>{singleBook?.description}</p>
         </div>
         <hr className="w-[900px]" />
         <div className="flex flex-col gap-5 my-5">
@@ -104,7 +101,7 @@ const ReadBookPage = () => {
       </div>
       <div className="flex flex-col w-1/5 gap-3 overflow-scroll border-l-2">
         <p className="px-5 py-5 font-semibold font-primary">Related Books</p>
-        <div className="flex flex-col gap-5 px-5">
+        {/* <div className="flex flex-col gap-5 px-5">
           {relateBook.map(
             ({
               id,
@@ -134,7 +131,7 @@ const ReadBookPage = () => {
               );
             }
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

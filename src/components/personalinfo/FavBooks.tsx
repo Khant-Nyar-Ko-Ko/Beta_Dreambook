@@ -13,15 +13,13 @@ import { Button } from "../ui/button";
 import { NavLink } from "react-router-dom";
 import { useFetchBooks } from "@/hooks/useBookApi";
 import Card from "../Card";
-import { useFetchFavourite } from "@/hooks/useFavouriteApi";
+import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 
 const FavBooks = () => {
+  const { favouriteBookIds } = useFavouriteBooks();
   const { data: books, error, isLoading } = useFetchBooks();
-  const { data: favourite } = useFetchFavourite();
 
-  console.log(favourite);
-
-  const favoriteBookIds = favourite?.map((fav: any) => fav.bookId);
+  const favoriteBookIds = favouriteBookIds;
 
   const favouriteBooks = books?.items.filter((book: any) =>
     favoriteBookIds?.includes(book.id)
@@ -51,8 +49,6 @@ const FavBooks = () => {
       </div>
     );
   }
-
-  // console.log("Books:", favourite);
 
   return (
     <div className="flex flex-col w-4/5 h-full px-3 my-5">
