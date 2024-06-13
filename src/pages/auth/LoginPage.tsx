@@ -7,15 +7,15 @@ import { IoPerson } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSignInUser } from "@/hooks/useAuthApi";
-import { Loader2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext"; 
 import { getToken } from "@/service/authService";
+import Loading from "@/components/Loading";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signinData, setSigninData] = useState({
-    email: "tonystark12@gmail.com",
-    password: "ironman",
+    email: "walterwhite@gmail.com",
+    password: "asdffdsa",
   });
 
   const togglePasswordVisibility = () => {
@@ -50,8 +50,11 @@ const LoginPage = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signinMutation.mutate(signinData);
-  };
+    };
+console.log(signinMutation.isError);
 
+    
+    
   return (
     <div className="relative w-screen h-screen">
       <img
@@ -114,10 +117,11 @@ const LoginPage = () => {
                     <FaEye color="slate" />
                   )}
                 </button>
+              {signinMutation.isError && <p className="pt-2 text-xs text-red-500">Your Email or Password is invalid</p>} 
               </div>
               <div className="flex justify-center w-full">
                 <Button type="submit" className=" w-[300px] md:w-[350px]">
-                  {signinMutation.isPending ? <Loader2 /> : "Login"}
+                  {signinMutation.isPending ? <Loading/> : "Login"}
                 </Button>
               </div>
             </form>

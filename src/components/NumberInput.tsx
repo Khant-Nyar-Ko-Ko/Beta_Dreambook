@@ -22,10 +22,10 @@ const NumberInput: React.FC<PhoneCustomInputProps> = ({
   phoneValue,
   setPhoneValue,
 }: PhoneCustomInputProps) => {
-
   return (
     <div className="relative">
       <PhoneInput
+        international
         className=" w-[300px] md:w-[350px] bg-white px-4 py-2 rounded"
         defaultCountry="MM"
         value={phoneValue}
@@ -33,7 +33,7 @@ const NumberInput: React.FC<PhoneCustomInputProps> = ({
         placeholder="Phone"
         inputComponent={InputForPhone}
       />
-      <FiPhone className="absolute right-5 top-3" color="gray" />
+      <FiPhone className="absolute right-5 top-5" color="gray" />
     </div>
   );
 };
@@ -44,12 +44,13 @@ const InputForPhone = React.forwardRef<HTMLInputElement, InputForPhoneProps>(
       <div>
         <Input
           value={value}
+          variant="phone"
           onChange={onChange}
           placeholder="Phone"
           leadIcon={<FiPhone />}
           ref={ref}
           {...rest}
-          className="pl-8"
+          className="pl-[100px]"
         />
       </div>
     );

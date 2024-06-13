@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Checkbox } from "@radix-ui/react-checkbox";
 import {
   DropdownMenu,
@@ -10,8 +11,45 @@ import { RiFilter3Line } from "react-icons/ri";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { NavLink } from "react-router-dom";
+import { useFetchBooks } from "@/hooks/useBookApi";
+import Card from "../Card";
+import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 
 const FavBooks = () => {
+  const { favouriteBookIds } = useFavouriteBooks();
+  const { data: books, error, isLoading } = useFetchBooks();
+
+  const favoriteBookIds = favouriteBookIds;
+
+  const favouriteBooks = books?.items.filter((book: any) =>
+    favoriteBookIds?.includes(book.id)
+  );
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    console.error("Error loading books:", error);
+    return <div>Error loading books</div>;
+  }
+
+  if (!books.items || books.items.length === 0 || books.items == "")  {
+    return (
+      <div className="flex flex-col items-center justify-center mt-20 md:mt-0">
+        <iframe
+          src="https://lottie.host/embed/8866455b-434f-412d-863b-334f6c5c5724/EzyvqFxRUM.json"
+          className="w-full h-32 md:h-96"
+          title="Animation"
+        ></iframe>
+        <p className="mt-3 text-center opacity-50 font-primary">
+          "Discover literary treasures: Explore our curated book lists
+          collection today."
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col w-4/5 h-full px-3 my-5">
       <div className="flex flex-col items-start justify-between w-full gap-2 md:flex-row md:items-center md:gap-5">
@@ -40,7 +78,7 @@ const FavBooks = () => {
           </div>
           <NavLink to="/bookcrafting">
             <Button className="flex gap-2">
-               <p className="text-xs md:text-base">Search</p>
+              <p className="text-xs md:text-base">Search</p>
             </Button>
           </NavLink>
         </div>
@@ -58,15 +96,34 @@ const FavBooks = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center mt-20 md:mt-0">
-        <iframe
-          src="https://lottie.host/embed/8866455b-434f-412d-863b-334f6c5c5724/EzyvqFxRUM.json"
-          className="w-full h-32 md:h-96"
-          title="Animation"
-        ></iframe>
-        <p className="mt-3 text-center opacity-50 font-primary">
-          "Discover literary treasures: Explore our curated book lists collection today."
-        </p>
+      <div className="grid items-center justify-center grid-cols-4 gap-10 mx-20 my-10">
+        {favouriteBooks.map(
+          ({
+            id,
+            title,
+            coverImg,
+            category,
+            user,
+          }: {
+            id: any;
+            title: string;
+            coverImg: string;
+            category: any;
+            user: any;
+          }) => {
+            return (
+              <Card
+                key={id}
+                id={id}
+                title={title}
+                image={coverImg}
+                categorylogo={category?.icon}
+                categorytitle={category?.title}
+                author={user?.name}
+              />
+            );
+          }
+        )}
       </div>
     </div>
   );

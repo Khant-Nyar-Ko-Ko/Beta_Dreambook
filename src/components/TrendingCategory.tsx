@@ -1,52 +1,34 @@
-import digitalmarket from "../assets/images/categories/digitalmarket.png";
-import personaldev from "../assets/images/categories/personaldev.png";
-import timemanagement from "../assets/images/categories/timemanage.png";
-import success from "../assets/images/categories/success.png";
-import productivity from "../assets/images/categories/productivity.png";
-import bussiness from "../assets/images/categories/bussiness.png";
+import { useFetchCategories } from "@/hooks/useCategoryApi";
+import CategoryLoading from "./Loading/CategoryLoading";
 
-const trendingCategories = [
-    {
-      id: 1,
-      title: "Digital Marketing",
-      image: digitalmarket,
-    },
-    {
-      id: 2,
-      title: "Personal Development",
-      image: personaldev,
-    },
-    {
-      id: 3,
-      title: "Time Management",
-      image: timemanagement,
-    },
-    {
-      id: 4,
-      title: "Success",
-      image: success,
-    },
-    {
-      id: 5,
-      title: "Productivity",
-      image: productivity,
-    },
-    {
-      id: 6,
-      title: "Bussiness",
-      image: bussiness,
-    },
-  ];
+
 
 const TrendingCategory = () => {
+
+  const {data : trendingCategory, isLoading, error} = useFetchCategories();
+  // console.log(trendingCategory);
+
+  if (isLoading) {
+    return (<CategoryLoading/>)
+  }
+
+  if (error) {
+    return <div>Error loading books</div>;
+  }
+
+  if (!trendingCategory || trendingCategory.length === 0) {
+    return <div>No popular books available</div>;
+  }
+  
+
   return (
     <>
-    {trendingCategories.map(({id, title, image}) => (
+    {trendingCategory.map(({id, title, icon}) => (
       <div
         key={id}
         className="flex items-center w-[300px] md:w-[370px] gap-10 px-4 py-2 bg-white border rounded cursor-pointer"
       >
-        <img className="w-10 h-10" src={image} alt="" />
+        <img className="w-10 h-10" src={icon} alt="" />
         <p className="text-sm font-semibold ">{title}</p>
       </div>
     ))}

@@ -48,11 +48,16 @@ export type categoryType = {
   priority: string;
 };
 
-export type BookDataType = {
-  title: string;
-  coverImg: File | string;
-  description: string;
-  categoryId: string;
-  status: string;
-  keywords: string[];
-};
+export type  BookDataType = {
+    id: number;
+    title : string,
+    coverImg : File | string,
+    description : string,
+    categoryId : string,
+    status : string,
+    keywords : string[],
+}
+
+export type LibraryBookCardProps = {
+    books?: BookDataType[];
+  }
