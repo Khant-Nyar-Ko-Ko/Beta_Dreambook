@@ -49,7 +49,7 @@ export type categoryType = {
 };
 
 export type  BookDataType = {
-    id: number;
+    id?: number;
     title : string,
     coverImg : File | string,
     description : string,
