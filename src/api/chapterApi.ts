@@ -16,7 +16,7 @@ export const getChapter = async ({ bookId }: { bookId: string }) => {
 
   const result = await response.json();
   if (!response.ok) {
-    throw new Error();
+    throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);
   }
   return result;
 };

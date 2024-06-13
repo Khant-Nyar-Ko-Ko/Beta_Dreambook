@@ -23,6 +23,7 @@ const CheckboxWithText = () => {
           <label
             htmlFor="checkbox"
             className="text-sm font-medium leading-none select-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            defaultChecked
           >
             All
           </label>
