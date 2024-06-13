@@ -141,7 +141,7 @@ import SwitchButton from "./SwitchButton";
 
 import { Input } from "./ui/input";
 import CustomDropdown from "./customDropDown";
-import Toolbar from "./Toolbar";
+// import Toolbar from "./Toolbar";
 import { useState } from "react";
 import TagInput from "./TagForm"; // Corrected import
 import { Button } from "./ui/button";
@@ -210,7 +210,7 @@ const ChildBookdetail: React.FC = () => {
             >
               Content
             </label>
-            <Toolbar />
+            {/* <Toolbar /> */}
           </div>
           <Button variant="default" className="ml-auto">
             Save

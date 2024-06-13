@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import Toolbar from "./Toolbar";
+// import Toolbar from "./Toolbar";
 
 const Chapters = () => {
   return (
@@ -65,7 +65,7 @@ const Chapters = () => {
                   >
                     Content
                   </label>
-                  <Toolbar />
+                  {/* <Toolbar /> */}
                 </div>
               </DrawerDescription>
             </DrawerHeader>
