@@ -34,7 +34,7 @@ const FavBooks = () => {
     return <div>Error loading books</div>;
   }
 
-  if (!books.items || books.items.length === 0) {
+  if (!books.items || books.items.length === 0 || books.items == "")  {
     return (
       <div className="flex flex-col items-center justify-center mt-20 md:mt-0">
         <iframe

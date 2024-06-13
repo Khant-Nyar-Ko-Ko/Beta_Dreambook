@@ -1,4 +1,5 @@
 import { useFetchCategories } from "@/hooks/useCategoryApi";
+import CategoryLoading from "./Loading/CategoryLoading";
 
 
 
@@ -8,7 +9,7 @@ const TrendingCategory = () => {
   // console.log(trendingCategory);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (<CategoryLoading/>)
   }
 
   if (error) {

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { useFetchSingleBook } from "@/hooks/useBookApi";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import authorprofile from "../../assets/images/Author.png";
 import { Input } from "@/components/ui/input";
 // import Card from "@/components/Card";
@@ -10,41 +10,30 @@ import { usePostComment } from "@/hooks/useCommentApi";
 import BackButton from "@/components/BackButton";
 
 const ReadBookPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { bookId } = useParams<{ bookId: any }>();
   // const [book, setBook] = useState<any>(null);
   // const [relateBook, setRelateBook] = useState<any>([]);
   const [comment, setComment] = useState<string>("");
 
-  const {data : singleBook} = useFetchSingleBook(id ?? '');
+  const { data: singleBook } = useFetchSingleBook(bookId ?? "");
   console.log(singleBook);
-  
+
   const { mutate } = usePostComment();
-  
+
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
   };
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutate({ bookId: Number(id), text: comment });
-    setComment('');
+    mutate({ bookId: Number(bookId), text: comment });
+    setComment("");
   };
-
-  useEffect(() => {
-    if (singleBook) {
-      // const selectedBook = books?.items.find(
-      //   (book: any) => book?.id === Number(id)
-      // );
-      // setBook(selectedBook || null);
-
-      
-    }
-  }, [singleBook, id]);
 
   return (
     <div className="flex">
       <div className="  sticky top-[100px] flex flex-col w-4/5 px-[200px] py-5 h-full ">
-       <BackButton/>
+        <BackButton />
         {singleBook && (
           <div className="relative flex justify-between py-3">
             <div className="absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-0 px-20"></div>
@@ -62,7 +51,9 @@ const ReadBookPage = () => {
                     className="w-6 h-6 rounded-full"
                     alt="author"
                   />
-                  <p className="text-sm font-primary">By {singleBook?.user?.name}</p>
+                  <p className="text-sm font-primary">
+                    By {singleBook?.user?.name}
+                  </p>
                 </div>
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-1">
@@ -79,7 +70,9 @@ const ReadBookPage = () => {
                     <p>{singleBook?.keywords}</p>
                   </div>
                 </div>
-                <Button>Start Reading</Button>
+                <NavLink to={`/readchapter/${singleBook.id}`}>
+                  <Button>Start Reading</Button>
+                </NavLink>
               </div>
             </div>
           </div>

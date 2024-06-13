@@ -1,4 +1,4 @@
-import { createBooks, fetchBooks, fetchPaginatedBooks, fetchSingleBook } from "@/api";
+import { createBooks, fetchBooks, fetchPaginatedBooks, fetchPopularBook, fetchSingleBook } from "@/api";
 import { BookDataType } from "@/utils/type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -26,3 +26,10 @@ export const useFetchPaginatedBooks = (page: any) => {
     queryFn: () => fetchPaginatedBooks(page),
   });
 };
+
+export const useFetchPopularBook = () => {
+  return useQuery({
+    queryKey: ['popular'],
+    queryFn: () => fetchPopularBook()
+  })
+}
