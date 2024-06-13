@@ -1,9 +1,15 @@
 /* src/index.css */
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
-@import 'react-phone-number-input/style.css';
-
-
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import "react-phone-number-input/style.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ql-snow {
+  border-radius: 5px;
+}
+
+.ql-container .ql-editor {
+  height: 150px;
+}
