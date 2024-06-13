@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useFetchBooks } from "@/hooks/useBookApi";
+import { useFetchPopularBook } from "@/hooks/useBookApi";
 import Card from "./Card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import CardLoading from "./Loading/CardLoading";
 
 const PopularBookCard = () => {
-  const { data, error, isLoading } = useFetchBooks();
-  const popularBook = data?.items;
-  // console.log(popularBook);
-  
+  const { data: popularBook, error, isLoading } = useFetchPopularBook();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <CardLoading />;
   }
 
   if (error) {

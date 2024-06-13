@@ -45,3 +45,7 @@ export type  BookDataType = {
     status : string,
     keywords : string[],
 }
+
+export type LibraryBookCardProps = {
+    books?: BookDataType[];
+  }

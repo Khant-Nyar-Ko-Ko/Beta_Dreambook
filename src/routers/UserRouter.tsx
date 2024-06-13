@@ -38,11 +38,11 @@ const UserRouter: RouteObject[] = [
         element: <BookCraftingPage />,
       },
       {
-        path: "readbook/:id",
-        element: <ReadBookPage/>
+        path: "readbook/:bookId",
+        element: <ReadBookPage/>,
       },
       {
-        path: "readchapter",
+        path: "readchapter/:bookId",
         element: <ReadChapterPage/>
       },
       {

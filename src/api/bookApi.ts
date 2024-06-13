@@ -33,9 +33,9 @@ export const fetchSingleBook = async ({ id }: { id: any }) => {
   return result;
 };
 
-export const fetchPaginatedBooks = async (pageNumber: number) => {
-  const filterPage = pageNumber ? `page=${pageNumber}` : "";
-  const response: Response = await fetch(`${BaseURL}/books/?${filterPage}`, {
+export const fetchPaginatedBooks = async (currentPage: number) => {
+  const filterPage = currentPage ? `?page=${currentPage}` : "";
+  const response: Response = await fetch(`${BaseURL}/books${filterPage}`, {
     method: "GET",
     mode: "cors",
     redirect: "follow",
@@ -49,6 +49,20 @@ export const fetchPaginatedBooks = async (pageNumber: number) => {
 
   return result;
 };
+
+export const fetchPopularBook = async () => {
+  const response : Response = await fetch(`${BaseURL}/books/popular/popular`,{
+    method: 'GET',
+    mode: "cors",
+    redirect: "follow"
+  })
+
+  const result = await response.json();
+  if(!response.ok){
+    throw new Error
+  }
+  return result
+}
 
 export const createBooks = async (
   data: BookDataType

@@ -20,13 +20,17 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useFetchPaginatedBooks } from "@/hooks/useBookApi";
 import { useEffect, useState } from "react";
+import { useFetchBooks, useFetchPaginatedBooks } from "@/hooks/useBookApi";
 import { useSearchParams } from "react-router-dom";
+
 
 const LibraryPage = () => {
   const itemsPerPage = 12;
 
+  const {data : allbooks} = useFetchBooks();
+  console.log(allbooks?.meta?.itemsPerPage);
+  
   const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
 
   const pageParam = searchParams.get("page");
@@ -64,6 +68,13 @@ const LibraryPage = () => {
   if (error) {
     return <div>Error loading books</div>;
   }
+  // const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
+  // console.log(searchParams);
+  
+  // const {data : paginatedBooks} = useFetchPaginatedBooks();
+  // const [books, setBooks] = useState([]);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [itemsPerPage, setItemsPage] = useState(12);
 
   return (
     <div>
@@ -102,12 +113,9 @@ const LibraryPage = () => {
                     <p>Sort by default</p>
                     <IoIosArrowDown />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent>
+                  <DropdownMenuContent className="bg-white ">
                     <DropdownMenuItem>
-                      <Checkbox /> <p className="px-2">Sort by random</p>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Checkbox /> <p className="px-2">Sort by latest</p>
+                      <Checkbox checked /> <p className="px-2">Sort by latest</p>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <Checkbox /> <p className="px-2">Sort by A-Z</p>

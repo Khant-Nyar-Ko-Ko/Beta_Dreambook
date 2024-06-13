@@ -1,9 +1,10 @@
 import { signUpUser, signInUser, updateUser } from "./authApi";
 import { fetchCategories } from "./categoryApi";
-import { fetchBooks, fetchPaginatedBooks, createBooks, fetchSingleBook } from "./bookApi";
+import { fetchBooks, fetchPaginatedBooks, createBooks, fetchSingleBook, fetchPopularBook } from "./bookApi";
 import { addFavourite, fetchFavourite, removeFavourite } from "../api/favouriteApi";
 import { selectCategory } from "../api/selectCategoryApi";
 import { postComment } from "./commentApi";
+import {getChapter} from "./chapterApi";
 
 export {
   signUpUser,
@@ -18,5 +19,7 @@ export {
   fetchFavourite,
   selectCategory,
   postComment,
-  removeFavourite
+  removeFavourite,
+  fetchPopularBook,
+  getChapter
 };
