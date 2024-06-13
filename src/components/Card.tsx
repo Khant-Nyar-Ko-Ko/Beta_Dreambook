@@ -1,6 +1,7 @@
 import React from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline, IoHeart } from "react-icons/io5";
+import { TiEdit } from "react-icons/ti";
 import authorprofile from "../assets/images/Author.png";
 import { NavLink } from "react-router-dom";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
@@ -39,7 +40,7 @@ const Card: React.FC<CardProps> = ({
       className=" flex flex-col w-[230px] gap-5 h-[260px] pb-3 bg-white border border-slate-100 rounded"
     >
       <div className="relative flex justify-center px-10 py-3 mx-3 mt-3 overflow-hidden bg-slate-200 group">
-        <div className="absolute flex flex-col gap-3 duration-200 transform translate-x-10 group-hover:translate-x-0 right-3 top-10">
+        <div className="absolute flex flex-col gap-3 duration-200 transform translate-x-10 group-hover:translate-x-0 right-3 top-5">
           {favouriteBookIds.includes(id) ? (
             <button
               onClick={() => handleRemoveFavouriteBook(id)}
@@ -61,6 +62,9 @@ const Card: React.FC<CardProps> = ({
               <IoEyeOutline />
             </button>
           </NavLink>
+          <button className="p-1 bg-white rounded-full">
+          <TiEdit />
+            </button>
         </div>
         <img
           src={image}
