@@ -121,7 +121,7 @@ console.log(signinMutation.isError);
               </div>
               <div className="flex justify-center w-full">
                 <Button type="submit" className=" w-[300px] md:w-[350px]">
-                  {signinMutation.isPending ? <Loading/> : "Login"}
+                  {signinMutation.isPending ? <Loading variant="white"/> : "Login"}
                 </Button>
               </div>
             </form>
