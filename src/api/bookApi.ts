@@ -2,8 +2,9 @@ import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 import { BookDataType } from "@/utils/type";
 
-export const fetchBooks = async () => {
-  const response: Response = await fetch(`${BaseURL}/books`, {
+export const fetchBooks = async (page? : number) => {
+  const pageQuery = page ? `?page=${page}` : '';
+  const response: Response = await fetch(`${BaseURL}/books${pageQuery}`, {
     method: "GET",
     mode: "cors",
     redirect: "follow",
@@ -30,23 +31,6 @@ export const fetchSingleBook = async ({ id }: { id: any }) => {
   if (!response.ok) {
     throw new Error();
   }
-  return result;
-};
-
-export const fetchPaginatedBooks = async (currentPage: number) => {
-  const filterPage = currentPage ? `?page=${currentPage}` : "";
-  const response: Response = await fetch(`${BaseURL}/books${filterPage}`, {
-    method: "GET",
-    mode: "cors",
-    redirect: "follow",
-  });
-
-  const result = response.json();
-
-  if (!response.ok) {
-    throw new Error();
-  }
-
   return result;
 };
 
