@@ -176,7 +176,7 @@ const RegisterPage = () => {
                     signupMutation.isPending
                   }
                 >
-                  {signupMutation.isPending ? <Loading /> : "Create an account"}
+                  {signupMutation.isPending ? <Loading variant="white"/> : "Create an account"}
                 </Button>
               </div>
             </form>
