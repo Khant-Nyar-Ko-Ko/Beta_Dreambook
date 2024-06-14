@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import LibCategory from "@/components/librarycomponents/LibCategory";
 import libraryBg from "../../assets/images/library/librarybg.png";
 import { RiFilter3Line } from "react-icons/ri";
@@ -10,71 +11,39 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import LibraryBookCard from "@/components/librarycomponents/LibraryBookCard";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import { useEffect, useState } from "react";
-import { useFetchBooks, useFetchPaginatedBooks } from "@/hooks/useBookApi";
 import { useSearchParams } from "react-router-dom";
-
+import { useFetchBooks } from "@/hooks/useBookApi";
+import Loading from "@/components/Loading";
+import LibraryBookCard from "@/components/librarycomponents/LibraryBookCard";
+import Paginate from "react-paginate";
 
 const LibraryPage = () => {
-  const itemsPerPage = 12;
-
-  const {data : allbooks} = useFetchBooks();
-  console.log(allbooks?.meta?.itemsPerPage);
-  
   const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
+  const currentPage = parseInt(searchParams.get("page") || "1");
 
-  const pageParam = searchParams.get("page");
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [currentPage, setCurrentPage] = useState<any>(pageParam);
-  const page = Number(pageParam);
-
-  const { data, error, isLoading } = useFetchPaginatedBooks(page);
+  const { data, isLoading, error } = useFetchBooks(currentPage);
   const books = data?.items;
-  const totalPages = data?.meta?.totalPages || 1;
+  console.log(data?.meta?.currentPage);
+  const pageCount = data?.meta?.totalPages;
 
-  useEffect(() => {
-    setCurrentPage(pageParam);
-  }, [pageParam]);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handlePageChange = (page: any) => {
-    setSearchParams({ page: page.toString() });
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setSearchParams({ page: (selectedItem.selected + 1).toString() });
   };
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, books?.length || 0);
-  const paginatedBooks = books ? books.slice(startIndex, endIndex) : [];
-
-  if (currentPage === totalPages && endIndex < books?.length) {
-    const remainingBooks = books.length - endIndex;
-    const additionalBooks = books.slice(endIndex, endIndex + remainingBooks);
-    paginatedBooks.push(...additionalBooks);
-  }
-
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading variant="blue" />;
   }
 
   if (error) {
-    return <div>Error loading books</div>;
+    return (
+      <div className="text-center">
+        <p>Failed to load the books. Please try again later.</p>
+        <button onClick={() => window.location.reload()} className="btn-retry">
+          Retry
+        </button>
+      </div>
+    );
   }
-  // const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
-  // console.log(searchParams);
-  
-  // const {data : paginatedBooks} = useFetchPaginatedBooks();
-  // const [books, setBooks] = useState([]);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [itemsPerPage, setItemsPage] = useState(12);
 
   return (
     <div>
@@ -115,7 +84,8 @@ const LibraryPage = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="bg-white ">
                     <DropdownMenuItem>
-                      <Checkbox checked /> <p className="px-2">Sort by latest</p>
+                      <Checkbox checked />{" "}
+                      <p className="px-2">Sort by latest</p>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <Checkbox /> <p className="px-2">Sort by A-Z</p>
@@ -138,48 +108,23 @@ const LibraryPage = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-6 py-5 mx-10 my-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mx-4">
-            <LibraryBookCard books={paginatedBooks} />
+            <LibraryBookCard books={books} />
           </div>
-          <div>
-            <Pagination>
-              <PaginationContent className="flex items-center h-10 gap-3 w-[300px] my-5">
-                <PaginationItem>
-                  <PaginationPrevious
-                    className="text-center text-white rounded-full bg-default"
-                    href="#"
-                    onClick={() =>
-                      handlePageChange(Math.max(currentPage - 1, 1))
-                    }
-                  />
-                </PaginationItem>
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <PaginationItem key={i}>
-                    <PaginationLink
-                      className={`text-black border ${
-                        currentPage === i + 1 ? "active:border-default" : ""
-                      }`}
-                      href="#"
-                      onClick={() => handlePageChange(i + 1)}
-                    >
-                      {i + 1}
-                    </PaginationLink>
-                  </PaginationItem>
-                ))}
-                <PaginationItem>
-                  <PaginationEllipsis className="text-black" />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext
-                    className="text-center text-white rounded-full bg-default"
-                    href="#"
-                    onClick={() =>
-                      handlePageChange(Math.min(currentPage + 1, totalPages))
-                    }
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </div>
+          <Paginate
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange={handlePageChange}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel="< prev"
+            renderOnZeroPageCount={null}
+            containerClassName="flex list-none justify-center p-4"
+            pageLinkClassName="px-3 py-1 border rounded hover:bg-default hover:text-white transition-colors duration-200"
+            previousLinkClassName="px-3 py-1 border rounded hover:bg-default hover:text-white transition-colors duration-200"
+            nextLinkClassName="px-3 py-1 border rounded hover:bg-default hover:text-white transition-colors duration-200"
+            breakLinkClassName="px-3 py-1 border rounded hover:bg-default hover:text-white transition-colors duration-200"
+            activeLinkClassName="bg-default text-white px-3 py-1 border rounded"
+          />
         </div>
       </div>
     </div>

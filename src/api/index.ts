@@ -1,10 +1,19 @@
 import { signUpUser, signInUser, updateUser } from "./authApi";
 import { fetchCategories } from "./categoryApi";
-import { fetchBooks, fetchPaginatedBooks, createBooks, fetchSingleBook, fetchPopularBook } from "./bookApi";
-import { addFavourite, fetchFavourite, removeFavourite } from "../api/favouriteApi";
+import {
+  fetchBooks,
+  createBooks,
+  fetchSingleBook,
+  fetchPopularBook,
+} from "./bookApi";
+import {
+  addFavourite,
+  fetchFavourite,
+  removeFavourite,
+} from "../api/favouriteApi";
 import { selectCategory } from "../api/selectCategoryApi";
 import { postComment } from "./commentApi";
-import {getChapter} from "./chapterApi";
+import { getChapter } from "./chapterApi";
 
 export {
   signUpUser,
@@ -13,7 +22,6 @@ export {
   fetchCategories,
   fetchBooks,
   fetchSingleBook,
-  fetchPaginatedBooks,
   createBooks,
   addFavourite,
   fetchFavourite,
@@ -21,5 +29,5 @@ export {
   postComment,
   removeFavourite,
   fetchPopularBook,
-  getChapter
+  getChapter,
 };
