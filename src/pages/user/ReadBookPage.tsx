@@ -8,18 +8,17 @@ import { Input } from "@/components/ui/input";
 // import Card from "@/components/Card";
 import { usePostComment } from "@/hooks/useCommentApi";
 import BackButton from "@/components/BackButton";
+import ReadComment from "@/components/readchapters/ReadComment";
 
 const ReadBookPage = () => {
   const { bookId } = useParams<{ bookId: any }>();
-  console.log("ReadBookPage - Book ID:", bookId);
-  // const [book, setBook] = useState<any>(null);
-  // const [relateBook, setRelateBook] = useState<any>([]);
   const [comment, setComment] = useState<string>("");
 
   const { data: singleBook } = useFetchSingleBook(bookId ?? "");
-  console.log(bookId);
 
   const { mutate } = usePostComment();
+
+  
 
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -92,40 +91,10 @@ const ReadBookPage = () => {
             </Button>
           </form>
         </div>
+        <ReadComment bookId={bookId}/>
       </div>
       <div className="flex flex-col w-1/5 gap-3 overflow-scroll border-l-2">
         <p className="px-5 py-5 font-semibold font-primary">Related Books</p>
-        {/* <div className="flex flex-col gap-5 px-5">
-          {relateBook.map(
-            ({
-              id,
-              title,
-              coverImg,
-              category,
-              user,
-            }: {
-              id: any;
-              title: string;
-              coverImg: string;
-              category: any;
-              user: any;
-            }) => {
-              const { name } = user;
-
-              return (
-                <Card
-                  key={id}
-                  id={id}
-                  title={title}
-                  image={coverImg}
-                  categorylogo={category?.icon}
-                  categorytitle={category?.title}
-                  author={name}
-                />
-              );
-            }
-          )}
-        </div> */}
       </div>
     </div>
   );

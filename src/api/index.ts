@@ -12,7 +12,7 @@ import {
   removeFavourite,
 } from "../api/favouriteApi";
 import { selectCategory } from "../api/selectCategoryApi";
-import { postComment } from "./commentApi";
+import { postComment, getComment } from "./commentApi";
 import { getChapter } from "./chapterApi";
 
 export {
@@ -30,4 +30,5 @@ export {
   removeFavourite,
   fetchPopularBook,
   getChapter,
+  getComment,
 };
