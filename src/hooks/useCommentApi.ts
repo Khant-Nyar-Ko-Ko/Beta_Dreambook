@@ -1,5 +1,6 @@
-import { postComment } from "@/api";
-import { useMutation } from "@tanstack/react-query";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { getComment, postComment } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const usePostComment = () => {
   return useMutation({
@@ -7,3 +8,8 @@ export const usePostComment = () => {
       postComment({ bookId, text }),
   });
 };
+
+export const useGetComment = (bookId : any) => useQuery({
+  queryKey: ['comment', bookId],
+  queryFn: () => getComment({bookId})
+})
