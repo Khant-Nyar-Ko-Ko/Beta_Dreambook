@@ -34,6 +34,8 @@ const Card: React.FC<CardProps> = ({
     removeFavouriteBook(id);
   };
 
+  console.log("Card Component - Book ID:", id);
+
   return (
     <div
       key={id}

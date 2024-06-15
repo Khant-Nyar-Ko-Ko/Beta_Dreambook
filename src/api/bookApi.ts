@@ -21,6 +21,11 @@ export const fetchBooks = async (page? : number) => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fetchSingleBook = async ({ id }: { id: any }) => {
+  console.log("fetchSingleBook - Received ID:", id); // Debug to see the ID
+  if (!id) {
+    console.error('Invalid book ID');
+    throw new Error('Invalid book ID');
+  }
   const response: Response = await fetch(`${BaseURL}/books/${id}`, {
     method: "GET",
     mode: "cors",
@@ -29,7 +34,8 @@ export const fetchSingleBook = async ({ id }: { id: any }) => {
 
   const result = await response.json();
   if (!response.ok) {
-    throw new Error();
+    console.error('HTTP error when fetching book:', response.statusText);
+    throw new Error(response.statusText);
   }
   return result;
 };

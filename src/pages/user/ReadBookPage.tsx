@@ -11,12 +11,13 @@ import BackButton from "@/components/BackButton";
 
 const ReadBookPage = () => {
   const { bookId } = useParams<{ bookId: any }>();
+  console.log("ReadBookPage - Book ID:", bookId);
   // const [book, setBook] = useState<any>(null);
   // const [relateBook, setRelateBook] = useState<any>([]);
   const [comment, setComment] = useState<string>("");
 
   const { data: singleBook } = useFetchSingleBook(bookId ?? "");
-  console.log(singleBook);
+  console.log(bookId);
 
   const { mutate } = usePostComment();
 
