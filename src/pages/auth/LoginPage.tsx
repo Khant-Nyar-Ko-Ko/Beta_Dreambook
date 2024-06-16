@@ -14,8 +14,8 @@ import Loading from "@/components/Loading";
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signinData, setSigninData] = useState({
-    email: "walterwhite@gmail.com",
-    password: "asdffdsa",
+    email: "newstudent@gmail.com",
+    password: "qwerty",
   });
 
   const togglePasswordVisibility = () => {

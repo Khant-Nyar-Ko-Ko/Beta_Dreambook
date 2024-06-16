@@ -78,6 +78,7 @@ export const updateUser = async ({ data }: { data: userDataType }) => {
   if (data.name) formData.append("name", data.name);
   if (data.profileImg) formData.append("profileImg", data.profileImg);
   if (data.gender) formData.append("gender", data.gender);
+  if(data.password) formData.append("password",data.password)
 
   const response: Response = await fetch(`${BaseURL}/users`, {
     headers: {
