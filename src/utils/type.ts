@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type signupDataType = {
   email: string;
   password: string;
@@ -15,6 +16,7 @@ export type userDataType = {
   name: string | "";
   profileImg: string | "";
   gender: string | "";
+  password: string
 };
 
 export type User = {
