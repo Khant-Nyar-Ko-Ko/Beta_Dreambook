@@ -16,18 +16,41 @@ import { useFetchBooks } from "@/hooks/useBookApi";
 import Loading from "@/components/Loading";
 import LibraryBookCard from "@/components/librarycomponents/LibraryBookCard";
 import Paginate from "react-paginate";
+import { useEffect, useState } from "react";
 
 const LibraryPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
+  const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1");
+  const [searchInput, setSearchInput] = useState(
+    searchParams.get("title") || ""
+  );
+  const [searchTitle, setSearchTitle] = useState(
+    searchParams.get("title") || ""
+  );
 
-  const { data, isLoading, error } = useFetchBooks(currentPage);
+  useEffect(() => {
+    setSearchParams({ page: currentPage.toString(), title: searchTitle });
+  }, [searchTitle, currentPage, setSearchParams]);
+
+  const { data, isLoading, error } = useFetchBooks(currentPage, searchTitle);
   const books = data?.items;
   console.log(data?.meta?.currentPage);
   const pageCount = data?.meta?.totalPages;
 
   const handlePageChange = (selectedItem: { selected: number }) => {
-    setSearchParams({ page: (selectedItem.selected + 1).toString() });
+    setSearchParams((params) => ({
+      ...params,
+      page: (selectedItem.selected + 1).toString(),
+    }));
+  };
+
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSearchTitle(searchInput);
   };
 
   if (isLoading) {
@@ -94,17 +117,22 @@ const LibraryPage = () => {
                 </DropdownMenu>
               </div>
             </div>
-            <div className="relative">
-              <IoIosSearch
-                className="absolute left-2 top-2 md:top-[10px] text-[16px] md:text-[24px]"
-                color="gray"
-              />
-              <Input
-                type="search"
-                className="pl-7 md:pl-12"
-                placeholder="Search"
-              />
-            </div>
+            <form onSubmit={handleSearchSubmit}>
+              <div className="relative">
+                <IoIosSearch
+                  className="absolute left-2 top-2 md:top-[10px] text-[16px] md:text-[24px]"
+                  color="gray"
+                />
+                <Input
+                  type="search"
+                  className="pl-7 md:pl-12"
+                  placeholder="Search"
+                  value={searchInput}
+                  onChange={handleSearchInput}
+                  aria-label="Search books"
+                />
+              </div>
+            </form>
           </div>
 
           <div className="grid grid-cols-1 gap-6 py-5 mx-10 my-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mx-4">
