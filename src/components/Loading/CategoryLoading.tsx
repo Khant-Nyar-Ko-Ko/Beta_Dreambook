@@ -4,7 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 
 const CategoryLoading = () => {
   return (
-    <div className="mx-20 ">
+    <div className=" ms-[150px] ">
       <Grid container wrap="nowrap">
         {Array.from({ length: 3 }, (_, i) => (
           <div key={i}>
