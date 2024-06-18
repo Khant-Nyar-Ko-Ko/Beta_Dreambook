@@ -8,9 +8,9 @@ export const useCreateBook = () => {
   });
 };
 
-export const useFetchBooks = (page? : number, title? : string) => useQuery({
-  queryKey: ['books', page, title],
-  queryFn: () => fetchBooks(page,title),
+export const useFetchBooks = (page? : number, title? : string, categoryId? : string) => useQuery({
+  queryKey: ['books', page, title, categoryId],
+  queryFn: () => fetchBooks(page,title, categoryId),
   staleTime: 5 * 60 * 1000,
 });
 
