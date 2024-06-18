@@ -63,3 +63,8 @@ export type  BookDataType = {
 export type LibraryBookCardProps = {
     books?: BookDataType[];
   }
+
+  export type CategoryContextType = {
+    selectedCategoryId: string | null;  
+    setCategory: (categoryId: string | null) => void;
+  };

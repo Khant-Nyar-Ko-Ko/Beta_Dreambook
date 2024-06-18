@@ -17,6 +17,7 @@ import Loading from "@/components/Loading";
 import LibraryBookCard from "@/components/librarycomponents/LibraryBookCard";
 import Paginate from "react-paginate";
 import { useEffect, useState } from "react";
+import { useCategory } from "@/contexts/CategoryContext";
 
 const LibraryPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,10 +30,15 @@ const LibraryPage = () => {
   );
 
   useEffect(() => {
-    setSearchParams({ page: currentPage.toString(), title: searchTitle });
+    const params = new URLSearchParams({ page: currentPage.toString() });
+    if (searchTitle) {
+      params.set("title", searchTitle);
+    }
+    setSearchParams(params);
   }, [searchTitle, currentPage, setSearchParams]);
-
-  const { data, isLoading, error } = useFetchBooks(currentPage, searchTitle);
+  const {selectedCategoryId} = useCategory();
+  console.log("Selected Category ID:", selectedCategoryId);
+  const { data, isLoading, error } = useFetchBooks(currentPage, searchTitle, selectedCategoryId ?? undefined);
   const books = data?.items;
   console.log(data?.meta?.currentPage);
   const pageCount = data?.meta?.totalPages;
@@ -160,3 +166,4 @@ const LibraryPage = () => {
 };
 
 export default LibraryPage;
+ 

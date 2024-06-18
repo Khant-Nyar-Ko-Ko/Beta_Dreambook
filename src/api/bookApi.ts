@@ -2,8 +2,7 @@ import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 import { BookDataType } from "@/utils/type";
 
-export const fetchBooks = async (page?: number, title?: string) => {
-  const token = getToken();
+export const fetchBooks = async (page?: number, title?: string, categoryId? : string) => {
   let queryString = "";
   if (page) {
     queryString += `?page=${page}`;
@@ -12,10 +11,11 @@ export const fetchBooks = async (page?: number, title?: string) => {
     queryString +=
       (queryString ? "&" : "?") + `title=${encodeURIComponent(title)}`;
   }
+  if(categoryId){
+    queryString += 
+    (queryString ? "&" : "?") + `categoryId=${categoryId}`
+  }
   const response: Response = await fetch(`${BaseURL}/books${queryString}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
     method: "GET",
     mode: "cors",
     redirect: "follow",
@@ -37,7 +37,7 @@ export const fetchSingleBook = async ({ id }: { id: any }) => {
     console.error("Invalid book ID");
     throw new Error("Invalid book ID");
   }
-  const response: Response = await fetch(`${BaseURL}/books/${id}`, {
+  const response: Response = await fetch(`${BaseURL}/books/searchBook/${id}`, {
     method: "GET",
     mode: "cors",
     redirect: "follow",
