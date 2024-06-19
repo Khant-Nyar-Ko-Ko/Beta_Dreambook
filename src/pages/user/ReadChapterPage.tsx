@@ -56,7 +56,7 @@ const ReadChapterPage = () => {
 
   return (
     <div className="flex">
-      <div className="flex flex-col w-1/5 h-[700px] gap-4 px-10 py-5 border-r-2">
+      <div className=" hidden md:flex flex-col w-1/5 h-[700px] gap-4 px-10 py-5 border-r-2">
         <BackButton />
         <p className="text-xl font-semibold">Chapters</p>
         {chapters.map((chapter, index) => (
@@ -71,11 +71,11 @@ const ReadChapterPage = () => {
           </button>
         ))}
       </div>
-      <div className="w-4/5 ">
+      <div className="w-screen md:w-4/5">
         <div className="flex flex-col h-[600px] gap-5 px-20 py-10 overflow-scroll">
           {selectedChapter && (
             <>
-              <h4 className="text-2xl font-semibold text-default">
+              <h4 className="text-2xl font-semibold text-default"> 
                 {selectedChapter.title}
               </h4>
               <p className="overflow-auto text-lg text-justify">
