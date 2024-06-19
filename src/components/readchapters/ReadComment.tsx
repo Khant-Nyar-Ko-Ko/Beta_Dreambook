@@ -34,12 +34,12 @@ const ReadComment = ({ bookId }: { bookId: any }) => {
           <div className="flex flex-col items-start gap-2">
             <div>
               <p className="text-lg font-primary">{comment?.user?.name}</p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 font-primary">
                 {" "}
                 {comment ? formatDate(comment.updatedAt) : "No date"}
               </p>
             </div>
-            <p>{comment.text} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint voluptatibus ipsum vel. Vel incidunt quidem aperiam tempora omnis! Amet repellendus error vero itaque debitis sequi ex, praesentium corrupti repellat totam. </p>
+            <p className="text-xs md:text-base font-primary">{comment.text} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint voluptatibus ipsum vel. Vel incidunt quidem aperiam tempora omnis! Amet repellendus error vero itaque debitis sequi ex, praesentium corrupti repellat totam. </p>
             <Button variant="white" size="sm">Reply</Button>
           </div>
         </div>
