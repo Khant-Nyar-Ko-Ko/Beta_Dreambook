@@ -48,6 +48,7 @@ export type categoryType = {
   title: string;
   icon: string;
   priority: string;
+  filter: (callbackfn: (value: categoryType, index: number, array: categoryType[]) => boolean) => categoryType[];
 };
 
 export type  BookDataType = {

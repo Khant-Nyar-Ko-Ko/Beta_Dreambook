@@ -56,7 +56,7 @@ export const fetchSingleBook = async ({ id }: { id: any }) => {
 };
 
 export const fetchPopularBook = async () => {
-  const response: Response = await fetch(`${BaseURL}/books/popular/popular`, {
+  const response: Response = await fetch(`${BaseURL}/books/popular`, {
     method: "GET",
     mode: "cors",
     redirect: "follow",
