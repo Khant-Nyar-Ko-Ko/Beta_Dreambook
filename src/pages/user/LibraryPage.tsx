@@ -1,22 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import LibCategory from "@/components/librarycomponents/LibCategory";
-import libraryBg from "../../assets/images/library/librarybg.png";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { RiFilter3Line } from "react-icons/ri";
 import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
+import LibCategory from "@/components/librarycomponents/LibCategory";
+import libraryBg from "../../assets/images/library/librarybg.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { useSearchParams } from "react-router-dom";
 import { useFetchBooks } from "@/hooks/useBookApi";
 import Loading from "@/components/Loading";
 import LibraryBookCard from "@/components/librarycomponents/LibraryBookCard";
 import Paginate from "react-paginate";
-import { useEffect, useState } from "react";
 import { useCategory } from "@/contexts/CategoryContext";
 
 const LibraryPage = () => {
@@ -28,19 +27,23 @@ const LibraryPage = () => {
   const [searchTitle, setSearchTitle] = useState(
     searchParams.get("title") || ""
   );
+  const [sort, setSort] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const params = new URLSearchParams({ page: currentPage.toString() });
-    if (searchTitle) {
-      params.set("title", searchTitle);
-    }
+    if (searchTitle) params.set("title", searchTitle);
+    if (sort) params.set("sort", sort);
     setSearchParams(params);
-  }, [searchTitle, currentPage, setSearchParams]);
-  const {selectedCategoryId} = useCategory();
-  console.log("Selected Category ID:", selectedCategoryId);
-  const { data, isLoading, error } = useFetchBooks(currentPage, searchTitle, selectedCategoryId ?? undefined);
+  }, [searchTitle, currentPage, sort, setSearchParams]);
+
+  const { selectedCategoryId } = useCategory();
+  const { data, isLoading, error } = useFetchBooks(
+    currentPage,
+    searchTitle,
+    selectedCategoryId ?? undefined,
+    sort
+  );
   const books = data?.items;
-  console.log(data?.meta?.currentPage);
   const pageCount = data?.meta?.totalPages;
 
   const handlePageChange = (selectedItem: { selected: number }) => {
@@ -59,11 +62,12 @@ const LibraryPage = () => {
     setSearchTitle(searchInput);
   };
 
-  if (isLoading) {
-    return <Loading variant="blue" />;
-  }
+  const handleSortChange = (sortOrder: string | undefined) => {
+    setSort(sortOrder);
+  };
 
-  if (error) {
+  if (isLoading) return <Loading variant="blue" />;
+  if (error)
     return (
       <div className="text-center">
         <p>Failed to load the books. Please try again later.</p>
@@ -72,7 +76,6 @@ const LibraryPage = () => {
         </button>
       </div>
     );
-  }
 
   return (
     <div>
@@ -83,7 +86,7 @@ const LibraryPage = () => {
           alt="Background"
         />
         <div className="absolute top-0 left-0 z-10 w-full h-full opacity-20 bg-default"></div>
-        <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
+        <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full">
           <div className="flex flex-col items-center justify-center gap-5">
             <h3 className="text-3xl font-semibold text-white font-primary">
               Library
@@ -107,17 +110,20 @@ const LibraryPage = () => {
               </div>
               <div className="px-1 py-2 border rounded md:px-2">
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm">
-                    <p>Sort by default</p>
+                  <DropdownMenuTrigger className="flex items-center w-[150px] justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm">
+                    <p>{sort ? "Sort by A-Z" : "Sort by default"}</p>
                     <IoIosArrowDown />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-white ">
-                    <DropdownMenuItem>
-                      <Checkbox checked />{" "}
-                      <p className="px-2">Sort by latest</p>
+                  <DropdownMenuContent className="bg-white w-[150px]">
+                    <DropdownMenuItem
+                      onClick={() => handleSortChange(undefined)}
+                    >
+                      <input type="radio" checked={sort !== "a-z"} />
+                      <label htmlFor="latest">Sort by latest</label>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Checkbox /> <p className="px-2">Sort by A-Z</p>
+                    <DropdownMenuItem onClick={() => handleSortChange("a-z")}>
+                      <input type="radio" checked={sort === "a-z"} />
+                      <label htmlFor="latest">Sort by A-Z</label>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -166,4 +172,3 @@ const LibraryPage = () => {
 };
 
 export default LibraryPage;
- 

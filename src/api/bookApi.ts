@@ -2,7 +2,7 @@ import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 import { BookDataType } from "@/utils/type";
 
-export const fetchBooks = async (page?: number, title?: string, categoryId? : string) => {
+export const fetchBooks = async (page?: number, title?: string, categoryId? : string, sort? : string) => {
   let queryString = "";
   if (page) {
     queryString += `?page=${page}`;
@@ -14,6 +14,10 @@ export const fetchBooks = async (page?: number, title?: string, categoryId? : st
   if(categoryId){
     queryString += 
     (queryString ? "&" : "?") + `categoryId=${categoryId}`
+  }
+  if(sort){
+    queryString +=
+    (queryString ? "&" : "?") + `sort=${sort}`
   }
   const response: Response = await fetch(`${BaseURL}/books${queryString}`, {
     method: "GET",

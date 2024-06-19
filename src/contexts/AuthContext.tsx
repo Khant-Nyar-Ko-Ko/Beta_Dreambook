@@ -24,29 +24,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     authService.logout();
   };
 
-  // const fetchUserProfile = async (token: string): Promise<User> => {
-  //   const response = await fetch(`${BaseURL}/users/me`, {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  //   if (!response.ok) {
-  //     throw new Error("Failed to fetch");
-  //   }
-  //   return response.json();
-  // };
-
-  // useEffect(() => {
-  //   const storedToken = authService.getToken();
-  //   if (storedToken) {
-  //     setToken(storedToken);
-  //     if (token) {
-  //       fetchUserProfile(token).then(setUser).catch(console.error);
-  //     }
-  //   }
-  // }, [token, user]);
-
-
   return (
     <AuthContext.Provider value={{ token, login, logout }}>
       {children}

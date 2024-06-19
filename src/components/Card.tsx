@@ -15,7 +15,6 @@ interface CardProps {
   author: string;
 }
 
-
 const Card: React.FC<CardProps> = ({
   id,
   title,
@@ -24,8 +23,8 @@ const Card: React.FC<CardProps> = ({
   categorytitle,
   author,
 }) => {
-  const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } = useFavouriteBooks();
-
+  const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } =
+    useFavouriteBooks();
 
   const handleAddFavouriteBook = (id: number) => {
     addFavouriteBook(id);
@@ -33,8 +32,6 @@ const Card: React.FC<CardProps> = ({
   const handleRemoveFavouriteBook = (id: number) => {
     removeFavouriteBook(id);
   };
-
-  console.log("Card Component - Book ID:", id);
 
   return (
     <div
@@ -65,8 +62,8 @@ const Card: React.FC<CardProps> = ({
             </button>
           </NavLink>
           <button className="p-1 bg-white rounded-full">
-          <TiEdit />
-            </button>
+            <TiEdit />
+          </button>
         </div>
         <img
           src={image}
