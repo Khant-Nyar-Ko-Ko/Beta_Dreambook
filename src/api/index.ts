@@ -1,5 +1,5 @@
 import { signUpUser, signInUser, updateUser } from "./authApi";
-import { fetchCategories } from "./categoryApi";
+import { fetchCategories, fetchTrendingCategories } from "./categoryApi";
 import {
   fetchBooks,
   createBooks,
@@ -31,4 +31,5 @@ export {
   fetchPopularBook,
   getChapter,
   getComment,
+  fetchTrendingCategories
 };
