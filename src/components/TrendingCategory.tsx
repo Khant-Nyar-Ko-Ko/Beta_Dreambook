@@ -12,7 +12,7 @@ const TrendingCategory = () => {
   const navigate = useNavigate();
 
   const handleCategoryChange = (categoryId: string) => {
-    setCategory(categoryId);
+    setCategory([categoryId]);
     navigate("/library");
   };
 
