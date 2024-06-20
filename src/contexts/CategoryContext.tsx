@@ -3,7 +3,7 @@ import { CategoryContextType } from "@/utils/type";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 const defaultValue: CategoryContextType = {
-    selectedCategoryId: null,
+    selectedCategories: null,
     setCategory: () => {}, 
   };
 
@@ -12,14 +12,15 @@ const CategoryContext = createContext<CategoryContextType>(defaultValue);
 export const useCategory = () => useContext(CategoryContext);
 
 export const CategoryProvider = ({children}:{children : ReactNode}) => {
-    const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-    const setCategory = (categoryId : string | null) => {
-        setSelectedCategoryId(categoryId)
-    }
+
+    const setCategory = (categoryIds: string[] | null) => {
+        setSelectedCategories(categoryIds || []);
+      }
 
     return (
-        <CategoryContext.Provider value={{selectedCategoryId, setCategory}}>
+        <CategoryContext.Provider value={{selectedCategories, setCategory}}>
             {children}
         </CategoryContext.Provider>
     )
