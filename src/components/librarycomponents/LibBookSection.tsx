@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 import { useCategory } from "@/contexts/CategoryContext"
 import { useFetchBooks } from "@/hooks/useBookApi"
 import Loading from "../Loading"
+import { useDebounce } from 'react-use';
 
 const LibBookSection = () => {
 
@@ -21,6 +22,19 @@ const LibBookSection = () => {
       searchParams.get("title") || ""
     );
     const [sort, setSort] = useState<string | undefined>(undefined);
+    const [debouncedSearchInput, setDebouncedSearchInput] = useState('');
+
+     useDebounce(
+      () => setSearchTitle(debouncedSearchInput),
+      1000,
+      [debouncedSearchInput]
+    );
+    
+    const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchInput(e.target.value);
+      setDebouncedSearchInput(e.target.value);
+    };
+
   
     useEffect(() => {
       const params = new URLSearchParams({ page: currentPage.toString() });
@@ -46,14 +60,7 @@ const LibBookSection = () => {
       }));
     };
   
-    const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchInput(e.target.value);
-    };
-  
-    const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      setSearchTitle(searchInput);
-    };
+
   
     const handleSortChange = (sortOrder: string | undefined) => {
       setSort(sortOrder);
@@ -99,7 +106,7 @@ const LibBookSection = () => {
           </DropdownMenu>
         </div>
       </div>
-      <form onSubmit={handleSearchSubmit}>
+      <div>
         <div className="relative">
           <IoIosSearch
             className="absolute left-2 top-2 md:top-[10px] text-[16px] md:text-[24px]"
@@ -114,7 +121,7 @@ const LibBookSection = () => {
             aria-label="Search books"
           />
         </div>
-      </form>
+      </div>
     </div>
 
     <div className="grid grid-cols-1 gap-6 py-5 mx-10 my-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mx-4">
