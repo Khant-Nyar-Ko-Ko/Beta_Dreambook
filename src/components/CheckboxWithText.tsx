@@ -1,58 +1,62 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCategory } from "@/contexts/CategoryContext";
 import { useFetchCategories } from "@/hooks/useCategoryApi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 
 const CheckboxWithText = () => {
-  const { data: categories, isLoading, error } = useFetchCategories();
-  const { setCategory } = useCategory();
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const { data: categories = [], isLoading, error } = useFetchCategories();
+  const { setCategory }: { setCategory: (categories: number[] | null) => void } = useCategory();
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   useEffect(() => {
-    if (selectedCategory === "all") {
+    if (selectedCategories.length === 0) {
       setCategory(null);
     } else {
-      setCategory(selectedCategory);
+      setCategory(selectedCategories.map(id => parseInt(id, 10)));
     }
-  }, [selectedCategory, setCategory]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategories]);
+
+  const handleCategoryChange = useCallback((categoryId: string) => {
+    setSelectedCategories((prevSelectedCategories) => {
+      if (categoryId === "all") {
+        return prevSelectedCategories.length === 0 || prevSelectedCategories.length < categories.length
+         ? categories.map(({ id }) => id.toString())
+          : [];
+      } else {
+        return prevSelectedCategories.includes(categoryId)
+         ? prevSelectedCategories.filter((id) => id!== categoryId)
+          : [...prevSelectedCategories, categoryId];
+      }
+    });
+  }, [categories]);
+
+  const isAllSelected = useMemo(() => {
+    return categories && categories.length > 0 && selectedCategories.length === categories.length;
+  }, [selectedCategories, categories]);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error loading books</div>;
+    return <div>Error loading categories. Please try again later.</div>;
   }
 
-  if (!categories || categories.length === 0) {
-    return <div>No popular books available</div>;
+  if (categories.length === 0) {
+    return <div>No categories available</div>;
   }
-
-  const handleCategoryChange = (categoryId: string) => {
-    setSelectedCategory(categoryId);
-    if (categoryId === "all") {
-      setCategory(null);
-    } else {
-      setCategory(categoryId);
-    }
-  };
 
   return (
     <>
       <div className="flex space-x-2 items-top">
         <input
-          type="radio"
+          type="checkbox"
           id="all"
           name="category"
-          checked={selectedCategory === "all"}
+          checked={isAllSelected}
           onChange={() => handleCategoryChange("all")}
         />
-        <label
-          htmlFor="all"
-          className={`text-sm font-medium leading-none select-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ${
-            selectedCategory === "all" ? "text-blue-600" : ""
-          }`}
-        >
+        <label htmlFor="all" className="text-sm font-medium leading-none select-none">
           All
         </label>
       </div>
@@ -60,17 +64,12 @@ const CheckboxWithText = () => {
         <div className="flex space-x-2 items-top" key={id}>
           <input
             id={`checkbox-${id}`}
-            type="radio"
+            type="checkbox"
             name="category"
-            checked={selectedCategory === String(id)}
-            onChange={() => handleCategoryChange(String(id))}
+            checked={selectedCategories.includes(id.toString())}
+            onChange={() => handleCategoryChange(id.toString())}
           />
-          <label
-            htmlFor={`checkbox-${id}`}
-            className={`text-sm font-medium leading-none select-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ${
-              selectedCategory === String(id) ? "text-blue-600" : ""
-            }`}
-          >
+          <label htmlFor={`checkbox-${id}`} className="text-sm font-medium leading-none select-none">
             {title}
           </label>
         </div>

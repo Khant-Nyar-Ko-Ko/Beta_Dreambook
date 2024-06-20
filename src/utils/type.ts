@@ -41,7 +41,7 @@ export type categoryType = {
       title: string;
       icon: string;
       priority: string;
-    }) => import("react/jsx-runtime").JSX.Element
+    }) => any
   ): any;
   length: number;
   id: number;
@@ -66,6 +66,6 @@ export type LibraryBookCardProps = {
   }
 
   export type CategoryContextType = {
-    selectedCategoryId: string | null;  
-    setCategory: (categoryId: string | null) => void;
+    selectedCategories: any[] | null;  
+    setCategory: (categoryId: any[] | null) => void;
   };
