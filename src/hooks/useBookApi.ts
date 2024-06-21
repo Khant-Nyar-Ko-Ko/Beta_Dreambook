@@ -1,6 +1,7 @@
 import {
   createBooks,
   fetchBooks,
+  fetchBooksByLoginUser,
   fetchPopularBook,
   fetchSingleBook,
 } from "@/api";
@@ -40,3 +41,11 @@ export const useFetchPopularBook = () => {
     staleTime: 10 * 60 * 1000,
   });
 };
+
+export const useFetchBooksByLoginUser = () => {
+  return useQuery({
+    queryKey: ["loginUserBooks"],
+    queryFn: () => fetchBooksByLoginUser(),
+    staleTime: 10 * 60 * 1000
+  })
+}
