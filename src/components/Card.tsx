@@ -2,7 +2,7 @@ import React from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline, IoHeart } from "react-icons/io5";
 import { TiEdit } from "react-icons/ti";
-import authorprofile from "../assets/images/Author.png";
+import profile from "../assets/images/Author.png";
 import { NavLink } from "react-router-dom";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 
@@ -13,6 +13,8 @@ interface CardProps {
   categorylogo: string;
   categorytitle: string;
   author: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  authorprofile: any
 }
 
 const Card: React.FC<CardProps> = ({
@@ -22,6 +24,7 @@ const Card: React.FC<CardProps> = ({
   categorylogo,
   categorytitle,
   author,
+  authorprofile
 }) => {
   const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } =
     useFavouriteBooks();
@@ -81,11 +84,11 @@ const Card: React.FC<CardProps> = ({
         </div>
         <div className="flex items-center gap-2 ">
           <img
-            src={authorprofile}
+            src={authorprofile === null ? profile : authorprofile}
             className="w-6 h-6 rounded-full "
             alt="author"
           />
-          <p className="text-sm font-primary">By {author}</p>
+          <p className="text-sm font-primary">By {author === null ? "Unknown User" : author}</p>
         </div>
       </div>
     </div>
