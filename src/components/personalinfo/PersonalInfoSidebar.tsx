@@ -45,7 +45,7 @@ const PersonalInfoSidebar = () => {
                 }
               >
                 <IoPersonSharp />
-                <p className="hidden text-black font-primary md:block dark:text-white">
+                <p className="hidden font-primary md:block dark:text-white">
                   {" "}
                   Personal Information
                 </p>

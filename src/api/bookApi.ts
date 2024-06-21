@@ -77,6 +77,27 @@ export const fetchPopularBook = async () => {
   return result;
 };
 
+
+export const fetchBooksByLoginUser = async () => {
+  const token = getToken();
+  const response : Response = await fetch(`${BaseURL}/books/user`,{
+    headers: {
+      Authorization : `Bearer ${token}`,
+      "Content-Type": "application/json",
+      Accept : 'application/json'
+    },
+    method: "GET",
+    mode: "cors",
+    redirect: "follow"
+  })
+
+  const result = await response.json();
+  if(!response.ok){
+    throw new Error();
+  }
+  return result
+}
+
 export const createBooks = async (
   data: BookDataType
 ): Promise<BookDataType> => {

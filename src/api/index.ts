@@ -5,6 +5,7 @@ import {
   createBooks,
   fetchSingleBook,
   fetchPopularBook,
+  fetchBooksByLoginUser
 } from "./bookApi";
 import {
   addFavourite,
@@ -31,5 +32,6 @@ export {
   fetchPopularBook,
   getChapter,
   getComment,
-  fetchTrendingCategories
+  fetchTrendingCategories,
+  fetchBooksByLoginUser
 };
