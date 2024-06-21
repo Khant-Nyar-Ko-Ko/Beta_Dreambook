@@ -20,7 +20,7 @@ const LibraryBookCard = ({books} : {books : any}) => {
           category: any;
           user: any;
         }) => {
-          const { name } = user;
+          const { name, profileImg } = user;
 
           return (
             <Card
@@ -31,6 +31,7 @@ const LibraryBookCard = ({books} : {books : any}) => {
               categorylogo={category?.icon}
               categorytitle={category?.title}
               author={name}
+              authorprofile={profileImg}
             />
           );
         }

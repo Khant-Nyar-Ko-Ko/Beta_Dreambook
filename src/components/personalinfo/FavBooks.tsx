@@ -120,6 +120,7 @@ const FavBooks = () => {
                 categorylogo={category?.icon}
                 categorytitle={category?.title}
                 author={user?.name}
+                authorprofile={user?.profileImg}
               />
             );
           }
