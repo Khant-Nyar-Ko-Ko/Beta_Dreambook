@@ -10,7 +10,7 @@ import LatestBook from "@/components/LatestBook";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="bg-white dark:bg-darkMode1">
       {/* Hero Section */}
       <Hero />
       {/* About Section */}
@@ -19,8 +19,8 @@ const HomePage = () => {
       <PopularBook />
       {/* Trending Category */}
       <div className="flex items-center justify-between w-screen px-10 md:px-[130px]">
-        <h4 className="text-lg md:text-2xl font-primary">Trending Category</h4>
-        <ViewMore />
+        <h4 className="text-lg text-black md:text-2xl font-primary dark:text-white">Trending Category</h4>
+        <ViewMore  />
       </div>
       <div className="flex justify-center mb-10">
         <div className="grid justify-center grid-cols-1 my-5 gap-7 md:grid-cols-3">
@@ -29,14 +29,14 @@ const HomePage = () => {
       </div>
       {/* Latest Book */}
       <div className="flex items-center justify-between w-screen px-10 md:px-[130px]">
-        <h4 className="text-lg md:text-2xl font-primary">Latest Books</h4>
+        <h4 className="text-lg text-black md:text-2xl font-primary dark:text-white">Latest Books</h4>
         <ViewMore />
       </div>
       <LatestBook />
       <NewPublishingBook />
       {/* FAQ */}
-      <div className="my-10">
-        <h4 className="text-lg text-center md:text-2xl font-primary">FAQ</h4>
+      <div className="py-10">
+        <h4 className="text-lg text-center text-black md:text-2xl font-primary dark:text-white">FAQ</h4>
         <Faq />
       </div>
     </div>

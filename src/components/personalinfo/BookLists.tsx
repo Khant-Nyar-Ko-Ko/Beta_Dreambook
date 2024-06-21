@@ -14,7 +14,7 @@ import { NavLink } from "react-router-dom";
 
 const BookLists = () => {
   return (
-    <div className="flex flex-col w-4/5 h-full px-3 my-5">
+    <div className="flex flex-col w-4/5 h-full px-3 py-5 bg-white dark:bg-darkMode1">
       <div className="flex flex-col items-start justify-between w-full gap-2 md:flex-row md:items-center md:gap-5">
         <div className="flex items-center w-full gap-3 md:gap-5 md:w-auto">
           <div className="p-[7px] border rounded">
@@ -47,26 +47,26 @@ const BookLists = () => {
           </NavLink>
         </div>
         <div className="order-2 w-full mt-3 md:order-1 md:mt-0 md:w-auto">
-          <div className="relative">
+          <div className="relative ">
             <IoIosSearch
               className="absolute left-2 top-2 md:top-[10px] text-[16px] md:text-[24px]"
               color="gray"
             />
             <Input
               type="search"
-              className="w-full pl-7 md:pl-12 md:w-auto"
+              className="w-full bg-white pl-7 md:pl-12 md:w-auto dark:bg-darkMode1"
               placeholder="Search"
             />
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center mt-20 md:mt-0">
+      <div className="flex flex-col items-center justify-center mt-20 bg-white md:mt-0 dark:bg-darkMode1">
         <iframe
           src="https://lottie.host/embed/8866455b-434f-412d-863b-334f6c5c5724/EzyvqFxRUM.json"
-          className="w-full h-32 md:h-96"
+          className="w-full h-32 text-black md:h-96 dark:text-white"
           title="Animation"
         ></iframe>
-        <p className="mt-3 text-center opacity-50 font-primary">
+        <p className="mt-3 text-center text-black opacity-50 font-primary dark:text-white">
           "Discover literary treasures: Explore our curated book lists collection today."
         </p>
       </div>

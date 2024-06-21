@@ -18,7 +18,7 @@ const ReadComment = ({ bookId }: { bookId: any }) => {
 
   return (
     <div className="my-10 ">
-      <h4 className="text-xl font-semibold font-primary">
+      <h4 className="text-xl font-semibold text-black font-primary dark:text-white">
         Reader's Review{" "}
         <span className="px-1 mx-2 rounded-full bg-lighter text-default">
           {readComment?.length}
@@ -31,7 +31,7 @@ const ReadComment = ({ bookId }: { bookId: any }) => {
             className="w-12 h-12 rounded-full "
             alt={comment?.user?.name}
           />
-          <div className="flex flex-col items-start gap-2">
+          <div className="flex flex-col items-start gap-2 text-black dark:text-white">
             <div>
               <p className="text-lg font-primary">{comment?.user?.name}</p>
               <p className="text-sm text-gray-600 font-primary">

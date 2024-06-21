@@ -31,7 +31,7 @@ const ReadBookPage = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col bg-white md:flex-row dark:bg-darkMode1">
       <div className="  sticky md:top-[100px] flex flex-col w-full md:w-4/5 px-10 md:px-[200px] py-5 h-full ">
         <BackButton />
         {singleBook && (
@@ -44,19 +44,19 @@ const ReadBookPage = () => {
             />
             <div>
               <div className="flex flex-col justify-center w-[300px] md:w-auto gap-5 ">
-                <h1 className="mt-4 text-2xl font-bold">{singleBook?.title}</h1>
+                <h1 className="mt-4 text-2xl font-bold text-black dark:text-white">{singleBook?.title}</h1>
                 <div className="flex items-center gap-1">
                   <img
                     src={authorprofile}
                     className="w-6 h-6 rounded-full"
                     alt="author"
                   />
-                  <p className="text-sm font-primary">
+                  <p className="text-sm text-black font-primary dark:text-white">
                     By {singleBook?.user?.name}
                   </p>
                 </div>
                 <div className="flex flex-col gap-3">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 text-black dark:text-white">
                     <p> Category : </p>
                     <img
                       src={singleBook?.category?.icon}
@@ -65,7 +65,7 @@ const ReadBookPage = () => {
                     />
                     <p>{singleBook?.category?.title}</p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 text-black dark:text-white">
                     <p> Keywords : </p>
                     <p>{singleBook?.keywords}</p>
                   </div>
@@ -77,15 +77,15 @@ const ReadBookPage = () => {
             </div>
           </div>
         )}
-        <div className="flex flex-col gap-3 my-10">
-          <p className="text-xl font-semibold font-primary">Book Overview</p>
+        <div className="flex flex-col gap-3 my-10 text-black dark:text-white">
+          <p className="text-xl font-semibold font-primary ">Book Overview</p>
           <p>{singleBook?.description}</p>
         </div>
         <hr className="md:w-[900px]" />
-        <div className="flex flex-col gap-5 my-5">
+        <div className="flex flex-col gap-5 my-5 text-black dark:text-white">
           <p>Leave a comment</p>
           <form className="flex flex-col gap-5 " onSubmit={submitHandler}>
-            <Input  className="w-full md:w-[250px]" value={comment} onChange={handleComment} />
+            <Input  className="w-full md:w-[250px] bg-white dark:bg-darkMode1 text-black dark:text-white" value={comment} onChange={handleComment} />
             <Button type="submit" className=" w-full md:w-[250px]">
               Post Comment
             </Button>

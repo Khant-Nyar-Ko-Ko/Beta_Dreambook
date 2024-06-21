@@ -26,7 +26,7 @@ const NumberInput: React.FC<PhoneCustomInputProps> = ({
     <div className="relative">
       <PhoneInput
         international
-        className=" w-[300px] md:w-[350px] bg-white px-4 py-2 rounded"
+        className=" w-[300px] md:w-[350px] bg-white dark:bg-darkMode1 px-4 py-2 rounded"
         defaultCountry="MM"
         value={phoneValue}
         onChange={setPhoneValue}
@@ -50,7 +50,7 @@ const InputForPhone = React.forwardRef<HTMLInputElement, InputForPhoneProps>(
           leadIcon={<FiPhone />}
           ref={ref}
           {...rest}
-          className="pl-[100px]"
+          className="pl-[100px] bg-white dark:bg-darkMode1 text-black dark:text-white"
         />
       </div>
     );

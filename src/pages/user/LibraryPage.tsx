@@ -14,7 +14,7 @@ const LibraryPage = () => {
           className="absolute top-0 left-0 w-full h-full object-fit"
           alt="Background"
         />
-        <div className="absolute top-0 left-0 z-10 w-full h-full opacity-20 bg-default"></div>
+        <div className="absolute top-0 left-0 z-10 w-full h-full opacity-20 bg-default dark:bg-darker"></div>
         <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full">
           <div className="flex flex-col items-center justify-center gap-5">
             <h3 className="text-3xl font-semibold text-white font-primary">
