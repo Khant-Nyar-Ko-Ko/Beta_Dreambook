@@ -33,7 +33,7 @@ const TrendingCategory = () => {
       {trendingCategories.map(({ id, title, icon }: {id : number, title: string, icon: string}) => (
         <div
           key={id}
-          className="flex items-center w-[300px] md:w-[370px] gap-10 px-4 py-2 bg-white border rounded cursor-pointer"
+          className="flex items-center w-[300px] md:w-[370px] gap-10 px-4 py-2 bg-white dark:bg-darkMode1 border-white dark:border-slate-400 text-black dark:text-white border rounded cursor-pointer"
           onClick={() => handleCategoryChange(String(id))}
         >
           <img className="w-10 h-10" src={icon} alt="" />

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 
 const CardLoading = () => {
   return (
-    <Grid container wrap="nowrap">
+    <Grid container wrap="nowrap" className="bg-white  dark:bg-darkMode1">
     {Array.from({ length: 5 }, (_, i) => (
       <Box key={i} sx={{ width: 230, marginRight: 2 }}>
         <Skeleton variant="rectangular" height={150} />

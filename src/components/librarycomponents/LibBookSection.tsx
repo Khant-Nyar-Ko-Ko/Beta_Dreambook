@@ -66,7 +66,7 @@ const LibBookSection = () => {
       setSort(sortOrder);
     };
   
-    if (isLoading) return <div className="flex items-center justify-center w-full"><Loading variant="blue" /></div> ;
+    if (isLoading) return <div className="flex items-center justify-center w-full bg-white dark:bg-darkMode1"><Loading variant="blue" /></div> ;
     if (error)
       return (
         <div className="text-center">
@@ -78,19 +78,19 @@ const LibBookSection = () => {
       );
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-white dark:bg-darkMode1">
     <div className="flex justify-between items-center mx-3 md:mx-[100px] my-5">
       <div className="flex items-center gap-5">
         <div className="p-[7px] border rounded">
-          <RiFilter3Line className="text-[16px] md:text-[24px]" />
+          <RiFilter3Line className="text-[16px] md:text-[24px] text-black dark:text-white" />
         </div>
         <div className="px-1 py-2 border rounded md:px-2">
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center w-[150px] select-none justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm">
+            <DropdownMenuTrigger className="flex items-center w-[150px] select-none justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm text-black dark:text-white">
               <p>{sort ? "Sort by A-Z" : "Sort by default"}</p>
               <IoIosArrowDown />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white w-[150px] flex flex-col gap-3 select-none border px-4 rounded py-2">
+            <DropdownMenuContent className="bg-white dark:bg-darkMode1 w-[150px] flex flex-col gap-3 select-none border px-4 rounded py-2 text-black dark:text-white">
               <DropdownMenuItem
                className="flex items-center gap-2 "
                 onClick={() => handleSortChange(undefined)}
@@ -109,12 +109,12 @@ const LibBookSection = () => {
       <div>
         <div className="relative">
           <IoIosSearch
-            className="absolute left-2 top-2 md:top-[10px] text-[16px] md:text-[24px]"
+            className="absolute left-2 top-2 md:top-[10px] text-[16px] md:text-[24px] text-black dark:text-white"
             color="gray"
           />
           <Input
             type="search"
-            className="pl-7 md:pl-12"
+            className="text-black bg-white pl-7 md:pl-12 dark:text-white dark:bg-darkMode1"
             placeholder="Search"
             value={searchInput}
             onChange={handleSearchInput}
@@ -136,9 +136,9 @@ const LibBookSection = () => {
       previousLabel="< Prev"
       renderOnZeroPageCount={null}
       containerClassName="flex list-none justify-center p-4"
-      pageLinkClassName="px-3 font-primary py-1 border rounded active:bg-default active:text-white transition-colors duration-200"
-      previousLinkClassName="px-3  mr-2 py-1 border rounded active:bg-default active:text-white transition-colors duration-200"
-      nextLinkClassName="px-3 py-1 ml-2 border rounded active:bg-default active:text-white transition-colors duration-200"
+      pageLinkClassName="px-3 font-primary py-1 border rounded active:bg-default active:text-white transition-colors duration-200 text-black dark:text-white"
+      previousLinkClassName="px-3  mr-2 py-1 border rounded active:bg-default active:text-white transition-colors duration-200 text-black dark:text-white"
+      nextLinkClassName="px-3 py-1 ml-2 border rounded active:bg-default active:text-white transition-colors duration-200 text-black dark:text-white"
       breakLinkClassName="px-3 py-1 border rounded active:bg-default active:text-white transition-colors duration-200"
       activeLinkClassName="bg-default text-white px-3 py-1 border rounded"
     />

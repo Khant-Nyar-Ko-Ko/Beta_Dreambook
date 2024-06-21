@@ -35,7 +35,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
           />
           <label
             htmlFor="img"
-            className="px-4 py-2 rounded-lg cursor-pointer text-slate-700 font-primary hover:text-default"
+            className="px-4 py-2 rounded-lg cursor-pointer text-slate-700 dark:text-white font-primary hover:text-default"
           >
             Upload Photo
           </label>
@@ -56,7 +56,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
           />
           <label
             htmlFor="img"
-            className="px-4 py-2 rounded-lg cursor-pointer text-slate-700 font-primary hover:text-default"
+            className="px-4 py-2 rounded-lg cursor-pointer text-slate-700 dark:text-white font-primary hover:text-default"
           >
             Upload Photo
           </label>

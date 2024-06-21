@@ -35,15 +35,15 @@ const CheckboxWithText = () => {
   }, [selectedCategories, categories]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="text-black dark:text-white">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error loading categories. Please try again later.</div>;
+    return <div className="text-black dark:text-white">Error loading categories. Please try again later.</div>;
   }
 
   if (categories.length === 0) {
-    return <div>No categories available</div>;
+    return <div className="text-black dark:text-white">No categories available</div>;
   }
 
   return (
@@ -56,7 +56,7 @@ const CheckboxWithText = () => {
           checked={isAllSelected}
           onChange={() => handleCategoryChange("all")}
         />
-        <label htmlFor="all" className="text-sm font-medium leading-none select-none">
+        <label htmlFor="all" className="text-sm font-medium leading-none text-black select-none dark:text-white">
           All
         </label>
       </div>
@@ -69,7 +69,7 @@ const CheckboxWithText = () => {
             checked={selectedCategories.includes(id.toString())}
             onChange={() => handleCategoryChange(id.toString())}
           />
-          <label htmlFor={`checkbox-${id}`} className="text-sm font-medium leading-none select-none">
+          <label htmlFor={`checkbox-${id}`} className="text-sm font-medium leading-none text-black select-none dark:text-white">
             {title}
           </label>
         </div>

@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: ['class'],
   theme: {
     extend: {
       fontFamily: {
@@ -15,6 +16,9 @@ export default {
         background: "#022557",
         primarybg: "#eeeeee",
         contentsecondary: "#3A7AD5",
+        darkMode1 : "#1F1F1F",
+        darkMode2 : "#3D3D3D",
+        darkMode3 : "#666666"
       },
       keyframes: {
         "accordion-down": {

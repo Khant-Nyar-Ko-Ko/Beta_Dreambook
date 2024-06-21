@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className=" w-screen h-[80px] flex justify-between items-center px-4 md:px-[130px] bg-white shadow sticky top-0 left-0 z-30">
+    <div className=" w-screen h-[80px] flex justify-between items-center px-4 md:px-[130px] bg-white dark:bg-darkMode1 shadow sticky top-0 left-0 z-30">
       <div className="flex items-center gap-2">
         <div className="flex md:hidden">
           <button onClick={toggleMenu} className="text-3xl">
@@ -33,7 +33,7 @@ const Navbar = () => {
             <Button
               variant="menu"
               className={
-                isActive ? "text-white bg-default" : "text-black bg-transparent"
+                isActive ? "text-white bg-default" : "text-black dark:text-white bg-transparent"
               }
             >
               Home
@@ -45,7 +45,7 @@ const Navbar = () => {
             <Button
               variant="menu"
               className={
-                isActive ? "text-white bg-default" : "text-black bg-transparent"
+                isActive ? "text-white bg-default" : "text-black dark:text-white bg-transparent"
               }
             >
               Library
@@ -60,7 +60,7 @@ const Navbar = () => {
                 className={
                   isActive
                     ? "text-white bg-default"
-                    : "text-black bg-transparent"
+                    : "text-black dark:text-white bg-transparent"
                 }
               >
                 Book crafting
@@ -75,7 +75,7 @@ const Navbar = () => {
                 className={
                   isActive
                     ? "text-white bg-default"
-                    : "text-black bg-transparent"
+                    : "text-black dark:text-white bg-transparent"
                 }
               >
                 Book crafting
@@ -90,7 +90,7 @@ const Navbar = () => {
             <Button variant="ghost">
               <div className="flex flex-col items-center gap-1">
                 <FaHeart color="red" size="20" />
-                <p className="text-black font-primary">Fav Books</p>
+                <p className="text-black dark:text-white font-primary">Fav Books</p>
               </div>
             </Button>
           </NavLink>
@@ -130,7 +130,7 @@ const Navbar = () => {
               {({ isActive }) => (
                 <Button
                   variant="menu"
-                  className={isActive ? "text-default" : "text-black"}
+                  className={isActive ? "text-default" : "text-black dark:text-white"}
                 >
                   Home
                 </Button>
@@ -140,7 +140,7 @@ const Navbar = () => {
               {({ isActive }) => (
                 <Button
                   variant="menu"
-                  className={isActive ? "text-default" : "text-black"}
+                  className={isActive ? "text-default" : "text-black dark:text-white"}
                 >
                   Library
                 </Button>
@@ -150,7 +150,7 @@ const Navbar = () => {
               {({ isActive }) => (
                 <Button
                   variant="menu"
-                  className={isActive ? "text-default" : "text-black"}
+                  className={isActive ? "text-default" : "text-black dark:text-white"}
                 >
                   Book crafting
                 </Button>
@@ -165,7 +165,7 @@ const Navbar = () => {
             <Button variant="ghost">
               <div className="flex flex-col items-center gap-1">
                 <FaHeart color="red" size="15" />
-                <p className="text-sm text-black font-primary">Fav Books</p>
+                <p className="text-sm text-black dark:text-white font-primary">Fav Books</p>
               </div>
             </Button>
           </NavLink>

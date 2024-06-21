@@ -25,14 +25,14 @@ const Hero = () => {
         className="absolute z-0 bottom-5 md:bottom-0 right-0 w-[100px] md:w-[200px]"
         alt="bg2"
       />
-      <div className="flex flex-col w-screen h-auto px-5 py-5 md:flex-row md:px-0 bg-primarybg md:py-32">
+      <div className="flex flex-col w-screen h-auto px-5 py-5 md:flex-row md:px-0 bg-primarybg dark:bg-darkMode2 md:py-32">
         <div className="z-10 flex flex-col justify-center w-auto gap-5 md:items-center md:w-1/2">
           <div className="flex flex-col gap-10 px-10 mt-10 md:px-0 md:mt-0">
-            <div className="text-3xl font-semibold md:text-5xl font-primary">
+            <div className="text-3xl font-semibold text-black md:text-5xl font-primary dark:text-white">
               <h2>Discover</h2>
               <h2>Magic of Books</h2>
             </div>
-            <p className=" w-[300px] md:w-[450px] text-sm md:text-base font-primary opacity-60">
+            <p className=" w-[300px] md:w-[450px] text-sm md:text-base font-primary opacity-60 text-black dark:text-white">
               "Unlock worlds, one page at a time: Dive into the stories that
               shape us. Welcome to a sanctuary for book lovers, where words
               ignite passions and journeys never end."
@@ -54,7 +54,7 @@ const Hero = () => {
             src={landing1}
             alt=""
           />
-          <p className="z-10 font-primary">Most Popular Books This Week</p>
+          <p className="z-10 text-black font-primary dark:text-white">Most Popular Books This Week</p>
         </div>
       </div>
     </div>
