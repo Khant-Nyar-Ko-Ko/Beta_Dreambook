@@ -129,17 +129,17 @@ const LibBookSection = () => {
     </div>
     <Paginate
       breakLabel="..."
-      nextLabel="next >"
+      nextLabel="Next >"
       onPageChange={handlePageChange}
       pageRangeDisplayed={5}
       pageCount={pageCount}
-      previousLabel="< prev"
+      previousLabel="< Prev"
       renderOnZeroPageCount={null}
       containerClassName="flex list-none justify-center p-4"
-      pageLinkClassName="px-3 py-1 border rounded hover:bg-default hover:text-white transition-colors duration-200"
-      previousLinkClassName="px-3 py-1 border rounded hover:bg-default hover:text-white transition-colors duration-200"
-      nextLinkClassName="px-3 py-1 border rounded hover:bg-default hover:text-white transition-colors duration-200"
-      breakLinkClassName="px-3 py-1 border rounded hover:bg-default hover:text-white transition-colors duration-200"
+      pageLinkClassName="px-3 font-primary py-1 border rounded active:bg-default active:text-white transition-colors duration-200"
+      previousLinkClassName="px-3  mr-2 py-1 border rounded active:bg-default active:text-white transition-colors duration-200"
+      nextLinkClassName="px-3 py-1 ml-2 border rounded active:bg-default active:text-white transition-colors duration-200"
+      breakLinkClassName="px-3 py-1 border rounded active:bg-default active:text-white transition-colors duration-200"
       activeLinkClassName="bg-default text-white px-3 py-1 border rounded"
     />
   </div>

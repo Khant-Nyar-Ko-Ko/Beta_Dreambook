@@ -48,7 +48,8 @@ const LatestBookCard = () => {
             category: any;
             user: any;
           }) => {
-            const { name } = user;
+            const { name, profileImg } = user;
+            
 
             return (
               <SwiperSlide key={id}>
@@ -60,6 +61,7 @@ const LatestBookCard = () => {
                   categorylogo={category?.icon}
                   categorytitle={category?.title}
                   author={name}
+                  authorprofile={profileImg}
                 />
               </SwiperSlide>
             );
