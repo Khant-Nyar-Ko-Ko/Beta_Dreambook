@@ -10,7 +10,7 @@ import LatestBook from "@/components/LatestBook";
 
 const HomePage = () => {
   return (
-    <div className="bg-white dark:bg-darkMode1">
+    <div className="bg-white select-none dark:bg-darkMode1">
       {/* Hero Section */}
       <Hero />
       {/* About Section */}

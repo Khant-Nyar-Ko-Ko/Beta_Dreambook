@@ -4,7 +4,8 @@ import { getToken } from "@/service/authService";
 
 export const getChapter = async ({ bookId }: { bookId: string }) => {
   const token = getToken();
-  const response: Response = await fetch(`${BaseURL}/chapters/book/${bookId}`, {
+  const queryString = `?bookId=${bookId}`;
+  const response: Response = await fetch(`${BaseURL}/chapters/books${queryString}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

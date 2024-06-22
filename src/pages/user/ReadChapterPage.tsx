@@ -55,10 +55,10 @@ const ReadChapterPage = () => {
   const selectedChapter = chapters[currentChapterIndex];
 
   return (
-    <div className="flex">
-      <div className=" hidden md:flex flex-col w-1/5 h-[700px] gap-4 px-10 py-5 border-r-2">
+    <div className="flex bg-white dark:bg-darkMode1">
+      <div className=" hidden md:flex flex-col w-1/5 h-[700px] gap-4 px-10 py-5 border-r-2 border-white dark:border-slate-700">
         <BackButton />
-        <p className="text-xl font-semibold">Chapters</p>
+        <p className="text-xl font-semibold text-black dark:text-white">Chapters</p>
         {chapters.map((chapter, index) => (
           <button
             key={chapter.id}
@@ -92,7 +92,7 @@ const ReadChapterPage = () => {
           >
             Previous
           </Button>
-          <p>
+          <p className="text-black  dark:text-white">
             {currentChapterIndex + 1}/{chapters.length}
           </p>
           <Button

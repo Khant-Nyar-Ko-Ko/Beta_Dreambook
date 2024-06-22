@@ -9,14 +9,20 @@ import { Input } from "@/components/ui/input";
 import { usePostComment } from "@/hooks/useCommentApi";
 import BackButton from "@/components/BackButton";
 import ReadComment from "@/components/readchapters/ReadComment";
+import RelatedBooks from "@/components/RelatedBooks";
 
 const ReadBookPage = () => {
   const { bookId } = useParams<{ bookId: any }>();
   const [comment, setComment] = useState<string>("");
 
-  const { data: singleBook } = useFetchSingleBook(bookId ?? "");
+  const { data: singleBook, isLoading } = useFetchSingleBook(bookId ?? "");
 
   const { mutate } = usePostComment();
+  if (isLoading || !singleBook) {
+    return <div>Loading...</div>; // or a loading spinner
+  }
+  
+
 
   
 
@@ -32,7 +38,7 @@ const ReadBookPage = () => {
 
   return (
     <div className="flex flex-col bg-white md:flex-row dark:bg-darkMode1">
-      <div className="  sticky md:top-[100px] flex flex-col w-full md:w-4/5 px-10 md:px-[200px] py-5 h-full ">
+      <div className="  sticky md:top-[100px] flex flex-col w-full md:w-4/5 px-10 md:px-[200px] py-5 h-full">
         <BackButton />
         {singleBook && (
           <div className="relative flex flex-col items-center py-3 md:items-start md:justify-between md:flex-row">
@@ -81,7 +87,7 @@ const ReadBookPage = () => {
           <p className="text-xl font-semibold font-primary ">Book Overview</p>
           <p>{singleBook?.description}</p>
         </div>
-        <hr className="md:w-[900px]" />
+        <hr className="md:w-[900px] border-white dark:border-slate-700" />
         <div className="flex flex-col gap-5 my-5 text-black dark:text-white">
           <p>Leave a comment</p>
           <form className="flex flex-col gap-5 " onSubmit={submitHandler}>
@@ -93,9 +99,7 @@ const ReadBookPage = () => {
         </div>
         <ReadComment bookId={bookId}/>
       </div>
-      <div className="flex flex-col w-screen gap-3 overflow-scroll border-l-2 md:w-4/5">
-        <p className="px-5 py-5 font-semibold font-primary">Related Books</p>
-      </div>
+      <RelatedBooks bookId={bookId}/>
     </div>
   );
 };
