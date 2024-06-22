@@ -46,25 +46,25 @@ const Card: React.FC<CardProps> = ({
           {favouriteBookIds.includes(id) ? (
             <button
               onClick={() => handleRemoveFavouriteBook(id)}
-              className="p-1 bg-white rounded-full"
+              className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white"
             >
               <IoHeart className="text-red-500" />
             </button>
           ) : (
             <button
               onClick={() => handleAddFavouriteBook(id)}
-              className="p-1 bg-white rounded-full"
+              className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white"
             >
               <IoMdHeartEmpty />
             </button>
           )}
 
           <NavLink to={`/readbook/${id}`}>
-            <button className="p-1 bg-white rounded-full">
+            <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
               <IoEyeOutline />
             </button>
           </NavLink>
-          <button className="p-1 bg-white rounded-full">
+          <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
             <TiEdit />
           </button>
         </div>

@@ -4,7 +4,6 @@ import { Button } from "../ui/button";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const ReadComment = ({ bookId }: { bookId: any }) => {
   const { data: readComment } = useGetComment(bookId);
-  console.log(readComment);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

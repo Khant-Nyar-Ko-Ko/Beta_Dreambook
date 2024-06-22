@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 import { BookDataType } from "@/utils/type";
@@ -17,9 +18,7 @@ export const fetchBooks = async (
       (queryString ? "&" : "?") + `title=${encodeURIComponent(title)}`;
   }
   if (categoryIds) {
-    const encodedCategoryIds = encodeURIComponent(
-      JSON.stringify(categoryIds)
-    );
+    const encodedCategoryIds = encodeURIComponent(JSON.stringify(categoryIds));
     queryString +=
       (queryString ? "&" : "?") + `categoryIds=${encodedCategoryIds}`;
   }
@@ -42,9 +41,7 @@ export const fetchBooks = async (
   return result;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fetchSingleBook = async ({ id }: { id: any }) => {
-  console.log("fetchSingleBook - Received ID:", id); // Debug to see the ID
   if (!id) {
     console.error("Invalid book ID");
     throw new Error("Invalid book ID");
@@ -57,7 +54,6 @@ export const fetchSingleBook = async ({ id }: { id: any }) => {
 
   const result = await response.json();
   if (!response.ok) {
-    console.error("HTTP error when fetching book:", response.statusText);
     throw new Error(response.statusText);
   }
   return result;
@@ -77,26 +73,43 @@ export const fetchPopularBook = async () => {
   return result;
 };
 
-
 export const fetchBooksByLoginUser = async () => {
   const token = getToken();
-  const response : Response = await fetch(`${BaseURL}/books/user`,{
+  const response: Response = await fetch(`${BaseURL}/books/user`, {
     headers: {
-      Authorization : `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
-      Accept : 'application/json'
+      Accept: "application/json",
     },
     method: "GET",
     mode: "cors",
-    redirect: "follow"
-  })
+    redirect: "follow",
+  });
 
   const result = await response.json();
-  if(!response.ok){
+  if (!response.ok) {
     throw new Error();
   }
-  return result
-}
+  return result;
+};
+
+export const fetchRelatedBooks = async ({ bookId }: { bookId: any }) => {
+  const queryString = `?bookId=${bookId}`;
+  const response: Response = await fetch(
+    `${BaseURL}/books/related${queryString}`,
+    {
+      method: "GET",
+      mode: "cors",
+      redirect: "follow",
+    }
+  );
+
+  const result = await response.json();
+  if (!response.ok) {
+    throw new Error();
+  }
+  return result;
+};
 
 export const createBooks = async (
   data: BookDataType

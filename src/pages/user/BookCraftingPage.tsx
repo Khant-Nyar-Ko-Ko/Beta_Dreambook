@@ -118,7 +118,7 @@ const BookCraftingPage = () => {
   bookCreateMutation.isSuccess && navigator("/bookdetail");
 
   return (
-    <div className="p-[30px]">
+    <div className="p-[30px] select-none">
       <div className="flex items-center mb-10 gap-x-5">
         <button
           className="flex items-center gap-x-2 text-default"

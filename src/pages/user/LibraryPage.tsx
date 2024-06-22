@@ -7,7 +7,7 @@ import LibBookSection from "@/components/librarycomponents/LibBookSection";
 
 const LibraryPage = () => {
   return (
-    <div>
+    <div className="select-none ">
       <div className="relative w-screen h-[340px]">
         <img
           src={libraryBg}

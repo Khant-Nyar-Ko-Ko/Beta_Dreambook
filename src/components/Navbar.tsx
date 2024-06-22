@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className=" w-screen h-[80px] flex justify-between items-center px-4 md:px-[130px] bg-white dark:bg-darkMode1 shadow sticky top-0 left-0 z-30">
+    <div className=" w-screen h-[80px] flex justify-between select-none items-center px-4 md:px-[130px] bg-white dark:bg-darkMode1 shadow sticky top-0 left-0 z-30">
       <div className="flex items-center gap-2">
         <div className="flex md:hidden">
           <button onClick={toggleMenu} className="text-3xl">

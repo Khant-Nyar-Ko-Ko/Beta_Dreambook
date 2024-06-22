@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   createBooks,
   fetchBooks,
   fetchBooksByLoginUser,
   fetchPopularBook,
+  fetchRelatedBooks,
   fetchSingleBook,
 } from "@/api";
 import { BookDataType } from "@/utils/type";
@@ -47,5 +49,12 @@ export const useFetchBooksByLoginUser = () => {
     queryKey: ["loginUserBooks"],
     queryFn: () => fetchBooksByLoginUser(),
     staleTime: 10 * 60 * 1000
+  })
+}
+
+export const useFetchRelatedBooks = (bookId : any) => {
+  return useQuery({
+    queryKey: ["relatedBooks", bookId],
+    queryFn: () => fetchRelatedBooks({bookId})
   })
 }
