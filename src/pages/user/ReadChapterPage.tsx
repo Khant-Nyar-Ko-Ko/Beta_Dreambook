@@ -3,14 +3,22 @@ import { getChapter } from "@/api"; // Ensure this or useGetChapter is used, not
 import BackButton from "@/components/BackButton";
 import Loading from "@/components/Loading";
 import { Button } from "@/components/ui/button";
+import { usePostChapterProgress } from "@/hooks/useChapterProgressApi";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ReadChapterPage = () => {
   const { bookId } = useParams();
   const [chapters, setChapters] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentChapterIndex, setCurrentChapterIndex] = useState<number>(0);
+  const {
+    mutate: chapterProgress,
+    isSuccess,
+    isError,
+    error,
+  } = usePostChapterProgress();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (bookId) {
@@ -20,29 +28,45 @@ const ReadChapterPage = () => {
           setChapters(chaptersData);
           setCurrentChapterIndex(0);
           setLoading(false);
+          chapterProgress({ bookId, chapterProgress: 1 });
         })
         .catch((error) => {
           console.error("Failed to fetch chapters:", error);
           setLoading(false);
         });
     }
-  }, [bookId]);
+  }, [bookId, chapterProgress]);
 
   const handleChapterClick = (index: number) => {
     setCurrentChapterIndex(index);
+    chapterProgress({ bookId, chapterProgress: index + 1 });
   };
 
   const handlePrevChapter = () => {
     if (currentChapterIndex > 0) {
       setCurrentChapterIndex(currentChapterIndex - 1);
+      chapterProgress({ bookId, chapterProgress: currentChapterIndex });
     }
   };
 
   const handleNextChapter = () => {
     if (currentChapterIndex < chapters.length - 1) {
       setCurrentChapterIndex(currentChapterIndex + 1);
+      chapterProgress({ bookId, chapterProgress: currentChapterIndex + 2 });
+      console.log(chapterProgress);
+    } else {
+      chapterProgress({ bookId, chapterProgress: 0 });
+      navigate(`/readbook/${bookId}`);
     }
   };
+
+  if (isSuccess) {
+    console.log("Chapter progress updated successfully");
+  }
+
+  if (isError) {
+    console.error("Failed to update chapter progress:", error);
+  }
 
   if (loading) {
     return (
@@ -58,12 +82,16 @@ const ReadChapterPage = () => {
     <div className="flex bg-white dark:bg-darkMode1">
       <div className=" hidden md:flex flex-col w-1/5 h-[700px] gap-4 px-10 py-5 border-r-2 border-white dark:border-slate-700">
         <BackButton />
-        <p className="text-xl font-semibold text-black dark:text-white">Chapters</p>
-        {chapters.map((chapter, index) => (
+        <p className="text-xl font-semibold text-black dark:text-white">
+          Chapters
+        </p>
+        {chapters.sort((a, b) => a.chapterNum - b.chapterNum).map((chapter, index) => (
           <button
-            key={chapter.id}
-            className={`px-2 text-left rounded font-primary hover:bg-gray-200 ${
-              currentChapterIndex === index ? "text-default" : "text-black"
+            key={index}
+            className={`px-2 text-left duration-300 rounded font-primary hover:bg-gray-200 hover:dark:bg-default ${
+              currentChapterIndex === index
+                ? "text-default hover:dark:text-black"
+                : "text-black dark:text-white "
             }`}
             onClick={() => handleChapterClick(index)}
           >
@@ -75,10 +103,10 @@ const ReadChapterPage = () => {
         <div className="flex flex-col h-[600px] gap-5 px-20 py-10 overflow-scroll">
           {selectedChapter && (
             <>
-              <h4 className="text-2xl font-semibold text-default"> 
+              <h4 className="text-2xl font-semibold text-default">
                 {selectedChapter.title}
               </h4>
-              <p className="overflow-auto text-lg text-justify">
+              <p className="overflow-auto text-lg text-justify text-black dark:text-white">
                 {selectedChapter.content}
               </p>
             </>
@@ -92,13 +120,10 @@ const ReadChapterPage = () => {
           >
             Previous
           </Button>
-          <p className="text-black  dark:text-white">
+          <p className="text-black dark:text-white">
             {currentChapterIndex + 1}/{chapters.length}
           </p>
-          <Button
-            onClick={handleNextChapter}
-            disabled={currentChapterIndex === chapters.length - 1}
-          >
+          <Button onClick={handleNextChapter}>
             {currentChapterIndex == chapters.length - 1 ? " Complete" : "Next"}
           </Button>
         </div>

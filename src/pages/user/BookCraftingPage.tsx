@@ -31,6 +31,7 @@ const BookCraftingPage = () => {
       z.instanceof(File),
       z.string().min(1, "Image is required"),
     ]),
+    bookId: z.string().optional(),
   });
 
   const { data: categories } = useFetchCategories();
@@ -96,8 +97,8 @@ const BookCraftingPage = () => {
   const onSubmit: SubmitHandler<Schema> = (data) => {
     console.log("click");
     console.log(data);
-
-    bookCreateMutation.mutate(data);
+    const bookData = { ...data, bookId: null }; 
+    bookCreateMutation.mutate(bookData);
 
     reset();
   };
