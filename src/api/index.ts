@@ -1,3 +1,4 @@
+import { postChapterProgress, getChapterProgress } from './chapterProgressApi';
 import { signUpUser, signInUser, updateUser } from "./authApi";
 import { fetchCategories, fetchTrendingCategories } from "./categoryApi";
 import {
@@ -35,5 +36,7 @@ export {
   getComment,
   fetchTrendingCategories,
   fetchBooksByLoginUser,
-  fetchRelatedBooks
+  fetchRelatedBooks,
+  postChapterProgress,
+  getChapterProgress
 };
