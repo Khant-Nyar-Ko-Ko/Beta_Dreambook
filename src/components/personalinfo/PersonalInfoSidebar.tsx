@@ -23,7 +23,7 @@ const PersonalInfoSidebar = () => {
   };
 
   return (
-    <div className="w-1/5 max-h-full bg-white border border-white dark:border-slate-700 dark:bg-darkMode1">
+    <div className="w-1/5 h-[765px] md:h-[700px] bg-white border border-white dark:border-slate-700 dark:bg-darkMode1">
       <div className="flex flex-col items-center justify-center gap-10 py-2 my-10 md:py-0 md:my-20 md:gap-14">
         <div className="flex flex-col items-center gap-3 md:flex-row">
           <img
