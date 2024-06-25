@@ -19,7 +19,7 @@ const Navbar = () => {
     <div className=" w-screen h-[80px] flex justify-between select-none items-center px-4 md:px-[130px] bg-white dark:bg-darkMode1 shadow sticky top-0 left-0 z-30">
       <div className="flex items-center gap-2">
         <div className="flex md:hidden">
-          <button onClick={toggleMenu} className="text-3xl">
+          <button onClick={toggleMenu} className="text-3xl text-black dark:text-white">
             <IoMenu />
           </button>
         </div>
@@ -121,9 +121,9 @@ const Navbar = () => {
           isMenuOpen ? "translate-x-0 " : "-translate-x-full"
         } md:hidden z-50`}
       >
-        <div className="h-screen bg-white w-[250px]">
+        <div className="h-screen bg-white dark:bg-darkMode1 w-[250px]">
           <div className="flex flex-col gap-4 p-4">
-            <button onClick={toggleMenu} className="self-end text-3xl">
+            <button onClick={toggleMenu} className="self-end text-3xl text-black dark:text-white">
               <IoClose />
             </button>
             <NavLink to="/home">

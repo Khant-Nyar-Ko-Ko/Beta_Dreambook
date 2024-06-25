@@ -11,7 +11,6 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { IoMoonOutline, IoPersonSharp, IoSunnyOutline } from "react-icons/io5";
 import { PiBooks } from "react-icons/pi";
 import { FaHeart } from "react-icons/fa";
-import { CiSettings } from "react-icons/ci";
 import { NavLink } from "react-router-dom";
 import { Button } from "./ui/button";
 import { getToken, logout } from "@/service/authService";
@@ -143,19 +142,6 @@ const Profile = () => {
           />
                 <p>Dark Mode</p>
                 <IoMoonOutline />
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <div className="flex items-center gap-1 text-gray-500 dark:text-white">
-              <input
-            type="radio"
-            value="system"
-            checked={theme === 'system'}
-            onChange={handleThemeChange}
-            className="border-2"
-          />
-                <p>System</p>
-                <CiSettings />
               </div>
             </DropdownMenuItem>
           </div>
