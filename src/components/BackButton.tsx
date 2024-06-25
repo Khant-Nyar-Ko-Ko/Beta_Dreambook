@@ -2,11 +2,11 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 
-const BackButton = () => {
+const BackButton = ({ backPath }: { backPath: string }) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate(-1);
+    navigate(backPath);
   };
   return (
     <div
