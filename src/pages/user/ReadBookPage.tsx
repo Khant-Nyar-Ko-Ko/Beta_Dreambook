@@ -38,6 +38,10 @@ const ReadBookPage = () => {
         });
     }
   }, [bookId]);
+  
+
+  console.log(chapters);
+  
 
   useEffect(() => {
     setCurrentBookId(bookId);
@@ -63,12 +67,19 @@ const ReadBookPage = () => {
   //   return <div>Loading...</div>;
   // }
 
+  
+  
+
   const percentageProgress =
     currentBook && chapters.length > 0
-      ? (Number(currentBook.chapterProgress) / chapters.length) * 100
+      ? (Number(currentBook.chapterProgress) / chapters.length)*100
       : 0;
 
-  // console.log(percentageProgress);
+      const currentChapter = chapters.find((chapter) => chapter.chapterNum === currentBook.chapterNum);
+  console.log(currentChapter);
+      
+      
+      
 
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -85,7 +96,7 @@ const ReadBookPage = () => {
       <div className="  sticky md:top-[100px] flex flex-col w-full md:w-4/5 px-10 md:px-[200px] py-5 h-full">
         <BackButton />
         {singleBook && (
-          <div className="relative flex flex-col items-center py-3 md:items-start md:justify-between md:flex-row">
+          <div className="relative flex flex-col items-center py-3 select-none md:items-start md:justify-between md:flex-row">
             <div className=" hidden md:block absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-0 px-20"></div>
             <img
               src={singleBook.coverImg as string}
@@ -132,15 +143,15 @@ const ReadBookPage = () => {
                       isLabelVisible={false}
                       width="200px"
                     />
-                    <p className="text-black  dark:text-white font-primary">
-                      {progress.length}/{chapters.length}
+                    <p className="text-black select-none dark:text-white font-primary">
+                      {currentBook.chapterProgress}/{chapters.length}
                     </p>
                   </div>
                 )}
 
                 <NavLink to={`/readchapter/${singleBook.id}`}>
                   <Button className=" w-full md:w-[250px]">
-                    {progress.length === 0
+                    {percentageProgress === 0
                       ? "Start Reading"
                       : "Continue Reading"}
                   </Button>
@@ -149,12 +160,12 @@ const ReadBookPage = () => {
             </div>
           </div>
         )}
-        <div className="flex flex-col gap-3 my-10 text-black dark:text-white">
+        <div className="flex flex-col gap-3 my-10 text-black select-none dark:text-white">
           <p className="text-xl font-semibold font-primary ">Book Overview</p>
           <p>{singleBook?.description}</p>
         </div>
         <hr className="md:w-[900px] border-white dark:border-slate-700" />
-        <div className="flex flex-col gap-5 my-5 text-black dark:text-white">
+        <div className="flex flex-col gap-5 my-5 text-black select-none dark:text-white">
           <p>Leave a comment</p>
           <form className="flex flex-col gap-5 " onSubmit={submitHandler}>
             <Input

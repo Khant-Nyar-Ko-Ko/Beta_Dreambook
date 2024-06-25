@@ -16,7 +16,7 @@ const ReadComment = ({ bookId }: { bookId: any }) => {
   };
 
   return (
-    <div className="my-10 ">
+    <div className="my-10 select-none ">
       <h4 className="text-xl font-semibold text-black font-primary dark:text-white">
         Reader's Review{" "}
         <span className="px-1 mx-2 rounded-full bg-lighter text-default">
