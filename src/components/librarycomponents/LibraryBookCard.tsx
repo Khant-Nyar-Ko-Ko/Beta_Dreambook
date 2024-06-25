@@ -2,7 +2,7 @@
 import Card from "../Card";
 
 
-const LibraryBookCard = ({books} : {books : any}) => {
+const LibraryBookCard = ({books} : {books : any[]}) => {
 
   return (
     <>
