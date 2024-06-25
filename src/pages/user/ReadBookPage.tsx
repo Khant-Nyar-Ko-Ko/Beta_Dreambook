@@ -9,9 +9,7 @@ import { usePostComment } from "@/hooks/useCommentApi";
 import BackButton from "@/components/BackButton";
 import ReadComment from "@/components/readchapters/ReadComment";
 import RelatedBooks from "@/components/RelatedBooks";
-import {
-  useGetChapterProgress,
-} from "@/hooks/useChapterProgressApi";
+import { useGetChapterProgress } from "@/hooks/useChapterProgressApi";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { getChapter } from "@/api";
 
@@ -25,8 +23,7 @@ const ReadBookPage = () => {
     useFetchSingleBook(bookId ?? "");
   const { data: progress, isLoading: isProgressLoading } =
     useGetChapterProgress(bookId);
-  
-  
+
   useEffect(() => {
     if (bookId) {
       getChapter({ bookId })
@@ -38,10 +35,8 @@ const ReadBookPage = () => {
         });
     }
   }, [bookId]);
-  
 
   console.log(chapters);
-  
 
   useEffect(() => {
     setCurrentBookId(bookId);
@@ -67,19 +62,15 @@ const ReadBookPage = () => {
   //   return <div>Loading...</div>;
   // }
 
-  
-  
-
   const percentageProgress =
     currentBook && chapters.length > 0
-      ? (Number(currentBook.chapterProgress) / chapters.length)*100
+      ? (Number(currentBook.chapterProgress) / chapters.length) * 100
       : 0;
 
-      const currentChapter = chapters.find((chapter) => chapter.chapterNum === currentBook.chapterNum);
+  const currentChapter = chapters.find(
+    (chapter) => chapter.chapterNum === currentBook.chapterNum
+  );
   console.log(currentChapter);
-      
-      
-      
 
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -92,9 +83,9 @@ const ReadBookPage = () => {
   };
 
   return (
-    <div className="flex flex-col bg-white md:flex-row dark:bg-darkMode1">
+    <div className="flex flex-col bg-white select-none md:flex-row dark:bg-darkMode1">
       <div className="  sticky md:top-[100px] flex flex-col w-full md:w-4/5 px-10 md:px-[200px] py-5 h-full">
-        <BackButton />
+        <BackButton backPath={`/library`} />
         {singleBook && (
           <div className="relative flex flex-col items-center py-3 select-none md:items-start md:justify-between md:flex-row">
             <div className=" hidden md:block absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-0 px-20"></div>
@@ -133,7 +124,7 @@ const ReadBookPage = () => {
                     <p>{singleBook?.keywords}</p>
                   </div>
                 </div>
-                {progress?.length !== 0 && (
+                {currentBook.chapterProgress !== 0 && (
                   <div className="flex items-center gap-2">
                     <ProgressBar
                       completed={percentageProgress}
@@ -149,7 +140,11 @@ const ReadBookPage = () => {
                   </div>
                 )}
 
-                <NavLink to={`/readchapter/${singleBook.id}`}>
+                <NavLink
+                  to={`/readchapter/${singleBook.id}/${
+                    currentBook.chapterProgress ?? 1
+                  }`}
+                >
                   <Button className=" w-full md:w-[250px]">
                     {percentageProgress === 0
                       ? "Start Reading"

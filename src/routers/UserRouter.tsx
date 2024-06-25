@@ -15,6 +15,7 @@ import Chapters from "@/components/Chapters";
 import Comment from "@/components/Comment";
 import ReadBookPage from "@/pages/user/ReadBookPage";
 import ReadChapterPage from "@/pages/user/ReadChapterPage";
+import { ChapterProvider } from "@/contexts/ChapterContext";
 
 const UserRouter: RouteObject[] = [
   {
@@ -39,11 +40,15 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "readbook/:bookId",
-        element: <ReadBookPage/>,
+        element: <ReadBookPage />,
       },
       {
-        path: "readchapter/:bookId",
-        element: <ReadChapterPage/>
+        path: "readchapter/:bookId/:chapterNum",
+        element: (
+          <ChapterProvider>
+            <ReadChapterPage />
+          </ChapterProvider>
+        ),
       },
       {
         path: "bookdetail",
