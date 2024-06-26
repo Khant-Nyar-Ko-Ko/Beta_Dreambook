@@ -1,11 +1,12 @@
 import { useCategory } from "@/contexts/CategoryContext";
 import { useFetchCategories } from "@/hooks/useCategoryApi";
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const CheckboxWithText = () => {
   const { data: categories = [], isLoading, error } = useFetchCategories();
   const { setCategory }: { setCategory: (categories: number[] | null) => void } = useCategory();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [isAllChecked, setIsAllChecked] = useState(true);
 
   useEffect(() => {
     if (selectedCategories.length === 0) {
@@ -17,22 +18,18 @@ const CheckboxWithText = () => {
   }, [selectedCategories]);
 
   const handleCategoryChange = useCallback((categoryId: string) => {
-    setSelectedCategories((prevSelectedCategories) => {
-      if (categoryId === "all") {
-        return prevSelectedCategories.length === 0 || prevSelectedCategories.length < categories.length
-         ? categories.map(({ id }) => id.toString())
-          : [];
-      } else {
-        return prevSelectedCategories.includes(categoryId)
-         ? prevSelectedCategories.filter((id) => id!== categoryId)
+    if (categoryId === "all") {
+      setIsAllChecked(!isAllChecked);
+    } else {
+      setSelectedCategories((prevSelectedCategories) => {
+        const isAlreadySelected = prevSelectedCategories.includes(categoryId);
+        return isAlreadySelected
+          ? prevSelectedCategories.filter((id) => id !== categoryId)
           : [...prevSelectedCategories, categoryId];
-      }
-    });
-  }, [categories]);
-
-  const isAllSelected = useMemo(() => {
-    return categories && categories.length > 0 && selectedCategories.length === categories.length;
-  }, [selectedCategories, categories]);
+      });
+      setIsAllChecked(false);
+    }
+  }, [isAllChecked]);
 
   if (isLoading) {
     return <div className="text-black dark:text-white">Loading...</div>;
@@ -53,7 +50,7 @@ const CheckboxWithText = () => {
           type="checkbox"
           id="all"
           name="category"
-          checked={isAllSelected}
+          checked={isAllChecked}
           onChange={() => handleCategoryChange("all")}
         />
         <label htmlFor="all" className="text-sm font-medium leading-none text-black select-none dark:text-white">

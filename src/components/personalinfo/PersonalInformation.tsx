@@ -8,15 +8,14 @@ import ImagePreview from "../ImagePreview";
 import { Button } from "../ui/button";
 import { useUpdateUser } from "@/hooks/useAuthApi";
 import { useNavigate } from "react-router-dom";
-import NumberInput from "../NumberInput";
+import PersonalNumberInput from "./PersonalNumberInput";
 
 const PersonalInformation = () => {
   const token = getToken() || "";
-  const { data: user } = useUserApi(token); // Fetch user data using custom hook
-  const updateUserMutation = useUpdateUser(); // Hook for updating user data
-  const navigate = useNavigate(); // Hook for navigation
+  const { data: user } = useUserApi(token); 
+  const updateUserMutation = useUpdateUser(); 
+  const navigate = useNavigate(); 
 
-  // State to manage form data
   const [signupData, setSignupData] = useState({
     email: "",
     password: "",
@@ -27,7 +26,6 @@ const PersonalInformation = () => {
     profileImg: "",
   });
 
-  // State to manage form input data
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
@@ -36,7 +34,6 @@ const PersonalInformation = () => {
     gender: user?.gender || "",
   });
 
-  // Effect to update form data when user data changes
   useEffect(() => {
     setFormData({
       name: user?.name || "",
@@ -47,7 +44,6 @@ const PersonalInformation = () => {
     });
   }, [user]);
 
-  // Handle input change for text inputs and textareas
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -55,17 +51,14 @@ const PersonalInformation = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Handle phone number input change
   const handlePhoneChange = (value: string | undefined) => {
     setFormData((prevData) => ({ ...prevData, phone: value || "" }));
   };
 
-  // Handle gender select change
   const handleGenderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFormData((prevData) => ({ ...prevData, gender: e.target.value }));
   };
 
-  // Handle profile image change
   const handleProfileImg = (profileImg: string) => {
     setSignupData((prev) => ({
       ...prev,
@@ -73,13 +66,12 @@ const PersonalInformation = () => {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = { ...signupData, ...formData }; // Combine form data
-    console.log(data); // Log data before the API call
-    updateUserMutation.mutate(data); // Make API call to update user data
-    navigate("/"); // Navigate to home page after submission
+    const data = { ...signupData, ...formData }; 
+    console.log(data); 
+    updateUserMutation.mutate(data); 
+    navigate("/"); 
   };
 
   return (
@@ -106,10 +98,11 @@ const PersonalInformation = () => {
         value={formData.email}
         onChange={handleChange}
       />
-      <NumberInput
+      <PersonalNumberInput
         phoneValue={formData.phone}
         setPhoneValue={handlePhoneChange}
       />
+
       <Textarea
         name="bio"
         className="w-[250px] md:w-[500px] bg-white dark:bg-darkMode1"

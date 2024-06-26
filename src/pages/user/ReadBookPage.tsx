@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import authorprofile from "../../assets/images/Author.png";
 import { Input } from "@/components/ui/input";
-import { usePostComment } from "@/hooks/useCommentApi";
+import { useGetComment, usePostComment } from "@/hooks/useCommentApi";
 import BackButton from "@/components/BackButton";
 import ReadComment from "@/components/readchapters/ReadComment";
 import RelatedBooks from "@/components/RelatedBooks";
@@ -17,7 +17,6 @@ const ReadBookPage = () => {
   const { bookId } = useParams<{ bookId: any }>();
   const [comment, setComment] = useState<string>("");
   const [chapters, setChapters] = useState<any[]>([]);
-  const [, setCurrentBookId] = useState(null);
 
   const { data: singleBook, isLoading: isSingleBookLoading } =
     useFetchSingleBook(bookId ?? "");
@@ -36,16 +35,27 @@ const ReadBookPage = () => {
     }
   }, [bookId]);
 
-  console.log(chapters);
+
+
+  const { data: readComment, refetch} = useGetComment(bookId);
+  const { mutate, isSuccess } = usePostComment();
 
   useEffect(() => {
-    setCurrentBookId(bookId);
-  }, [bookId]);
+    if (isSuccess) {
+      console.log("Success! Calling refetch...");
+      refetch(); // Ensure refetch is being called
+    }
+  }, [isSuccess, refetch]);
+  
+  useEffect(() => {
+    console.log("Read comments:", readComment); // Check if readComment is updating
+  }, [readComment]);
 
-  const { mutate } = usePostComment();
   if (isSingleBookLoading || !singleBook) {
     return <div>Loading...</div>;
   }
+
+  
 
   // console.log(singleBook);
 
@@ -67,11 +77,6 @@ const ReadBookPage = () => {
       ? (Number(currentBook.chapterProgress) / chapters.length) * 100
       : 0;
 
-  const currentChapter = chapters.find(
-    (chapter) => chapter.chapterNum === currentBook.chapterNum
-  );
-  console.log(currentChapter);
-
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
   };
@@ -79,6 +84,7 @@ const ReadBookPage = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate({ bookId: Number(bookId), text: comment });
+    refetch();
     setComment("");
   };
 
@@ -173,7 +179,7 @@ const ReadBookPage = () => {
             </Button>
           </form>
         </div>
-        <ReadComment bookId={bookId} />
+        <ReadComment readComment={readComment} />
       </div>
       <RelatedBooks bookId={bookId} />
     </div>
