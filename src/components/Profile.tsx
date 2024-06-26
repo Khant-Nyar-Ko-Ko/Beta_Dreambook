@@ -11,26 +11,27 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { IoMoonOutline, IoPersonSharp, IoSunnyOutline } from "react-icons/io5";
 import { PiBooks } from "react-icons/pi";
 import { FaHeart } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { getToken, logout } from "@/service/authService";
 import { useUserApi } from "@/hooks/useUserApi";
 import { useEffect, useState } from "react";
 
 const Profile = () => {
-
   const token = getToken() || "";
-  const {data : user} = useUserApi(token);
+  const { data: user } = useUserApi(token);
+  const navigate = useNavigate();
   const handleLogout = () => {
+    navigate("/");
     logout();
-  }
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  };
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, [theme]);
 
@@ -50,9 +51,8 @@ const Profile = () => {
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTheme = e.target.value;
     setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
+    localStorage.setItem("theme", newTheme);
   };
-  
 
   return (
     <div className="select-none ">
@@ -79,14 +79,18 @@ const Profile = () => {
                 <h5 className="text-sm font-semibold text-black dark:text-white">
                   {user?.name}
                 </h5>
-                <p className="text-xs text-gray-400 dark:text-white">{user?.email}</p>
+                <p className="text-xs text-gray-400 dark:text-white">
+                  {user?.email}
+                </p>
               </div>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <div className="flex flex-col gap-2 py-3 border-b-2 border-gray-300">
             <DropdownMenuLabel>
-              <div className="text-lg font-semibold text-black font-primary dark:text-white">Account</div>
+              <div className="text-lg font-semibold text-black font-primary dark:text-white">
+                Account
+              </div>
             </DropdownMenuLabel>
             <NavLink to="/personalinfo">
               <DropdownMenuItem>
@@ -116,30 +120,32 @@ const Profile = () => {
           </div>
           <div className="flex flex-col gap-2 py-3 border-b-2 border-gray-300">
             <DropdownMenuLabel>
-              <div className="text-lg font-semibold text-black font-primary dark:text-white">Theme</div>
+              <div className="text-lg font-semibold text-black font-primary dark:text-white">
+                Theme
+              </div>
             </DropdownMenuLabel>
             <DropdownMenuItem>
               <div className="flex items-center gap-2 text-gray-500 dark:text-white">
-              <input
-            type="radio"
-            value="light"
-            checked={theme === 'light'}
-            onChange={handleThemeChange}
-            className="border-2"
-          />
+                <input
+                  type="radio"
+                  value="light"
+                  checked={theme === "light"}
+                  onChange={handleThemeChange}
+                  className="border-2"
+                />
                 <p>Light Mode</p>
                 <IoSunnyOutline />
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <div className="flex items-center gap-2 text-gray-500 dark:text-white">
-              <input
-            type="radio"
-            value="dark"
-            checked={theme === 'dark'}
-            onChange={handleThemeChange}
-            className="border-2"
-          />
+                <input
+                  type="radio"
+                  value="dark"
+                  checked={theme === "dark"}
+                  onChange={handleThemeChange}
+                  className="border-2"
+                />
                 <p>Dark Mode</p>
                 <IoMoonOutline />
               </div>

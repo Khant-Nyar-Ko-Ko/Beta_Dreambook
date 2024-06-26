@@ -5,6 +5,7 @@ import { TiEdit } from "react-icons/ti";
 import profile from "../assets/images/Author.png";
 import { NavLink } from "react-router-dom";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
+import { getToken } from "@/service/authService";
 
 interface CardProps {
   id: number;
@@ -14,7 +15,7 @@ interface CardProps {
   categorytitle: string;
   author: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  authorprofile: any
+  authorprofile: any;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -24,7 +25,7 @@ const Card: React.FC<CardProps> = ({
   categorylogo,
   categorytitle,
   author,
-  authorprofile
+  authorprofile,
 }) => {
   const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } =
     useFavouriteBooks();
@@ -35,6 +36,7 @@ const Card: React.FC<CardProps> = ({
   const handleRemoveFavouriteBook = (id: number) => {
     removeFavouriteBook(id);
   };
+  const token = getToken();
 
   return (
     <div
@@ -58,12 +60,19 @@ const Card: React.FC<CardProps> = ({
               <IoMdHeartEmpty />
             </button>
           )}
-
-          <NavLink to={`/readbook/${id}`}>
-            <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
-              <IoEyeOutline />
-            </button>
-          </NavLink>
+          {token ? (
+            <NavLink to={`/readbook/${id}`}>
+              <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
+                <IoEyeOutline />
+              </button>
+            </NavLink>
+          ) : (
+            <NavLink to={`/auth/login`}>
+              <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
+                <IoEyeOutline />
+              </button>
+            </NavLink>
+          )}
           <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
             <TiEdit />
           </button>
@@ -80,7 +89,9 @@ const Card: React.FC<CardProps> = ({
         </p>
         <div className="flex gap-1 ">
           <img src={categorylogo} className="w-4 h-4" alt="categorylogo" />
-          <p className="text-sm font-primary text-slate-500 dark:text-white">{categorytitle}</p>
+          <p className="text-sm font-primary text-slate-500 dark:text-white">
+            {categorytitle}
+          </p>
         </div>
         <div className="flex items-center gap-2 ">
           <img
@@ -88,7 +99,9 @@ const Card: React.FC<CardProps> = ({
             className="w-6 h-6 rounded-full "
             alt="author"
           />
-          <p className="text-sm text-black font-primary dark:text-white">By {author === null ? "Unknown User" : author}</p>
+          <p className="text-sm text-black font-primary dark:text-white">
+            By {author === null ? "Unknown User" : author}
+          </p>
         </div>
       </div>
     </div>

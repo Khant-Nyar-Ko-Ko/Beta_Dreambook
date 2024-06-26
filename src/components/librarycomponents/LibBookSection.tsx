@@ -15,7 +15,7 @@ const LibBookSection = () => {
     );
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col w-full bg-white dark:bg-darkMode1">
       <BookSection />
       <LibPagination pageCount={pageCount} />
     </div>

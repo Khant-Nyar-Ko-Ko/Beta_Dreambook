@@ -1,23 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Checkbox } from "@radix-ui/react-checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { RiFilter3Line } from "react-icons/ri";
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FaPlus } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useFetchBooksByLoginUser } from "@/hooks/useBookApi";
 import Card from "../Card";
+import SearchInput from "../SearchInput";
+import { useDebounce } from "react-use";
+import { useState } from "react";
+// import SortDropdown from "../SortDropdown";
 
 const BookLists = () => {
   const { data } = useFetchBooksByLoginUser();
   const userBooks = data?.items;
+  const [searchInput, setSearchInput] = useState("");
+  const [searchTitle, setSearchTitle] = useState("");
+  console.log(searchTitle);
+  
+
+  useDebounce(() => setSearchTitle(searchInput), 1000, [searchInput]);
+
+  const handleSearchInputChange = (value: string) => {
+    setSearchInput(value);
+  };
 
   return (
     <div className="flex flex-col w-4/5 h-full px-3 py-5 bg-white dark:bg-darkMode1">
@@ -26,25 +31,7 @@ const BookLists = () => {
           <div className="p-[7px] border rounded">
             <RiFilter3Line className="text-[16px] md:text-[24px]" />
           </div>
-          <div className="px-1 py-2 border rounded md:px-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm">
-                <p>Sort by default</p>
-                <IoIosArrowDown />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Checkbox /> <p className="px-2">Sort by random</p>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Checkbox /> <p className="px-2">Sort by latest</p>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Checkbox /> <p className="px-2">Sort by A-Z</p>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          {/* <SortDropdown sort={sort} setSort={setSort} /> */}
           <NavLink to="/bookcrafting">
             <Button className="flex gap-2">
               <FaPlus />
@@ -53,17 +40,12 @@ const BookLists = () => {
           </NavLink>
         </div>
         <div className="order-2 w-full mt-3 md:order-1 md:mt-0 md:w-auto">
-          <div className="relative ">
-            <IoIosSearch
-              className="absolute left-2 top-2 md:top-[10px] text-[16px] md:text-[24px]"
-              color="gray"
-            />
-            <Input
-              type="search"
-              className="w-full bg-white pl-7 md:pl-12 md:w-auto dark:bg-darkMode1"
-              placeholder="Search"
-            />
-          </div>
+        <SearchInput
+            value={searchInput}
+            onChange={handleSearchInputChange}
+            placeholder="Search"
+            ariaLabel="Search books"
+          />
         </div>
       </div>
       {!userBooks || userBooks.length === 0 || userBooks == "" ? (

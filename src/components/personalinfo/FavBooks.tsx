@@ -9,8 +9,6 @@ import {
 import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { RiFilter3Line } from "react-icons/ri";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { NavLink } from "react-router-dom";
 import { useFetchBooks } from "@/hooks/useBookApi";
 import Card from "../Card";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
@@ -76,11 +74,6 @@ const FavBooks = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <NavLink to="/bookcrafting">
-            <Button className="flex gap-2">
-              <p className="text-xs md:text-base">Search</p>
-            </Button>
-          </NavLink>
         </div>
         <div className="order-2 w-full mt-3 md:order-1 md:mt-0 md:w-auto">
           <div className="relative">
