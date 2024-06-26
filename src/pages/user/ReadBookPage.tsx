@@ -75,7 +75,7 @@ const ReadBookPage = () => {
   const percentageProgress =
     currentBook && chapters.length > 0
       ? (Number(currentBook.chapterProgress) / chapters.length) * 100
-      : 0;
+      : 1;
 
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -130,7 +130,7 @@ const ReadBookPage = () => {
                     <p>{singleBook?.keywords}</p>
                   </div>
                 </div>
-                {currentBook.chapterProgress !== 0 && (
+                {currentBook.chapterProgress !== 1 && (
                   <div className="flex items-center gap-2">
                     <ProgressBar
                       completed={percentageProgress}
@@ -152,7 +152,7 @@ const ReadBookPage = () => {
                   }`}
                 >
                   <Button className=" w-full md:w-[250px]">
-                    {percentageProgress === 0
+                    {currentBook.chapterProgress < 2
                       ? "Start Reading"
                       : "Continue Reading"}
                   </Button>
