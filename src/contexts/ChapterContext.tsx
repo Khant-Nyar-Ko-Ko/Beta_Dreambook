@@ -19,7 +19,7 @@ export const ChapterProvider = ({ children }: { children: ReactNode }) => {
 
   const [chapters, setChapters] = useState([]);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(
-    chapterNum ? parseInt(chapterNum, 10) - 1 : 0
+    chapterNum ? parseInt(chapterNum, 10) - 1 : 1
   );
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ export const ChapterProvider = ({ children }: { children: ReactNode }) => {
     if (currentChapterIndex < chapters.length - 1) {
       handleChapterClick(currentChapterIndex + 1);
     } else {
-      chapterProgress({ bookId, chapterProgress: 0 });
+      chapterProgress({ bookId, chapterProgress: 1 });
       navigate(`/readbook/${bookId}`);
     }
   };
