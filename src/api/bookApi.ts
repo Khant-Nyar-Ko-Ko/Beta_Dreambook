@@ -73,9 +73,13 @@ export const fetchPopularBook = async () => {
   return result;
 };
 
-export const fetchBooksByLoginUser = async () => {
+export const fetchBooksByLoginUser = async (sort?: string) => {
+  let queryString = "";
+  if (sort) {
+    queryString += (queryString ? "&" : "?") + `sort=${sort}`;
+  }
   const token = getToken();
-  const response: Response = await fetch(`${BaseURL}/books/user`, {
+  const response: Response = await fetch(`${BaseURL}/books/user${queryString}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

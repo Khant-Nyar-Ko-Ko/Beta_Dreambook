@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import React from "react";
 import * as authService from "@/service/authService";
+import toast from "react-hot-toast";
 
 interface AuthContextType {
   token: string | null;
@@ -18,6 +19,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = async (token: string) => {
     authService.login(token);
+    toast.success('Login successfully');
   };
 
   const logout = () => {

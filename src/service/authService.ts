@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 
-
 const TOKEN_KEY = "DreamBookToken";
 
 export function login(token : string){

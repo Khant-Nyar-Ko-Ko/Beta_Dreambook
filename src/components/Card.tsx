@@ -6,6 +6,7 @@ import profile from "../assets/images/Author.png";
 import { NavLink } from "react-router-dom";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 import { getToken } from "@/service/authService";
+import toast from "react-hot-toast";
 
 interface CardProps {
   id: number;
@@ -32,9 +33,11 @@ const Card: React.FC<CardProps> = ({
 
   const handleAddFavouriteBook = (id: number) => {
     addFavouriteBook(id);
+    toast.success("Added to favourites");
   };
   const handleRemoveFavouriteBook = (id: number) => {
     removeFavouriteBook(id);
+    toast.success("Removed from favourites")
   };
   const token = getToken();
 

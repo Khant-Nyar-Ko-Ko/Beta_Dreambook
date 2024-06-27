@@ -1,5 +1,12 @@
 import { useAddFavourite, useRemoveFavourite } from "@/hooks/useFavouriteApi";
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import Cookies from "js-cookie";
 
 interface FavouriteContextType {
   favouriteBookIds: number[];
@@ -13,9 +20,18 @@ const FavouriteBooksContext = createContext<FavouriteContextType | undefined>(
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const FavouriteBooksProvider = ({ children }: { children: ReactNode }) => {
-  const [favouriteBookIds, setFavouriteBookIds] = useState<number[]>([]);
+  const [favouriteBookIds, setFavouriteBookIds] = useState<number[]>(() => {
+    const savedFavorites = Cookies.get("favouriteBookIds");
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
   const { mutate: addFavouriteBookApi } = useAddFavourite();
   const { mutate: removeFavouriteBookApi } = useRemoveFavourite();
+
+  useEffect(() => {
+    Cookies.set("favouriteBookIds", JSON.stringify(favouriteBookIds), {
+      expires: 7,
+    });
+  }, [favouriteBookIds]);
 
   const addFavouriteBook = (id: number) => {
     addFavouriteBookApi(id);
@@ -36,11 +52,12 @@ const FavouriteBooksProvider = ({ children }: { children: ReactNode }) => {
 };
 
 const useFavouriteBooks = () => {
-    const context = useContext(FavouriteBooksContext);
-    if (!context) {
-        throw new Error
-    }
-    return context;
+  const context = useContext(FavouriteBooksContext);
+  if (!context) {
+    throw new Error();
+  }
+  return context;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { FavouriteBooksProvider, useFavouriteBooks };

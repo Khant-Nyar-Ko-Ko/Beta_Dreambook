@@ -44,10 +44,10 @@ export const useFetchPopularBook = () => {
   });
 };
 
-export const useFetchBooksByLoginUser = () => {
+export const useFetchBooksByLoginUser = (sort?: string) => {
   return useQuery({
-    queryKey: ["loginUserBooks"],
-    queryFn: () => fetchBooksByLoginUser(),
+    queryKey: ["loginUserBooks",sort],
+    queryFn: () => fetchBooksByLoginUser(sort),
     staleTime: 10 * 60 * 1000
   })
 }

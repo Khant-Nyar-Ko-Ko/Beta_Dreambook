@@ -8,7 +8,7 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import profile from "../assets/images/contact.jpeg";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { IoMoonOutline, IoPersonSharp, IoSunnyOutline } from "react-icons/io5";
+import { IoExitOutline, IoMoonOutline, IoPersonSharp, IoSunnyOutline } from "react-icons/io5";
 import { PiBooks } from "react-icons/pi";
 import { FaHeart } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -133,7 +133,7 @@ const Profile = () => {
                   onChange={handleThemeChange}
                   className="border-2"
                 />
-                <p>Light Mode</p>
+                <label>Light Mode</label>
                 <IoSunnyOutline />
               </div>
             </DropdownMenuItem>
@@ -146,7 +146,7 @@ const Profile = () => {
                   onChange={handleThemeChange}
                   className="border-2"
                 />
-                <p>Dark Mode</p>
+                <label>Dark Mode</label>
                 <IoMoonOutline />
               </div>
             </DropdownMenuItem>
@@ -154,7 +154,8 @@ const Profile = () => {
           <div className="py-2 ">
             <NavLink to="/">
               <Button variant="menu" onClick={handleLogout}>
-                Logout
+              <IoExitOutline size="20" />
+                <p className="pl-1  font-primary">Log out</p>
               </Button>
             </NavLink>
           </div>
