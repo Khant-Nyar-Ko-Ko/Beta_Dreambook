@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RiFilter3Line } from "react-icons/ri";
 import { Button } from "../ui/button";
 import { FaPlus } from "react-icons/fa";
@@ -8,20 +7,24 @@ import Card from "../Card";
 import SearchInput from "../SearchInput";
 import { useDebounce } from "react-use";
 import { useState } from "react";
-// import SortDropdown from "../SortDropdown";
+import SortDropdown from "../SortDropdown";
 
 const BookLists = () => {
-  const { data } = useFetchBooksByLoginUser();
-  const userBooks = data?.items;
   const [searchInput, setSearchInput] = useState("");
   const [searchTitle, setSearchTitle] = useState("");
+  const [sort, setSort] = useState<string | undefined>();
+  const { data } = useFetchBooksByLoginUser(sort);
+  const userBooks = data?.items;
   console.log(searchTitle);
-  
 
   useDebounce(() => setSearchTitle(searchInput), 1000, [searchInput]);
 
   const handleSearchInputChange = (value: string) => {
     setSearchInput(value);
+  };
+
+  const handleSortChange = (sortOrder: string | undefined) => {
+    setSort(sortOrder);
   };
 
   return (
@@ -31,7 +34,7 @@ const BookLists = () => {
           <div className="p-[7px] border rounded">
             <RiFilter3Line className="text-[16px] md:text-[24px]" />
           </div>
-          {/* <SortDropdown sort={sort} setSort={setSort} /> */}
+          <SortDropdown sort={sort} setSort={handleSortChange} />
           <NavLink to="/bookcrafting">
             <Button className="flex gap-2">
               <FaPlus />
@@ -40,7 +43,7 @@ const BookLists = () => {
           </NavLink>
         </div>
         <div className="order-2 w-full mt-3 md:order-1 md:mt-0 md:w-auto">
-        <SearchInput
+          <SearchInput
             value={searchInput}
             onChange={handleSearchInputChange}
             placeholder="Search"
@@ -48,7 +51,7 @@ const BookLists = () => {
           />
         </div>
       </div>
-      {!userBooks || userBooks.length === 0 || userBooks == "" ? (
+      {!userBooks || userBooks.length === 0 ? (
         <div className="flex flex-col w-4/5 h-full px-3 py-5 bg-white dark:bg-darkMode1">
           <iframe
             src="https://lottie.host/embed/8866455b-434f-412d-863b-334f6c5c5724/EzyvqFxRUM.json"
@@ -70,22 +73,22 @@ const BookLists = () => {
               category,
               user,
             }: {
-              id: any;
+              id: string;
               title: string;
               coverImg: string;
-              category: any;
-              user: any;
+              category: { icon: string; title: string };
+              user: { name: string; profileImg: string };
             }) => {
               return (
                 <Card
                   key={id}
-                  id={id}
+                  id={Number(id)}
                   title={title}
                   image={coverImg}
-                  categorylogo={category?.icon}
-                  categorytitle={category?.title}
-                  author={user?.name}
-                  authorprofile={user?.profileImg}
+                  categorylogo={category.icon}
+                  categorytitle={category.title}
+                  author={user.name}
+                  authorprofile={user.profileImg}
                 />
               );
             }

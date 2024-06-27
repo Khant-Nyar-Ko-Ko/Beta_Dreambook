@@ -6,6 +6,7 @@ import { fetchUserProfile } from "@/api/userApi";
 import { getToken } from "@/service/authService";
 import { useUpdateUser } from "@/hooks/useAuthApi";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const ChangePassword = () => {
   const [showOldPassword, setOldShowPassword] = useState(false);
@@ -71,11 +72,6 @@ const ChangePassword = () => {
     setUpdateError("");
     setUpdateSuccess("");
     let valid = true;
-    // if (oldPassword !== currentPassword) {
-    //   setOldPasswordError("Old password is incorrect");
-    //   valid = false;
-    // }
-
     if (newPassword !== confirmPassword) {
       setPasswordMatchError(
         "New password and confirmation password do not match"
@@ -90,6 +86,7 @@ const ChangePassword = () => {
     updatePassword.mutate(data, {
       onSuccess: () => {
         setUpdateSuccess("Password updated successfully.");
+        toast.success("Password updated successfully")
         navigate("/");
       },
       onError: () => {

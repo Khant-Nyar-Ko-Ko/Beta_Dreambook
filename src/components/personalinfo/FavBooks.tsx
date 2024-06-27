@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Checkbox } from "@radix-ui/react-checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
+import { IoIosSearch } from "react-icons/io";
 import { RiFilter3Line } from "react-icons/ri";
 import { Input } from "../ui/input";
 import { useFetchBooks } from "@/hooks/useBookApi";
 import Card from "../Card";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
+import SortDropdown from "../SortDropdown";
+import { useState } from "react";
 
 const FavBooks = () => {
   const { favouriteBookIds } = useFavouriteBooks();
-  const { data: books, error, isLoading } = useFetchBooks();
+  const [sort, setSort] = useState<any | undefined>();
+  const { data: books, error, isLoading } = useFetchBooks(sort);
 
   const favoriteBookIds = favouriteBookIds;
 
   const favouriteBooks = books?.items.filter((book: any) =>
     favoriteBookIds?.includes(book.id)
   );
+
+  const handleSortChange = (sortOrder: string | undefined) => {
+    setSort(sortOrder);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -55,25 +55,7 @@ const FavBooks = () => {
           <div className="p-[7px] border rounded">
             <RiFilter3Line className="text-[16px] md:text-[24px]" />
           </div>
-          <div className="px-1 py-2 border rounded md:px-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm">
-                <p>Sort by default</p>
-                <IoIosArrowDown />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Checkbox /> <p className="px-2">Sort by random</p>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Checkbox /> <p className="px-2">Sort by latest</p>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Checkbox /> <p className="px-2">Sort by A-Z</p>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          <SortDropdown sort={sort} setSort={handleSortChange} />
         </div>
         <div className="order-2 w-full mt-3 md:order-1 md:mt-0 md:w-auto">
           <div className="relative">

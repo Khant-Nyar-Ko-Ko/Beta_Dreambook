@@ -24,9 +24,9 @@ const SortDropdown: React.FC<SortDropdownProps> = ({ sort, setSort }) => {
           <p>{sort ? "Sort by A-Z" : "Sort by default"}</p>
           <IoIosArrowDown />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white dark:bg-darkMode1 w-[150px] flex flex-col gap-3 select-none border px-4 rounded py-2 text-black dark:text-white">
+        <DropdownMenuContent className="bg-white dark:bg-darkMode1 w-[150px] flex flex-col gap-3 select-none border px-4 rounded py-2 text-black dark:text-white z-10">
           <DropdownMenuItem
-            className="flex items-center gap-2 "
+            className="flex items-center gap-2"
             onClick={() => handleSortChange(undefined)}
           >
             <input type="radio" checked={sort !== "a-z"} />

@@ -12,6 +12,7 @@ import RelatedBooks from "@/components/RelatedBooks";
 import { useGetChapterProgress } from "@/hooks/useChapterProgressApi";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { getChapter } from "@/api";
+import toast from "react-hot-toast";
 
 const ReadBookPage = () => {
   const { bookId } = useParams<{ bookId: any }>();
@@ -84,6 +85,7 @@ const ReadBookPage = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate({ bookId: Number(bookId), text: comment });
+    toast.success("Posted comment successfully")
     refetch();
     setComment("");
   };

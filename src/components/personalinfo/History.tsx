@@ -8,6 +8,7 @@ import {
 import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { RiFilter3Line } from "react-icons/ri";
 import { Input } from "../ui/input";
+import EmptyBookPage from "../EmptyBookPage";
 
 const History = () => {
   return (
@@ -51,16 +52,7 @@ const History = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center mt-20 md:mt-0">
-        <iframe
-          src="https://lottie.host/embed/8866455b-434f-412d-863b-334f6c5c5724/EzyvqFxRUM.json"
-          className="w-full h-32 md:h-96"
-          title="Animation"
-        ></iframe>
-        <p className="mt-3 text-center opacity-50 font-primary">
-          "Discover literary treasures: Explore our curated book lists collection today."
-        </p>
-      </div>
+     <EmptyBookPage/>
     </div>
   )
 }

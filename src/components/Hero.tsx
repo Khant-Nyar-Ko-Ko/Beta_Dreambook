@@ -12,12 +12,12 @@ const Hero = () => {
     <div className="relative">
       <img
         src={bg1}
-        className="absolute top-0 left-0 w-[70px] md:w-[120px]"
+        className="absolute dark:opacity-10 top-0 left-0 w-[70px] md:w-[120px]"
         alt="bg1"
       />
       <img
         src={bg2}
-        className="absolute z-0 bottom-0 right-10 md:right-1 w-[100px] md:w-[600px]"
+        className="absolute dark:opacity-10 z-0 bottom-0 right-10 md:right-1 w-[100px] md:w-[600px]"
         alt="bg2"
       />
       <img
