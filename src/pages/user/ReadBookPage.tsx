@@ -61,22 +61,25 @@ const ReadBookPage = () => {
   // console.log(singleBook);
 
   if (isProgressLoading) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center h-[700px]">Loading...</div>;
   }
 
   // console.log(progress);
 
-  const currentBook = progress && progress.length > 0 ? progress[0] : null;
+  const currentBook = progress && progress.length > 0 ? progress[0] : 1;
   // const currentBook = progress.find((book : any) => book.bookId === currentBookId);
 
-  // if (!currentBook || !progress) {
-  //   return <div>Loading...</div>;
-  // }
+  if (!currentBook || !progress) {
+    return <div className="flex items-center justify-center h-[700px]">Loading...</div>;
+  }
 
   const percentageProgress =
     currentBook && chapters.length > 0
       ? (Number(currentBook.chapterProgress) / chapters.length) * 100
       : 1;
+
+
+ 
 
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -143,7 +146,7 @@ const ReadBookPage = () => {
                       width="200px"
                     />
                     <p className="text-black select-none dark:text-white font-primary">
-                      {currentBook.chapterProgress}/{chapters.length}
+                      {currentBook.chapterProgress ? currentBook.chapterProgress : 0}/{chapters.length}
                     </p>
                   </div>
                 )}

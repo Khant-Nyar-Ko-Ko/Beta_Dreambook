@@ -1,4 +1,3 @@
-
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -12,8 +11,10 @@ import { getToken } from "@/service/authService";
 import Toolbar from "@/components/Toolbar";
 import defaultImage from "../../assets/images/bookCrafting/bookImg.png";
 import { useNavigate } from "react-router-dom";
-import { IoMdArrowBack } from "react-icons/io";
 import { Loader2 } from "lucide-react";
+import BackButton from "@/components/BackButton";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const BookCraftingPage = () => {
   const bookCreateMutation = useCreateBook();
@@ -97,7 +98,7 @@ const BookCraftingPage = () => {
   const onSubmit: SubmitHandler<Schema> = (data) => {
     console.log("click");
     console.log(data);
-    const bookData = { ...data, bookId: null }; 
+    const bookData = { ...data, bookId: null };
     bookCreateMutation.mutate(bookData);
 
     reset();
@@ -115,29 +116,22 @@ const BookCraftingPage = () => {
     }
   }, [bookCreateMutation.isError]);
 
-
   bookCreateMutation.isSuccess && navigator("/bookdetail");
 
   return (
-    <div className="p-[30px] select-none">
-      <div className="flex items-center mb-10 gap-x-5">
-        <button
-          className="flex items-center gap-x-2 text-default"
-          onClick={() => navigator("/")}
-        >
-          <IoMdArrowBack />
-          Back
-        </button>
+    <div className="md:p-[30px] select-none py-5">
+      <div className="flex items-center mb-10 gap-x-5 font-primary">
+        <BackButton backPath="/"/>
         <h1 className="text-2xl font-bold">Creating A New Book</h1>
       </div>
 
       <form
-        className="flex items-start px-10 gap-x-16"
+        className="flex flex-col md:flex-row items-start px-10 pb-10 gap-x-16 w-screen md:w-[3/5]"
         action=""
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
-          <input
+          <Input
             className="hidden"
             type="text"
             {...register("status")}
@@ -186,36 +180,39 @@ const BookCraftingPage = () => {
 
         <div className="flex flex-col gap-y-5">
           <div>
-            <p className="mb-2 font-semibold">Title</p>
-            <input
-              className="w-full p-1 border border-gray-200 rounded-lg outline-none"
+            <label htmlFor="title" className="mb-2 font-semibold">Title</label>
+            <Input
+            id="title"
+              className=" w-[300px] md:w-full p-1 border border-gray-200 rounded-lg outline-none w"
               type="text"
               {...register("title")}
               placeholder="Book Title"
             />
-            <p className="text-red-500">{errors.title?.message}</p>
+            <p className="text-sm text-red-500">{errors.title?.message}</p>
           </div>
 
           <div>
-            <p className="mb-2 font-semibold">Category</p>
+            <label htmlFor="category" className="mb-2 font-semibold">Category</label>
             <select
-              className="w-full p-1 border border-gray-200 rounded-lg outline-none"
+            id="category"
+              className="w-[300px] md:w-full p-1 py-2 border border-gray-200 rounded-lg outline-none"
               {...register("categoryId")}
             >
-              <option value="">Select Category</option>
+              <option value="" className="text-sm w-[300px] md:w-full">Select Category</option>
               {categories?.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.title}
                 </option>
               ))}
             </select>
-            <p className="text-red-500">{errors.categoryId?.message}</p>
+            <p className="text-sm text-red-500">{errors.categoryId?.message}</p>
           </div>
 
           <div>
-            <p className="mb-1 font-semibold">Keywords</p>
-            <input
-              className="w-full p-1 border border-gray-200 rounded-lg outline-none"
+            <label htmlFor="keywords" className="mb-1 font-semibold">Keywords</label>
+            <Input
+            id="keywords"
+              className="w-[300px] md:w-full p-1 border border-gray-200 rounded-lg outline-none"
               value={inputValue}
               type="text"
               onChange={(e) => setInputValue(e.target.value)}
@@ -242,7 +239,7 @@ const BookCraftingPage = () => {
             </div>
           </div>
 
-          <div>
+          <div className=" w-[300px] md:w-[350px]">
             <p className="mb-1 font-semibold">Description</p>
             <Controller
               name="description"
@@ -251,18 +248,18 @@ const BookCraftingPage = () => {
                 <Toolbar value={field.value || ""} onChange={field.onChange} />
               )}
             />
-            <p className="text-red-500">{errors.description?.message}</p>
+            <p className="text-sm text-red-500">{errors.description?.message}</p>
           </div>
 
-          <button
+          <Button
             type="submit"
-            className={`py-2 rounded text-white ${
+            className={`py-2 w-[300px] md:w-[350px] rounded text-white ${
               isValid || bookCreateMutation.isPending
                 ? "bg-default"
                 : "bg-gray-400 "
             }`}
           >
-            <div className="flex items-center justify-center gap-x-3">
+            <div className="flex items-center justify-center gap-x-3 font-primary">
               <Loader2
                 className={
                   bookCreateMutation.isPending ? "block animate-spin" : "hidden"
@@ -270,7 +267,7 @@ const BookCraftingPage = () => {
               />
               Create Now
             </div>
-          </button>
+          </Button>
         </div>
       </form>
     </div>
