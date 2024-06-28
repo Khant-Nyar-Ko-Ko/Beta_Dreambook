@@ -38,6 +38,7 @@ const UserRouter: RouteObject[] = [
         element: <BookCraftingPage />,
       },
       {
+<<<<<<< HEAD
         path: "readbook/:bookId",
         element: <ReadBookPage/>,
       },
@@ -47,11 +48,14 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "bookdetail",
+=======
+        path: "bookdetail/:bookId",
+>>>>>>> 99a3ad8 (commit)
         element: <BookDetailPage />,
         children: [
           {
             index: true,
-            element: <Navigate to={"childBookdetail"} />,
+            element: <Navigate to="childBookdetail" />,
           },
           {
             path: "childBookdetail",

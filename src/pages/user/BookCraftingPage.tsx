@@ -14,13 +14,17 @@ import defaultImage from "../../assets/images/bookCrafting/bookImg.png";
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowBack } from "react-icons/io";
 import { Loader2 } from "lucide-react";
+import { X } from "lucide-react";
+import { BookDataType } from "@/utils/type";
+// import { useSingleBook } from "@/hooks/useBookApi";
 
 const BookCraftingPage = () => {
   const bookCreateMutation = useCreateBook();
   const navigator = useNavigate();
-
+  // const single = useSingleBook();
+  // console.log(single.data);
   const schema = z.object({
-    title: z.string().min(4, { message: "you need to fill title" }),
+    title: z.string().min(1, { message: "you need to fill title" }),
     description: z.string(),
     categoryId: z.string().min(1, { message: "you need to choose category" }),
     status: z.string(),
@@ -93,8 +97,7 @@ const BookCraftingPage = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<Schema> = (data) => {
-    console.log("click");
+  const onSubmit: SubmitHandler<BookDataType> = (data) => {
     console.log(data);
 
     bookCreateMutation.mutate(data);
@@ -102,11 +105,22 @@ const BookCraftingPage = () => {
     reset();
   };
 
+  console.log(bookCreateMutation.data);
+
   useEffect(() => {
+    const handleSuccess = async () => {
+      if (bookCreateMutation.isSuccess && getToken()) {
+        const authToken = getToken();
+        const bookId = bookCreateMutation.data?.id;
+        if (authToken) {
+          navigator(`/bookdetail/${bookId}/childBookdetail`);
+        }
+      }
+    };
     if (bookCreateMutation.isSuccess) {
-      getToken();
+      handleSuccess();
     }
-  }, [bookCreateMutation.isSuccess]);
+  }, [bookCreateMutation.isSuccess, navigator, bookCreateMutation.data?.id]);
 
   useEffect(() => {
     if (bookCreateMutation.isError) {
@@ -114,11 +128,14 @@ const BookCraftingPage = () => {
     }
   }, [bookCreateMutation.isError]);
 
+<<<<<<< HEAD
 
   bookCreateMutation.isSuccess && navigator("/bookdetail");
 
+=======
+>>>>>>> 99a3ad8 (commit)
   return (
-    <div className="p-[30px]">
+    <div className="p-[10px]">
       <div className="flex items-center mb-10 gap-x-5">
         <button
           className="flex items-center gap-x-2 text-default"
@@ -127,11 +144,11 @@ const BookCraftingPage = () => {
           <IoMdArrowBack />
           Back
         </button>
-        <h1 className="text-2xl font-bold">Creating A New Book</h1>
+        <h1 className="text-2xl font-bold ">Creating A New Book</h1>
       </div>
 
       <form
-        className="flex items-start px-10 gap-x-16"
+        className="flex flex-wrap items-start justify-center px-10 gap-x-16"
         action=""
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -230,12 +247,11 @@ const BookCraftingPage = () => {
                   className="flex items-center p-1 bg-gray-200 rounded gap-x-1"
                 >
                   <p>{k}</p>
-                  <p
+
+                  <X
                     className="hover:cursor-pointer"
                     onClick={() => handleDelete(k)}
-                  >
-                    x
-                  </p>
+                  />
                 </div>
               ))}
             </div>

@@ -5,8 +5,25 @@ import { PiBookOpenText } from "react-icons/pi";
 import { IoLayers } from "react-icons/io5";
 import { Button } from "./ui/button";
 import logo from "../assets/images/Login/Vector 2.svg";
+// import { useSingleBook } from "@/hooks/useBookApi";
+import { useParams } from "react-router-dom";
+// import { useEffect, useState } from "react";
 
 const BookDetailSideBar = () => {
+  const { bookId } = useParams();
+  console.log(bookId);
+
+  // const { data: singleBook, isLoading } = useSingleBook(bookId!);
+
+  // const [singleBookId, setSingleBookId] = useState("");
+
+  // useEffect(() => {
+  //   if (!isLoading && singleBook) {
+  //     setSingleBookId(singleBook.id);
+  //   }
+  // }, [isLoading, singleBook]);
+
+  // console.log(singleBookId);
   return (
     <div className="w-1/5 h-screen text-white bg-default">
       <div className="flex flex-col ">
@@ -26,7 +43,7 @@ const BookDetailSideBar = () => {
             </div>
           </NavLink>
 
-          <NavLink to="childBookdetail">
+          <NavLink to={`/bookdetail/${bookId}/childBookdetail`}>
             {({ isActive }) => (
               <Button
                 variant="detail"
@@ -42,7 +59,7 @@ const BookDetailSideBar = () => {
             )}
           </NavLink>
 
-          <NavLink to="chapters">
+          <NavLink to={`/bookdetail/${bookId}/chapters`}>
             {({ isActive }) => (
               <Button
                 variant="detail"
@@ -58,7 +75,7 @@ const BookDetailSideBar = () => {
             )}
           </NavLink>
 
-          <NavLink to="comment">
+          <NavLink to={`/bookdetail/${bookId}/comment`}>
             {({ isActive }) => (
               <Button
                 variant="detail"

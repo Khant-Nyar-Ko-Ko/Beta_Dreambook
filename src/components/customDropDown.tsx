@@ -82,7 +82,6 @@ const CustomDropdown: React.FC = () => {
   );
 
   return (
-
     <div className="relative inline-block w-full">
       <select
         className="w-full p-3 bg-white border border-gray-300 rounded"
@@ -90,7 +89,7 @@ const CustomDropdown: React.FC = () => {
         onChange={handleChange}
       >
         <option value="" disabled>
-          Select an option
+          select category
         </option>
         {options.map((option) => (
           <option key={option.value} value={option.value} className="p-10 m-2">

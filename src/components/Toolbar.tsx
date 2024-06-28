@@ -5,6 +5,7 @@ import "react-quill/dist/quill.snow.css";
 interface ToolbarProps {
   value: string;
   onChange: (value: string) => void;
+  // isEditMode: boolean | null;
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({ value, onChange }) => {

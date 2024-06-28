@@ -1,10 +1,52 @@
+<<<<<<< HEAD
 import { createBooks, fetchBooks, fetchPaginatedBooks, fetchPopularBook, fetchSingleBook } from "@/api";
 import { BookDataType } from "@/utils/type";
 import { useMutation, useQuery } from "@tanstack/react-query";
+=======
+import { createBooks } from "@/api";
+import {
+  deleteBook,
+  fetchBooks,
+  getSingleBook,
+  updateBook,
+} from "@/api/bookApi";
+import { BookDataType } from "@/utils/type";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+>>>>>>> 99a3ad8 (commit)
 
 export const useCreateBook = () => {
   return useMutation({
     mutationFn: (data: BookDataType) => createBooks(data),
+<<<<<<< HEAD
+=======
+  });
+};
+
+export const useBooks = () => {
+  return useQuery({ queryKey: ["books"], queryFn: () => fetchBooks() });
+};
+
+export const useSingleBook = (bookId: string) => {
+  return useQuery({
+    queryKey: ["book", bookId],
+    queryFn: () => getSingleBook(bookId),
+  });
+};
+
+export const useUpdateBook = (bookId: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: BookDataType) => updateBook(data, bookId),
+    onSuccess: () => {
+      return queryClient.invalidateQueries({ queryKey: ["book", bookId] });
+    },
+  });
+};
+
+export const useDeleteBook = () => {
+  return useMutation({
+    mutationFn: (bookId: string) => deleteBook(Number(bookId)),
+>>>>>>> 99a3ad8 (commit)
   });
 };
 

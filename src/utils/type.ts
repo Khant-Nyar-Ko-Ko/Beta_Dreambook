@@ -48,6 +48,7 @@ export type categoryType = {
   priority: string;
 };
 
+<<<<<<< HEAD
 export type  BookDataType = {
     id?: number;
     title : string,
@@ -61,3 +62,18 @@ export type  BookDataType = {
 export type LibraryBookCardProps = {
     books?: BookDataType[];
   }
+=======
+export type BookDataType = {
+  title: string;
+  coverImg: File | string;
+  description: string;
+  categoryId: string;
+  status: string;
+  keywords: string[];
+};
+
+export type BookResponseType = BookDataType & {
+  id: number;
+  slug: string;
+};
+>>>>>>> 99a3ad8 (commit)
