@@ -6,8 +6,9 @@ import { useFetchBooksByLoginUser } from "@/hooks/useBookApi";
 import Card from "../Card";
 import SearchInput from "../SearchInput";
 import { useDebounce } from "react-use";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SortDropdown from "../SortDropdown";
+import EmptyBookPage from "../EmptyBookPage";
 
 const BookLists = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -26,6 +27,10 @@ const BookLists = () => {
   const handleSortChange = (sortOrder: string | undefined) => {
     setSort(sortOrder);
   };
+
+  useEffect(() => {
+    console.log("userBooks: ", userBooks);
+  }, [userBooks]);
 
   return (
     <div className="flex flex-col w-4/5 h-full px-3 py-5 bg-white dark:bg-darkMode1">
@@ -51,18 +56,8 @@ const BookLists = () => {
           />
         </div>
       </div>
-      {!userBooks || userBooks.length === 0 ? (
-        <div className="flex flex-col w-4/5 h-full px-3 py-5 bg-white dark:bg-darkMode1">
-          <iframe
-            src="https://lottie.host/embed/8866455b-434f-412d-863b-334f6c5c5724/EzyvqFxRUM.json"
-            className="w-full h-32 md:h-96"
-            title="Animation"
-          ></iframe>
-          <p className="mt-3 text-center opacity-50 font-primary">
-            "Discover literary treasures: Explore our curated book lists
-            collection today."
-          </p>
-        </div>
+      {!userBooks || userBooks.length === 0 || data == "bookDeleted" ? (
+        <EmptyBookPage/>
       ) : (
         <div className="grid items-center justify-center grid-cols-4 gap-10 mx-20 my-10">
           {userBooks.map(

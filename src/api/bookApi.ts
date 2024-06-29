@@ -144,3 +144,33 @@ export const createBooks = async (
 
   return result;
 };
+
+export const updateBook = async (
+  data : BookDataType
+) => {
+  const token = getToken();
+  const formData = new FormData();
+  formData.append("title", data.title);
+  formData.append("coverImg", data.coverImg);
+  formData.append("description", data.description);
+  data.keywords.forEach((keyword) => formData.append("keyword[]", keyword));
+  formData.append("status", data.status);
+  formData.append("categoryId", data.categoryId);
+
+  const response : Response = await fetch(`${BaseURL}/books/${data.id}`,{
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    mode: "cors",
+    method: "PATCH",
+    redirect: "follow",
+    body: formData,
+  })
+
+  const result = await response.json();
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return result;
+}

@@ -51,7 +51,7 @@ const UserRouter: RouteObject[] = [
         ),
       },
       {
-        path: "bookdetail",
+        path: "bookdetail/:id",
         element: <BookDetailPage />,
         children: [
           {

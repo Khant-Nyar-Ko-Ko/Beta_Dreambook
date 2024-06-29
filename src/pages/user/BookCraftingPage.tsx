@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 
 const BookCraftingPage = () => {
   const bookCreateMutation = useCreateBook();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const schema = z.object({
     title: z.string().min(4, { message: "you need to fill title" }),
@@ -36,6 +36,8 @@ const BookCraftingPage = () => {
   });
 
   const { data: categories } = useFetchCategories();
+  console.log(categories);
+  
 
   type Schema = z.infer<typeof schema>;
   const {
@@ -99,7 +101,13 @@ const BookCraftingPage = () => {
     console.log("click");
     console.log(data);
     const bookData = { ...data, bookId: null };
-    bookCreateMutation.mutate(bookData);
+    bookCreateMutation.mutate(bookData, {
+      onSuccess: (createdBook) => {
+        // Assuming the createdBook contains the book ID
+        navigate(`/bookdetail/${createdBook.id}`);
+        reset();
+      },
+    });
 
     reset();
   };
@@ -116,7 +124,6 @@ const BookCraftingPage = () => {
     }
   }, [bookCreateMutation.isError]);
 
-  bookCreateMutation.isSuccess && navigator("/bookdetail");
 
   return (
     <div className="md:p-[30px] select-none py-5">
@@ -199,9 +206,9 @@ const BookCraftingPage = () => {
               {...register("categoryId")}
             >
               <option value="" className="text-sm w-[300px] md:w-full">Select Category</option>
-              {categories?.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.title}
+              {categories?.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.title}
                 </option>
               ))}
             </select>
