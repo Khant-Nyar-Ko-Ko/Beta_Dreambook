@@ -17,6 +17,10 @@ type Option = {
   image: string;
 };
 
+interface CustomDropdownProps {
+  categoryId?: string; 
+}
+
 const options: Option[] = [
   {
     label: "Digital Marketing",
@@ -70,8 +74,9 @@ const options: Option[] = [
   },
 ];
 
-const CustomDropdown: React.FC = () => {
-  const [selectedValue, setSelectedValue] = useState<string>("");
+const CustomDropdown: React.FC<CustomDropdownProps> = (categoryId) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [selectedValue, setSelectedValue] = useState<any>(categoryId);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);

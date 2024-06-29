@@ -6,22 +6,26 @@ import { useFetchBooks } from "@/hooks/useBookApi";
 import Card from "../Card";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 import SortDropdown from "../SortDropdown";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import EmptyBookPage from "../EmptyBookPage";
 
 const FavBooks = () => {
   const { favouriteBookIds } = useFavouriteBooks();
   const [sort, setSort] = useState<any | undefined>();
   const { data: books, error, isLoading } = useFetchBooks(sort);
 
-  const favoriteBookIds = favouriteBookIds;
-
   const favouriteBooks = books?.items.filter((book: any) =>
-    favoriteBookIds?.includes(book.id)
+    favouriteBookIds?.includes(book.id)
   );
 
   const handleSortChange = (sortOrder: string | undefined) => {
     setSort(sortOrder);
   };
+
+  useEffect(() => {
+    console.log("books:", books);
+    console.log("favouriteBooks:", favouriteBooks);
+  }, [books, favouriteBooks]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -30,22 +34,6 @@ const FavBooks = () => {
   if (error) {
     console.error("Error loading books:", error);
     return <div>Error loading books</div>;
-  }
-
-  if (!books.items || books.items.length === 0 || books.items == "")  {
-    return (
-      <div className="flex flex-col items-center justify-center mt-20 md:mt-0">
-        <iframe
-          src="https://lottie.host/embed/8866455b-434f-412d-863b-334f6c5c5724/EzyvqFxRUM.json"
-          className="w-full h-32 md:h-96"
-          title="Animation"
-        ></iframe>
-        <p className="mt-3 text-center opacity-50 font-primary">
-          "Discover literary treasures: Explore our curated book lists
-          collection today."
-        </p>
-      </div>
-    );
   }
 
   return (
@@ -71,22 +59,24 @@ const FavBooks = () => {
           </div>
         </div>
       </div>
-      <div className="grid items-center justify-center grid-cols-4 gap-10 mx-20 my-10">
-        {favouriteBooks.map(
-          ({
-            id,
-            title,
-            coverImg,
-            category,
-            user,
-          }: {
-            id: any;
-            title: string;
-            coverImg: string;
-            category: any;
-            user: any;
-          }) => {
-            return (
+      {!favouriteBooks || favouriteBooks.length === 0 ? (
+       <EmptyBookPage/>
+      ) : (
+        <div className="grid items-center justify-center grid-cols-4 gap-10 mx-20 my-10">
+          {favouriteBooks.map(
+            ({
+              id,
+              title,
+              coverImg,
+              category,
+              user,
+            }: {
+              id: any;
+              title: string;
+              coverImg: string;
+              category: any;
+              user: any;
+            }) => (
               <Card
                 key={id}
                 id={id}
@@ -97,10 +87,10 @@ const FavBooks = () => {
                 author={user?.name}
                 authorprofile={user?.profileImg}
               />
-            );
-          }
-        )}
-      </div>
+            )
+          )}
+        </div>
+      )}
     </div>
   );
 };

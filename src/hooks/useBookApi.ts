@@ -6,15 +6,10 @@ import {
   fetchPopularBook,
   fetchRelatedBooks,
   fetchSingleBook,
+  updateBook,
 } from "@/api";
 import { BookDataType } from "@/utils/type";
 import { useMutation, useQuery } from "@tanstack/react-query";
-
-export const useCreateBook = () => {
-  return useMutation({
-    mutationFn: (data: BookDataType) => createBooks(data),
-  });
-};
 
 export const useFetchBooks = (
   page?: number,
@@ -56,5 +51,17 @@ export const useFetchRelatedBooks = (bookId : any) => {
   return useQuery({
     queryKey: ["relatedBooks", bookId],
     queryFn: () => fetchRelatedBooks({bookId})
+  })
+}
+
+export const useCreateBook = () => {
+  return useMutation({
+    mutationFn: (data: BookDataType) => createBooks(data),
+  });
+};
+
+export const useUpdateBook = () => {
+  return useMutation({
+    mutationFn: (data: BookDataType) => updateBook(data)
   })
 }
