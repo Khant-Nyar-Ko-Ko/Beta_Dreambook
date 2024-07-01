@@ -7,9 +7,9 @@ export const usePostChapterProgress = () =>
     mutationFn: (data: ChapterProgressType) => postChapterProgress(data),
   });
 
-export const useGetChapterProgress = (bookId: number) => {
+export const useGetChapterProgress = (slug: string) => {
   return useQuery({
-    queryKey: ["chapterProgress", bookId],
-    queryFn: () => getChapterProgress({ bookId }),
+    queryKey: ["chapterProgress", slug],
+    queryFn: () => getChapterProgress({ slug }),
   });
 };

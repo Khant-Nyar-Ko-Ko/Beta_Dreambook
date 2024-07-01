@@ -17,6 +17,7 @@ interface CardProps {
   author: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   authorprofile: any;
+  slug: string
 }
 
 const Card: React.FC<CardProps> = ({
@@ -27,6 +28,7 @@ const Card: React.FC<CardProps> = ({
   categorytitle,
   author,
   authorprofile,
+  slug
 }) => {
   const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } =
     useFavouriteBooks();
@@ -40,6 +42,8 @@ const Card: React.FC<CardProps> = ({
     toast.success("Removed from favourites")
   };
   const token = getToken();
+  console.log(slug);
+  
 
   return (
     <div
@@ -63,8 +67,8 @@ const Card: React.FC<CardProps> = ({
               <IoMdHeartEmpty />
             </button>
           )}
-          {token ? (
-            <NavLink to={`/readbook/${id}`}>
+          {token && slug ? (
+            <NavLink to={`/readbook/${slug}`}>
               <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
                 <IoEyeOutline />
               </button>

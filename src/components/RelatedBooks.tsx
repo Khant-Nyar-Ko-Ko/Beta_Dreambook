@@ -3,9 +3,9 @@ import { useFetchRelatedBooks } from "@/hooks/useBookApi"
 import Card from "./Card";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const RelatedBooks = ({bookId} : {bookId : any})=> {
+const RelatedBooks = ({slug} : {slug : string})=> {
 
-    const {data : relatedBooks, isLoading} = useFetchRelatedBooks(bookId);
+    const {data : relatedBooks, isLoading} = useFetchRelatedBooks(slug);
 
     if (isLoading || !relatedBooks) {
         return <div>Loading...</div>; // or a loading spinner
@@ -23,17 +23,20 @@ const RelatedBooks = ({bookId} : {bookId : any})=> {
               coverImg,
               category,
               user,
+              slug
             }: {
               id: any;
               title: string;
               coverImg: string;
               category: any;
               user: any;
+              slug: string
             }) => {
               return (
                 <Card
                   key={id}
                   id={id}
+                  slug={slug}
                   title={title}
                   image={coverImg}
                   categorylogo={category?.icon}

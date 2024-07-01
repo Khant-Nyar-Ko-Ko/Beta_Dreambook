@@ -19,6 +19,7 @@ type Option = {
 
 interface CustomDropdownProps {
   categoryId?: string; 
+  isDisabled? : boolean
 }
 
 const options: Option[] = [
@@ -74,9 +75,10 @@ const options: Option[] = [
   },
 ];
 
-const CustomDropdown: React.FC<CustomDropdownProps> = (categoryId) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [selectedValue, setSelectedValue] = useState<any>(categoryId);
+const CustomDropdown: React.FC<CustomDropdownProps> = ({ categoryId, isDisabled }) => {
+  const [selectedValue, setSelectedValue] = useState<string | null>(
+    categoryId || null
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
@@ -87,12 +89,12 @@ const CustomDropdown: React.FC<CustomDropdownProps> = (categoryId) => {
   );
 
   return (
-
     <div className="relative inline-block w-full">
       <select
         className="w-full p-3 bg-white border border-gray-300 rounded"
         value={selectedValue || ""}
         onChange={handleChange}
+        disabled={isDisabled}
       >
         <option value="" disabled>
           Select an option

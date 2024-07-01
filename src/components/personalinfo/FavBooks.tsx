@@ -70,16 +70,19 @@ const FavBooks = () => {
               coverImg,
               category,
               user,
+              slug
             }: {
               id: any;
               title: string;
               coverImg: string;
               category: any;
               user: any;
+              slug: string
             }) => (
               <Card
                 key={id}
                 id={id}
+                slug={slug}
                 title={title}
                 image={coverImg}
                 categorylogo={category?.icon}

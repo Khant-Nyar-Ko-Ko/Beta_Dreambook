@@ -100,75 +100,75 @@
 // export default BookImagePreview;
 
 // src/components/BookImagePreview.tsx
-import React, { useState, ChangeEvent } from "react";
-import bookImg from "../assets/images/bookCrafting/bookImg.png";
+// import React, { useState, ChangeEvent } from "react";
+// import bookImg from "../assets/images/bookCrafting/bookImg.png";
 
-interface BookImagePreviewProps {
-  title: string;
-}
+// interface BookImagePreviewProps {
+//   title: string;
+// }
 
-const BookImagePreviewSec: React.FC<BookImagePreviewProps> = ({}) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+// const BookImagePreviewSec: React.FC<BookImagePreviewProps> = () => {
+//   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+//   const [preview, setPreview] = useState<string | null>(null);
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] || null;
-    setSelectedFile(file);
+//   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+//     const file = event.target.files?.[0] || null;
+//     setSelectedFile(file);
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+//     if (file) {
+//       const reader = new FileReader();
+//       reader.onloadend = () => {
+//         setPreview(reader.result as string);
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!selectedFile) {
-      alert("Please select a file first.");
-      return;
-    }
-    // Handle the file upload
-    console.log("File to upload:", selectedFile);
-  };
+//   const handleSubmit = (event: React.FormEvent) => {
+//     event.preventDefault();
+//     if (!selectedFile) {
+//       alert("Please select a file first.");
+//       return;
+//     }
+//     // Handle the file upload
+//     console.log("File to upload:", selectedFile);
+//   };
 
-  return (
-    <div className="max-w-md p-4 mx-auto bg-white shadow-md">
-      <div className="p-4 border border-gray-400 border-dashed rounded-md">
-        <form onSubmit={handleSubmit}>
-          <div className="relative ">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-            />
-            {preview ? (
-              <img
-                src={preview}
-                alt="Book Cover Preview"
-                className="w-48 h-64 mx-auto rounded-md"
-              />
-            ) : (
-              <div className="flex items-center justify-center w-48 h-64 mx-auto border-2 border-gray-300 border-dashed rounded-md ">
-                <div className="text-center">
-                  <img
-                    className="w-10 h-10 mx-auto text-gray-400"
-                    src={bookImg}
-                    alt="Icon"
-                  />
-                  <p className="mt-2 text-sm text-gray-600">Click to upload</p>
-                  <p className="text-xs text-gray-500">JPG, JPEG, or PNG</p>
-                </div>
-              </div>
-            )}
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="max-w-md p-4 mx-auto bg-white shadow-md">
+//       <div className="p-4 border border-gray-400 border-dashed rounded-md">
+//         <form onSubmit={handleSubmit}>
+//           <div className="relative ">
+//             <input
+//               type="file"
+//               accept="image/*"
+//               onChange={handleFileChange}
+//               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+//             />
+//             {preview ? (
+//               <img
+//                 src={preview}
+//                 alt="Book Cover Preview"
+//                 className="w-48 h-64 mx-auto rounded-md"
+//               />
+//             ) : (
+//               <div className="flex items-center justify-center w-48 h-64 mx-auto border-2 border-gray-300 border-dashed rounded-md ">
+//                 <div className="text-center">
+//                   <img
+//                     className="w-10 h-10 mx-auto text-gray-400"
+//                     src={bookImg}
+//                     alt="Icon"
+//                   />
+//                   <p className="mt-2 text-sm text-gray-600">Click to upload</p>
+//                   <p className="text-xs text-gray-500">JPG, JPEG, or PNG</p>
+//                 </div>
+//               </div>
+//             )}
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
 
-export default BookImagePreviewSec;
+// export default BookImagePreviewSec;

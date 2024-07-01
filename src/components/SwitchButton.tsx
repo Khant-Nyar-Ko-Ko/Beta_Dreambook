@@ -2,9 +2,13 @@ import { useState } from "react";
 
 const SwitchButton = () => {
   const [isDraft, setIsDraft] = useState(true);
+  const [publish, setPublish] = useState("");
+  console.log(publish);
+  
 
   const toggleState = () => {
     setIsDraft(!isDraft);
+    isDraft ? setPublish("false") : setPublish("true");
   };
 
   return (

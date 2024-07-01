@@ -9,7 +9,7 @@ export const usePostComment = () => {
   });
 };
 
-export const useGetComment = (bookId : any) => useQuery({
-  queryKey: ['comment', bookId],
-  queryFn: () => getComment({bookId})
+export const useGetComment = (slug : string) => useQuery({
+  queryKey: ['comment', slug],
+  queryFn: () => getComment({slug})
 })

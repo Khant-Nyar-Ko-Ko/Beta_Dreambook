@@ -7,6 +7,8 @@ import CardLoading from "./Loading/CardLoading";
 
 const PopularBookCard = () => {
   const { data: popularBook, error, isLoading } = useFetchPopularBook();
+  console.log(popularBook);
+  
 
   if (isLoading) {
     return <CardLoading />;
@@ -41,12 +43,14 @@ const PopularBookCard = () => {
             coverImg,
             category,
             user,
+            slug
           }: {
             id: any;
             title: string;
             coverImg: string;
             category: any;
             user: any;
+            slug: string
           }) => {
             const { name, profileImg } = user;
             
@@ -56,6 +60,7 @@ const PopularBookCard = () => {
                 <Card
                   key={id}
                   id={id}
+                  slug={slug}
                   title={title}
                   image={coverImg}
                   categorylogo={category?.icon}

@@ -24,11 +24,11 @@ export const useFetchBooks = (
   });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const useFetchSingleBook = (id: any) =>
+export const useFetchSingleBook = (slug: string) =>
   useQuery({
-    queryKey: ["singleBook", id],
-    queryFn: () => fetchSingleBook({ id }),
-    enabled: !!id,
+    queryKey: ["singleBook", slug],
+    queryFn: () => fetchSingleBook({ slug }),
+    enabled: !!slug,
   });
 
 export const useFetchPopularBook = () => {
@@ -47,10 +47,10 @@ export const useFetchBooksByLoginUser = (sort?: string) => {
   })
 }
 
-export const useFetchRelatedBooks = (bookId : any) => {
+export const useFetchRelatedBooks = (slug : string) => {
   return useQuery({
-    queryKey: ["relatedBooks", bookId],
-    queryFn: () => fetchRelatedBooks({bookId})
+    queryKey: ["relatedBooks", slug],
+    queryFn: () => fetchRelatedBooks({slug})
   })
 }
 
