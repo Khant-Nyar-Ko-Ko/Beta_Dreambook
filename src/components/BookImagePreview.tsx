@@ -34,7 +34,6 @@ const BookImagePreview: React.FC<BookImagePreviewProps> = ({ title, coverImg }) 
       alert("Please select a file first.");
       return;
     }
-    // Handle the file upload
     console.log("File to upload:", selectedFile);
   };
 
@@ -72,32 +71,6 @@ const BookImagePreview: React.FC<BookImagePreviewProps> = ({ title, coverImg }) 
           </div>
         </form>
       </div>
-      {/* <div className="flex flex-col mt-4 rounded-md shadow-sm font-primary">
-        <h1 className="mt-5 mb-4 text-sm text-center">Preview Card Design</h1>
-        <div className="flex flex-col gap-1 mx-3 h-28 w-42">
-          <div className="flex gap-1 ">
-            <img
-              src={preview ?? undefined}
-              alt="Book Cover Preview"
-              className="mx-auto rounded-md h-28 w-42"
-            />
-          </div>
-          <div className="flex flex-col gap-2 mt-2 items-left ">
-            <p className="text-sm font-bold font-primary text-start">{title}</p>
-            <p className="text-left text-sx font-primary text-slate-500">
-              Finecence
-            </p>
-            <div className="flex gap-3">
-              <img
-                src={authorprofile}
-                className="w-6 h-6 rounded-full"
-                alt="author"
-              />
-              <p className="text-sm font-primary">By Dr. Phil McGraw</p>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <div
       className=" flex flex-col w-[230px] gap-5 h-[260px] pb-3 bg-white dark:bg-darkMode2 border border-slate-100 dark:border-darkMode1 rounded"
     >
@@ -125,12 +98,6 @@ const BookImagePreview: React.FC<BookImagePreviewProps> = ({ title, coverImg }) 
         <p className="font-semibold w-[230px] font-primary text-start  text-black dark:text-white">
           {title}
         </p>
-        {/* <div className="flex gap-1 ">
-          <img src={categorylogo} className="w-4 h-4" alt="categorylogo" />
-          <p className="text-sm font-primary text-slate-500 dark:text-white">
-            {categorytitle}
-          </p>
-        </div> */}
         <div className="flex items-center gap-2 ">
           <img
             src={authorprofile}

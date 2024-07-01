@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getChapter } from "@/api";
-import { useQuery } from "@tanstack/react-query";
+import { createChapter, getChapter } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-export const useGetChapter = ({bookId} : {bookId : string}) => useQuery({
-    queryKey: ['chapters',bookId],
-    queryFn: () => getChapter({bookId})
+export const useGetChapter = ({slug} : {slug : string}) => useQuery({
+    queryKey: ['chapters',slug],
+    queryFn: () => getChapter({slug})
 })
+
+export const useCreateChapter = () => {
+    return useMutation({
+        mutationFn: ({ slug }: { slug: string }) => createChapter({ slug }),
+    })
+}

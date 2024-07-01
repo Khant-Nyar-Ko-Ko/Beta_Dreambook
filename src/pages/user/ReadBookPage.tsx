@@ -13,20 +13,23 @@ import { useGetChapterProgress } from "@/hooks/useChapterProgressApi";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { getChapter } from "@/api";
 import toast from "react-hot-toast";
+import DOMPurify from "dompurify";
 
 const ReadBookPage = () => {
-  const { bookId } = useParams<{ bookId: any }>();
+  const { slug } = useParams<{ slug: string }>();
   const [comment, setComment] = useState<string>("");
   const [chapters, setChapters] = useState<any[]>([]);
 
   const { data: singleBook, isLoading: isSingleBookLoading } =
-    useFetchSingleBook(bookId ?? "");
+    useFetchSingleBook(slug ?? "");
+    console.log(singleBook);
+    
   const { data: progress, isLoading: isProgressLoading } =
-    useGetChapterProgress(bookId);
+    useGetChapterProgress(slug ?? "");
 
   useEffect(() => {
-    if (bookId) {
-      getChapter({ bookId })
+    if (slug) {
+      getChapter({slug} )
         .then((chaptersData) => {
           setChapters(chaptersData);
         })
@@ -34,26 +37,30 @@ const ReadBookPage = () => {
           console.error("Failed to fetch chapters:", error);
         });
     }
-  }, [bookId]);
+  }, [slug]);
 
 
 
-  const { data: readComment, refetch} = useGetComment(bookId);
+  const { data: readComment, refetch} = useGetComment(slug ?? "");
   const { mutate, isSuccess } = usePostComment();
 
   useEffect(() => {
     if (isSuccess) {
       console.log("Success! Calling refetch...");
-      refetch(); // Ensure refetch is being called
+      refetch();
     }
   }, [isSuccess, refetch]);
   
   useEffect(() => {
-    console.log("Read comments:", readComment); // Check if readComment is updating
+    console.log("Read comments:", readComment); 
   }, [readComment]);
 
-  if (isSingleBookLoading || !singleBook) {
+  if (isSingleBookLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (!singleBook) {
+    return <div>No book data available</div>;
   }
 
   
@@ -87,7 +94,7 @@ const ReadBookPage = () => {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutate({ bookId: Number(bookId), text: comment });
+    mutate({ bookId: Number(singleBook.id), text: comment });
     toast.success("Posted comment successfully")
     refetch();
     setComment("");
@@ -132,7 +139,7 @@ const ReadBookPage = () => {
                   </div>
                   <div className="flex items-center gap-2 text-black dark:text-white">
                     <p> Keywords : </p>
-                    <p>{singleBook?.keywords}</p>
+                    <p>Keywords: {singleBook?.keywords?.map((keyword:string) => keyword).join(', ')}</p>
                   </div>
                 </div>
                 {currentBook.chapterProgress !== 1 && (
@@ -168,7 +175,12 @@ const ReadBookPage = () => {
         )}
         <div className="flex flex-col gap-3 my-10 text-black select-none dark:text-white">
           <p className="text-xl font-semibold font-primary ">Book Overview</p>
-          <p>{singleBook?.description}</p>
+          <div
+          className=" font-primary"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(singleBook?.description),
+            }}
+          ></div>
         </div>
         <hr className="md:w-[900px] border-white dark:border-slate-700" />
         <div className="flex flex-col gap-5 my-5 text-black select-none dark:text-white">
@@ -186,7 +198,7 @@ const ReadBookPage = () => {
         </div>
         <ReadComment readComment={readComment} />
       </div>
-      <RelatedBooks bookId={bookId} />
+      <RelatedBooks slug={singleBook.slug} />
     </div>
   );
 };

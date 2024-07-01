@@ -23,10 +23,10 @@ export const postChapterProgress = async (data: ChapterProgressType) => {
   return result;
 };
 
-export const getChapterProgress = async ({ bookId }: { bookId: number }) => {
+export const getChapterProgress = async ({ slug }: { slug: string }) => {
   const token = getToken();
   const response: Response = await fetch(
-    `${BaseURL}/chapter-progress/${bookId}`,
+    `${BaseURL}/chapter-progress?slug=${slug}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -27,9 +27,9 @@ export const postComment = async ({
   return result;
 };
 
-export const getComment = async ({ bookId }: { bookId: number }) => {
+export const getComment = async ({ slug }: { slug: string }) => {
   const token = getToken();
-  const response : Response = await fetch(`${BaseURL}/comments/book/${bookId}`,{
+  const response : Response = await fetch(`${BaseURL}/comments/book?slug=${slug}`,{
     headers: {
       Authorization : `Bearer ${token}`,
       "Content-Type": "application/json",

@@ -67,17 +67,20 @@ const BookLists = () => {
               coverImg,
               category,
               user,
+              slug
             }: {
               id: string;
               title: string;
               coverImg: string;
               category: { icon: string; title: string };
               user: { name: string; profileImg: string };
+              slug: string
             }) => {
               return (
                 <Card
                   key={id}
                   id={Number(id)}
+                  slug={slug}
                   title={title}
                   image={coverImg}
                   categorylogo={category.icon}

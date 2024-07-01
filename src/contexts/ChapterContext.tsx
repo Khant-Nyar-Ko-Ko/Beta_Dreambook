@@ -15,7 +15,7 @@ const ChapterContext = createContext<any>(null);
 // eslint-disable-next-line react-refresh/only-export-components
 export const useChapterContext = () => useContext(ChapterContext);
 export const ChapterProvider = ({ children }: { children: ReactNode }) => {
-  const { bookId, chapterNum } = useParams();
+  const { slug, chapterNum } = useParams();
 
   const [chapters, setChapters] = useState([]);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(
@@ -26,25 +26,25 @@ export const ChapterProvider = ({ children }: { children: ReactNode }) => {
   const { mutate: chapterProgress } = usePostChapterProgress();
 
   useEffect(() => {
-    if (bookId) {
+    if (slug) {
       setLoading(true);
-      getChapter({ bookId })
+      getChapter({ slug })
         .then((chaptersData) => {
           setChapters(chaptersData);
           setLoading(false);
-          chapterProgress({ bookId, chapterProgress: currentChapterIndex + 1 });
+          chapterProgress({ slug, chapterProgress: currentChapterIndex + 1 });
         })
         .catch((error) => {
           console.error("Failed to fetch chapters:", error);
           setLoading(false);
         });
     }
-  }, [bookId, chapterProgress, currentChapterIndex]);
+  }, [slug, chapterProgress, currentChapterIndex]);
 
   const handleChapterClick = (index: number) => {
     setCurrentChapterIndex(index);
-    chapterProgress({ bookId, chapterProgress: index + 1 });
-    navigate(`/readchapter/${bookId}/${index + 1}`);
+    chapterProgress({ slug: slug ?? "", chapterProgress: index + 1 });
+    navigate(`/readchapter/${slug}/${index + 1}`);
   };
 
   const handlePrevChapter = () => {
@@ -57,15 +57,15 @@ export const ChapterProvider = ({ children }: { children: ReactNode }) => {
     if (currentChapterIndex < chapters.length - 1) {
       handleChapterClick(currentChapterIndex + 1);
     } else {
-      chapterProgress({ bookId, chapterProgress: 1 });
-      navigate(`/readbook/${bookId}`);
+      chapterProgress({ slug: slug ?? "", chapterProgress: 1 });
+      navigate(`/readbook/${slug}`);
     }
   };
 
   return (
     <ChapterContext.Provider
       value={{
-        bookId,
+        slug,
         chapters,
         currentChapterIndex,
         handleChapterClick,

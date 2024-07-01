@@ -41,12 +41,12 @@ export const fetchBooks = async (
   return result;
 };
 
-export const fetchSingleBook = async ({ id }: { id: any }) => {
-  if (!id) {
+export const fetchSingleBook = async ({ slug }: { slug: string }) => {
+  if (!slug) {
     console.error("Invalid book ID");
     throw new Error("Invalid book ID");
   }
-  const response: Response = await fetch(`${BaseURL}/books/searchBook/${id}`, {
+  const response: Response = await fetch(`${BaseURL}/books/searchBook/${slug}`, {
     method: "GET",
     mode: "cors",
     redirect: "follow",
@@ -97,8 +97,8 @@ export const fetchBooksByLoginUser = async (sort?: string) => {
   return result;
 };
 
-export const fetchRelatedBooks = async ({ bookId }: { bookId: any }) => {
-  const queryString = `?bookId=${bookId}`;
+export const fetchRelatedBooks = async ({ slug }: { slug: string }) => {
+  const queryString = `?slug=${slug}`;
   const response: Response = await fetch(
     `${BaseURL}/books/related${queryString}`,
     {
@@ -123,7 +123,9 @@ export const createBooks = async (
   formData.append("title", data.title);
   formData.append("coverImg", data.coverImg);
   formData.append("description", data.description);
-  data.keywords.forEach((keyword) => formData.append("keyword[]", keyword));
+  data.keywords.forEach((keyword) => {
+    formData.append("keywords[]", keyword);
+  });
   formData.append("status", data.status);
   formData.append("categoryId", data.categoryId);
 
@@ -157,7 +159,7 @@ export const updateBook = async (
   formData.append("status", data.status);
   formData.append("categoryId", data.categoryId);
 
-  const response : Response = await fetch(`${BaseURL}/books/${data.id}`,{
+  const response : Response = await fetch(`${BaseURL}/books/${data.slug}`,{
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -17,7 +17,7 @@ import {
 } from "../api/favouriteApi";
 import { selectCategory } from "../api/selectCategoryApi";
 import { postComment, getComment } from "./commentApi";
-import { getChapter } from "./chapterApi";
+import { getChapter, createChapter } from "./chapterApi";
 
 export {
   signUpUser,
@@ -40,5 +40,6 @@ export {
   fetchRelatedBooks,
   postChapterProgress,
   getChapterProgress,
-  updateBook
+  updateBook,
+  createChapter
 };

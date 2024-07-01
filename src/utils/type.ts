@@ -52,7 +52,7 @@ export type categoryType = {
 };
 
 export type  BookDataType = {
-    bookId: null;
+    bookId?: null;
     id?: number;
     title : string,
     coverImg : File | string,
@@ -60,6 +60,7 @@ export type  BookDataType = {
     categoryId : string,
     status : string,
     keywords : string[],
+    slug?: string
 }
 
 export type LibraryBookCardProps = {
@@ -72,6 +73,6 @@ export type LibraryBookCardProps = {
   };
 
   export type ChapterProgressType = {
-    bookId : any,
-    chapterProgress: number
+    chapterProgress: number,
+    slug: string
   }

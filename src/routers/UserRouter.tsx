@@ -39,11 +39,11 @@ const UserRouter: RouteObject[] = [
         element: <BookCraftingPage />,
       },
       {
-        path: "readbook/:bookId",
+        path: "readbook/:slug",
         element: <ReadBookPage />,
       },
       {
-        path: "readchapter/:bookId/:chapterNum",
+        path: "readchapter/:slug/:chapterNum",
         element: (
           <ChapterProvider>
             <ReadChapterPage />
@@ -51,7 +51,7 @@ const UserRouter: RouteObject[] = [
         ),
       },
       {
-        path: "bookdetail/:id",
+        path: "bookdetail/:slug",
         element: <BookDetailPage />,
         children: [
           {
