@@ -28,7 +28,6 @@ const Toolbar: React.FC<ToolbarProps> = ({ value, onChange, isDisabled }) => {
   };
 
   return (
-    <div>
       <div>
         <ReactQuill
           modules={modules}
@@ -38,7 +37,6 @@ const Toolbar: React.FC<ToolbarProps> = ({ value, onChange, isDisabled }) => {
           readOnly={isDisabled}
         />
       </div>
-    </div>
   );
 };
 

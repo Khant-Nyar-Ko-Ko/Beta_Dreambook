@@ -1,5 +1,6 @@
 import { useChapterContext } from "@/contexts/ChapterContext";
 import Loading from "../Loading";
+import DOMPurify from "dompurify";
 
 const ChapterContent = () => {
   const { chapters, currentChapterIndex, loading } = useChapterContext();
@@ -21,8 +22,9 @@ const ChapterContent = () => {
             <h4 className="text-2xl font-semibold text-default">
               {selectedChapter.title}
             </h4>
-            <p className="overflow-auto text-lg text-justify text-black dark:text-white">
-              {selectedChapter.content}
+            <p className="overflow-auto text-lg text-justify text-black dark:text-white" dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(selectedChapter.content)
+            }}>
             </p>
           </>
         )}

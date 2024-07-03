@@ -2,6 +2,14 @@
 import { createChapter, getChapter } from "@/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
+interface ChapterData {
+    title: string;
+    content: string;
+    slug: string;
+    priority: number,
+    status: boolean,
+  }
+
 export const useGetChapter = ({slug} : {slug : string}) => useQuery({
     queryKey: ['chapters',slug],
     queryFn: () => getChapter({slug})
@@ -9,6 +17,6 @@ export const useGetChapter = ({slug} : {slug : string}) => useQuery({
 
 export const useCreateChapter = () => {
     return useMutation({
-        mutationFn: ({ slug }: { slug: string }) => createChapter({ slug }),
+        mutationFn: (data : ChapterData) => createChapter( data),
     })
 }

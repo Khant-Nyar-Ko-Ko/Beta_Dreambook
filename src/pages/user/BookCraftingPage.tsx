@@ -59,15 +59,6 @@ const BookCraftingPage = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({
-      title,
-      description,
-      categoryId,
-      status,
-      keywords,
-      coverImg,
-    });
-
     const bookData = {
       title,
       description,
@@ -83,7 +74,6 @@ const BookCraftingPage = () => {
         // Assuming the createdBook contains the book ID
         navigate(`/bookdetail/${createdBook.slug}`);
         console.log(createdBook);
-        
       },
     });
   };

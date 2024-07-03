@@ -80,9 +80,12 @@ const Card: React.FC<CardProps> = ({
               </button>
             </NavLink>
           )}
+          <NavLink to={`/bookdetail/${slug}`}>
           <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
+
             <TiEdit />
           </button>
+          </NavLink>
         </div>
         <img
           src={image}
@@ -92,7 +95,7 @@ const Card: React.FC<CardProps> = ({
       </div>
       <div className="flex flex-col gap-1 mx-3">
         <p className="font-semibold w-[230px] font-primary text-start  text-black dark:text-white">
-          {title}
+          {title.substring(0, 25)}
         </p>
         <div className="flex gap-1 ">
           <img src={categorylogo} className="w-4 h-4" alt="categorylogo" />

@@ -12,9 +12,9 @@ import PersonalNumberInput from "./PersonalNumberInput";
 
 const PersonalInformation = () => {
   const token = getToken() || "";
-  const { data: user } = useUserApi(token); 
-  const updateUserMutation = useUpdateUser(); 
-  const navigate = useNavigate(); 
+  const { data: user } = useUserApi(token);
+  const updateUserMutation = useUpdateUser();
+  const navigate = useNavigate();
 
   const [signupData, setSignupData] = useState({
     email: "",
@@ -68,10 +68,16 @@ const PersonalInformation = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = { ...signupData, ...formData }; 
-    console.log(data); 
-    updateUserMutation.mutate(data); 
-    navigate("/"); 
+    const updatedData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      bio: formData.bio,
+      gender: formData.gender,
+      profileImg: signupData.profileImg,
+    };
+    updateUserMutation.mutate(updatedData);
+    navigate("/");
   };
 
   return (
@@ -118,9 +124,9 @@ const PersonalInformation = () => {
         <option value="" disabled>
           Gender
         </option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
       </select>
       <div>
         <Button type="submit" className="w-full ">
