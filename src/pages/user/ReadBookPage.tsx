@@ -159,7 +159,7 @@ const ReadBookPage = () => {
                 )}
 
                 <NavLink
-                  to={`/readchapter/${singleBook.id}/${
+                  to={`/readchapter/${slug}/${
                     currentBook.chapterProgress ?? 1
                   }`}
                 >

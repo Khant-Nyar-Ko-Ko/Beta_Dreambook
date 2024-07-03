@@ -159,7 +159,7 @@ export const updateBook = async (
   formData.append("status", data.status);
   formData.append("categoryId", data.categoryId);
 
-  const response : Response = await fetch(`${BaseURL}/books/${data.slug}`,{
+  const response : Response = await fetch(`${BaseURL}/books?slug=${data.slug}`,{
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -1,19 +1,34 @@
-import React, { useState, ChangeEvent } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, ChangeEvent, useEffect } from "react";
 import bookImg from "../assets/images/bookCrafting/bookImg.png";
 import authorprofile from "../assets/images/Author.png";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
 import { TiEdit } from "react-icons/ti";
+import { useFetchCategories } from "@/hooks/useCategoryApi";
 
 interface BookImagePreviewProps {
   title: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  coverImg : any;
+  coverImg: any;
+  categoryId: string;
 }
 
-const BookImagePreview: React.FC<BookImagePreviewProps> = ({ title, coverImg }) => {
+const BookImagePreview: React.FC<BookImagePreviewProps> = ({
+  title,
+  coverImg,
+  categoryId,
+}) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(coverImg);
+  const [preview, setPreview] = useState<string>("");
+  const { data: categories } = useFetchCategories();
+
+  const selectedCategory = categories?.filter(
+    (category) => category.id === Number(categoryId)
+  );
+
+  useEffect(() => {
+    setPreview(coverImg);
+  }, [coverImg]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
@@ -40,7 +55,7 @@ const BookImagePreview: React.FC<BookImagePreviewProps> = ({ title, coverImg }) 
   return (
     <div className="max-w-md p-4 mx-auto bg-white">
       <h1 className="text-sm text-center">Cover Image</h1>
-      <div className="p-4 border border-gray-400 border-dashed rounded-md">
+      <div className="p-4 my-5 border border-gray-400 border-dashed rounded-md">
         <form onSubmit={handleSubmit}>
           <div className="relative ">
             <input
@@ -71,45 +86,55 @@ const BookImagePreview: React.FC<BookImagePreviewProps> = ({ title, coverImg }) 
           </div>
         </form>
       </div>
-      <div
-      className=" flex flex-col w-[230px] gap-5 h-[260px] pb-3 bg-white dark:bg-darkMode2 border border-slate-100 dark:border-darkMode1 rounded"
-    >
-      <div className="relative flex justify-center px-10 py-3 mx-3 mt-3 overflow-hidden bg-slate-200 dark:bg-darkMode3 group">
-        <div className="absolute flex flex-col gap-3 duration-200 transform translate-x-10 group-hover:translate-x-0 right-3 top-5">        
-          <button
-              className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white"
-            >
+      <div className=" flex flex-col w-[230px] gap-5 h-[260px] pb-3 bg-white dark:bg-darkMode2 border border-slate-100 dark:border-darkMode1 rounded">
+        <div className="relative flex justify-center px-10 py-3 mx-3 mt-3 overflow-hidden bg-slate-200 dark:bg-darkMode3 group">
+          <div className="absolute flex flex-col gap-3 duration-200 transform translate-x-10 group-hover:translate-x-0 right-3 top-5">
+            <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
               <IoMdHeartEmpty />
             </button>
             <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
-                <IoEyeOutline />
-              </button>
-          <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
-            <TiEdit />
-          </button>
-        </div>
-        <img
-          src={coverImg}
-          alt={title}
-          className="my-2 duration-200 group-hover:scale-105"
-        />
-      </div>
-      <div className="flex flex-col gap-1 mx-3">
-        <p className="font-semibold w-[230px] font-primary text-start  text-black dark:text-white">
-          {title}
-        </p>
-        <div className="flex items-center gap-2 ">
+              <IoEyeOutline />
+            </button>
+            <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
+              <TiEdit />
+            </button>
+          </div>
           <img
-            src={authorprofile}
-            className="w-6 h-6 rounded-full "
-            alt="author"
+            src={preview}
+            alt={title}
+            className="my-2 duration-200 group-hover:scale-105"
           />
-          <p className="text-sm text-black font-primary dark:text-white">
-            By Unknown User
+        </div>
+        <div className="flex flex-col gap-1 mx-3">
+          <p className="text-lg font-semibold text-black font-primary text-start dark:text-white">
+            {title}
           </p>
+
+          {selectedCategory && (
+            <div className="flex gap-1 ">
+              <img
+                src={selectedCategory[0]?.icon}
+                className="w-4 h-4"
+                alt="categorylogo"
+              />
+              <p className="text-sm font-primary text-slate-500 dark:text-white">
+                {selectedCategory[0]?.title}
+              </p>
+            </div>
+          )}
+
+          <div className="flex items-center gap-2 ">
+            <img
+              src={authorprofile}
+              className="w-6 h-6 rounded-full "
+              alt="author"
+            />
+            <p className="text-sm text-gray-600 font-primary dark:text-white">
+              By Unknown User
+            </p>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };

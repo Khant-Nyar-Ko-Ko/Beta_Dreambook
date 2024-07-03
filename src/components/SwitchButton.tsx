@@ -4,7 +4,6 @@ const SwitchButton = () => {
   const [isDraft, setIsDraft] = useState(true);
   const [publish, setPublish] = useState("");
   console.log(publish);
-  
 
   const toggleState = () => {
     setIsDraft(!isDraft);

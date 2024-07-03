@@ -6,11 +6,11 @@ import { useParams } from "react-router-dom";
 const ChapterSidebar = () => {
   const { chapters, currentChapterIndex, handleChapterClick } =
     useChapterContext();
-  const { bookId } = useParams<{ bookId: string }>();
+  const { slug } = useParams<{ slug: string }>();
 
   return (
     <div className="hidden md:flex flex-col w-1/5 h-[700px] gap-4 px-10 py-5 border-r-2 border-white dark:border-slate-700">
-      <BackButton backPath={`/readbook/${bookId}`} />
+      <BackButton backPath={`/readbook/${slug}`} />
       <p className="text-xl font-semibold text-black dark:text-white">
         Chapters
       </p>

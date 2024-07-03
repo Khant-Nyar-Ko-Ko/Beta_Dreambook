@@ -6,13 +6,11 @@ import Toolbar from "./Toolbar";
 import { Input } from "./ui/input";
 import { useCreateChapter } from "@/hooks/useChapterApi";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ChapterCreationModal = ({slug} : {slug : any}) => {
+const ChapterCreationModal = ({ slug }: { slug: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { mutate: createBook } = useCreateChapter();
-
 
   const toggleModal = () => {
     console.log("isOpen before toggle:", isOpen);
@@ -21,14 +19,25 @@ const ChapterCreationModal = ({slug} : {slug : any}) => {
   };
 
   const handleSubmit = async () => {
-    const data  = {
-        title,
-        content,
-        slug
+    const data = {
+      title,
+      content,
+      slug,
+      priority: 1,
+      status: true,
     };
-    createBook(data)
-    setIsOpen(false)
-  }
+    console.log('Submitting data:', data);
+    createBook(data, {
+      onSuccess: () => {
+        console.log('Chapter created successfully');
+        setIsOpen(false);
+        window.location.reload();
+      },
+      onError: (error) => {
+        console.error('Error creating chapter:', error);
+      },
+    });
+  };
 
   return (
     <div className="my-5 ">
@@ -79,11 +88,11 @@ const ChapterCreationModal = ({slug} : {slug : any}) => {
           </Box>
           <Box component="form" sx={{ mt: 2 }}>
             <div className="my-3 w-[350px]">
-              <label htmlFor="">Title</label>
+              <label htmlFor="title">Title</label>
               <Input id="title" variant="default" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
             <div className="my-3 w-[350px]">
-              <label htmlFor="">Content</label>
+              <label htmlFor="content">Content</label>
               <Toolbar
                 value={content}
                 onChange={(value) => setContent(value)}

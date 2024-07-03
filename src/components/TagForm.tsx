@@ -16,7 +16,7 @@ const TagInput: React.FC<TagInputProps> = ({ placeholder, initialTags, tags, set
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    setTags(initialTags); // Set the initial tags when the component mounts
+    setTags(initialTags);
   }, [initialTags, setTags]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

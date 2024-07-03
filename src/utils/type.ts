@@ -16,7 +16,7 @@ export type userDataType = {
   name: string | "";
   profileImg: string | "";
   gender: string | "";
-  password: string
+  password?: string
 };
 
 export type User = {
@@ -49,6 +49,10 @@ export type categoryType = {
   icon: string;
   priority: string;
   filter: (callbackfn: (value: categoryType, index: number, array: categoryType[]) => boolean) => categoryType[];
+  find(
+    callbackfn: (value: any, index: number, array: any[]) => boolean,
+    thisArg?: any
+  ): any;
 };
 
 export type  BookDataType = {
@@ -73,6 +77,6 @@ export type LibraryBookCardProps = {
   };
 
   export type ChapterProgressType = {
+    slug: string,
     chapterProgress: number,
-    slug: string
   }
