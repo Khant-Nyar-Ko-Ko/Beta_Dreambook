@@ -46,18 +46,25 @@ export const fetchSingleBook = async ({ slug }: { slug: string }) => {
     console.error("Invalid book ID");
     throw new Error("Invalid book ID");
   }
-  const response: Response = await fetch(`${BaseURL}/books/searchBook/${slug}`, {
-    method: "GET",
-    mode: "cors",
-    redirect: "follow",
-  });
+  try {
+    const response: Response = await fetch(`${BaseURL}/books/searchBook/${slug}`, {
+      method: "GET",
+      mode: "cors",
+      redirect: "follow",
+    });
 
-  const result = await response.json();
-  if (!response.ok) {
-    throw new Error(response.statusText);
+    const result = await response.json();
+    if (!response.ok) {
+      console.error('Server Error:', response.statusText);
+      throw new Error(response.statusText);
+    }
+    return result;
+  } catch (error) {
+    console.error('Fetch Error:', error);
+    throw error;
   }
-  return result;
 };
+
 
 export const fetchPopularBook = async () => {
   const response: Response = await fetch(`${BaseURL}/books/popular`, {
@@ -155,7 +162,7 @@ export const updateBook = async (
   formData.append("title", data.title);
   formData.append("coverImg", data.coverImg);
   formData.append("description", data.description);
-  data.keywords.forEach((keyword) => formData.append("keyword[]", keyword));
+  data.keywords.forEach((keyword) => formData.append("keywords[]", keyword));
   formData.append("status", data.status);
   formData.append("categoryId", data.categoryId);
 
