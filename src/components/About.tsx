@@ -1,4 +1,3 @@
-import React from "react";
 import aboutbg from "../assets/images/aboutbg.avif";
 import { motion } from "framer-motion";
 
