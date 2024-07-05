@@ -54,9 +54,9 @@ const Chapters: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col w-4/5 h-auto px-3 my-5 font-primary">
+    <div className="flex flex-col w-4/5 h-auto px-3 py-5 bg-white font-primary dark:bg-darkMode1">
            <div className="flex items-center justify-between w-full pb-2 text-center border-b border-indigo-300/50">
-        <h1 className="mx-5 text-3xl font-bold font-primary">Chapters</h1>
+        <h1 className="mx-5 text-3xl font-bold text-black font-primary dark:text-white">Chapters</h1>
         <SwitchButton />
       </div>
       <div className="flex flex-col items-center justify-start mx-auto text-center ">
@@ -121,10 +121,10 @@ const Chapters: React.FC = () => {
           <div className="flex flex-col items-center justify-center my-[100px]">
             <iframe
               src="https://lottie.host/embed/8866455b-434f-412d-863b-334f6c5c5724/EzyvqFxRUM.json"
-              className="w-32 h-32"
+              className="w-32 h-32 pt-10"
               title="Animation"
             ></iframe>
-            <h1 className="mt-3 text-2xl font-normal">Craft a Chapter</h1>
+            <h1 className="mt-3 text-2xl font-normal text-black dark:text-white">Craft a Chapter</h1>
             <p className="text-gray-400">
               Could you please draft a comprehensive chapter for the book?
             </p>

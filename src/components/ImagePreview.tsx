@@ -5,7 +5,7 @@ import profile from "../assets/images/contact.jpeg";
 
 interface ImagePreviewProps {
   profileImg: any;
-  onProfileImgChange: (profileImg: any) => void; // Adjust this type if necessary
+  onProfileImgChange: (profileImg: any) => void; 
 }
 
 const ImagePreview: React.FC<ImagePreviewProps> = ({

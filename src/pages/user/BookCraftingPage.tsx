@@ -91,14 +91,14 @@ const BookCraftingPage = () => {
   }, [bookCreateMutation.isError]);
 
   return (
-    <div className="md:p-[30px] select-none py-5">
+    <div className="md:p-[30px] select-none py-5 bg-white dark:bg-darkMode1">
       <div className="flex items-center mb-10 gap-x-5 font-primary">
         <BackButton backPath="/" />
-        <h1 className="text-2xl font-bold">Creating A New Book</h1>
+        <h1 className="text-2xl font-bold text-black dark:text-white">Creating A New Book</h1>
       </div>
 
       <form
-        className="flex flex-col md:flex-row items-start px-10 pb-10 gap-x-16 w-screen md:w-[3/5]"
+        className="flex flex-col md:flex-row items-start px-10 pb-10 gap-x-16 w-screen md:w-[4/5]"
         action=""
         onSubmit={onSubmit}
       >
@@ -138,7 +138,7 @@ const BookCraftingPage = () => {
 
         <div className="flex flex-col gap-y-5">
           <div>
-            <label htmlFor="title" className="mb-2 font-semibold">
+            <label htmlFor="title" className="mb-2 font-semibold text-black dark:text-white">
               Title
             </label>
             <Input
@@ -152,16 +152,16 @@ const BookCraftingPage = () => {
           </div>
 
           <div>
-            <label htmlFor="category" className="mb-2 font-semibold">
+            <label htmlFor="category" className="mb-2 font-semibold text-black dark:text-white">
               Category
             </label>
             <select
               id="category"
-              className="w-[300px] md:w-full p-1 py-2 border border-gray-200 rounded-lg outline-none"
+              className="w-[300px] md:w-full p-1 py-2 text-black dark:text-gray-500 border bg-white dark:bg-darkMode1 border-gray-200 rounded-lg outline-none"
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
             >
-              <option value="" className="text-sm w-[300px] md:w-full">
+              <option value="" className="text-sm w-[300px] md:w-full text-black dark:text-white">
                 Select Category
               </option>
               {categories?.map((category) => (
@@ -173,7 +173,7 @@ const BookCraftingPage = () => {
           </div>
 
           <div>
-            <label htmlFor="keywords" className="mb-1 font-semibold">
+            <label htmlFor="keywords" className="mb-1 font-semibold text-black dark:text-white">
               Keywords
             </label>
             <Input
@@ -189,14 +189,14 @@ const BookCraftingPage = () => {
               {keywords?.map((k, i) => (
                 <div
                   key={i}
-                  className="flex items-center p-1 bg-gray-200 rounded gap-x-1"
+                  className="flex items-center p-1 bg-gray-200 rounded dark:bg-darkMode2 gap-x-1"
                 >
-                  <p>{k}</p>
+                  <p className="text-black dark:text-white">{k}</p>
                   <p
                     className="hover:cursor-pointer"
                     onClick={() => handleDelete(k)}
                   >
-                    <IoCloseCircleSharp />
+                    <IoCloseCircleSharp className="text-black dark:text-white" />
                   </p>
                 </div>
               ))}
@@ -204,7 +204,7 @@ const BookCraftingPage = () => {
           </div>
 
           <div className=" w-[300px] md:w-[350px]">
-            <p className="mb-1 font-semibold">Description</p>
+            <p className="mb-1 font-semibold text-black dark:text-white">Description</p>
             <Toolbar
               value={description}
               onChange={(value) => setDescription(value)}

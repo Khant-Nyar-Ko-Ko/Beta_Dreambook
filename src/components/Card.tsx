@@ -42,7 +42,7 @@ const Card: React.FC<CardProps> = ({
     toast.success("Removed from favourites")
   };
   const token = getToken();
-  console.log(slug);
+  // console.log(slug);
   
 
   return (

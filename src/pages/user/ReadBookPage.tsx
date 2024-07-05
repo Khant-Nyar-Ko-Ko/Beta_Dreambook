@@ -22,16 +22,24 @@ const ReadBookPage = () => {
 
   const { data: singleBook, isLoading: isSingleBookLoading } =
     useFetchSingleBook(slug ?? "");
-    console.log(singleBook);
-    
-  const { data: progress, isLoading: isProgressLoading } =
+  // console.log(singleBook);
+
+  const { data: progress, isLoading: isProgressLoading, error } =
     useGetChapterProgress(slug ?? "");
+    
+    useEffect(() => {
+      console.log("Progress Data:", progress);
+      if (error) {
+        console.error("Failed to fetch chapter progress:", error);
+      }
+    }, [progress, error]);
 
   useEffect(() => {
     if (slug) {
-      getChapter({slug} )
+      getChapter({ slug })
         .then((chaptersData) => {
           setChapters(chaptersData);
+          console.log("Chapters Data:", chaptersData);
         })
         .catch((error) => {
           console.error("Failed to fetch chapters:", error);
@@ -39,9 +47,7 @@ const ReadBookPage = () => {
     }
   }, [slug]);
 
-
-
-  const { data: readComment, refetch} = useGetComment(slug ?? "");
+  const { data: readComment, refetch } = useGetComment(slug ?? "");
   const { mutate, isSuccess } = usePostComment();
 
   useEffect(() => {
@@ -50,43 +56,46 @@ const ReadBookPage = () => {
       refetch();
     }
   }, [isSuccess, refetch]);
-  
+
   useEffect(() => {
-    console.log("Read comments:", readComment); 
+    console.log("Read comments:", readComment);
   }, [readComment]);
 
   if (isSingleBookLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen text-black bg-white dark:text-white dark:bg-darkMode1">
+        Loading...
+      </div>
+    );
   }
 
   if (!singleBook) {
     return <div>No book data available</div>;
   }
 
-  
-
-  // console.log(singleBook);
-
   if (isProgressLoading) {
-    return <div className="flex items-center justify-center h-[700px]">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-[700px]">
+        Loading...
+      </div>
+    );
   }
 
-  // console.log(progress);
+  if (!progress) {
+    return (
+      <div className="flex items-center justify-center h-[700px]">
+        No chapter progress available
+      </div>
+    );
+  }
 
   const currentBook = progress && progress.length > 0 ? progress[0] : 1;
   // const currentBook = progress.find((book : any) => book.bookId === currentBookId);
-
-  if (!currentBook || !progress) {
-    return <div className="flex items-center justify-center h-[700px]">Loading...</div>;
-  }
 
   const percentageProgress =
     currentBook && chapters.length > 0
       ? (Number(currentBook.chapterProgress) / chapters.length) * 100
       : 1;
-
-
- 
 
   const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -95,10 +104,12 @@ const ReadBookPage = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate({ bookId: Number(singleBook.id), text: comment });
-    toast.success("Posted comment successfully")
+    toast.success("Posted comment successfully");
     refetch();
     setComment("");
   };
+
+  console.log(currentBook.chapterProgress);
 
   return (
     <div className="flex flex-col bg-white select-none md:flex-row dark:bg-darkMode1">
@@ -139,10 +150,15 @@ const ReadBookPage = () => {
                   </div>
                   <div className="flex items-center gap-2 text-black dark:text-white">
                     <p> Keywords : </p>
-                    <p>Keywords: {singleBook?.keywords?.map((keyword:string) => keyword).join(', ')}</p>
+                    <p>
+                      Keywords:{" "}
+                      {singleBook?.keywords
+                       ?.map((keyword: string) => keyword)
+                       .join(", ")}
+                    </p>
                   </div>
                 </div>
-                {currentBook.chapterProgress !== 1 && (
+                {currentBook.chapterProgress!== 1 && (
                   <div className="flex items-center gap-2">
                     <ProgressBar
                       completed={percentageProgress}
@@ -153,19 +169,22 @@ const ReadBookPage = () => {
                       width="200px"
                     />
                     <p className="text-black select-none dark:text-white font-primary">
-                      {currentBook.chapterProgress ? currentBook.chapterProgress : 0}/{chapters.length}
+                      {currentBook.chapterProgress
+                       ? currentBook.chapterProgress
+                        : 0}
+                      /{chapters.length}
                     </p>
                   </div>
                 )}
 
                 <NavLink
                   to={`/readchapter/${slug}/${
-                    currentBook.chapterProgress ?? 1
+                    currentBook.chapterProgress?? 1
                   }`}
                 >
                   <Button className=" w-full md:w-[250px]">
                     {currentBook.chapterProgress < 2
-                      ? "Start Reading"
+                     ? "Start Reading"
                       : "Continue Reading"}
                   </Button>
                 </NavLink>
@@ -176,7 +195,7 @@ const ReadBookPage = () => {
         <div className="flex flex-col gap-3 my-10 text-black select-none dark:text-white">
           <p className="text-xl font-semibold font-primary ">Book Overview</p>
           <div
-          className=" font-primary"
+            className=" font-primary"
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(singleBook?.description),
             }}

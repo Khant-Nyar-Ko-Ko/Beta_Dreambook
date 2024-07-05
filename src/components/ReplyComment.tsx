@@ -21,7 +21,7 @@ const ReplyComment = () => {
     </Button>
     {dropdownOpen && (
       <div
-        className="absolute top-0 z-10 w-48 bg-white border rounded-md shadow-md right-10"
+        className="absolute top-0 z-10 w-48 bg-white border rounded-md shadow-md dark:bg-darkMode1 right-10"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="menu-button"

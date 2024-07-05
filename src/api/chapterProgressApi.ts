@@ -4,7 +4,8 @@ import { ChapterProgressType } from "@/utils/type";
 
 export const postChapterProgress = async (data: ChapterProgressType) => {
   const token = getToken();
-  const response: Response = await fetch(`${BaseURL}/chapter-progress`, {
+  const queryString = `?slug=${data.slug}`;
+  const response: Response = await fetch(`${BaseURL}/chapter-progress${queryString}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -25,8 +26,9 @@ export const postChapterProgress = async (data: ChapterProgressType) => {
 
 export const getChapterProgress = async ({ slug }: { slug: string }) => {
   const token = getToken();
+  const queryString = `?slug=${slug}`;
   const response: Response = await fetch(
-    `${BaseURL}/chapter-progress?slug=${slug}`,
+    `${BaseURL}/chapter-progress${queryString}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

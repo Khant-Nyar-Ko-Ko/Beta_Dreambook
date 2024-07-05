@@ -1,12 +1,24 @@
 import { useCategory } from "@/contexts/CategoryContext";
 import { useFetchCategories } from "@/hooks/useCategoryApi";
+import { categoryType } from "@/utils/type";
 import { useEffect, useState, useCallback } from "react";
+import { useParams } from "react-router-dom";
 
 const CheckboxWithText = () => {
+  const {categoryId} = useParams();
+  console.log(categoryId);
+  
+  
   const { data: categories = [], isLoading, error } = useFetchCategories();
   const { setCategory }: { setCategory: (categories: number[] | null) => void } = useCategory();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [isAllChecked, setIsAllChecked] = useState(true);
+
+  useEffect(() => {
+    if (categoryId) {
+      setSelectedCategories([categoryId]); // auto-check the input checkbox
+    }
+  }, [categoryId]);
 
   useEffect(() => {
     if (selectedCategories.length === 0) {
@@ -30,6 +42,12 @@ const CheckboxWithText = () => {
       setIsAllChecked(false);
     }
   }, [isAllChecked]);
+
+  useEffect(() => {
+    if ((categories as categoryType[]).every((category) => !selectedCategories.includes(category.id.toString()))) {
+      setIsAllChecked(true);
+    }
+  }, [categories, selectedCategories]);
 
   if (isLoading) {
     return <div className="text-black dark:text-white">Loading...</div>;

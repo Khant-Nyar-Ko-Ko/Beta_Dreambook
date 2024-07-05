@@ -10,7 +10,7 @@ export type signinDataType = {
 };
 
 export type userDataType = {
-  email: string;
+  email?: string;
   phone?: string | "";
   bio: string | "";
   name: string | "";

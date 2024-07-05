@@ -53,8 +53,8 @@ const BookImagePreview: React.FC<BookImagePreviewProps> = ({
   };
 
   return (
-    <div className="max-w-md p-4 mx-auto bg-white">
-      <h1 className="text-sm text-center">Cover Image</h1>
+    <div className="max-w-md p-4 mx-auto bg-white dark:bg-darkMode1">
+      <h1 className="text-sm text-center text-black dark:text-white">Cover Image</h1>
       <div className="p-4 my-5 border border-gray-400 border-dashed rounded-md">
         <form onSubmit={handleSubmit}>
           <div className="relative ">
