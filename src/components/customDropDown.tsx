@@ -36,28 +36,28 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   return (
     <div className="relative inline-block w-full">
       <select
-        className="w-full p-3 bg-white border border-gray-300 rounded"
+        className="w-full p-3 text-black bg-white border border-gray-300 rounded dark:text-white dark:bg-darkMode2"
         value={selectedValue}
         onChange={handleChange}
         disabled={isDisabled}
       >
-        <option value="" disabled>
+        <option value="" className="text-black dark:text-white" disabled>
           Select an option
         </option>
         {categories?.map((category) => (
-          <option key={category.id} value={category.id} className="p-10 m-2">
+          <option key={category.id} value={category.id} className="p-10 m-2 text-black dark:text-white">
             {category.title}
           </option>
         ))}
       </select>
       {selectedOption && (
-        <div className="flex items-center p-3 mt-2 border border-gray-300 rounded shadow bg-sky-100">
+        <div className="flex items-center p-3 mt-2 border border-gray-300 rounded shadow bg-sky-100 dark:bg-darkMode2">
           <img
             src={selectedOption.icon}
             alt={selectedOption.title}
             className="w-6 h-6 mr-2"
           />
-          <span>{selectedOption.title}</span>
+          <span className="text-black dark:text-white">{selectedOption.title}</span>
         </div>
       )}
     </div>

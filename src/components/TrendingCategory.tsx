@@ -15,7 +15,7 @@ const TrendingCategory = () => {
 
   const handleCategoryChange = (categoryId: string) => {
     setCategory([categoryId]);
-    navigate("/library");
+    navigate(`/library/${categoryId}`);
   };
 
   if (isLoading) {

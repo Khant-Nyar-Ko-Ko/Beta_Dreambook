@@ -11,11 +11,11 @@ const SwitchButton = () => {
   };
 
   return (
-    <div className="flex items-center w-60 px-1.5 pt-1 pb-1 rounded-lg  bg-gray-300 font-primary">
+    <div className="flex gap-1 items-center w-60 px-1.5 pt-1 pb-1 rounded-lg  bg-gray-300 dark:bg-darkMode1 font-primary">
       <button
         onClick={toggleState}
         className={`py-2 px-9 rounded-lg transition-colors duration-700 ${
-          isDraft ? "bg-yellow-500 text-white" : "bg-gray-300 text-gray-500"
+          isDraft ? "bg-yellow-500 text-white" : "bg-gray-300 dark:bg-darkMode3 text-gray-500 dark:text-white"
         }`}
       >
         Draft
@@ -23,7 +23,7 @@ const SwitchButton = () => {
       <button
         onClick={toggleState}
         className={`py-2 px-9 rounded-lg transition-colors duration-700 ${
-          !isDraft ? "bg-lime-600 text-white" : "bg-gray-300 text-gray-500"
+          !isDraft ? "bg-lime-600 text-white" : "bg-gray-300 dark:bg-darkMode3 text-gray-500 dark:text-white"
         }`}
       >
         Public

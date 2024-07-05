@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import ScrollToTop from "@/components/ScrollToTop";
 import { matchPath, Outlet, useLocation } from "react-router-dom";
 
 const UserLayout = () => {
@@ -17,6 +18,7 @@ const UserLayout = () => {
 
   return (
     <div>
+      <ScrollToTop/>
       {!hideNavbar && <Navbar />}
       <Outlet />
       {!hideFooter && <Footer />}

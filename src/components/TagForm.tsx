@@ -39,7 +39,7 @@ const TagInput: React.FC<TagInputProps> = ({ placeholder, initialTags, tags, set
 
   return (
     <div className={className}>
-      <label htmlFor="keywords" className="mb-1 font-semibold">
+      <label htmlFor="keywords" className="mb-1 font-semibold text-black dark:text-white">
         Keywords
       </label>
       <Input

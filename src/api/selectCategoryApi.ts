@@ -1,7 +1,7 @@
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 
-export const selectCategory = async ({categoryId} : {categoryId: number}) => {
+export const selectCategory = async ({categoryIds} : {categoryIds: number[]}) => {
   const token = getToken();
   const response: Response = await fetch(`${BaseURL}/interested-category`, {
     headers: {
@@ -11,12 +11,13 @@ export const selectCategory = async ({categoryId} : {categoryId: number}) => {
     },
     method: 'POST',
     mode: "cors",
-    body: JSON.stringify(categoryId)
+    body: JSON.stringify({ categoryIds })
   });
 
   const result = await response.json();
   if(!response.ok){
-    throw new Error
+    const errorResponse = await response.json();
+    throw new Error(`Server error: ${errorResponse.message}`);
   }
   return result
 };

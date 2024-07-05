@@ -32,7 +32,7 @@ const UserRouter: RouteObject[] = [
         element: <HomePage />,
       },
       {
-        path: "library",
+        path: "library/:categoryId?",
         element: <LibraryPage />,
       },
       {
