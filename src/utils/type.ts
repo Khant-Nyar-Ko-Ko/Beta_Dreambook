@@ -59,7 +59,7 @@ export type  BookDataType = {
     bookId?: null;
     id?: number;
     title : string,
-    coverImg : File | string,
+    coverImg : any,
     description : string,
     categoryId : string,
     status : string,

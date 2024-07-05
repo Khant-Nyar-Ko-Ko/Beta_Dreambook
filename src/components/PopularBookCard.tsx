@@ -7,7 +7,6 @@ import CardLoading from "./Loading/CardLoading";
 
 const PopularBookCard = () => {
   const { data: popularBook, error, isLoading } = useFetchPopularBook();
-  console.log(popularBook);
   
 
   if (isLoading) {
