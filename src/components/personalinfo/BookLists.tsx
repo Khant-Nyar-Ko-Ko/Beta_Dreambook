@@ -3,12 +3,12 @@ import { Button } from "../ui/button";
 import { FaPlus } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useFetchBooksByLoginUser } from "@/hooks/useBookApi";
-import Card from "../Card";
 import SearchInput from "../SearchInput";
 import { useDebounce } from "react-use";
 import { useEffect, useState } from "react";
 import SortDropdown from "../SortDropdown";
 import EmptyBookPage from "../EmptyBookPage";
+import CardUser from "../CardUser";
 
 const BookLists = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -56,6 +56,7 @@ const BookLists = () => {
           />
         </div>
       </div>
+      <div className=" h-[600px] overflow-y-scroll my-3">
       {!userBooks || userBooks.length === 0 || data == "bookDeleted" ? (
         <EmptyBookPage/>
       ) : (
@@ -67,22 +68,25 @@ const BookLists = () => {
               coverImg,
               category,
               user,
-              slug
+              slug,
+              status
             }: {
               id: string;
               title: string;
               coverImg: string;
               category: { icon: string; title: string };
               user: { name: string; profileImg: string };
-              slug: string
+              slug: string,
+              status: boolean
             }) => {
               return (
-                <Card
+                <CardUser
                   key={id}
                   id={Number(id)}
                   slug={slug}
                   title={title}
                   image={coverImg}
+                  status={status}
                   categorylogo={category.icon}
                   categorytitle={category.title}
                   author={user.name}
@@ -93,6 +97,8 @@ const BookLists = () => {
           )}
         </div>
       )}
+      </div>
+ 
     </div>
   );
 };

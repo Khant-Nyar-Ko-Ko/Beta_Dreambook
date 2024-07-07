@@ -16,7 +16,6 @@ import Comment from "@/components/Comment";
 import ReadBookPage from "@/pages/user/ReadBookPage";
 import ReadChapterPage from "@/pages/user/ReadChapterPage";
 import { ChapterProvider } from "@/contexts/ChapterContext";
-import ChapterEdit from "@/components/ChapterEdit";
 
 const UserRouter: RouteObject[] = [
   {
@@ -70,10 +69,6 @@ const UserRouter: RouteObject[] = [
           {
             path: "comment",
             element: <Comment />,
-          },
-          {
-            path: "chapters/chapterEdit/:chapterId",
-            element: <ChapterEdit/>
           }
         ],
       },

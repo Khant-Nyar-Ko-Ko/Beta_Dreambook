@@ -62,7 +62,7 @@ export type  BookDataType = {
     coverImg : any,
     description : string,
     categoryId : string,
-    status : string,
+    status : boolean,
     keywords : string[],
     slug?: string
 }
@@ -79,4 +79,9 @@ export type LibraryBookCardProps = {
   export type ChapterProgressType = {
     slug: string,
     chapterProgress: number,
+  }
+
+  export type HistoryType = {
+    userId : number,
+    bookId : number
   }
