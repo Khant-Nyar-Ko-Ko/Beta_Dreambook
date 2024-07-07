@@ -3,7 +3,6 @@ import { useEffect, useState, FormEvent } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
 import { TiEdit } from "react-icons/ti";
-import SwitchButton from "./SwitchButton";
 import { Input } from "./ui/input";
 import TagInput from "./TagForm";
 import { Button } from "./ui/button";
@@ -14,11 +13,15 @@ import CustomDropdown from "./customDropDown";
 import { useFetchCategories } from "@/hooks/useCategoryApi";
 import bookImg from "../assets/images/bookCrafting/bookImg.png";
 import authorprofile from "../assets/images/Author.png";
+import { Loader2 } from "lucide-react";
+import BookStatusButton from "./BookStatusButton";
 
 
 const ChildBookdetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: createdBook, isPending, error, refetch } = useFetchSingleBook(slug ?? "");
+  console.log(createdBook);
+  
   const { data: categories } = useFetchCategories();
   const bookUpdateMutation = useUpdateBook();
   const navigate = useNavigate();
@@ -72,10 +75,10 @@ const ChildBookdetail = () => {
     const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const bookData = {
+      ...createdBook,
       title,
       description: bookDescription,
       categoryId,
-      status: "true",
       keywords: [...tags],
       coverImg: selectedFile,
       slug,
@@ -106,15 +109,10 @@ const ChildBookdetail = () => {
 
   return (
     <div className="flex flex-col w-4/5 h-screen bg-white dark:bg-darkMode1">
-      <div className="flex items-center justify-between px-5 py-3 text-center border-b border-indigo-300/50">
-        <h1 className="mx-5 text-3xl font-bold text-black font-primary dark:text-white">
-          Book Detail
-        </h1>
-        <SwitchButton />
-      </div>
+      <BookStatusButton text="Book Details"/>
       <form onSubmit={handleSubmit}>
         <div className="flex">
-          <div className="w-3/4 p-5">
+          <div className="w-3/4 px-5 pt-5">
             <div className="mt-2">
               <label
                 htmlFor="default"
@@ -170,7 +168,7 @@ const ChildBookdetail = () => {
              </div>
           </div>
           <div className="flex flex-col items-center justify-center w-1/4 p-5">
-            <h1 className="text-sm text-center text-black dark:text-white">
+            <h1 className="text-center text-black font-primary dark:text-white">
               Cover Image
             </h1>
               <div className="relative">
@@ -184,7 +182,7 @@ const ChildBookdetail = () => {
                   <img
                     src={preview}
                     alt="Book Cover Preview"
-                    className="w-48 h-64 mx-auto my-5 rounded-md"
+                    className="w-40 h-auto mx-auto my-5 rounded-md "
                   />
                 ) : (
                   <div className="flex items-center justify-center w-48 h-64 mx-auto border-2 border-gray-300 border-dashed rounded-md">
@@ -269,8 +267,15 @@ const ChildBookdetail = () => {
                >
                  Cancel
                </Button>
-               <Button variant="default" type="submit">
-                 Save
+               <Button variant="default" type="submit"> 
+               <Loader2
+                className={
+                  bookUpdateMutation.isPending ? "block animate-spin" : "hidden"
+                }
+              />
+                 <span className={
+                  bookUpdateMutation.isPending ? "hidden" : "block"
+                }>Save</span>
                </Button>
              </>
            )}

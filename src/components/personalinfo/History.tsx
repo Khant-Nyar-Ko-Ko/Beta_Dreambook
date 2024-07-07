@@ -9,8 +9,13 @@ import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { RiFilter3Line } from "react-icons/ri";
 import { Input } from "../ui/input";
 import EmptyBookPage from "../EmptyBookPage";
+import { useFetchHistory } from "@/hooks/useHistoryApi";
 
 const History = () => {
+  const {data} = useFetchHistory();
+  console.log(data);
+  
+
   return (
     <div className="flex flex-col w-4/5 h-full px-3 my-5">
       <div className="flex flex-col items-start justify-between w-full gap-2 md:flex-row md:items-center md:gap-5">

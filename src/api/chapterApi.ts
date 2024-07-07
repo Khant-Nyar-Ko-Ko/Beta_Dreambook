@@ -57,3 +57,26 @@ export const createChapter = async (data: { title: string, content: string, slug
   }
 };
 
+export const updateChapter = async (data : {title: string, content: string, slug: string, priority: number, status: boolean}) => {
+  const token = getToken();
+  const { title, content, slug, priority, status } = data;
+
+  const response: Response = await fetch(`${BaseURL}/chapters?slug=${slug}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    method: "PATCH",
+    mode: "cors",
+    redirect: "follow",
+    body: JSON.stringify({ title, content,  priority, status}),
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);
+  }
+
+  return result;
+}

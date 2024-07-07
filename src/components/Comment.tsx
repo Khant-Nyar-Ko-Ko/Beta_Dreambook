@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetComment } from "@/hooks/useCommentApi";
-import SwitchButton from "./SwitchButton";
 import { useParams } from "react-router-dom";
 import profile from "../assets/images/defaultcontact.jpeg";
 import ReplyComment from "./ReplyComment";
 import Loading from "./Loading";
+import BookStatusButton from "./BookStatusButton";
 
 const Comment = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -30,11 +30,8 @@ const Comment = () => {
   }
 
   return (
-    <div className="flex flex-col w-4/5 h-auto px-3 py-5 bg-white font-primary dark:bg-darkMode1">
-           <div className="flex items-center justify-between w-full pb-2 text-center border-b border-indigo-300/50">
-        <h1 className="mx-5 text-3xl font-bold text-black font-primary dark:text-white">Comments</h1>
-        <SwitchButton />
-      </div>
+    <div className="flex flex-col w-4/5 h-auto bg-white font-primary dark:bg-darkMode1">
+          <BookStatusButton text={"Comments"}/>
       <div className="flex flex-col items-center justify-start mx-auto text-center ">
         {comments?.length > 0 ? (
           <>
