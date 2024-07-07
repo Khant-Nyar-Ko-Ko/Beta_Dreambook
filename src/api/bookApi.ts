@@ -2,6 +2,8 @@
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 import { BookDataType } from "@/utils/type";
+// import emptybook from "../assets/images/Empty Book.jpg";
+
 
 export const fetchBooks = async (
   page?: number,
@@ -42,12 +44,18 @@ export const fetchBooks = async (
 };
 
 export const fetchSingleBook = async ({ slug }: { slug: string }) => {
+  const token = getToken();
   if (!slug) {
     console.error("Invalid book ID");
     throw new Error("Invalid book ID");
   }
   try {
     const response: Response = await fetch(`${BaseURL}/books/searchBook/${slug}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
       method: "GET",
       mode: "cors",
       redirect: "follow",
@@ -133,7 +141,7 @@ export const createBooks = async (
   data.keywords.forEach((keyword) => {
     formData.append("keywords[]", keyword);
   });
-  formData.append("status", data.status);
+  formData.append("status", JSON.stringify(data.status));
   formData.append("categoryId", data.categoryId);
 
   const response: Response = await fetch(`${BaseURL}/books`, {
@@ -160,10 +168,18 @@ export const updateBook = async (
   const token = getToken();
   const formData = new FormData();
   formData.append("title", data.title);
-  formData.append("coverImg", data.coverImg);
+  // formData.append("coverImg", data.coverImg);
+  // if (data.coverImg) {
+  //   formData.append("coverImg", data.coverImg);
+  // } else {
+  //   formData.append("coverImg", emptybook);
+  // }
+  if (data.coverImg instanceof File) {
+    formData.append("coverImg", data.coverImg);
+  }
   formData.append("description", data.description);
   data.keywords.forEach((keyword) => formData.append("keywords[]", keyword));
-  formData.append("status", data.status);
+  formData.append("status", JSON.stringify(data.status));
   formData.append("categoryId", data.categoryId);
 
   const response : Response = await fetch(`${BaseURL}/books?slug=${data.slug}`,{

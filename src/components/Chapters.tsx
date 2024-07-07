@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Outlet, useParams } from "react-router-dom";
-import SwitchButton from "./SwitchButton";
+import { useParams } from "react-router-dom";
 import ChapterCreationModal from "./ChapterCreationModal";
 import { useGetChapter } from "@/hooks/useChapterApi";
 import {
@@ -13,6 +12,7 @@ import ThreeDotMenu from "./ThreeDotMenu";
 import { useEffect, useState } from "react";
 import DOMPurify from "dompurify";
 import Loading from "./Loading";
+import BookStatusButton from "./BookStatusButton";
 
 const Chapters: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -20,7 +20,7 @@ const Chapters: React.FC = () => {
     data: chapters = [],
     error,
     refetch,
-    isPending
+    isPending,
   } = useGetChapter({ slug: slug ?? "" });
   const [openAccordions, setOpenAccordions] = useState<{
     [key: string]: boolean;
@@ -54,11 +54,8 @@ const Chapters: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col w-4/5 h-auto px-3 py-5 bg-white font-primary dark:bg-darkMode1">
-           <div className="flex items-center justify-between w-full pb-2 text-center border-b border-indigo-300/50">
-        <h1 className="mx-5 text-3xl font-bold text-black font-primary dark:text-white">Chapters</h1>
-        <SwitchButton />
-      </div>
+    <div className="flex flex-col w-4/5 h-auto bg-white font-primary dark:bg-darkMode1">
+      <BookStatusButton text={"Chapters"} />
       <div className="flex flex-col items-center justify-start mx-auto text-center ">
         {chapters.length > 0 ? (
           <>
@@ -89,16 +86,16 @@ const Chapters: React.FC = () => {
                               </p>
                               <ThreeDotMenu id={chapter.id} />
                             </div>
-                            <div className="flex">
+                            <div className="flex items-center">
                               <p
-                                className="px-5 text-sm"
+                                className="pl-5 pr-1 text-sm"
                                 dangerouslySetInnerHTML={{
                                   __html: DOMPurify.sanitize(
-                                    chapter?.content.substring(0, 160)
+                                    chapter?.content.substring(0, 130)
                                   ),
                                 }}
                               ></p>
-                              <p>......</p>
+                              <p className="text-xs text-slate-400">...see more</p>
                             </div>
                           </>
                         )}
@@ -124,7 +121,9 @@ const Chapters: React.FC = () => {
               className="w-32 h-32 pt-10"
               title="Animation"
             ></iframe>
-            <h1 className="mt-3 text-2xl font-normal text-black dark:text-white">Craft a Chapter</h1>
+            <h1 className="mt-3 text-2xl font-normal text-black dark:text-white">
+              Craft a Chapter
+            </h1>
             <p className="text-gray-400">
               Could you please draft a comprehensive chapter for the book?
             </p>
@@ -132,7 +131,6 @@ const Chapters: React.FC = () => {
         )}
         <div>{slug && <ChapterCreationModal slug={slug} />}</div>
       </div>
-      <Outlet />
     </div>
   );
 };

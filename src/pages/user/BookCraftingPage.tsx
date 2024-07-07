@@ -63,9 +63,9 @@ const BookCraftingPage = () => {
       title,
       description,
       categoryId,
-      status: "true",
       keywords,
       coverImg,
+      status : false
     };
     console.log(bookData);
 

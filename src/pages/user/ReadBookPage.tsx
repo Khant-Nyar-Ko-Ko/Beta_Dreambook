@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useFetchSingleBook } from "@/hooks/useBookApi";
 import { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import authorprofile from "../../assets/images/Author.png";
 import { Input } from "@/components/ui/input";
 import { useGetComment, usePostComment } from "@/hooks/useCommentApi";
@@ -14,25 +14,30 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import { getChapter } from "@/api";
 import toast from "react-hot-toast";
 import DOMPurify from "dompurify";
+import { usePostHistory } from "@/hooks/useHistoryApi";
 
 const ReadBookPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const [comment, setComment] = useState<string>("");
   const [chapters, setChapters] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   const { data: singleBook, isLoading: isSingleBookLoading } =
     useFetchSingleBook(slug ?? "");
   // console.log(singleBook);
 
-  const { data: progress, isLoading: isProgressLoading, error } =
-    useGetChapterProgress(slug ?? "");
-    
-    useEffect(() => {
-      console.log("Progress Data:", progress);
-      if (error) {
-        console.error("Failed to fetch chapter progress:", error);
-      }
-    }, [progress, error]);
+  const {
+    data: progress,
+    isLoading: isProgressLoading,
+    error,
+  } = useGetChapterProgress(slug ?? "");
+
+  useEffect(() => {
+    console.log("Progress Data:", progress);
+    if (error) {
+      console.error("Failed to fetch chapter progress:", error);
+    }
+  }, [progress, error]);
 
   useEffect(() => {
     if (slug) {
@@ -49,6 +54,7 @@ const ReadBookPage = () => {
 
   const { data: readComment, refetch } = useGetComment(slug ?? "");
   const { mutate, isSuccess } = usePostComment();
+  const { mutate: updateHistory } = usePostHistory();
 
   useEffect(() => {
     if (isSuccess) {
@@ -101,9 +107,24 @@ const ReadBookPage = () => {
     setComment(e.target.value);
   };
 
+  console.log(singleBook.id,singleBook.user.id);
+  
+
+  const handleHistory = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    const data = { bookId: singleBook.id, userId: singleBook.user.id };
+    updateHistory(data);
+    navigate(`/readchapter/${slug}/${currentBook.chapterProgress ?? 1}`);
+    refetch();
+  };
+
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate({ bookId: Number(singleBook.id), text: comment });
+    console.log(mutate);
+    
     toast.success("Posted comment successfully");
     refetch();
     setComment("");
@@ -149,16 +170,15 @@ const ReadBookPage = () => {
                     <p>{singleBook?.category?.title}</p>
                   </div>
                   <div className="flex items-center gap-2 text-black dark:text-white">
-                    <p> Keywords : </p>
                     <p>
-                      Keywords:{" "}
+                      Keywords :{" "}
                       {singleBook?.keywords
-                       ?.map((keyword: string) => keyword)
-                       .join(", ")}
+                        ?.map((keyword: string) => keyword)
+                        .join(", ")}
                     </p>
                   </div>
                 </div>
-                {currentBook.chapterProgress!== 1 && (
+                {currentBook.chapterProgress !== 1 && (
                   <div className="flex items-center gap-2">
                     <ProgressBar
                       completed={percentageProgress}
@@ -170,24 +190,17 @@ const ReadBookPage = () => {
                     />
                     <p className="text-black select-none dark:text-white font-primary">
                       {currentBook.chapterProgress
-                       ? currentBook.chapterProgress
+                        ? currentBook.chapterProgress
                         : 0}
                       /{chapters.length}
                     </p>
                   </div>
                 )}
-
-                <NavLink
-                  to={`/readchapter/${slug}/${
-                    currentBook.chapterProgress?? 1
-                  }`}
-                >
-                  <Button className=" w-full md:w-[250px]">
+                  <Button className=" w-full md:w-[250px]" onClick={handleHistory}>
                     {currentBook.chapterProgress < 2
-                     ? "Start Reading"
+                      ? "Start Reading"
                       : "Continue Reading"}
                   </Button>
-                </NavLink>
               </div>
             </div>
           </div>

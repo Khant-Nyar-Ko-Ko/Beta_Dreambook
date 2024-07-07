@@ -1,3 +1,4 @@
+import { fetchHistory, createHistory } from './historyApi';
 import { postChapterProgress, getChapterProgress } from './chapterProgressApi';
 import { signUpUser, signInUser, updateUser } from "./authApi";
 import { fetchCategories, fetchTrendingCategories } from "./categoryApi";
@@ -17,7 +18,7 @@ import {
 } from "../api/favouriteApi";
 import { selectCategory } from "../api/selectCategoryApi";
 import { postComment, getComment } from "./commentApi";
-import { getChapter, createChapter } from "./chapterApi";
+import { getChapter, createChapter, updateChapter } from "./chapterApi";
 
 export {
   signUpUser,
@@ -41,5 +42,8 @@ export {
   postChapterProgress,
   getChapterProgress,
   updateBook,
-  createChapter
+  createChapter,
+  updateChapter,
+  fetchHistory,
+  createHistory
 };
