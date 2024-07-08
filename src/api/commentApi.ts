@@ -2,10 +2,10 @@ import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 
 export const postComment = async ({
-  bookId,
+  bookSlug,
   text,
 }: {
-  bookId: number;
+  bookSlug: string;
   text: string;
 }) => {
   const token = getToken();
@@ -17,7 +17,7 @@ export const postComment = async ({
     },
     method: "POST",
     mode: "cors",
-    body: JSON.stringify({ bookId, text }),
+    body: JSON.stringify({ bookSlug, text }),
   });
 
   const result = await response.json();

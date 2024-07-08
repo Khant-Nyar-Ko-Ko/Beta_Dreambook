@@ -50,7 +50,7 @@ const LatestBookCard = () => {
             user: any;
             slug: string
           }) => {
-            const { name, profileImg } = user;
+            const { name, profileImg, id : authorId } = user;
             
 
             return (
@@ -65,6 +65,7 @@ const LatestBookCard = () => {
                   categorytitle={category?.title}
                   author={name}
                   authorprofile={profileImg}
+                  authorId={authorId}
                 />
               </SwiperSlide>
             );

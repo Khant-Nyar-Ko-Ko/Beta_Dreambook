@@ -1,11 +1,11 @@
 import { createHistory, fetchHistory } from "@/api";
-import { HistoryType } from "@/utils/type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const usePostHistory = () =>
-    useMutation({
-      mutationFn: (data : HistoryType) => createHistory({data}),
-    });
+  useMutation({
+    mutationFn: (data: { bookSlug: string }) => createHistory(data),
+  });
+
 
 export const useFetchHistory = () => {
     return useQuery({

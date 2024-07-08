@@ -8,6 +8,7 @@ import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 import { getToken } from "@/service/authService";
 import toast from "react-hot-toast";
 import emptybook from "../assets/images/Empty Book.jpg";
+import { useUserApi } from "@/hooks/useUserApi";
 
 interface CardProps {
   id: number;
@@ -18,7 +19,8 @@ interface CardProps {
   author: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   authorprofile: any;
-  slug: string
+  slug: string;
+  authorId: number;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -29,10 +31,13 @@ const Card: React.FC<CardProps> = ({
   categorytitle,
   author,
   authorprofile,
-  slug
+  slug,
+  authorId,
 }) => {
+  const token = getToken();
   const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } =
     useFavouriteBooks();
+  const { data: user } = useUserApi(token ?? "");
 
   const handleAddFavouriteBook = (id: number) => {
     addFavouriteBook(id);
@@ -40,11 +45,9 @@ const Card: React.FC<CardProps> = ({
   };
   const handleRemoveFavouriteBook = (id: number) => {
     removeFavouriteBook(id);
-    toast.success("Removed from favourites")
+    toast.success("Removed from favourites");
   };
-  const token = getToken();
   // console.log(slug);
-  
 
   return (
     <div
@@ -81,12 +84,13 @@ const Card: React.FC<CardProps> = ({
               </button>
             </NavLink>
           )}
-          <NavLink to={`/bookdetail/${slug}`}>
-          <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
-
-            <TiEdit />
-          </button>
-          </NavLink>
+          {user?.id == authorId && (
+            <NavLink to={`/bookdetail/${slug}`}>
+              <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
+                <TiEdit />
+              </button>
+            </NavLink>
+          )}
         </div>
         <img
           src={image ? image : emptybook}
@@ -96,7 +100,7 @@ const Card: React.FC<CardProps> = ({
       </div>
       <div className="flex flex-col gap-1 mx-3">
         <p className="font-semibold w-[230px] font-primary text-start  text-black dark:text-white">
-          {title.substring(0, 25)}
+          {title?.substring(0, 25)}
         </p>
         <div className="flex gap-1 ">
           <img src={categorylogo} className="w-4 h-4" alt="categorylogo" />
