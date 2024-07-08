@@ -10,11 +10,23 @@ import { RiFilter3Line } from "react-icons/ri";
 import { Input } from "../ui/input";
 import EmptyBookPage from "../EmptyBookPage";
 import { useFetchHistory } from "@/hooks/useHistoryApi";
+import Card from "../Card";
 
 const History = () => {
-  const {data} = useFetchHistory();
-  console.log(data);
-  
+  const { data, isLoading, error } = useFetchHistory();
+  const bookhistory = data?.items || [];
+  console.log("Fetched history data:", bookhistory);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    console.error("Error loading books:", error);
+    return <div>Error loading books</div>;
+  }
+
+  const isBookHistoryArray = Array.isArray(bookhistory);
 
   return (
     <div className="flex flex-col w-4/5 h-full px-3 my-5">
@@ -57,9 +69,50 @@ const History = () => {
           </div>
         </div>
       </div>
-     <EmptyBookPage/>
+      <div className="h-[600px] overflow-y-scroll my-3">
+        {!isBookHistoryArray || bookhistory.length === 0 ? (
+          <EmptyBookPage />
+        ) : (
+          <div className="grid items-center justify-center grid-cols-4 gap-10 mx-20 my-10">
+            {bookhistory.map(
+              ({
+                id,
+                bookId,
+                book,
+                user,
+              }: {
+                id: number;
+                bookId: number;
+                book: {
+                  id: number;
+                  title: string;
+                  coverImg: string;
+                  slug: string;
+                  category: { title: string; icon: string };
+                };
+                user: { name: string; profileImg: string; id: number };
+              }) => {
+                return (
+                  <Card
+                    key={id}
+                    id={bookId}
+                    slug={book?.slug}
+                    title={book?.title}
+                    image={book?.coverImg}
+                    categorylogo={book.category?.icon}
+                    categorytitle={book?.category?.title}
+                    author={user.name}
+                    authorprofile={user.profileImg}
+                    authorId={user.id}
+                  />
+                );
+              }
+            )}
+          </div>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default History;

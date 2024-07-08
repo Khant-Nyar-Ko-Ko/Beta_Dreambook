@@ -57,6 +57,7 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
         aria-describedby="modal-description"
       >
         <Box
+         className="bg-white dark:bg-darkMode1"
           sx={{
             position: "absolute",
             top: "50%",
@@ -76,7 +77,7 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
           >
             <Typography
               id="create-new-chapter"
-              className="font-semibold font-primary"
+              className="font-semibold text-black font-primary dark:text-white"
               variant="h6"
               component="h2"
             >
@@ -88,11 +89,11 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
           </Box>
           <Box component="form" sx={{ mt: 2 }}>
             <div className="my-3 w-[350px]">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title" className="text-black dark:text-white">Title</label>
               <Input id="title" variant="default" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
             <div className="my-3 w-[350px]">
-              <label htmlFor="content">Content</label>
+              <label htmlFor="content" className="text-black dark:text-white">Content</label>
               <Toolbar
                 value={content}
                 onChange={(value) => setContent(value)}

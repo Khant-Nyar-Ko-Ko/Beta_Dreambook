@@ -89,6 +89,7 @@ const FavBooks = () => {
                 categorytitle={category?.title}
                 author={user?.name}
                 authorprofile={user?.profileImg}
+                authorId ={user?.id}
               />
             )
           )}

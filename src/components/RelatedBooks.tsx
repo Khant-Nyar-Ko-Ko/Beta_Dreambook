@@ -43,6 +43,7 @@ const RelatedBooks = ({slug} : {slug : string})=> {
                   categorytitle={category?.title}
                   author={user?.name}
                   authorprofile={user?.profileImg}
+                  authorId={user?.id}
                 />
               );
             }

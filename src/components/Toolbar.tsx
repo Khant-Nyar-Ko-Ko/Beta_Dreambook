@@ -35,7 +35,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ value, onChange, isDisabled }) => {
           value={value}
           onChange={handleChange}
           readOnly={isDisabled}
-          className="text-black dark:text-white"
+          className="text-black bg-white dark:text-white dark:bg-darkMode1"
         />
       </div>
   );

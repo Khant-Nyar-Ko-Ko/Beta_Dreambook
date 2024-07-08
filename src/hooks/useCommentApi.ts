@@ -4,8 +4,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const usePostComment = () => {
   return useMutation({
-    mutationFn: ({ bookId, text }: { bookId: number; text: string }) =>
-      postComment({ bookId, text }),
+    mutationFn: ({ bookSlug, text }: { bookSlug: string; text: string }) =>
+      postComment({ bookSlug, text }),
   });
 };
 

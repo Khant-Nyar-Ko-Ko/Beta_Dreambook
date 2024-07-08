@@ -42,7 +42,7 @@ const ChildBookdetail = () => {
     if (createdBook) {
       setTitle(createdBook.title);
       setCategoryId(createdBook.categoryId);
-      setTags([...createdBook.keywords]);
+      setTags(createdBook.keywords ? [...createdBook.keywords] : []);
       setBookDescription(createdBook.description || "");
       setCoverImg(createdBook.coverImg || "");
       setPreview(createdBook.coverImg || "");

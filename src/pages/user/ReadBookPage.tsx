@@ -1,73 +1,58 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button } from "@/components/ui/button";
-import { useFetchSingleBook } from "@/hooks/useBookApi";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import authorprofile from "../../assets/images/Author.png";
-import { Input } from "@/components/ui/input";
-import { useGetComment, usePostComment } from "@/hooks/useCommentApi";
-import BackButton from "@/components/BackButton";
-import ReadComment from "@/components/readchapters/ReadComment";
-import RelatedBooks from "@/components/RelatedBooks";
-import { useGetChapterProgress } from "@/hooks/useChapterProgressApi";
+import { usePostHistory, useFetchHistory } from "@/hooks/useHistoryApi";
+import { useFetchSingleBook } from "@/hooks/useBookApi";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { getChapter } from "@/api";
 import toast from "react-hot-toast";
 import DOMPurify from "dompurify";
-import { usePostHistory } from "@/hooks/useHistoryApi";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import BackButton from "@/components/BackButton";
+import ReadComment from "@/components/readchapters/ReadComment";
+import RelatedBooks from "@/components/RelatedBooks";
+import authorprofile from "../../assets/images/Author.png";
+import { useGetComment, usePostComment } from "@/hooks/useCommentApi";
 
 const ReadBookPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const [comment, setComment] = useState<string>("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [chapters, setChapters] = useState<any[]>([]);
   const navigate = useNavigate();
 
-  const { data: singleBook, isLoading: isSingleBookLoading } =
-    useFetchSingleBook(slug ?? "");
-  // console.log(singleBook);
+  const { data: singleBook, isLoading: isSingleBookLoading } = useFetchSingleBook(slug ?? "");
+  const { data: progress, isLoading: isProgressLoading, refetch : refetchHistory } = useFetchHistory();
 
-  const {
-    data: progress,
-    isLoading: isProgressLoading,
-    error,
-  } = useGetChapterProgress(slug ?? "");
+  const { data: readComment, refetch: refetchComments } = useGetComment(slug ?? "");
+  const { mutate: postComment, isSuccess: isCommentSuccess } = usePostComment();
+  const { mutate: updateHistory, isSuccess: isHistorySuccess } = usePostHistory();
 
   useEffect(() => {
-    console.log("Progress Data:", progress);
-    if (error) {
-      console.error("Failed to fetch chapter progress:", error);
+    if (isCommentSuccess) {
+      refetchComments();
+      setComment("");
+      toast.success("Posted comment successfully");
     }
-  }, [progress, error]);
+  }, [isCommentSuccess, refetchComments]);
+
+  useEffect(() => {
+    if (isHistorySuccess) {
+      toast.success("History updated successfully");
+      refetchHistory();
+      navigate(`/readchapter/${slug}/${currentBook.chapterProgress ?? 1}`)
+    }
+  }, [ isHistorySuccess, navigate, refetchHistory, slug]);
 
   useEffect(() => {
     if (slug) {
       getChapter({ slug })
-        .then((chaptersData) => {
-          setChapters(chaptersData);
-          console.log("Chapters Data:", chaptersData);
-        })
-        .catch((error) => {
-          console.error("Failed to fetch chapters:", error);
-        });
+        .then((chaptersData) => setChapters(chaptersData))
+        .catch((error) => console.error("Failed to fetch chapters:", error));
     }
   }, [slug]);
 
-  const { data: readComment, refetch } = useGetComment(slug ?? "");
-  const { mutate, isSuccess } = usePostComment();
-  const { mutate: updateHistory } = usePostHistory();
-
-  useEffect(() => {
-    if (isSuccess) {
-      console.log("Success! Calling refetch...");
-      refetch();
-    }
-  }, [isSuccess, refetch]);
-
-  useEffect(() => {
-    console.log("Read comments:", readComment);
-  }, [readComment]);
-
-  if (isSingleBookLoading) {
+  if (isSingleBookLoading || isProgressLoading) {
     return (
       <div className="flex items-center justify-center h-screen text-black bg-white dark:text-white dark:bg-darkMode1">
         Loading...
@@ -75,106 +60,49 @@ const ReadBookPage = () => {
     );
   }
 
-  if (!singleBook) {
-    return <div>No book data available</div>;
+  if (!singleBook || !progress) {
+    return <div>No data available</div>;
   }
 
-  if (isProgressLoading) {
-    return (
-      <div className="flex items-center justify-center h-[700px]">
-        Loading...
-      </div>
-    );
-  }
+  const currentBook = progress && progress.length > 0 ? progress[0] : { chapterProgress: 1 };
+  const percentageProgress = (Number(currentBook.chapterProgress) / chapters.length) * 100;
 
-  if (!progress) {
-    return (
-      <div className="flex items-center justify-center h-[700px]">
-        No chapter progress available
-      </div>
-    );
-  }
+  const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => setComment(e.target.value);
 
-  const currentBook = progress && progress.length > 0 ? progress[0] : 1;
-  // const currentBook = progress.find((book : any) => book.bookId === currentBookId);
-
-  const percentageProgress =
-    currentBook && chapters.length > 0
-      ? (Number(currentBook.chapterProgress) / chapters.length) * 100
-      : 1;
-
-  const handleComment = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setComment(e.target.value);
-  };
-
-  console.log(singleBook.id,singleBook.user.id);
-  
-
-  const handleHistory = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleHistoryUpdate = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    const data = { bookId: singleBook.id, userId: singleBook.user.id };
-    updateHistory(data);
-    navigate(`/readchapter/${slug}/${currentBook.chapterProgress ?? 1}`);
-    refetch();
+    updateHistory({ bookSlug: slug ?? "" });
   };
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutate({ bookId: Number(singleBook.id), text: comment });
-    console.log(mutate);
-    
-    toast.success("Posted comment successfully");
-    refetch();
-    setComment("");
+    postComment({ bookSlug: slug ?? "", text: comment });
   };
-
-  console.log(currentBook.chapterProgress);
 
   return (
     <div className="flex flex-col bg-white select-none md:flex-row dark:bg-darkMode1">
-      <div className="  sticky md:top-[100px] flex flex-col w-full md:w-4/5 px-10 md:px-[200px] py-5 h-full">
+      <div className="sticky md:top-[100px] flex flex-col w-full md:w-4/5 px-10 md:px-[200px] py-5 h-full">
         <BackButton backPath={`/library`} />
         {singleBook && (
           <div className="relative flex flex-col items-center py-3 select-none md:items-start md:justify-between md:flex-row">
-            <div className=" hidden md:block absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-0 px-20"></div>
-            <img
-              src={singleBook.coverImg as string}
-              alt={singleBook?.title}
-              className="w-40 h-auto md:ps-3"
-            />
+            <div className="hidden md:block absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-0 px-20"></div>
+            <img src={singleBook.coverImg as string} alt={singleBook?.title} className="w-40 h-auto md:ps-3" />
             <div>
-              <div className="flex flex-col justify-center w-[300px] md:w-auto gap-5 ">
-                <h1 className="mt-4 text-2xl font-bold text-black dark:text-white">
-                  {singleBook?.title}
-                </h1>
+              <div className="flex flex-col justify-center w-[300px] md:w-auto gap-5">
+                <h1 className="mt-4 text-2xl font-bold text-black dark:text-white">{singleBook?.title}</h1>
                 <div className="flex items-center gap-1">
-                  <img
-                    src={authorprofile}
-                    className="w-6 h-6 rounded-full"
-                    alt="author"
-                  />
-                  <p className="text-sm text-black font-primary dark:text-white">
-                    By {singleBook?.user?.name}
-                  </p>
+                  <img src={authorprofile} className="w-6 h-6 rounded-full" alt="author" />
+                  <p className="text-sm text-black font-primary dark:text-white">By {singleBook?.user?.name}</p>
                 </div>
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-1 text-black dark:text-white">
-                    <p> Category : </p>
-                    <img
-                      src={singleBook?.category?.icon}
-                      className="w-4 h-4"
-                      alt=""
-                    />
+                    <p>Category :</p>
+                    <img src={singleBook?.category?.icon} className="w-4 h-4" alt="" />
                     <p>{singleBook?.category?.title}</p>
                   </div>
                   <div className="flex items-center gap-2 text-black dark:text-white">
                     <p>
-                      Keywords :{" "}
-                      {singleBook?.keywords
-                        ?.map((keyword: string) => keyword)
-                        .join(", ")}
+                      Keywords: {singleBook?.keywords?.map((keyword: string) => keyword).join(", ")}
                     </p>
                   </div>
                 </div>
@@ -189,50 +117,44 @@ const ReadBookPage = () => {
                       width="200px"
                     />
                     <p className="text-black select-none dark:text-white font-primary">
-                      {currentBook.chapterProgress
-                        ? currentBook.chapterProgress
-                        : 0}
-                      /{chapters.length}
+                      {currentBook.chapterProgress}/{chapters.length}
                     </p>
                   </div>
                 )}
-                  <Button className=" w-full md:w-[250px]" onClick={handleHistory}>
-                    {currentBook.chapterProgress < 2
-                      ? "Start Reading"
-                      : "Continue Reading"}
-                  </Button>
+                <Button className="w-full md:w-[250px]" onClick={handleHistoryUpdate}>
+                  {currentBook.chapterProgress < 2 ? "Start Reading" : "Continue Reading"}
+                </Button>
               </div>
             </div>
           </div>
         )}
         <div className="flex flex-col gap-3 my-10 text-black select-none dark:text-white">
-          <p className="text-xl font-semibold font-primary ">Book Overview</p>
+          <p className="text-xl font-semibold font-primary">Book Overview</p>
           <div
-            className=" font-primary"
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(singleBook?.description),
-            }}
+            className="font-primary"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(singleBook?.description) }}
           ></div>
         </div>
         <hr className="md:w-[900px] border-white dark:border-slate-700" />
         <div className="flex flex-col gap-5 my-5 text-black select-none dark:text-white">
           <p>Leave a comment</p>
-          <form className="flex flex-col gap-5 " onSubmit={submitHandler}>
+          <form className="flex flex-col gap-5" onSubmit={handleCommentSubmit}>
             <Input
               className="w-full md:w-[250px] bg-white dark:bg-darkMode1 text-black dark:text-white"
               value={comment}
-              onChange={handleComment}
+              onChange={handleCommentChange}
             />
-            <Button type="submit" className=" w-full md:w-[250px]">
+            <Button className="w-full md:w-[150px]" type="submit">
               Post Comment
             </Button>
           </form>
+          <ReadComment readComment={readComment} />
         </div>
-        <ReadComment readComment={readComment} />
       </div>
-      <RelatedBooks slug={singleBook.slug} />
+      <RelatedBooks slug={singleBook.slug}  />
     </div>
   );
 };
 
 export default ReadBookPage;
+

@@ -80,8 +80,3 @@ export type LibraryBookCardProps = {
     slug: string,
     chapterProgress: number,
   }
-
-  export type HistoryType = {
-    userId : number,
-    bookId : number
-  }
