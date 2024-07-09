@@ -16,12 +16,9 @@ import authorprofile from "../assets/images/Author.png";
 import { Loader2 } from "lucide-react";
 import BookStatusButton from "./BookStatusButton";
 
-
 const ChildBookdetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: createdBook, isPending, error, refetch } = useFetchSingleBook(slug ?? "");
-  console.log(createdBook);
-  
   const { data: categories } = useFetchCategories();
   const bookUpdateMutation = useUpdateBook();
   const navigate = useNavigate();
@@ -32,13 +29,12 @@ const ChildBookdetail = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [bookDescription, setBookDescription] = useState("");
   const [coverImg, setCoverImg] = useState<string | File>("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string>("");
   console.log(coverImg);
   
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string>("");
-
-    useEffect(() => {
+  useEffect(() => {
     if (createdBook) {
       setTitle(createdBook.title);
       setCategoryId(createdBook.categoryId);
@@ -50,14 +46,19 @@ const ChildBookdetail = () => {
   }, [createdBook]);
 
   useEffect(() => {
-        refetch();
-      }, [slug, refetch]);
+    refetch();
+  }, [slug, refetch]);
 
   const handleEdit = () => {
-    setIsEdit(!isEdit)
-  }
+    setIsEdit(!isEdit);
+  };
 
-  const selectedCategory = categories?.find(category => category.id === Number(categoryId))
+  const handleCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setIsEdit(false);
+  };
+
+  const selectedCategory = categories?.find(category => category.id === Number(categoryId));
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -72,7 +73,7 @@ const ChildBookdetail = () => {
     }
   };
 
-    const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const bookData = {
       ...createdBook,
@@ -87,11 +88,12 @@ const ChildBookdetail = () => {
       onSuccess: (updatedBook) => {
         refetch();
         navigate(`/bookdetail/${updatedBook.slug !== slug ? updatedBook.slug : slug}/chapters`);
+        // setIsEdit(false); // Switch back to view mode after saving
       },
     });
   };
 
-    if (isPending) {
+  if (isPending) {
     return (
       <div className="flex justify-center items-center w-full h-[700]">
         <Loading variant="blue" />
@@ -128,7 +130,7 @@ const ChildBookdetail = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Book Title"
-                disabled={isEdit}
+                disabled={!isEdit}
               />
             </div>
             <div className="mt-2">
@@ -141,7 +143,7 @@ const ChildBookdetail = () => {
               <CustomDropdown
                 categoryId={categoryId}
                 onChange={(value) => setCategoryId(value)}
-                isDisabled={isEdit}
+                isDisabled={!isEdit}
               />
             </div>         
              <div className="mt-2 bg-white dark:bg-darkMode1">
@@ -151,7 +153,7 @@ const ChildBookdetail = () => {
                   tags={tags}
                   setTags={setTags}
                   className="border-gray-300"
-                  isDisabled={isEdit}
+                  isDisabled={!isEdit}
                 />
             </div>
             <div className="mt-5">
@@ -162,7 +164,7 @@ const ChildBookdetail = () => {
                  <Toolbar
                    value={bookDescription}
                    onChange={setBookDescription}
-                   isDisabled={isEdit}
+                   isDisabled={!isEdit}
                  />
                </div>
              </div>
@@ -177,6 +179,7 @@ const ChildBookdetail = () => {
                   accept="image/*"
                   onChange={handleFileChange}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  disabled={!isEdit}
                 />
                 {preview ? (
                   <img
@@ -251,31 +254,31 @@ const ChildBookdetail = () => {
         <div className="flex justify-end gap-3 mr-[300px]">
            {isEdit ? (
              <>
+               <Button
+                 variant="white"
+                 className="text-gray-600 dark:text-white"
+                 onClick={handleCancel}
+               >
+                 Cancel
+               </Button>
+               <Button variant="default" type="submit"> 
+                 <Loader2
+                  className={
+                    bookUpdateMutation.isPending ? "block animate-spin" : "hidden"
+                  }
+                />
+                 <span className={
+                    bookUpdateMutation.isPending ? "hidden" : "block"
+                  }>Save</span>
+               </Button>
+             </>
+           ) : (
+             <>
                <Button variant="white" className="text-red-600">
                  Delete
                </Button>
                <Button variant="default" onClick={handleEdit}>
                  Edit
-               </Button>
-             </>
-           ) : (
-             <>
-               <Button
-                 variant="white"
-                 className="text-gray-600 dark:text-white"
-                 onClick={handleEdit}
-               >
-                 Cancel
-               </Button>
-               <Button variant="default" type="submit"> 
-               <Loader2
-                className={
-                  bookUpdateMutation.isPending ? "block animate-spin" : "hidden"
-                }
-              />
-                 <span className={
-                  bookUpdateMutation.isPending ? "hidden" : "block"
-                }>Save</span>
                </Button>
              </>
            )}
@@ -284,6 +287,5 @@ const ChildBookdetail = () => {
     </div>
   );
 };
-
 
 export default ChildBookdetail;
