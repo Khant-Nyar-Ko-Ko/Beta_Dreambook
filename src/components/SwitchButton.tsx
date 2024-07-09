@@ -21,7 +21,6 @@ const SwitchButton = () => {
     bookUpdateMutation.mutate(bookData, {
       onSuccess: () => {
         toast(!isPublish ? "Published" : "Drafted");
-        window.location.reload();
       },
     });
   };

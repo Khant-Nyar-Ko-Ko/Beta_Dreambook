@@ -17,7 +17,7 @@ import {
   removeFavourite,
 } from "../api/favouriteApi";
 import { selectCategory } from "../api/selectCategoryApi";
-import { postComment, getComment } from "./commentApi";
+import { postComment, getComment, replyComment , getReply, countReply} from "./commentApi";
 import { getChapter, createChapter, updateChapter } from "./chapterApi";
 
 export {
@@ -45,5 +45,8 @@ export {
   createChapter,
   updateChapter,
   fetchHistory,
-  createHistory
+  createHistory,
+  replyComment,
+  getReply,
+  countReply
 };
