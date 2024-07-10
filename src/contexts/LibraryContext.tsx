@@ -1,13 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const LibraryContext = createContext<any>(null);
 
 export const LibraryProvider = ({ children }: { children: ReactNode }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchInput, setSearchInput] = useState("");
-  const [searchTitle, setSearchTitle] = useState("");
-  const [sort, setSort] = useState();
+  const [searchParams, setSearchParams] = useSearchParams({
+    sort: "latest",
+    page: "1",
+    title: "",
+    categoryIds:"[]"
+  })
+  const [currentPage, setCurrentPage] = useState(searchParams.get("page") || "1");
+  const [searchInput, setSearchInput] = useState();
+  const [searchTitle, setSearchTitle] = useState(searchParams.get("title") || "");
+  const [sort, setSort] = useState(searchParams.get("sort") || "latest");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(JSON.parse(searchParams.get("categoryIds") || "[]"));
+
+  useEffect(() => {
+    setSearchParams({
+      sort,
+      page: currentPage,
+      title: searchTitle,
+      categoryIds: JSON.stringify(selectedCategories),
+    });
+  }, [sort, currentPage, searchTitle, selectedCategories, setSearchParams]);
+
 
   return (
     <LibraryContext.Provider
@@ -20,6 +38,8 @@ export const LibraryProvider = ({ children }: { children: ReactNode }) => {
         setSearchTitle,
         sort,
         setSort,
+        selectedCategories,
+        setSelectedCategories
       }}
     >
       {children}

@@ -8,7 +8,6 @@ const SwitchButton = () => {
   
   
   const { data: createdBook } = useFetchSingleBook(slug ?? "");
-  console.log(createdBook);
   const bookUpdateMutation = useUpdateBook();
   const [isPublish, setIsPublish] = useState<boolean>(createdBook?.status);
 
@@ -24,7 +23,6 @@ const SwitchButton = () => {
       },
     });
   };
-  console.log(isPublish);
 
   return (
     <div
