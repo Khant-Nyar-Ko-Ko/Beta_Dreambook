@@ -26,9 +26,13 @@ export const createHistory = async ({ bookSlug }: { bookSlug: string }) => {
 };
 
 
-export const fetchHistory = async () => {
+export const fetchHistory = async (sort?: string) => {
+  let queryString = "";
+  if (sort) {
+    queryString += (queryString ? "&" : "?") + `sort=${sort}`;
+  }
   const token = getToken();
-  const response: Response = await fetch(`${BaseURL}/history`, {
+  const response: Response = await fetch(`${BaseURL}/history${queryString}`, {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,

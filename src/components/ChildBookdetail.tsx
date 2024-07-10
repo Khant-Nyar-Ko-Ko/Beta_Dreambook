@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState, FormEvent } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
@@ -21,7 +21,6 @@ const ChildBookdetail = () => {
   const { data: createdBook, isPending, error, refetch } = useFetchSingleBook(slug ?? "");
   const { data: categories } = useFetchCategories();
   const bookUpdateMutation = useUpdateBook();
-  const navigate = useNavigate();
 
   const [isEdit, setIsEdit] = useState(false);
   const [title, setTitle] = useState("");
@@ -85,9 +84,9 @@ const ChildBookdetail = () => {
       slug,
     };
     bookUpdateMutation.mutate(bookData, {
-      onSuccess: (updatedBook) => {
+      onSuccess: () => {
         refetch();
-        navigate(`/bookdetail/${updatedBook.slug !== slug ? updatedBook.slug : slug}/chapters`);
+        // navigate(`/bookdetail/${updatedBook.slug !== slug ? updatedBook.slug : slug}/chapters`);
         // setIsEdit(false); // Switch back to view mode after saving
       },
     });

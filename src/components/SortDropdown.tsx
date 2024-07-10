@@ -20,16 +20,16 @@ const SortDropdown: React.FC<SortDropdownProps> = ({ sort, setSort }) => {
   return (
     <div className="px-1 py-2 border rounded md:px-2">
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex items-center w-[150px] select-none justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm text-black dark:text-white">
-          <p>{sort ? "Sort by A-Z" : "Sort by default"}</p>
+        <DropdownMenuTrigger className="flex items-center w-[150px] select-none justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm text-black dark:text-white z-10">
+          <p>{sort === "a-z" ? "Sort by A-Z" : "Sort by latest"}</p>
           <IoIosArrowDown />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white dark:bg-darkMode1 w-[150px] flex flex-col gap-3 select-none border px-4 rounded py-2 text-black dark:text-white z-10">
+        <DropdownMenuContent className="bg-white dark:bg-darkMode1 w-[150px] flex flex-col gap-3 select-none border px-4 rounded py-2 text-black dark:text-white z-20">
           <DropdownMenuItem
             className="flex items-center gap-2"
-            onClick={() => handleSortChange(undefined)}
+            onClick={() => handleSortChange("latest")}
           >
-            <input type="radio" checked={sort !== "a-z"} />
+            <input type="radio" checked={sort !== "a-z"} readOnly />
             <label htmlFor="latest" className="text-sm font-primary">
               Sort by latest
             </label>
@@ -38,8 +38,8 @@ const SortDropdown: React.FC<SortDropdownProps> = ({ sort, setSort }) => {
             className="flex items-center gap-2 "
             onClick={() => handleSortChange("a-z")}
           >
-            <input type="radio" checked={sort === "a-z"} />
-            <label htmlFor="latest" className="text-sm font-primary">
+            <input type="radio" checked={sort === "a-z"} readOnly />
+            <label htmlFor="a-z" className="text-sm font-primary">
               Sort by A-Z
             </label>
           </DropdownMenuItem>

@@ -9,7 +9,8 @@ import {
   fetchPopularBook,
   fetchBooksByLoginUser,
   fetchRelatedBooks,
-  updateBook
+  updateBook,
+  deleteBook
 } from "./bookApi";
 import {
   addFavourite,
@@ -48,5 +49,6 @@ export {
   createHistory,
   replyComment,
   getReply,
-  countReply
+  countReply,
+  deleteBook
 };

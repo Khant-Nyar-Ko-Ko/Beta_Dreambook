@@ -24,7 +24,6 @@ const BookSection = () => {
     selectedCategories,
     sort
   );
-
   const books = data?.items ?? [];
 
   useDebounce(() => setSearchTitle(searchInput), 1000, [searchInput]);
@@ -45,7 +44,7 @@ const BookSection = () => {
   return (
     <div className="w-full bg-white dark:bg-darkMode1">
       <div className="flex justify-between items-center mx-3 md:mx-[100px] my-5">
-        <div className="flex items-center gap-5">
+        <div className="z-10 flex items-center gap-5">
           <div className="p-[7px] border rounded">
             <RiFilter3Line className="text-[16px] md:text-[24px] text-black dark:text-white" />
           </div>

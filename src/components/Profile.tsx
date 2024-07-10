@@ -22,8 +22,8 @@ const Profile = () => {
   const { data: user } = useUserApi(token);
   const navigate = useNavigate();
   const handleLogout = () => {
-    navigate("/");
     logout();
+    navigate("/");
   };
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
@@ -155,7 +155,7 @@ const Profile = () => {
             <NavLink to="/">
               <Button variant="menu" onClick={handleLogout}>
               <IoExitOutline size="20" />
-                <p className="pl-1  font-primary">Log out</p>
+                <p className="pl-1 font-primary">Log out</p>
               </Button>
             </NavLink>
           </div>

@@ -73,7 +73,6 @@ export const fetchSingleBook = async ({ slug }: { slug: string }) => {
   }
 };
 
-
 export const fetchPopularBook = async () => {
   const response: Response = await fetch(`${BaseURL}/books/popular`, {
     method: "GET",
@@ -168,12 +167,6 @@ export const updateBook = async (
   const token = getToken();
   const formData = new FormData();
   formData.append("title", data.title);
-  // formData.append("coverImg", data.coverImg);
-  // if (data.coverImg) {
-  //   formData.append("coverImg", data.coverImg);
-  // } else {
-  //   formData.append("coverImg", emptybook);
-  // }
   if (data.coverImg instanceof File) {
     formData.append("coverImg", data.coverImg);
   }
@@ -199,3 +192,37 @@ export const updateBook = async (
 
   return result;
 }
+
+export const deleteBook = async ({ slug }: { slug: string }) => {
+  const token = getToken();
+
+  let queryString = "";
+  if (slug) {
+    queryString = `?slug=${slug}`;
+  }
+
+  try {
+    const response: Response = await fetch(`${BaseURL}/books${queryString}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      method: "DELETE",
+      mode: "cors",
+      redirect: "follow",
+    });
+
+    if (!response.ok) {
+      const result = await response.json();
+      console.error("Delete book failed:", result);
+      throw new Error(result.message || "Failed to delete book");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error in deleteBook function:", error);
+    throw error;
+  }
+};
+

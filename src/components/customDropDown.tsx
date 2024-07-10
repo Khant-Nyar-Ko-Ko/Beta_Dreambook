@@ -29,9 +29,9 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
     (category) => category.id === selectedValue
   );
 
-  useEffect(() => {
-    console.log("Category ID:", categoryId); // Debugging line
-  }, [categoryId]);
+  // useEffect(() => {
+  //   console.log("Category ID:", categoryId);
+  // }, [categoryId]);
 
   return (
     <div className="relative inline-block w-full">

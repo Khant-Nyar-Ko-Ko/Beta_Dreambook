@@ -3,7 +3,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline, IoHeart } from "react-icons/io5";
 import { TiEdit } from "react-icons/ti";
 import profile from "../assets/images/Author.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 import { getToken } from "@/service/authService";
 import toast from "react-hot-toast";
@@ -38,14 +38,23 @@ const Card: React.FC<CardProps> = ({
   const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } =
     useFavouriteBooks();
   const { data: user } = useUserApi(token ?? "");
+  const navigate = useNavigate();
 
   const handleAddFavouriteBook = (id: number) => {
-    addFavouriteBook(id);
-    toast.success("Added to favourites");
+    if (token) {
+      addFavouriteBook(id);
+      toast.success("Added to favourites");
+    } else {
+      navigate("/auth/login");
+    }
   };
   const handleRemoveFavouriteBook = (id: number) => {
-    removeFavouriteBook(id);
-    toast.success("Removed from favourites");
+    if (token) {
+      removeFavouriteBook(id);
+      toast.success("Removed from favourites");
+    } else {
+      navigate("/auth/login");
+    }
   };
   // console.log(slug);
 

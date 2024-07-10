@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   createBooks,
+  deleteBook,
   fetchBooks,
   fetchBooksByLoginUser,
   fetchPopularBook,
@@ -65,3 +66,9 @@ export const useUpdateBook = () => {
     mutationFn: (data: BookDataType) => updateBook(data)
   })
 }
+
+export const useDeleteBook = () => {
+ return useMutation({
+  mutationFn: (slug : string) => deleteBook({slug})
+ })
+} 
