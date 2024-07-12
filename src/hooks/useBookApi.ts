@@ -28,7 +28,7 @@ export const useFetchBooks = (
 export const useFetchSingleBook = (slug: string) =>
   useQuery({
     queryKey: ["singleBook", slug],
-    queryFn: () => fetchSingleBook({ slug }),
+    queryFn: () => fetchSingleBook( {slug} ),
     enabled: !!slug,
   });
 
@@ -40,10 +40,10 @@ export const useFetchPopularBook = () => {
   });
 };
 
-export const useFetchBooksByLoginUser = (sort?: string) => {
+export const useFetchBooksByLoginUser = (sort?: string, title?: string) => {
   return useQuery({
-    queryKey: ["loginUserBooks",sort],
-    queryFn: () => fetchBooksByLoginUser(sort),
+    queryKey: ["loginUserBooks",sort, title],
+    queryFn: () => fetchBooksByLoginUser({sort, title}),
     staleTime: 10 * 60 * 1000
   })
 }

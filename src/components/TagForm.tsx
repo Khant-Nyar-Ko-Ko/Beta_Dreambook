@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { IoCloseCircleSharp } from "react-icons/io5";
+import React from "react";
 
 interface TagInputProps {
   placeholder: string;
@@ -9,10 +10,17 @@ interface TagInputProps {
   tags: string[];
   setTags: (tags: string[]) => void;
   className: string;
-  isDisabled : boolean
+  isDisabled: boolean;
 }
 
-const TagInput: React.FC<TagInputProps> = ({ placeholder, initialTags, tags, setTags, className, isDisabled }) => {
+const TagInput: React.FC<TagInputProps> = ({
+  placeholder,
+  initialTags,
+  tags,
+  setTags,
+  className,
+  isDisabled,
+}) => {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
@@ -33,13 +41,16 @@ const TagInput: React.FC<TagInputProps> = ({ placeholder, initialTags, tags, set
     }
   };
 
-  const handleDeleteTag = (tag: any) => {
-    setTags(tags.filter((t: any) => t !== tag));
+  const handleDeleteTag = (tag: string) => {
+    setTags(tags.filter((t) => t !== tag));
   };
 
   return (
     <div className={className}>
-      <label htmlFor="keywords" className="mb-2 font-semibold text-black dark:text-white">
+      <label
+        htmlFor="keywords"
+        className="mb-2 font-semibold text-black dark:text-white"
+      >
         Keywords
       </label>
       <Input
@@ -53,18 +64,20 @@ const TagInput: React.FC<TagInputProps> = ({ placeholder, initialTags, tags, set
         disabled={isDisabled}
       />
       <div className="flex items-center my-2 gap-x-3">
-        {tags?.map((k: any, i: any) => (
-          <div
-            key={i}
-            className="flex items-center gap-1 p-1 bg-gray-200 rounded"
-          >
-            <p>{k}</p>
+        {initialTags.map((tag, index) => (
+          <div key={index} className="flex items-center gap-1 p-1 bg-gray-200 rounded">
+            {tag.split(',').map((t, i) => (
+              <React.Fragment key={i}>
+                <p>{t}</p>
+                {i !== tag.split(',').length - 1 && <span>, </span>}
+              </React.Fragment>
+            ))}
             <button
               className="hover:cursor-pointer"
-              onClick={() => handleDeleteTag(k)}
+              onClick={() => handleDeleteTag(tag)}
               disabled={isDisabled}
             >
-             <IoCloseCircleSharp />
+              <IoCloseCircleSharp />
             </button>
           </div>
         ))}
@@ -72,4 +85,5 @@ const TagInput: React.FC<TagInputProps> = ({ placeholder, initialTags, tags, set
     </div>
   );
 };
+
 export default TagInput;

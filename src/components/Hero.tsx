@@ -1,5 +1,5 @@
 import { Button } from "./ui/button";
-import landing1 from "../assets/images/landing/landingphoto1.png";
+// import landing1 from "../assets/images/landing/landingphoto1.png";
 
 import bg1 from "../assets/images/landing/bg1.png";
 import bg2 from "../assets/images/landing/bg2.png";
@@ -7,6 +7,7 @@ import pot from "../assets/images/landing/daisypot.png";
 import DownloadOnMobile from "./DownloadOnMobile";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
+import PopularHightlight from "./PopularHightlight";
 
 const Hero = () => {
   return (
@@ -51,14 +52,8 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <div className="z-10 flex flex-col items-center w-auto gap-5 md:justify-center md:w-1/2">
-          <motion.img
-          initial={{x: 700}} animate={{x :0}} transition={{duration:0.5, delay: 1}}
-            className="h-auto mt-10 md:mt-0 w-[250px] md:w-[500px]"
-            src={landing1}
-            alt=""
-          />
-          <motion.p  initial={{x: 700}} animate={{x :0}} transition={{duration:1, delay: 1}} className="z-10 text-black font-primary dark:text-white">Most Popular Books This Week</motion.p>
+        <div className="z-10 flex flex-col items-center justify-center w-auto gap-5 md:justify-center md:w-1/2">
+        <PopularHightlight/>
         </div>
       </div>
     </div>

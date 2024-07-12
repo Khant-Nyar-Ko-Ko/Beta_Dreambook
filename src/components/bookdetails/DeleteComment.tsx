@@ -1,38 +1,53 @@
 import { Box, Modal, Typography } from "@mui/material";
 import { Button } from "../ui/button";
-import { useState } from "react";
-import { useDeleteChapter } from "@/hooks/useChapterApi";
+import { useEffect, useState } from "react";
+import { useDeleteComment } from "@/hooks/useCommentApi";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Loading";
 
-const DeleteChapter = ({ id }: { id: number }) => {
+const DeleteComment = ({ id }: { id: number }) => {
+    const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
-  const { mutate: deleteChapter } = useDeleteChapter();
 
-  const toggleModal = () => {
-    setIsModalOpen((prev) => !prev);
+//   const { mutate: deleteComment } = useDeleteComment();
+const deleteCommentMutation = useDeleteComment();
+
+useEffect(() => {
+  console.log(deleteCommentMutation.status);
+  console.log(deleteCommentMutation.error);
+  
+  
+},[deleteCommentMutation])
+
+const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
   };
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    deleteChapter(id, {
-      onSuccess: () => {
-        toggleModal();
-        navigate("/home");
-      },
-    });
+    deleteCommentMutation.mutate(id)   
+    // console.log(deleteCommentMutation.status);
   };
+
+  useEffect(() => {
+    if(deleteCommentMutation.isSuccess) {
+    //   toggleModal();
+      navigate("/home")
+    } 
+  },[deleteCommentMutation.isSuccess, navigate])
 
   return (
     <div>
+      {" "}
       <Button
+        variant="white"
         onClick={toggleModal}
-        className="block w-full px-4 py-2 text-sm text-red-500 bg-transparent rounded-none hover:text-red-800 hover:dark:text-white hover:bg-gray-100 hover:dark:bg-darkMode2"
+        className="block w-full px-4 py-2 text-sm text-red-500 rounded-none hover:text-black hover:bg-gray-100"
         role="menuitem"
       >
         Delete
       </Button>
-      <Modal open={isModalOpen} onClose={toggleModal}>
+      <Modal open={isModalOpen}>
         <Box
           className="p-8 text-sm bg-white rounded-md shadow-md dark:bg-darkMode2"
           style={{
@@ -47,7 +62,7 @@ const DeleteChapter = ({ id }: { id: number }) => {
             variant="h6"
             className="mb-8 text-center text-black font-primary dark:text-white"
           >
-            Are you sure you want to delete this chapter?
+            Are you sure you want to delete this book?
           </Typography>
           <div className="flex justify-center gap-5 mt-8">
             <Button
@@ -55,7 +70,7 @@ const DeleteChapter = ({ id }: { id: number }) => {
               className="text-white bg-red-600 hover:bg-red-700"
               onClick={handleDelete}
             >
-              Delete
+                {deleteCommentMutation.isPending ? <Loading/> : "Delete"}
             </Button>
             <Button
               variant="outline"
@@ -71,4 +86,4 @@ const DeleteChapter = ({ id }: { id: number }) => {
   );
 };
 
-export default DeleteChapter;
+export default DeleteComment;

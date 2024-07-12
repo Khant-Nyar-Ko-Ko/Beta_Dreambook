@@ -47,8 +47,11 @@ const PersonalInformation = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const updatedData = { ...formData, profileImg };
-    updateUserMutation.mutate(updatedData);
-    navigate("/");
+    updateUserMutation.mutate(updatedData, {
+      onSuccess: () => {
+        navigate("/");
+      },
+    });
   };
 
   return (

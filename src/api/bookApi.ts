@@ -2,8 +2,7 @@
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 import { BookDataType } from "@/utils/type";
-// import emptybook from "../assets/images/Empty Book.jpg";
-
+const token = getToken();
 
 export const fetchBooks = async (
   page?: number,
@@ -44,31 +43,33 @@ export const fetchBooks = async (
 };
 
 export const fetchSingleBook = async ({ slug }: { slug: string }) => {
-  const token = getToken();
   if (!slug) {
     console.error("Invalid book ID");
     throw new Error("Invalid book ID");
   }
   try {
-    const response: Response = await fetch(`${BaseURL}/books/searchBook/${slug}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      method: "GET",
-      mode: "cors",
-      redirect: "follow",
-    });
+    const response: Response = await fetch(
+      `${BaseURL}/books/searchBook/${slug}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        method: "GET",
+        mode: "cors",
+        redirect: "follow",
+      }
+    );
 
     const result = await response.json();
     if (!response.ok) {
-      console.error('Server Error:', response.statusText);
+      console.error("Server Error:", response.statusText);
       throw new Error(response.statusText);
     }
     return result;
   } catch (error) {
-    console.error('Fetch Error:', error);
+    console.error("Fetch Error:", error);
     throw error;
   }
 };
@@ -87,22 +88,34 @@ export const fetchPopularBook = async () => {
   return result;
 };
 
-export const fetchBooksByLoginUser = async (sort?: string) => {
+export const fetchBooksByLoginUser = async ({
+  sort,
+  title,
+}: {
+  sort?: string;
+  title?: string;
+}) => {
   let queryString = "";
   if (sort) {
     queryString += (queryString ? "&" : "?") + `sort=${sort}`;
   }
-  const token = getToken();
-  const response: Response = await fetch(`${BaseURL}/books/user${queryString}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    method: "GET",
-    mode: "cors",
-    redirect: "follow",
-  });
+  if (title) {
+    queryString +=
+      (queryString ? "&" : "?") + `title=${encodeURIComponent(title)}`;
+  }
+  const response: Response = await fetch(
+    `${BaseURL}/books/user${queryString}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      method: "GET",
+      mode: "cors",
+      redirect: "follow",
+    }
+  );
 
   const result = await response.json();
   if (!response.ok) {
@@ -132,14 +145,11 @@ export const fetchRelatedBooks = async ({ slug }: { slug: string }) => {
 export const createBooks = async (
   data: BookDataType
 ): Promise<BookDataType> => {
-  const token = getToken();
   const formData = new FormData();
   formData.append("title", data.title);
   formData.append("coverImg", data.coverImg);
   formData.append("description", data.description);
-  data.keywords.forEach((keyword) => {
-    formData.append("keywords[]", keyword);
-  });
+  formData.append("keywords", JSON.stringify(data.keywords));
   formData.append("status", JSON.stringify(data.status));
   formData.append("categoryId", data.categoryId);
 
@@ -161,21 +171,18 @@ export const createBooks = async (
   return result;
 };
 
-export const updateBook = async (
-  data : BookDataType
-) => {
-  const token = getToken();
+export const updateBook = async (data: BookDataType) => {
   const formData = new FormData();
   formData.append("title", data.title);
   if (data.coverImg instanceof File) {
     formData.append("coverImg", data.coverImg);
   }
   formData.append("description", data.description);
-  data.keywords.forEach((keyword) => formData.append("keywords[]", keyword));
+  formData.append("keywords", JSON.stringify(data.keywords));
   formData.append("status", JSON.stringify(data.status));
   formData.append("categoryId", data.categoryId);
 
-  const response : Response = await fetch(`${BaseURL}/books?slug=${data.slug}`,{
+  const response: Response = await fetch(`${BaseURL}/books?slug=${data.slug}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -183,7 +190,7 @@ export const updateBook = async (
     method: "PATCH",
     redirect: "follow",
     body: formData,
-  })
+  });
 
   const result = await response.json();
   if (!response.ok) {
@@ -191,15 +198,10 @@ export const updateBook = async (
   }
 
   return result;
-}
+};
 
 export const deleteBook = async ({ slug }: { slug: string }) => {
-  const token = getToken();
-
-  let queryString = "";
-  if (slug) {
-    queryString = `?slug=${slug}`;
-  }
+  const queryString = `?slug=${slug}`;
 
   try {
     const response: Response = await fetch(`${BaseURL}/books${queryString}`, {
@@ -225,4 +227,3 @@ export const deleteBook = async ({ slug }: { slug: string }) => {
     throw error;
   }
 };
-

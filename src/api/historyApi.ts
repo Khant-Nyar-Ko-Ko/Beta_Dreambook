@@ -1,10 +1,9 @@
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
+const token = getToken();
 
 export const createHistory = async ({ bookSlug }: { bookSlug: string }) => {
-  const token = getToken();
   const data = { bookSlug };
-
   const response: Response = await fetch(`${BaseURL}/history`, {
     headers: {
       Accept: "application/json",
@@ -31,7 +30,6 @@ export const fetchHistory = async (sort?: string) => {
   if (sort) {
     queryString += (queryString ? "&" : "?") + `sort=${sort}`;
   }
-  const token = getToken();
   const response: Response = await fetch(`${BaseURL}/history${queryString}`, {
     headers: {
       Accept: "application/json",

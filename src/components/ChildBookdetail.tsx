@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState, FormEvent } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
@@ -15,10 +15,18 @@ import bookImg from "../assets/images/bookCrafting/bookImg.png";
 import authorprofile from "../assets/images/Author.png";
 import { Loader2 } from "lucide-react";
 import BookStatusButton from "./BookStatusButton";
+import DeleteBook from "./bookdetails/DeleteBook";
 
 const ChildBookdetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { data: createdBook, isPending, error, refetch } = useFetchSingleBook(slug ?? "");
+  const {
+    data: createdBook,
+    isPending,
+    error,
+    refetch,
+  } = useFetchSingleBook(slug ?? "");
+  console.log(createdBook);
+
   const { data: categories } = useFetchCategories();
   const bookUpdateMutation = useUpdateBook();
 
@@ -31,7 +39,7 @@ const ChildBookdetail = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("");
   console.log(coverImg);
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (createdBook) {
@@ -44,11 +52,11 @@ const ChildBookdetail = () => {
     }
   }, [createdBook]);
 
-  useEffect(() => {
-    refetch();
-  }, [slug, refetch]);
+  console.log(tags);
+  
 
-  const handleEdit = () => {
+  const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setIsEdit(!isEdit);
   };
 
@@ -57,7 +65,9 @@ const ChildBookdetail = () => {
     setIsEdit(false);
   };
 
-  const selectedCategory = categories?.find(category => category.id === Number(categoryId));
+  const selectedCategory = categories?.find(
+    (category) => category.id === Number(categoryId)
+  );
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -84,10 +94,9 @@ const ChildBookdetail = () => {
       slug,
     };
     bookUpdateMutation.mutate(bookData, {
-      onSuccess: () => {
+      onSuccess: (updatedBook) => {
+        navigate(`/bookdetail/${updatedBook?.slug}`);
         refetch();
-        // navigate(`/bookdetail/${updatedBook.slug !== slug ? updatedBook.slug : slug}/chapters`);
-        // setIsEdit(false); // Switch back to view mode after saving
       },
     });
   };
@@ -101,7 +110,7 @@ const ChildBookdetail = () => {
   }
 
   if (error) {
-    return <div>Error loading book details: {error.message}</div>;
+    return <div>Loading...</div>;
   }
 
   if (!createdBook) {
@@ -110,7 +119,7 @@ const ChildBookdetail = () => {
 
   return (
     <div className="flex flex-col w-4/5 h-screen bg-white dark:bg-darkMode1">
-      <BookStatusButton text="Book Details"/>
+      <BookStatusButton text="Book Details" />
       <form onSubmit={handleSubmit}>
         <div className="flex">
           <div className="w-3/4 px-5 pt-5">
@@ -144,63 +153,68 @@ const ChildBookdetail = () => {
                 onChange={(value) => setCategoryId(value)}
                 isDisabled={!isEdit}
               />
-            </div>         
-             <div className="mt-2 bg-white dark:bg-darkMode1">
-                <TagInput
-                  placeholder="Enter a tag"
-                  initialTags={tags}
-                  tags={tags}
-                  setTags={setTags}
-                  className="border-gray-300"
-                  isDisabled={!isEdit}
-                />
+            </div>
+            <div className="mt-2 bg-white dark:bg-darkMode1">
+              <TagInput
+                placeholder="Enter a tag"
+                initialTags={tags}
+                tags={tags}
+                setTags={setTags}
+                className="border-gray-300"
+                isDisabled={!isEdit}
+              />
             </div>
             <div className="mt-5">
-               <label htmlFor="default" className="block mb-2 text-lg font-medium text-gray-900 rounded-md dark:text-white">
-                 Description
-               </label>
-               <div className="w-full mb-5 border">
-                 <Toolbar
-                   value={bookDescription}
-                   onChange={setBookDescription}
-                   isDisabled={!isEdit}
-                 />
-               </div>
-             </div>
+              <label
+                htmlFor="default"
+                className="block mb-2 text-lg font-medium text-gray-900 rounded-md dark:text-white"
+              >
+                Description
+              </label>
+              <div className="w-full mb-5 border">
+                <Toolbar
+                  value={bookDescription}
+                  onChange={setBookDescription}
+                  isDisabled={!isEdit}
+                />
+              </div>
+            </div>
           </div>
           <div className="flex flex-col items-center justify-center w-1/4 p-5">
             <h1 className="text-center text-black font-primary dark:text-white">
               Cover Image
             </h1>
-              <div className="relative">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                  disabled={!isEdit}
+            <div className="relative">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                disabled={!isEdit}
+              />
+              {preview ? (
+                <img
+                  src={preview}
+                  alt="Book Cover Preview"
+                  className="w-40 h-auto mx-auto my-5 rounded-md "
                 />
-                {preview ? (
-                  <img
-                    src={preview}
-                    alt="Book Cover Preview"
-                    className="w-40 h-auto mx-auto my-5 rounded-md "
-                  />
-                ) : (
-                  <div className="flex items-center justify-center w-48 h-64 mx-auto border-2 border-gray-300 border-dashed rounded-md">
-                    <div className="text-center">
-                      <img
-                        className="w-10 h-10 mx-auto text-gray-400"
-                        src={bookImg}
-                        alt="Icon"
-                      />
-                      <p className="mt-2 text-sm text-gray-600">Click to upload</p>
-                      <p className="text-xs text-gray-500">JPG, JPEG, or PNG</p>
-                    </div>
+              ) : (
+                <div className="flex items-center justify-center w-48 h-64 mx-auto border-2 border-gray-300 border-dashed rounded-md">
+                  <div className="text-center">
+                    <img
+                      className="w-10 h-10 mx-auto text-gray-400"
+                      src={bookImg}
+                      alt="Icon"
+                    />
+                    <p className="mt-2 text-sm text-gray-600">
+                      Click to upload
+                    </p>
+                    <p className="text-xs text-gray-500">JPG, JPEG, or PNG</p>
                   </div>
-                )}
-              </div>
-              <div className="flex flex-col w-[200px] gap-5 h-[260px] pb-3 bg-white dark:bg-darkMode2 border border-slate-100 dark:border-darkMode1 rounded">
+                </div>
+              )}
+            </div>
+            <div className="flex flex-col w-[200px] gap-5 h-[260px] pb-3 bg-white dark:bg-darkMode2 border border-slate-100 dark:border-darkMode1 rounded">
               <div className="relative flex shadow-sm justify-center h-[200px] py-3 mx-3 mt-3 overflow-hidden bg-slate-200 dark:bg-darkMode3 group">
                 <div className="absolute flex flex-col gap-3 duration-200 transform translate-x-10 group-hover:translate-x-0 right-3 top-5">
                   <button className="p-1 text-black bg-white rounded-full dark:bg-darkMode2 dark:text-white">
@@ -221,7 +235,7 @@ const ChildBookdetail = () => {
               </div>
               <div className="flex flex-col gap-2 mx-3">
                 <p className="font-semibold text-black font-primary text-start dark:text-white">
-                  {title.substring(0,15)}...
+                  {title.substring(0, 15)}...
                 </p>
                 {selectedCategory && (
                   <div className="flex gap-1">
@@ -248,40 +262,41 @@ const ChildBookdetail = () => {
               </div>
             </div>
           </div>
-         
         </div>
         <div className="flex justify-end gap-3 mr-[300px]">
-           {isEdit ? (
-             <>
-               <Button
-                 variant="white"
-                 className="text-gray-600 dark:text-white"
-                 onClick={handleCancel}
-               >
-                 Cancel
-               </Button>
-               <Button variant="default" type="submit"> 
-                 <Loader2
+          {isEdit ? (
+            <>
+              <Button
+                variant="white"
+                className="text-gray-600 dark:text-white"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
+              <Button variant="default" type="submit">
+                <Loader2
                   className={
-                    bookUpdateMutation.isPending ? "block animate-spin" : "hidden"
+                    bookUpdateMutation.isPending
+                      ? "block animate-spin"
+                      : "hidden"
                   }
                 />
-                 <span className={
-                    bookUpdateMutation.isPending ? "hidden" : "block"
-                  }>Save</span>
-               </Button>
-             </>
-           ) : (
-             <>
-               <Button variant="white" className="text-red-600">
-                 Delete
-               </Button>
-               <Button variant="default" onClick={handleEdit}>
-                 Edit
-               </Button>
-             </>
-           )}
-         </div>
+                <span
+                  className={bookUpdateMutation.isPending ? "hidden" : "block"}
+                >
+                  Save
+                </span>
+              </Button>
+            </>
+          ) : (
+            <>
+            <DeleteBook/>
+              <Button variant="default" onClick={handleEdit}>
+                Edit
+              </Button>
+            </>
+          )}
+        </div>
       </form>
     </div>
   );

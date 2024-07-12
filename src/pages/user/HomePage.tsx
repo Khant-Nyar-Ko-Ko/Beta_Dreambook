@@ -71,7 +71,7 @@ const HomePage = () => {
         </h4>
         <Faq />
       </div>
-      <div className="flex justify-end px-32 pb-5">
+      <div className="flex justify-end px-6 pb-5 md:px-32">
       <IoIosArrowDropup onClick={() => scrollToSection('home')} className=" text-default" size="40px"/>
 
       </div>

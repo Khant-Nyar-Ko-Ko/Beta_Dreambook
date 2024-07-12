@@ -1,15 +1,18 @@
 import { useFetchSingleBook, useUpdateBook } from "@/hooks/useBookApi";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
 const SwitchButton = () => {
   const { slug } = useParams<{ slug: string }>();
+  const queryClient = useQueryClient();
   
   
   const { data: createdBook } = useFetchSingleBook(slug ?? "");
   const bookUpdateMutation = useUpdateBook();
   const [isPublish, setIsPublish] = useState<boolean>(createdBook?.status);
+
 
   const handlePublish = () => {
     setIsPublish(!isPublish);
@@ -20,6 +23,7 @@ const SwitchButton = () => {
     bookUpdateMutation.mutate(bookData, {
       onSuccess: () => {
         toast(!isPublish ? "Published" : "Drafted");
+        queryClient.invalidateQueries({ queryKey: ['singleBook'] });
       },
     });
   };

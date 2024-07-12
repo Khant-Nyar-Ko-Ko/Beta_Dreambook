@@ -1,5 +1,5 @@
-import { fetchHistory, createHistory } from './historyApi';
-import { postChapterProgress, getChapterProgress } from './chapterProgressApi';
+import { fetchHistory, createHistory } from "./historyApi";
+import { postChapterProgress, getChapterProgress } from "./chapterProgressApi";
 import { signUpUser, signInUser, updateUser } from "./authApi";
 import { fetchCategories, fetchTrendingCategories } from "./categoryApi";
 import {
@@ -10,7 +10,7 @@ import {
   fetchBooksByLoginUser,
   fetchRelatedBooks,
   updateBook,
-  deleteBook
+  deleteBook,
 } from "./bookApi";
 import {
   addFavourite,
@@ -18,8 +18,20 @@ import {
   removeFavourite,
 } from "../api/favouriteApi";
 import { selectCategory } from "../api/selectCategoryApi";
-import { postComment, getComment, replyComment , getReply, countReply} from "./commentApi";
-import { getChapter, createChapter, updateChapter } from "./chapterApi";
+import {
+  postComment,
+  getComment,
+  replyComment,
+  getReply,
+  countReply,
+  deleteComment,
+} from "./commentApi";
+import {
+  getChapter,
+  createChapter,
+  updateChapter,
+  deleteChapter,
+} from "./chapterApi";
 
 export {
   signUpUser,
@@ -50,5 +62,7 @@ export {
   replyComment,
   getReply,
   countReply,
-  deleteBook
+  deleteBook,
+  deleteChapter,
+  deleteComment,
 };

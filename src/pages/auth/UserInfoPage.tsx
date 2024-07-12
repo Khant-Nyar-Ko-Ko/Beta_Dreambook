@@ -79,7 +79,7 @@ const UserInfoPage = () => {
                 <ImagePreview profileImg={profileImg} onProfileImgChange={handleProfileImgChange} />
               </div>
               <Input
-                className="w-[300px] px-4 py-3"
+                className="w-[500px] px-4 py-3 "
                 name="name"
                 placeholder="Full name"
                 value={signupData.name}
@@ -91,7 +91,7 @@ const UserInfoPage = () => {
                 name="gender"
                 value={signupData.gender}
                 onChange={handleGenderChange}
-                className="w-[250px] md:w-[500px] p-2 text-sm border bg-white dark:bg-darkMode1 dark:text-white border-gray-200 rounded-lg shadow-sm text-slate-500 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="w-[250px] md:w-[500px] p-2 text-sm border bg-white dark:bg-darkMode1 dark:text-white border-gray-200 rounded-lg shadow-sm text-slate-800 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               >
                 <option value="" disabled>Gender</option>
                 <option value="Male">Male</option>

@@ -1,8 +1,13 @@
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
+const token = getToken();
 
 export const selectCategory = async ({categoryIds} : {categoryIds: number[]}) => {
-  const token = getToken();
+
+  if (!token) {
+    throw new Error("No token found. Please log in.");
+  }
+  
   const response: Response = await fetch(`${BaseURL}/interested-category`, {
     headers: {
       Authorization: `Bearer ${token}`,

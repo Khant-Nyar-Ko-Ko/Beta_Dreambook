@@ -1,5 +1,7 @@
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
+const token = getToken();
+
 
 export const postComment = async ({
   bookSlug,
@@ -8,7 +10,7 @@ export const postComment = async ({
   bookSlug: string;
   text: string;
 }) => {
-  const token = getToken();
+  
   const response: Response = await fetch(`${BaseURL}/comments`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -34,7 +36,7 @@ export const replyComment = async ({
   parentId: number;
   text: string;
 }) => {
-  const token = getToken();
+  
   const queryString = `?parentId=${parentId}`;
   const response: Response = await fetch(
     `${BaseURL}/comments/reply${queryString}`,
@@ -59,7 +61,7 @@ export const replyComment = async ({
 };
 
 export const getComment = async ({ slug }: { slug: string }) => {
-  const token = getToken();
+  
   const response: Response = await fetch(
     `${BaseURL}/comments/book?slug=${slug}`,
     {
@@ -82,7 +84,7 @@ export const getComment = async ({ slug }: { slug: string }) => {
 };
 
 export const getReply = async ({ parentId }: { parentId: number }) => {
-  const token = getToken();
+  
   const response: Response = await fetch(`${BaseURL}/comments/${parentId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -102,7 +104,7 @@ export const getReply = async ({ parentId }: { parentId: number }) => {
 };
 
 export const countReply = async ({ parentId }: { parentId: number }) => {
-  const token = getToken();
+  
   const response: Response = await fetch(
     `${BaseURL}/comments/count/${parentId}`,
     {
@@ -123,3 +125,24 @@ export const countReply = async ({ parentId }: { parentId: number }) => {
   }
   return result;
 };
+
+export const deleteComment = async ({id} : {id : number}) => {
+  const response : Response = await fetch(`${BaseURL}/comments/${id}`,{
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    method: "DELETE",
+    mode: "cors",
+    redirect: "follow",
+  })
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);
+  }
+
+  return result;
+}
+

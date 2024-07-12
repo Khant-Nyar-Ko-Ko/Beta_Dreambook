@@ -1,14 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import profile from "../assets/images/contact.jpeg";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { IoExitOutline, IoMoonOutline, IoPersonSharp, IoSunnyOutline } from "react-icons/io5";
+import {
+  IoExitOutline,
+  IoMoonOutline,
+  IoPersonSharp,
+  IoSunnyOutline,
+} from "react-icons/io5";
 import { PiBooks } from "react-icons/pi";
 import { FaHeart } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -16,6 +21,10 @@ import { Button } from "./ui/button";
 import { getToken, logout } from "@/service/authService";
 import { useUserApi } from "@/hooks/useUserApi";
 import { useEffect, useState } from "react";
+
+const DropdownMenuItemWrapper = ({ children }: { children: any }) => (
+  <div className="px-2 py-1 cursor-pointer">{children}</div>
+);
 
 const Profile = () => {
   const token = getToken() || "";
@@ -55,7 +64,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="select-none ">
+    <div className="shadow select-none">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <div className="flex items-center gap-1">
@@ -64,7 +73,7 @@ const Profile = () => {
               className="object-cover rounded-full w-9 h-9 md:w-12 md:h-12"
               alt="profile"
             />
-            <RiArrowDropDownLine size="30" className=" dark:text-white" />
+            <RiArrowDropDownLine size="30" className="dark:text-white" />
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="bg-white w-[250px] md:w-[300px] rounded px-4 py-2 shadow dark:bg-darkMode1">
@@ -93,29 +102,28 @@ const Profile = () => {
               </div>
             </DropdownMenuLabel>
             <NavLink to="/personalinfo">
-              <DropdownMenuItem>
+              <DropdownMenuItemWrapper>
                 <div className="flex items-center gap-1 text-gray-500 dark:text-white">
                   <IoPersonSharp />
                   <p>Profile</p>
                 </div>
-              </DropdownMenuItem>
+              </DropdownMenuItemWrapper>
             </NavLink>
             <NavLink to="/personalinfo/book-lists">
-              <DropdownMenuItem>
+              <DropdownMenuItemWrapper>
                 <div className="flex items-center gap-1 text-gray-500 dark:text-white">
                   <PiBooks />
-
                   <p>Book Lists</p>
                 </div>
-              </DropdownMenuItem>
+              </DropdownMenuItemWrapper>
             </NavLink>
             <NavLink to="/personalinfo/fav-books">
-              <DropdownMenuItem>
+              <DropdownMenuItemWrapper>
                 <div className="flex items-center gap-1 text-gray-500 dark:text-white">
                   <FaHeart />
                   <p>Favourite Books</p>
                 </div>
-              </DropdownMenuItem>
+              </DropdownMenuItemWrapper>
             </NavLink>
           </div>
           <div className="flex flex-col gap-2 py-3 border-b-2 border-gray-300">
@@ -124,37 +132,39 @@ const Profile = () => {
                 Theme
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuItem>
+            <DropdownMenuItemWrapper>
               <div className="flex items-center gap-2 text-gray-500 dark:text-white">
                 <input
+                  id="lightMode"
                   type="radio"
                   value="light"
                   checked={theme === "light"}
                   onChange={handleThemeChange}
                   className="border-2"
                 />
-                <label>Light Mode</label>
+                <label htmlFor="lightMode">Light Mode</label>
                 <IoSunnyOutline />
               </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
+            </DropdownMenuItemWrapper>
+            <DropdownMenuItemWrapper>
               <div className="flex items-center gap-2 text-gray-500 dark:text-white">
                 <input
+                  id="darkMode"
                   type="radio"
                   value="dark"
                   checked={theme === "dark"}
                   onChange={handleThemeChange}
                   className="border-2"
                 />
-                <label>Dark Mode</label>
+                <label htmlFor="darkMode">Dark Mode</label>
                 <IoMoonOutline />
               </div>
-            </DropdownMenuItem>
+            </DropdownMenuItemWrapper>
           </div>
-          <div className="py-2 ">
+          <div className="py-2">
             <NavLink to="/">
               <Button variant="menu" onClick={handleLogout}>
-              <IoExitOutline size="20" />
+                <IoExitOutline size="20" />
                 <p className="pl-1 font-primary">Log out</p>
               </Button>
             </NavLink>
