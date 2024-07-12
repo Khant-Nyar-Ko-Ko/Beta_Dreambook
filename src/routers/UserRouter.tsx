@@ -1,3 +1,4 @@
+import { Navigate, RouteObject } from "react-router-dom";
 import BookLists from "@/components/personalinfo/BookLists";
 import ChangePassword from "@/components/personalinfo/ChangePassword";
 import FavBooks from "@/components/personalinfo/FavBooks";
@@ -10,7 +11,6 @@ import BookCraftingPage from "@/pages/user/BookCraftingPage";
 import HomePage from "@/pages/user/HomePage";
 import LibraryPage from "@/pages/user/LibraryPage";
 import PersonalInfoPage from "@/pages/user/PersonalInfoPage";
-import { Navigate, RouteObject } from "react-router-dom";
 import Chapters from "@/components/Chapters";
 import Comment from "@/components/Comment";
 import ReadBookPage from "@/pages/user/ReadBookPage";
@@ -24,7 +24,7 @@ const UserRouter: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <Navigate to={"home"} />,
+        element: <Navigate to="/home" replace />,
       },
       {
         path: "home",
@@ -56,7 +56,7 @@ const UserRouter: RouteObject[] = [
         children: [
           {
             index: true,
-            element: <Navigate to={"childBookdetail"} />,
+            element: <Navigate to="childBookdetail" replace />,
           },
           {
             path: "childBookdetail",
@@ -69,7 +69,7 @@ const UserRouter: RouteObject[] = [
           {
             path: "comment",
             element: <Comment />,
-          }
+          },
         ],
       },
       {
@@ -78,7 +78,7 @@ const UserRouter: RouteObject[] = [
         children: [
           {
             index: true,
-            element: <Navigate to={"info"} />,
+            element: <Navigate to="info" replace />,
           },
           {
             path: "info",
