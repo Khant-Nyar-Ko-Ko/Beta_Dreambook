@@ -56,7 +56,7 @@ const Comment = () => {
                         {comment.user.name ? comment.user.name : "Unknown User"}
                       </p>
                     </div>
-                    <ReplyComment />
+                    <ReplyComment id={comment.id} />
                   </div>
                   <p className="px-5 text-start font-primary">{comment.text}</p>
                   <p className="px-5 text-xs font-thin text-start opacity-60">

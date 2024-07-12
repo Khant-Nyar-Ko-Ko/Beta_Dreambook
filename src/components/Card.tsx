@@ -40,6 +40,7 @@ const Card: React.FC<CardProps> = ({
   const { data: user } = useUserApi(token ?? "");
   const navigate = useNavigate();
 
+
   const handleAddFavouriteBook = (id: number) => {
     if (token) {
       addFavouriteBook(id);

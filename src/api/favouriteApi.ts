@@ -1,9 +1,13 @@
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
+const token = getToken();
 
-export const fetchFavourite = async () => {
-  const token = getToken();
-  const response: Response = await fetch(`${BaseURL}/favourites/user`, {
+export const fetchFavourite = async ({sort} :{sort? : string}) => {
+  let queryString = "";
+  if (sort) {
+    queryString += (queryString ? "&" : "?") + `sort=${sort}`;
+  }
+  const response: Response = await fetch(`${BaseURL}/books/favourite${queryString}`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -22,7 +26,6 @@ export const fetchFavourite = async () => {
 };
 
 export const addFavourite = async ({ bookId }: { bookId: number }) => {
-  const token = getToken();
   const response: Response = await fetch(`${BaseURL}/favourites`, {
     headers: {
       Accept: "application/json",
@@ -44,7 +47,6 @@ export const addFavourite = async ({ bookId }: { bookId: number }) => {
 };
 
 export const removeFavourite = async ({ bookId }: { bookId: number }) => {
-  const token = getToken();
 
   const response: Response = await fetch(`${BaseURL}/favourites/${bookId}`, {
     headers: {

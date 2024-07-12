@@ -7,27 +7,27 @@ import { useNavigate, useParams } from "react-router-dom";
 const DeleteBook = () => {
   const { slug } = useParams<{ slug: string }>();
 
-  
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {mutate : deleteBook} = useDeleteBook()
+  const { mutate: deleteBook } = useDeleteBook();
   const navigate = useNavigate();
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleDelete = () => {
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     deleteBook(slug ?? "", {
       onSuccess: () => {
         toggleModal();
-        navigate('/')
+        navigate("/home");
       },
       onError: (error) => {
         console.error("Failed to delete book:", error);
       },
     });
   };
-  
+
   return (
     <>
       <Button variant="white" onClick={toggleModal} className="text-red-600">
@@ -56,7 +56,7 @@ const DeleteBook = () => {
               className="text-white bg-red-600 hover:bg-red-700"
               onClick={handleDelete}
             >
-              Yes, Delete
+              Delete
             </Button>
             <Button
               variant="outline"

@@ -14,7 +14,7 @@ const BookLists = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchTitle, setSearchTitle] = useState("");
   const [sort, setSort] = useState<string | undefined>();
-  const { data } = useFetchBooksByLoginUser(sort);
+  const { data , refetch } = useFetchBooksByLoginUser(sort, searchTitle);
   const userBooks = data?.items;
   console.log(searchTitle);
 
@@ -29,7 +29,7 @@ const BookLists = () => {
   };
 
   useEffect(() => {
-    console.log("userBooks: ", userBooks);
+    refetch();
   }, [userBooks]);
 
   return (
@@ -47,14 +47,12 @@ const BookLists = () => {
             </Button>
           </NavLink>
         </div>
-        <div className="order-2 w-full mt-3 md:order-1 md:mt-0 md:w-auto">
-          <SearchInput
+        <SearchInput
             value={searchInput}
             onChange={handleSearchInputChange}
             placeholder="Search"
             ariaLabel="Search books"
           />
-        </div>
       </div>
       <div className=" h-[600px] overflow-y-scroll my-3">
       {!userBooks || userBooks.length === 0 || data == "bookDeleted" ? (

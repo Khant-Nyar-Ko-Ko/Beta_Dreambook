@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
+const token = getToken();
+
 
 export const getChapter = async ({ slug }: { slug: string }) => {
-  const token = getToken();
   const queryString = `?slug=${slug}`;
   const response: Response = await fetch(`${BaseURL}/chapters/books${queryString}`, {
     headers: {
@@ -24,7 +25,6 @@ export const getChapter = async ({ slug }: { slug: string }) => {
 
 export const createChapter = async (data: { title: string, content: string, slug: string,  priority: number,
   status: boolean }) => {
-  const token = getToken();
   const { title, content, slug, priority, status } = data;
 
   console.log('Sending request to:', `${BaseURL}/chapters?slug=${slug}`);
@@ -58,7 +58,6 @@ export const createChapter = async (data: { title: string, content: string, slug
 };
 
 export const updateChapter = async (data : {title: string, content: string, slug: string, priority: number, status: boolean}) => {
-  const token = getToken();
   const { title, content, slug, priority, status } = data;
 
   const response: Response = await fetch(`${BaseURL}/chapters?slug=${slug}`, {
@@ -71,6 +70,26 @@ export const updateChapter = async (data : {title: string, content: string, slug
     redirect: "follow",
     body: JSON.stringify({ title, content,  priority, status}),
   });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);
+  }
+
+  return result;
+}
+
+export const deleteChapter = async ({id} : {id : number}) => {
+  const response : Response = await fetch(`${BaseURL}/chapters/${id}`,{
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    method: "DELETE",
+    mode: "cors",
+    redirect: "follow",
+  })
 
   const result = await response.json();
 

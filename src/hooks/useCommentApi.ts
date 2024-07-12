@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { countReply, getComment, getReply, postComment, replyComment } from "@/api";
+import { countReply, deleteComment, getComment, getReply, postComment, replyComment } from "@/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const usePostComment = () => {
@@ -33,3 +33,9 @@ export const useCountReply = (parentId : number) =>
     queryKey: ["count-reply", parentId],
     queryFn: () => countReply({parentId})
   })
+
+  export const useDeleteComment = () => {
+    return useMutation({
+        mutationFn: (id : number) => deleteComment({id})
+       })
+}

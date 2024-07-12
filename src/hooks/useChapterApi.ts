@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createChapter, getChapter, updateChapter } from "@/api";
+import { createChapter, deleteChapter, getChapter, updateChapter } from "@/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface ChapterData {
@@ -25,4 +25,10 @@ export const useUpdateChapter = () => {
     return useMutation({
         mutationFn: (data : ChapterData) => updateChapter(data)
     })
+}
+
+export const useDeleteChapter = () => {
+    return useMutation({
+        mutationFn: (id : number) => deleteChapter({id})
+       })
 }

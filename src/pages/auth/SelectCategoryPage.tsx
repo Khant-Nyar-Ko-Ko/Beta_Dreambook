@@ -3,8 +3,6 @@ import Categories from "@/components/Categories";
 import Logo from "@/components/Logo";
 
 const SelectCategoryPage = () => {
-
-  
   return (
     <div className="relative w-screen h-screen">
       {/* background */}
@@ -22,7 +20,7 @@ const SelectCategoryPage = () => {
             Select Your Interested Category
           </h2>
           <div className="flex flex-col text-center gap-7">
-              <Categories />
+            <Categories />
           </div>
         </div>
       </div>

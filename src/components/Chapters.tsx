@@ -9,7 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import ThreeDotMenu from "./ThreeDotMenu";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DOMPurify from "dompurify";
 import Loading from "./Loading";
 import BookStatusButton from "./BookStatusButton";
@@ -19,7 +19,6 @@ const Chapters: React.FC = () => {
   const {
     data: chapters = [],
     error,
-    refetch,
     isPending,
   } = useGetChapter({ slug: slug ?? "" });
   const [openAccordions, setOpenAccordions] = useState<{
@@ -29,10 +28,6 @@ const Chapters: React.FC = () => {
   const toggleAccordion = (id: string) => {
     setOpenAccordions((prev) => ({ ...prev, [id]: !prev[id] }));
   };
-
-  useEffect(() => {
-    refetch;
-  }, [chapters, refetch]);
 
   if (isPending) {
     return (
@@ -62,42 +57,45 @@ const Chapters: React.FC = () => {
             {chapters.map((chapter: any) => (
               <div
                 key={chapter?.id}
-                className="w-[1000px] flex flex-col text-black dark:text-white max-h-[600px]"
+                className=" flex flex-col text-black dark:text-white max-h-[600px]"
               >
-                <Accordion type="multiple" className="overflow-y-auto ">
+                <Accordion type="multiple" className=" w-[1000px] overflow-y-auto ">
                   <AccordionItem value={chapter?.id}>
                     <AccordionTrigger
-                      className="border border-gray-200"
+                      className="w-[1000px] flex justify-between border border-gray-200"
                       onClick={() => toggleAccordion(chapter?.id)}
                     >
-                      <div className="flex flex-col items-start w-full gap-1">
+                      <div className="flex flex-col items-start gap-1">
                         {openAccordions[chapter?.id] ? (
-                          <div className="flex items-center justify-between w-full">
-                            <p className="px-5 text-lg text-default">
+                        
+                           <div className="flex items-center justify-between w-full">
+                            <p className="pl-5 pr-1 text-sm text-start w-[900px]">
                               {chapter?.chapterNum} : {chapter?.title}
                             </p>
                             <ThreeDotMenu id={chapter.id} />
                           </div>
+                         
                         ) : (
-                          <>
-                            <div className="flex items-center justify-between w-full">
-                              <p className="px-5 text-default">
-                                {chapter?.chapterNum} : {chapter?.title}
-                              </p>
-                              <ThreeDotMenu id={chapter.id} />
-                            </div>
-                            <div className="flex items-center">
-                              <p
-                                className="pl-5 pr-1 text-sm"
+                         
+                             <div className="flex flex-col items-center justify-between w-full h-16">
+                              <div className="flex ">
+                              <p className="pl-5 pr-1 text-sm text-start w-[900px]">
+                              {chapter?.chapterNum} : {chapter?.title}
+                            </p>
+                            <ThreeDotMenu id={chapter.id} />
+                              </div>
+                          
+                            <div className="flex items-start justify-start">
+                               <p
+                                className="text-sm text-start w-[800px]"
                                 dangerouslySetInnerHTML={{
-                                  __html: DOMPurify.sanitize(
-                                    chapter?.content.substring(0, 130)
-                                  ),
+                                  __html:DOMPurify.sanitize(`${chapter?.content.substring(0, 140)} ...see more`),
                                 }}
                               ></p>
-                              <p className="text-xs text-slate-400">...see more</p>
                             </div>
-                          </>
+                          </div>
+                           
+                         
                         )}
                       </div>
                     </AccordionTrigger>

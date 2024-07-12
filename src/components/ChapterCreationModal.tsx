@@ -90,7 +90,7 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
           <Box component="form" sx={{ mt: 2 }}>
             <div className="my-3 w-[350px]">
               <label htmlFor="title" className="text-black dark:text-white">Title</label>
-              <Input id="title" variant="default" value={title} onChange={(e) => setTitle(e.target.value)} />
+              <Input id="title" className=" w-[200px]" variant="title" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
             <div className="my-3 w-[350px]">
               <label htmlFor="content" className="text-black dark:text-white">Content</label>

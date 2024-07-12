@@ -6,6 +6,7 @@ import { Input } from "./ui/input";
 import Toolbar from "./Toolbar";
 import CloseIcon from "@mui/icons-material/Close";
 import { useGetChapter } from "@/hooks/useChapterApi";
+import DeleteChapter from "./bookdetails/DeleteChapter";
 
 const ThreeDotMenu = ({ id }: { id: number }) => {
   console.log(id);
@@ -71,12 +72,7 @@ const ThreeDotMenu = ({ id }: { id: number }) => {
             >
               Edit
             </Button>
-            <Button
-              className="block w-full px-4 py-2 text-sm text-red-500 rounded-none hover:text-black hover:dark:text-white hover:bg-gray-100 hover:dark:bg-darkMode2"
-              role="menuitem"
-            >
-              Delete
-            </Button>
+            <DeleteChapter id={id}/>
           </div>
         </div>
       )}

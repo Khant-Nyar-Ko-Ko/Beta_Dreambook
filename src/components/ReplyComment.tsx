@@ -2,8 +2,11 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import React from "react";
+import DeleteComment from "./bookdetails/DeleteComment";
 
-const ReplyComment = () => {
+const ReplyComment = ({id} : {id : number}) => {
+  console.log(id);
+  
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const toggleDropdown = (e: React.MouseEvent) => {
@@ -37,13 +40,7 @@ const ReplyComment = () => {
           >
             Reply
           </Button>
-          <Button
-            variant="white"
-            className="block w-full px-4 py-2 text-sm text-red-500 rounded-none hover:text-black hover:bg-gray-100"
-            role="menuitem"
-          >
-            Delete
-          </Button>
+    <DeleteComment id={id}/>
         </div>
       </div>
     )}

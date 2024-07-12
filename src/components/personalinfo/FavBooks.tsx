@@ -2,30 +2,29 @@
 import { IoIosSearch } from "react-icons/io";
 import { RiFilter3Line } from "react-icons/ri";
 import { Input } from "../ui/input";
-import { useFetchBooks } from "@/hooks/useBookApi";
 import Card from "../Card";
-import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
-import SortDropdown from "../SortDropdown";
-import { useState, useEffect } from "react";
 import EmptyBookPage from "../EmptyBookPage";
+import { useFetchFavourite } from "@/hooks/useFavouriteApi";
+import { useEffect, useState } from "react";
+import SortDropdown from "../SortDropdown";
 
 const FavBooks = () => {
-  const { favouriteBookIds } = useFavouriteBooks();
-  const [sort, setSort] = useState<any | undefined>();
-  const { data: books, error, isLoading } = useFetchBooks(sort);
-
-  const favouriteBooks = books?.items.filter((book: any) =>
-    favouriteBookIds?.includes(book.id)
-  );
+  const [sort, setSort] = useState<string | undefined>();
+  const {
+    data: favouriteBooks,
+    isLoading,
+    error,
+    refetch,
+  } = useFetchFavourite(sort);
+  console.log(favouriteBooks);
 
   const handleSortChange = (sortOrder: string | undefined) => {
     setSort(sortOrder);
   };
 
   useEffect(() => {
-    console.log("books:", books);
-    console.log("favouriteBooks:", favouriteBooks);
-  }, [books, favouriteBooks]);
+    refetch();
+  }, [favouriteBooks]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -60,24 +59,21 @@ const FavBooks = () => {
         </div>
       </div>
       {!favouriteBooks || favouriteBooks.length === 0 ? (
-       <EmptyBookPage/>
+        <EmptyBookPage />
       ) : (
         <div className="grid items-center justify-center grid-cols-4 gap-10 mx-20 my-10">
-          {favouriteBooks.map(
+          {favouriteBooks?.map(
             ({
-              id,
-              title,
-              coverImg,
-              category,
-              user,
-              slug
+              book: { id, title, coverImg, category, user, slug },
             }: {
-              id: any;
-              title: string;
-              coverImg: string;
-              category: any;
-              user: any;
-              slug: string
+              book: {
+                id: any;
+                title: string;
+                coverImg: string;
+                category: any;
+                user: any;
+                slug: string;
+              };
             }) => (
               <Card
                 key={id}
@@ -89,7 +85,7 @@ const FavBooks = () => {
                 categorytitle={category?.title}
                 author={user?.name}
                 authorprofile={user?.profileImg}
-                authorId ={user?.id}
+                authorId={user?.id}
               />
             )
           )}

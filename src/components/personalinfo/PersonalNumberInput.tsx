@@ -15,7 +15,7 @@ interface InputForPhoneProps {
   value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
   check?: boolean;
-  leadIcon?: React.ReactNode;
+  leadicon?: React.ReactNode;
 }
 
 const PersonalNumberInput: React.FC<PhoneCustomInputProps> = ({
@@ -47,7 +47,7 @@ const InputForPhone = React.forwardRef<HTMLInputElement, InputForPhoneProps>(
           variant="phone"
           onChange={onChange}
           placeholder="Phone"
-          leadIcon={<FiPhone />}
+          leadicon={<FiPhone />}
           ref={ref}
           {...rest}
           className="pl-[200px] border-none bg-white dark:bg-darkMode1 text-black dark:text-white"

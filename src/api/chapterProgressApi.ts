@@ -1,9 +1,9 @@
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 import { ChapterProgressType } from "@/utils/type";
+const token = getToken();
 
 export const postChapterProgress = async (data: ChapterProgressType) => {
-  const token = getToken();
   const queryString = `?slug=${data.slug}`;
   const response: Response = await fetch(`${BaseURL}/chapter-progress${queryString}`, {
     headers: {
@@ -25,7 +25,6 @@ export const postChapterProgress = async (data: ChapterProgressType) => {
 };
 
 export const getChapterProgress = async ({ slug }: { slug: string }) => {
-  const token = getToken();
   const queryString = `?slug=${slug}`;
   const response: Response = await fetch(
     `${BaseURL}/chapter-progress${queryString}`,

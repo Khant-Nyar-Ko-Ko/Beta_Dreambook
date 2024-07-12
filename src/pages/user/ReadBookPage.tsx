@@ -99,9 +99,9 @@ const ReadBookPage = () => {
   const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (comment.trim() === "") {
-      return toast.error("Comment Shouldn't be Empty!"); 
-  }
-      postComment({ bookSlug: slug ?? "", text: comment });
+      return toast.error("Comment Shouldn't be Empty!");
+    }
+    postComment({ bookSlug: slug ?? "", text: comment });
   };
 
   return (
