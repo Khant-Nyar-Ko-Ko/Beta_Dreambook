@@ -50,7 +50,7 @@ const PopularHighlight = () => {
   };
 
   return (
-    <motion.div initial={{x: -500}} animate={{x :0}} transition={{duration:0.5, delay: 1}} className="relative flex flex-col items-center justify-center w-full h-full">
+    <motion.div initial={{x: 500}} animate={{x :0}} transition={{ duration: 1.5}} className="relative flex flex-col items-center justify-center w-full h-full">
       <button
         data-btn="prev"
         onClick={handlePrev}
