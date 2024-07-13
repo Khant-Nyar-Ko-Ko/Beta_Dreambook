@@ -6,6 +6,7 @@ import { RiFilter3Line } from "react-icons/ri";
 import LibraryBookCard from "./LibraryBookCard";
 import SortDropdown from "../SortDropdown";
 import SearchInput from "../SearchInput";
+import EmptyBookPage from "../EmptyBookPage";
 
 const BookSection = () => {
   const {
@@ -25,12 +26,19 @@ const BookSection = () => {
     sort
   );
   const books = data?.items ?? [];
+  console.log(books);
+  
 
   useDebounce(() => setSearchTitle(searchInput), 1000, [searchInput]);
 
   const handleSearchInputChange = (value: string) => {
     setSearchInput(value);
   };
+
+  if(books.length == 0){
+    return( <EmptyBookPage/>)
+  }
+
 
   if (error)
     return (
@@ -51,7 +59,7 @@ const BookSection = () => {
           <SortDropdown sort={sort} setSort={setSort} />
         </div>
         <div>
-        <SearchInput
+          <SearchInput
             value={searchInput}
             onChange={handleSearchInputChange}
             placeholder="Search"

@@ -3,6 +3,9 @@ import EmptyBookPage from "../EmptyBookPage";
 import { useFetchHistory } from "@/hooks/useHistoryApi";
 import Card from "../Card";
 import SortDropdown from "../SortDropdown";
+import Loading from "../Loading";
+import { useDebounce } from "react-use";
+import SearchInput from "../SearchInput";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -10,35 +13,36 @@ const History = () => {
   const [searchParams, setSearchParams] = useSearchParams({
     sort: "latest",
     title: "",
-  });
-  const [sort, setSort] = useState<string | undefined>(
-    searchParams.get("sort") || "latest"
-  );
-  // const [searchInput, setSearchInput] = useState();
-  // const [searchTitle, setSearchTitle] = useState(
-  //   searchParams.get("title") || ""
-  // );
-  const { data, isLoading, error } = useFetchHistory(sort);
+  })
+  const [searchInput, setSearchInput] = useState("");
+  const [searchTitle, setSearchTitle] = useState(searchParams.get("title") || "");
+  const [sort, setSort] = useState(searchParams.get("sort") || "latest");
+
+  useEffect(() => {
+    setSearchParams({
+      sort,
+      title: searchTitle,
+    });
+  }, [sort, searchTitle, setSearchParams]);
+  useDebounce(() => setSearchTitle(searchInput), 1000, [searchInput]);
+  const { data, isLoading, error } = useFetchHistory(sort, searchTitle);
   const bookhistory = data?.items || [];
 
-  // useDebounce(() => setSearchTitle(searchInput), 1000, [searchInput]);
 
-  // const handleSearchInputChange = (value: string) => {
-  //   setSearchInput(value);
-  // };
 
   console.log("Fetched history data:", bookhistory);
 
-  useEffect(() => {
-    if (sort) {
-      setSearchParams({ sort });
-    } else {
-      setSearchParams({});
-    }
-  }, [sort, setSearchParams]);
+  const handleSearchInputChange = (value: string) => {
+    setSearchInput(value);
+  };
+
+  const handleSortChange = (sortOrder: string | undefined) => {
+    setSort(sortOrder ?? "");
+  };
+
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className=" flex justify-center items-center h-[500px] w-[1110px]"><Loading variant="blue"/></div>;
   }
 
   if (error) {
@@ -50,22 +54,20 @@ const History = () => {
 
   return (
     <div className="flex flex-col w-4/5 h-full px-3 my-5">
-      <div className="flex flex-col items-start justify-between w-full gap-2 md:flex-row md:items-center md:gap-5">
+         <div className="flex flex-col items-start justify-between w-full gap-2 md:flex-row md:items-center md:gap-5">
         <div className="flex items-center w-full gap-3 md:gap-5 md:w-auto">
           <div className="p-[7px] border rounded">
             <RiFilter3Line className="text-[16px] md:text-[24px]" />
           </div>
-          <SortDropdown sort={sort} setSort={setSort} />
+          <SortDropdown sort={sort} setSort={handleSortChange} />
         </div>
         <div className="order-2 w-full mt-3 md:order-1 md:mt-0 md:w-auto">
-          <div>
-            {/* <SearchInput
-              value={searchInput}
-              onChange={handleSearchInputChange}
-              placeholder="Search"
-              ariaLabel="Search books"
-            /> */}
-          </div>
+          <SearchInput
+            value={searchInput}
+            onChange={handleSearchInputChange}
+            placeholder="Search"
+            ariaLabel="Search books"
+          />
         </div>
       </div>
       <div className="h-[600px] overflow-y-scroll my-3">

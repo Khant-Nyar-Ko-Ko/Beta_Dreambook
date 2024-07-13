@@ -7,10 +7,10 @@ export const usePostHistory = () =>
   });
 
 
-export const useFetchHistory = (sort?: string) => {
+export const useFetchHistory = (sort?: string, title?: string) => {
     return useQuery({
-        queryKey: ["history",sort],
-        queryFn: () => fetchHistory(sort),
+        queryKey: ["history",sort, title],
+        queryFn: () => fetchHistory({sort, title}),
         staleTime: 10 * 60 * 1000,
       });
 }

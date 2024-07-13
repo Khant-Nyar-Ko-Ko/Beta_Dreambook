@@ -16,6 +16,8 @@ import Comment from "@/components/Comment";
 import ReadBookPage from "@/pages/user/ReadBookPage";
 import ReadChapterPage from "@/pages/user/ReadChapterPage";
 import { ChapterProvider } from "@/contexts/ChapterContext";
+import { LibraryProvider } from "@/contexts/LibraryContext";
+import { PersonalInfoProvider } from "@/contexts/PersonalInfoContext";
 
 const UserRouter: RouteObject[] = [
   {
@@ -32,7 +34,11 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "library/:categoryId?",
-        element: <LibraryPage />,
+        element: (
+          <LibraryProvider>
+            <LibraryPage />,
+          </LibraryProvider>
+        ),
       },
       {
         path: "bookcrafting",
@@ -82,11 +88,16 @@ const UserRouter: RouteObject[] = [
           },
           {
             path: "info",
+
             element: <PersonalInformation />,
           },
           {
             path: "book-lists",
-            element: <BookLists />,
+            element: (
+              <PersonalInfoProvider>
+                <BookLists />
+              </PersonalInfoProvider>
+            ),
           },
           {
             path: "fav-books",

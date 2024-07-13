@@ -5,32 +5,46 @@ import { NavLink } from "react-router-dom";
 import { useFetchBooksByLoginUser } from "@/hooks/useBookApi";
 import SearchInput from "../SearchInput";
 import { useDebounce } from "react-use";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SortDropdown from "../SortDropdown";
 import EmptyBookPage from "../EmptyBookPage";
 import CardUser from "../CardUser";
+import Loading from "../Loading";
+import { usePersonalInfoContext } from "@/contexts/PersonalInfoContext";
 
 const BookLists = () => {
-  const [searchInput, setSearchInput] = useState("");
-  const [searchTitle, setSearchTitle] = useState("");
-  const [sort, setSort] = useState<string | undefined>();
-  const { data , refetch } = useFetchBooksByLoginUser(sort, searchTitle);
+  const {
+    searchInput,
+    setSearchInput,
+    searchTitle,
+    setSearchTitle,
+    sort,
+    setSort,
+  } = usePersonalInfoContext();
+
+  const { data , isLoading, refetch } = useFetchBooksByLoginUser(sort, searchTitle);
   const userBooks = data?.items;
   console.log(searchTitle);
 
   useDebounce(() => setSearchTitle(searchInput), 1000, [searchInput]);
 
-  const handleSearchInputChange = (value: string) => {
+  const handleSearchInputChange = (value: string | undefined) => {
     setSearchInput(value);
   };
 
   const handleSortChange = (sortOrder: string | undefined) => {
     setSort(sortOrder);
   };
+  
 
   useEffect(() => {
     refetch();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userBooks]);
+
+  if (isLoading) {
+    return <div className=" flex justify-center items-center h-[500px] w-[1110px]"><Loading variant="blue"/></div>;
+  }
 
   return (
     <div className="flex flex-col w-4/5 h-full px-3 py-5 bg-white dark:bg-darkMode1">

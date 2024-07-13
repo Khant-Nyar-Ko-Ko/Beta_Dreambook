@@ -88,7 +88,7 @@ const CardUser: React.FC<CardProps> = ({
         </NavLink>
       </div>
       {status ? 
-        <span className="absolute inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-green-600 rounded-full font-primary top-1 right-1 ring-1 ring-inset ring-green-600/20">public</span>
+        <span className="absolute inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-green-800 rounded-full font-primary top-1 right-1 ring-1 ring-inset ring-green-600/20">publish</span>
         : 
         <span className="absolute inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-yellow-600 rounded-full font-primary top-1 right-1 ring-1 ring-inset ring-yellow-600/20">draft</span>
     }

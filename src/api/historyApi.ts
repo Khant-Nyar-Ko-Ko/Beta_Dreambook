@@ -25,10 +25,19 @@ export const createHistory = async ({ bookSlug }: { bookSlug: string }) => {
 };
 
 
-export const fetchHistory = async (sort?: string) => {
+export const fetchHistory = async ({
+  sort,
+  title,
+}: {
+  sort?: string;
+  title?: string;}) => {
   let queryString = "";
   if (sort) {
     queryString += (queryString ? "&" : "?") + `sort=${sort}`;
+  }
+  if (title) {
+    queryString +=
+      (queryString ? "&" : "?") + `title=${encodeURIComponent(title)}`;
   }
   const response: Response = await fetch(`${BaseURL}/history${queryString}`, {
     headers: {

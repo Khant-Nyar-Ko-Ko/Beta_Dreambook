@@ -13,8 +13,8 @@ const inputVariants = cva(
         outline: "bg-transparent text-black dark:text-white border-gray-300 focus:border-primary",
         subtle: "bg-gray-100 text-gray-700 border-gray-200 focus:border-primary",
         ghost: "bg-transparent text-black dark:text-white focus:border-primary",
-        info: " w-[250px] md:w-[500px] focus:border-primary bg-white dark:bg-darkMode1",
-        phone: "bg-white text-black dark:text-white border-gray-300 border focus:border-primary w-[150px] md:w-[270px] ml-[20px]",
+        info: " w-[250px] md:w-[500px] border focus:border-primary bg-white dark:bg-darkMode1",
+        phone: "bg-white text-black dark:text-white border-gray-300 border focus:border-none w-[150px] md:w-[270px] ml-[20px]",
         reply:"bg-white dark:bg-darkMode1 text-black dark:text-white w-[500px] border-none"
       },
       inputSize: {

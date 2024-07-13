@@ -64,7 +64,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="shadow select-none">
+    <div className="select-none ">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <div className="flex items-center gap-1">

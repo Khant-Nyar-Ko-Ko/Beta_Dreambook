@@ -2,10 +2,19 @@ import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 const token = getToken();
 
-export const fetchFavourite = async ({sort} :{sort? : string}) => {
+export const fetchFavourite = async ({
+  sort,
+  title,
+}: {
+  sort?: string;
+  title?: string;}) => {
   let queryString = "";
   if (sort) {
     queryString += (queryString ? "&" : "?") + `sort=${sort}`;
+  }
+  if (title) {
+    queryString +=
+      (queryString ? "&" : "?") + `title=${encodeURIComponent(title)}`;
   }
   const response: Response = await fetch(`${BaseURL}/books/favourite${queryString}`, {
     headers: {

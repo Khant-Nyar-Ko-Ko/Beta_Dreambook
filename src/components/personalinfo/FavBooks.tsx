@@ -1,33 +1,59 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IoIosSearch } from "react-icons/io";
 import { RiFilter3Line } from "react-icons/ri";
-import { Input } from "../ui/input";
 import Card from "../Card";
 import EmptyBookPage from "../EmptyBookPage";
 import { useFetchFavourite } from "@/hooks/useFavouriteApi";
 import { useEffect, useState } from "react";
 import SortDropdown from "../SortDropdown";
+import Loading from "../Loading";
+import { useDebounce } from "react-use";
+import SearchInput from "../SearchInput";
+import { useSearchParams } from "react-router-dom";
 
 const FavBooks = () => {
-  const [sort, setSort] = useState<string | undefined>();
+  const [searchParams, setSearchParams] = useSearchParams({
+    sort: "latest",
+    title: "",
+  })
+  const [searchInput, setSearchInput] = useState("");
+  const [searchTitle, setSearchTitle] = useState(searchParams.get("title") || "");
+  const [sort, setSort] = useState(searchParams.get("sort") || "latest");
+  
+  useDebounce(() => setSearchTitle(searchInput), 1000, [searchInput]);
   const {
     data: favouriteBooks,
     isLoading,
     error,
     refetch,
-  } = useFetchFavourite(sort);
+  } = useFetchFavourite(sort, searchTitle);
   console.log(favouriteBooks);
 
+  useEffect(() => {
+    setSearchParams({
+      sort,
+      title: searchTitle,
+    });
+  }, [sort, searchTitle, setSearchParams]);
+
+  const handleSearchInputChange = (value: string) => {
+    setSearchInput(value);
+  };
+
   const handleSortChange = (sortOrder: string | undefined) => {
-    setSort(sortOrder);
+    setSort(sortOrder ?? "");
   };
 
   useEffect(() => {
     refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favouriteBooks]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className=" flex justify-center items-center h-[500px] w-[1110px]">
+        <Loading variant="blue" />
+      </div>
+    );
   }
 
   if (error) {
@@ -45,17 +71,12 @@ const FavBooks = () => {
           <SortDropdown sort={sort} setSort={handleSortChange} />
         </div>
         <div className="order-2 w-full mt-3 md:order-1 md:mt-0 md:w-auto">
-          <div className="relative">
-            <IoIosSearch
-              className="absolute left-2 top-2 md:top-[10px] text-[16px] md:text-[24px]"
-              color="gray"
-            />
-            <Input
-              type="search"
-              className="w-full pl-7 md:pl-12 md:w-auto"
-              placeholder="Search"
-            />
-          </div>
+          <SearchInput
+            value={searchInput}
+            onChange={handleSearchInputChange}
+            placeholder="Search"
+            ariaLabel="Search books"
+          />
         </div>
       </div>
       {!favouriteBooks || favouriteBooks.length === 0 ? (

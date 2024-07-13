@@ -1,10 +1,10 @@
 import { addFavourite, fetchFavourite, removeFavourite } from "@/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-export const useFetchFavourite = (sort? : string) =>
+export const useFetchFavourite = (sort? : string, title?: string) =>
   useQuery({
-    queryKey: ["favourite", sort],
-    queryFn: () => fetchFavourite({sort}),
+    queryKey: ["favourite", sort, title],
+    queryFn: () => fetchFavourite({sort, title}),
   });
 
 export const useAddFavourite = () =>

@@ -81,11 +81,11 @@ const PopularHighlight = () => {
               <div
                 key={book.id}
                 data-id={book.id}
-                className={`absolute flex items-center justify-center transition-all duration-500 ${zIndex} ${scale} ${position}`}
+                className={`absolute object-cover shadow-lg flex items-center justify-center transition-all duration-500 ${zIndex} ${scale} ${position}`}
                 style={{
                   width: classNames === "active" ? "200px" : "150px",
-                  height: classNames === "active" ? "auto" : "auto",
-                  opacity: classNames === "active" ? 1 : 0.7,
+                  height: classNames === "active" ? "300px" : "230px",
+                  opacity: classNames === "active" ? 1 : 0.5,
                 }}
               >
                 <img

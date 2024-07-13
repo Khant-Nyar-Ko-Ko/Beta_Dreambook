@@ -50,7 +50,7 @@ const InputForPhone = React.forwardRef<HTMLInputElement, InputForPhoneProps>(
           leadicon={<FiPhone />}
           ref={ref}
           {...rest}
-          className="pl-[200px] border-none bg-white dark:bg-darkMode1 text-black dark:text-white"
+          className="pl-[200px] focus:ring-0 border-none bg-white dark:bg-darkMode1 text-black dark:text-white"
         />
       </div>
     );

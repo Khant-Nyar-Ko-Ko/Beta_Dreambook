@@ -76,7 +76,7 @@ console.log(signinMutation.isError);
             <form onSubmit={handleSubmit} className="flex flex-col gap-8 ">
               <div className="relative ">
                 <Input
-                  className="w-full"
+                 variant="title"
                   inputType="email"
                   placeholder="Username"
                   value={signinData.email}
@@ -95,7 +95,7 @@ console.log(signinMutation.isError);
 
               <div className="relative">
                 <Input
-                  className="w-full"
+                variant="title"
                   inputType={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={signinData.password}

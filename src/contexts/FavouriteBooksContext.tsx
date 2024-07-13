@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAddFavourite, useRemoveFavourite } from "@/hooks/useFavouriteApi";
 import {
   createContext,
@@ -7,19 +8,36 @@ import {
   useState,
 } from "react";
 import Cookies from "js-cookie";
+// import { useSearchParams } from "react-router-dom";
 
-interface FavouriteContextType {
-  favouriteBookIds: number[];
-  addFavouriteBook: (id: number) => void;
-  removeFavouriteBook: (id: number) => void;
-}
+// interface FavouriteContextType {
+//   favouriteBookIds: number[];
+//   addFavouriteBook: (id: number) => void;
+//   removeFavouriteBook: (id: number) => void;
+//   searchInput: string | undefined;
+//   setSearchInput: Dispatch<SetStateAction<undefined>>;
+//   searchTitle: string;
+//   setSearchTitle: Dispatch<SetStateAction<string>>;
+//   sort: string;
+//   setSort: Dispatch<SetStateAction<string>>;
+// }
 
-const FavouriteBooksContext = createContext<FavouriteContextType | undefined>(
+const FavouriteBooksContext = createContext<any>(
   undefined
 );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const FavouriteBooksProvider = ({ children }: { children: ReactNode }) => {
+  // const [searchParams, setSearchParams] = useSearchParams({
+  //   sort: "latest",
+  //   title: "",
+  // });
+  // const [searchInput, setSearchInput] = useState();
+  // const [searchTitle, setSearchTitle] = useState(
+  //   searchParams.get("title") || ""
+  // );
+  // const [sort, setSort] = useState(searchParams.get("sort") || "latest");
+
   const [favouriteBookIds, setFavouriteBookIds] = useState<number[]>(() => {
     const savedFavorites = Cookies.get("favouriteBookIds");
     return savedFavorites ? JSON.parse(savedFavorites) : [];
@@ -44,7 +62,17 @@ const FavouriteBooksProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <FavouriteBooksContext.Provider
-      value={{ favouriteBookIds, addFavouriteBook, removeFavouriteBook }}
+      value={{
+        favouriteBookIds,
+        addFavouriteBook,
+        removeFavouriteBook,
+        // searchInput,
+        // setSearchInput,
+        // searchTitle,
+        // setSearchTitle,
+        // sort,
+        // setSort,
+      }}
     >
       {children}
     </FavouriteBooksContext.Provider>
