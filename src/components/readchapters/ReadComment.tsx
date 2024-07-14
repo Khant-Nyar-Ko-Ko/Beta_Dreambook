@@ -33,8 +33,12 @@ const ReadComment = () => {
 
   const fetchData = useCallback(() => {
     setPage((prevPage) => prevPage + 1);
+  }, []);
+
+  useEffect(() => {
     refetchGetComment();
-  }, [page]);
+  }, [page, refetchGetComment]);
+
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -63,16 +67,17 @@ const ReadComment = () => {
           {comments?.meta?.totalItems}
         </span>
       </h4>
+      <div id="scrollableDiv" className="overflow-y-auto h-[300px]">
       {comments?.meta?.totalItems > 0 && (
-        <div className=" overflow-y-auto h-[300px]">
           <InfiniteScroll
             dataLength={loadComment.length}
             next={fetchData}
-            hasMore={true}
+            hasMore={loadComment.length < comments?.meta?.totalItems}
             loader={<Loading/>}
+            scrollableTarget="scrollableDiv"
           >
             {loadComment.map((comment: any) => (
-              <div key={comment?.id} className="flex gap-3 my-3">
+              <div  key={comment?.id} className="flex gap-3 my-3">
                 <img
                   src={comment?.user?.profileImg}
                   className="w-12 h-12 rounded-full "
@@ -112,17 +117,19 @@ const ReadComment = () => {
                       />
                     </div>
                   )}
-                  <SeeReplyComment
+                  {isReply[comment.id] &&  <SeeReplyComment
                     profileImg={user?.profileImg}
                     name={user?.name}
                     parentId={comment.id}
-                  />
+                  />}
+                 
                 </div>
               </div>
             ))}
+            
           </InfiniteScroll>
-        </div>
       )}
+      </div>
     </div>
   );
 };
