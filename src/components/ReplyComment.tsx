@@ -1,51 +1,35 @@
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { Button } from "./ui/button";
+import { useReplyComment } from "@/hooks/useCommentApi";
 import { useState } from "react";
-import React from "react";
-import DeleteComment from "./bookdetails/DeleteComment";
+import toast from "react-hot-toast";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import Loading from "./Loading";
 
-const ReplyComment = ({id} : {id : number}) => {
-  console.log(id);
-  
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+const ReplyComment = ({ parentId, handleSendReply }: { parentId: number, handleSendReply: () => void }) => {
+    const [replyText, setReplyText] = useState("");
+    const { mutate: reply, isPending : isPendingReply } = useReplyComment();
 
-    const toggleDropdown = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      setDropdownOpen((prev) => !prev);
-    };
-  return (
-    <div className="relative">
-    <Button
-      variant="white"
-      className="z-10 hover:bg-white hover:text-default"
-      onClick={toggleDropdown}
-    >
-      <BsThreeDotsVertical />
-    </Button>
-    {dropdownOpen && (
-      <div
-        className="absolute top-0 z-10 w-48 bg-white border rounded-md shadow-md dark:bg-darkMode1 right-10"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="menu-button"
-      >
-        <div
-          className="py-1 divide-y divide-gray-100 font-primary"
-          role="none"
-        >
-          <Button
-            variant="white"
-            className="block w-full px-4 py-2 text-sm rounded-none text-default hover:text-black hover:bg-gray-100"
-            role="menuitem"
-          >
-            Reply
-          </Button>
-    <DeleteComment id={id}/>
-        </div>
-      </div>
-    )}
-  </div>
-  )
-}
+    const onSendReply = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (replyText.trim() === "") {
+            return toast.error("Comment Shouldn't be Empty!"); 
+        }
+        reply({ parentId, text: replyText }, {
+            onSuccess: () => {
+                setReplyText(""); 
+                handleSendReply();
+            }
+        });
+    }
 
-export default ReplyComment
+    return (
+        <form onSubmit={onSendReply} className="flex items-center gap-1 px-2 py-1 border rounded">
+            <Input variant="reply" value={replyText} onChange={e => setReplyText(e.target.value)} />
+            <Button type="submit" size="sm">
+                {isPendingReply ? <Loading/> : "Send"}
+            </Button>
+        </form>
+    );
+};
+
+export default ReplyComment;

@@ -16,10 +16,10 @@ export const useReplyComment = () => {
   });
 };
 
-export const useGetComment = (slug: string) =>
+export const useGetComment = (slug: string, page : number) =>
   useQuery({
-    queryKey: ["comment", slug],
-    queryFn: () => getComment({ slug }),
+    queryKey: ["comment", slug, page],
+    queryFn: () => getComment({ slug, page }),
   });
 
 export const useGetReply = (parentId : number) =>

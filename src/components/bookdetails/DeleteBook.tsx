@@ -3,9 +3,11 @@ import { Button } from "../ui/button";
 import { Box, Modal, Typography } from "@mui/material";
 import { useDeleteBook } from "@/hooks/useBookApi";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 const DeleteBook = () => {
   const { slug } = useParams<{ slug: string }>();
+  const queryClient = useQueryClient();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { mutate: deleteBook } = useDeleteBook();
@@ -15,11 +17,16 @@ const DeleteBook = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const refetchBook = () => {
+    queryClient.invalidateQueries({queryKey: ['singleBook']})
+  }
+
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     deleteBook(slug ?? "", {
       onSuccess: () => {
         toggleModal();
+        refetchBook();
         navigate("/home");
       },
       onError: (error) => {

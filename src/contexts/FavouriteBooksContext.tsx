@@ -8,42 +8,25 @@ import {
   useState,
 } from "react";
 import Cookies from "js-cookie";
-// import { useSearchParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
-// interface FavouriteContextType {
-//   favouriteBookIds: number[];
-//   addFavouriteBook: (id: number) => void;
-//   removeFavouriteBook: (id: number) => void;
-//   searchInput: string | undefined;
-//   setSearchInput: Dispatch<SetStateAction<undefined>>;
-//   searchTitle: string;
-//   setSearchTitle: Dispatch<SetStateAction<string>>;
-//   sort: string;
-//   setSort: Dispatch<SetStateAction<string>>;
-// }
-
-const FavouriteBooksContext = createContext<any>(
-  undefined
-);
+const FavouriteBooksContext = createContext<any>(undefined);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const FavouriteBooksProvider = ({ children }: { children: ReactNode }) => {
-  // const [searchParams, setSearchParams] = useSearchParams({
-  //   sort: "latest",
-  //   title: "",
-  // });
-  // const [searchInput, setSearchInput] = useState();
-  // const [searchTitle, setSearchTitle] = useState(
-  //   searchParams.get("title") || ""
-  // );
-  // const [sort, setSort] = useState(searchParams.get("sort") || "latest");
-
+  const queryClient = useQueryClient();
   const [favouriteBookIds, setFavouriteBookIds] = useState<number[]>(() => {
     const savedFavorites = Cookies.get("favouriteBookIds");
     return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
+
+  const refetchFavourite = () => {
+    queryClient.invalidateQueries({ queryKey: ["favourite"] });
+  };
+
   const { mutate: addFavouriteBookApi } = useAddFavourite();
-  const { mutate: removeFavouriteBookApi } = useRemoveFavourite();
+  // const { mutate: removeFavouriteBookApi, isSuccess : isRemoveSuccess, status } = useRemoveFavourite();
+  const removeMutation = useRemoveFavourite();
 
   useEffect(() => {
     Cookies.set("favouriteBookIds", JSON.stringify(favouriteBookIds), {
@@ -51,12 +34,23 @@ const FavouriteBooksProvider = ({ children }: { children: ReactNode }) => {
     });
   }, [favouriteBookIds]);
 
+  useEffect(() => {
+    if (removeMutation.isSuccess) {
+      refetchFavourite();
+    }
+  }, [removeMutation.isSuccess]);
+
   const addFavouriteBook = (id: number) => {
-    addFavouriteBookApi(id);
+    addFavouriteBookApi(id, {
+      onSuccess: () => {
+        refetchFavourite();
+      },
+    });
     setFavouriteBookIds([...favouriteBookIds, id]);
   };
+
   const removeFavouriteBook = (bookId: number) => {
-    removeFavouriteBookApi(bookId);
+    removeMutation.mutate(bookId);
     setFavouriteBookIds(favouriteBookIds.filter((id) => id !== bookId));
   };
 
@@ -66,6 +60,7 @@ const FavouriteBooksProvider = ({ children }: { children: ReactNode }) => {
         favouriteBookIds,
         addFavouriteBook,
         removeFavouriteBook,
+        refetchFavourite,
         // searchInput,
         // setSearchInput,
         // searchTitle,

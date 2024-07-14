@@ -11,7 +11,7 @@ import BackButton from "@/components/BackButton";
 import ReadComment from "@/components/readchapters/ReadComment";
 import RelatedBooks from "@/components/RelatedBooks";
 import authorprofile from "../../assets/images/Author.png";
-import { useGetComment, usePostComment } from "@/hooks/useCommentApi";
+import { usePostComment } from "@/hooks/useCommentApi";
 import Loading from "@/components/Loading";
 import { useGetChapterProgress } from "@/hooks/useChapterProgressApi";
 import toast from "react-hot-toast";
@@ -29,9 +29,7 @@ const ReadBookPage = () => {
     slug ?? ""
   );
 
-  const { data: readComment, refetch: refetchComments } = useGetComment(
-    slug ?? ""
-  );
+
   const {
     mutate: postComment,
     isSuccess: isCommentSuccess,
@@ -45,10 +43,10 @@ const ReadBookPage = () => {
 
   useEffect(() => {
     if (isCommentSuccess) {
-      refetchComments();
+      // refetchComments();
       setComment("");
     }
-  }, [isCommentSuccess, refetchComments]);
+  }, [isCommentSuccess]);
 
   useEffect(() => {
     if (isHistorySuccess) {
@@ -210,7 +208,7 @@ const ReadBookPage = () => {
               {isPendingComment ? <Loading /> : "Post Comment"}
             </Button>
           </form>
-          <ReadComment readComment={readComment} />
+          <ReadComment />
         </div>
       </div>
       <RelatedBooks slug={singleBook.slug} />

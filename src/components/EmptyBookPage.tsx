@@ -7,7 +7,7 @@ const EmptyBookPage = () => {
           className="w-32 h-32"
           title="Animation"
         ></iframe>
-        <p className="mt-3 text-center opacity-50 font-primary">
+        <p className="mt-3 text-center text-black opacity-50 font-primary dark:text-white">
           "Discover literary treasures: Explore our curated book lists
           collection today."
         </p>

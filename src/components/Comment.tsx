@@ -2,14 +2,17 @@
 import { useGetComment } from "@/hooks/useCommentApi";
 import { useParams } from "react-router-dom";
 import profile from "../assets/images/defaultcontact.jpeg";
-import ReplyComment from "./ReplyComment";
 import Loading from "./Loading";
 import BookStatusButton from "./BookStatusButton";
+import { useState } from "react";
 
 const Comment = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { data: comments, isPending } = useGetComment(slug ?? "");
-  console.log(comments);
+  const [page, setPage] = useState(1);
+  console.log(setPage);
+  
+  const { data, isPending } = useGetComment(slug ?? "", page);
+  const comments = data?.items ?? [];
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -29,13 +32,15 @@ const Comment = () => {
     );
   }
 
+  console.log('comments:', comments);
+
   return (
     <div className="flex flex-col w-4/5 h-auto bg-white font-primary dark:bg-darkMode1">
           <BookStatusButton text={"Comments"}/>
       <div className="flex flex-col items-center justify-start mx-auto text-center ">
-        {comments?.length > 0 ? (
+        {data?.length > 0 ? (
           <>
-            {comments?.map((comment: any) => (
+           {comments?.map((comment: any) => (
               <div
                 key={comment.id}
                 className="w-[1000px] flex flex-col gap-3 text-black dark:text-white max-h-[600px] overflow-y-auto"
@@ -56,7 +61,7 @@ const Comment = () => {
                         {comment.user.name ? comment.user.name : "Unknown User"}
                       </p>
                     </div>
-                    <ReplyComment id={comment.id} />
+                    {/* <ReplyComment id={comment.id} /> */}
                   </div>
                   <p className="px-5 text-start font-primary">{comment.text}</p>
                   <p className="px-5 text-xs font-thin text-start opacity-60">
