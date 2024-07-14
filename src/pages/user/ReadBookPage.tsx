@@ -104,11 +104,11 @@ const ReadBookPage = () => {
 
   return (
     <div className="flex flex-col w-screen bg-white select-none md:flex-row dark:bg-darkMode1">
-      <div className="sticky md:top-[100px] flex flex-col w-full md:w-4/5 px-10 md:px-[200px] py-5 h-[700px] overflow-y-scroll">
+      <div className="sticky md:top-[100px] flex flex-col w-full md:w-4/5 px-10 md:px-[90px] py-5 h-[700px] overflow-y-scroll">
         <BackButton backPath={`/library`} />
         {singleBook && (
-          <div className="relative flex flex-col items-center py-3 select-none md:items-start md:justify-between md:flex-row">
-            <div className="hidden md:block absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-0 px-20"></div>
+          <div className="relative flex flex-col items-center py-3 select-none px-[50px] md:items-start md:justify-between md:flex-row">
+            <div className="hidden md:block absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-22 px-20"></div>
             <img
               src={singleBook.coverImg as string}
               alt={singleBook?.title}
