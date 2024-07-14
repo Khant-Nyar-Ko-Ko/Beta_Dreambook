@@ -18,9 +18,9 @@ const SortDropdown: React.FC<SortDropdownProps> = ({ sort, setSort }) => {
   };
 
   return (
-    <div className="px-1 py-2 border rounded md:px-2">
+    <div className="px-1 py-1 md:py-2 border rounded md:px-2 w-[100px] md:w-[200px]">
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex items-center w-[150px] select-none justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm text-black dark:text-white z-10">
+        <DropdownMenuTrigger className="flex items-center w-[80px] md:w-[150px] select-none justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm text-black dark:text-white z-10">
           <p>{sort === "a-z" ? "Sort by A-Z" : "Sort by latest"}</p>
           <IoIosArrowDown />
         </DropdownMenuTrigger>

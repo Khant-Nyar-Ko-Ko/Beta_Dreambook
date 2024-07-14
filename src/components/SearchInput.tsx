@@ -27,6 +27,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
       />
       <Input
         type="search"
+        variant="search"
         className="text-black bg-white pl-7 md:pl-12 dark:text-white dark:bg-darkMode1"
         placeholder={placeholder}
         value={value}

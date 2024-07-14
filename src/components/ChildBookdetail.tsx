@@ -53,7 +53,6 @@ const ChildBookdetail = () => {
   }, [createdBook]);
 
   console.log(tags);
-  
 
   const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -290,7 +289,7 @@ const ChildBookdetail = () => {
             </>
           ) : (
             <>
-            <DeleteBook/>
+              <DeleteBook />
               <Button variant="default" onClick={handleEdit}>
                 Edit
               </Button>

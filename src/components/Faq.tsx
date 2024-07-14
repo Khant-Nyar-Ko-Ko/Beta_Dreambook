@@ -51,12 +51,12 @@ const Faq = () => {
             className="border border-gray-700"
           >
             <AccordionTrigger
-              className="flex"
+              className="flex justify-between"
               onClick={() => toggleAccordion(item.id)}
             >
-              <div className="flex items-center gap-1 w-[1100px] px-3">
+              <div className="flex items-center gap-1 md:w-[1100px] px-1 md:px-3">
                 <AiOutlineQuestionCircle />
-                <p>{item.question}</p>
+                <p className="text-xs md:text-base text-start w-[220px] md:w-full">{item.question}</p>
               </div>
               {openAccordions[item.id] ? (
                 <ChevronUp className="w-4 h-4 transition-transform duration-200 shrink-0" />
@@ -64,7 +64,7 @@ const Faq = () => {
                 <ChevronDown className="w-4 h-4 transition-transform duration-200 shrink-0" />
               )}
             </AccordionTrigger>
-            <AccordionContent>{item.answer}</AccordionContent>
+            <AccordionContent className="text-xs md:text-base text-start">{item.answer}</AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>

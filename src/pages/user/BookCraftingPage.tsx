@@ -27,6 +27,14 @@ const BookCraftingPage = () => {
   const [description, setDescription] = useState("");
   const [coverImg, setCoverImg] = useState<string | File>("");
 
+  const [errors, setErrors] = useState({
+    title: "",
+    categoryId: "",
+    description: "",
+    coverImg: "",
+  });
+  
+
   const handleAddKeyword = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -57,8 +65,25 @@ const BookCraftingPage = () => {
     }
   };
 
+  const validate = () => {
+    const newErrors = { title: "", categoryId: "", description: "", coverImg: "" };
+  
+    if (!title.trim()) newErrors.title = "Title is required";
+    if (!categoryId) newErrors.categoryId = "Category is required";
+    if (!description.trim()) newErrors.description = "Description is required";
+    if (!coverImg) newErrors.coverImg = "Book cover is required";
+
+  
+    setErrors(newErrors);
+  
+    return !Object.values(newErrors).some(error => error);
+  };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!validate()) return;
+
     const bookData = {
       title,
       description,
@@ -67,13 +92,10 @@ const BookCraftingPage = () => {
       coverImg,
       status : false
     };
-    console.log(bookData);
 
     bookCreateMutation.mutate(bookData, {
       onSuccess: (createdBook) => {
-        // Assuming the createdBook contains the book ID
         navigate(`/bookdetail/${createdBook.slug}`);
-        console.log(createdBook);
       },
     });
   };
@@ -130,7 +152,7 @@ const BookCraftingPage = () => {
               handleImageChange(e);
             }}
           />
-
+          {errors.coverImg && <p className="text-sm text-red-500">{errors.coverImg}</p>}
           <p className="my-2 font-semibold text-center text-default">
             Select Book Cover
           </p>
@@ -149,6 +171,7 @@ const BookCraftingPage = () => {
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Book Title"
             />
+             {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
           </div>
 
           <div>
@@ -170,6 +193,7 @@ const BookCraftingPage = () => {
                 </option>
               ))}
             </select>
+            {errors.categoryId && <p className="text-sm text-red-500">{errors.categoryId}</p>}
           </div>
 
           <div>
@@ -210,6 +234,7 @@ const BookCraftingPage = () => {
               onChange={(value) => setDescription(value)}
               isDisabled={false}
             />
+             {errors.description && <p className="text-sm text-red-500">{errors.description}</p>}
           </div>
 
           <Button

@@ -76,7 +76,7 @@ const CheckboxWithText = () => {
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-7 md:gap-5">
       <div className="flex space-x-2 items-top">
         <input
           type="checkbox"
@@ -109,7 +109,7 @@ const CheckboxWithText = () => {
           </label>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
