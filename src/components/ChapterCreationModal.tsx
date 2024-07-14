@@ -5,12 +5,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import Toolbar from "./Toolbar";
 import { Input } from "./ui/input";
 import { useCreateChapter } from "@/hooks/useChapterApi";
+import { Loader2 } from "lucide-react";
 
 const ChapterCreationModal = ({ slug }: { slug: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const { mutate: createBook } = useCreateChapter();
+  const { mutate: createBook , isPending } = useCreateChapter();
 
   const toggleModal = () => {
     console.log("isOpen before toggle:", isOpen);
@@ -107,6 +108,11 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
               onClick={handleSubmit}
               sx={{ minWidth: "100px" }}
             >
+               <Loader2
+                className={
+                  isPending ? "block animate-spin" : "hidden"
+                }
+              />
               Save
             </Button>
           </Box>

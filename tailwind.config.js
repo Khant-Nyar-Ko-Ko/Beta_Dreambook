@@ -4,6 +4,10 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      transitionProperty: {
+        'height': 'height',
+        'spacing': 'margin, padding',
+      },
       fontFamily: {
         primary: ["Rubik", "sans-serif"],
       },
@@ -39,6 +43,11 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         spin: "spin 1.5s linear infinite",
       },
+    },
+  },
+  variants: {
+    extend: {
+      display: ['group-hover'],
     },
   },
   plugins: [],

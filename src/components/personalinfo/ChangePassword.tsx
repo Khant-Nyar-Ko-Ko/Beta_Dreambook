@@ -6,20 +6,25 @@ import { fetchUserProfile } from "@/api/userApi";
 import { getToken } from "@/service/authService";
 import { useUpdateUser } from "@/hooks/useAuthApi";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
+// import toast from "react-hot-toast";
 
 const ChangePassword = () => {
   const [showOldPassword, setOldShowPassword] = useState(false);
   const [showNewPassword, setNewShowPassword] = useState(false);
   const [showConfirmPassword, setConfirmShowPassword] = useState(false);
-  // const [currentPassword, setCurrentPassword] = useState("");
+  
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  
   const [oldPasswordError, setOldPasswordError] = useState("");
+  const [newPasswordError, setNewPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState("");
   const [updateError, setUpdateError] = useState("");
   const [updateSuccess, setUpdateSuccess] = useState("");
+
   const updatePassword = useUpdateUser();
   const [signupData, setSignupData] = useState({
     email: "",
@@ -37,7 +42,6 @@ const ChangePassword = () => {
       const token = getToken() || "";
       const userProfile = await fetchUserProfile(token);
       if (userProfile) {
-        // setCurrentPassword(userProfile.password);
         setSignupData({
           email: userProfile.email,
           name: userProfile.name,
@@ -59,38 +63,66 @@ const ChangePassword = () => {
 
   const handleNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewPassword(e.target.value);
+    setNewPasswordError("");
     setPasswordMatchError("");
   };
 
   const handleConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(e.target.value);
+    setConfirmPasswordError("");
     setPasswordMatchError("");
+  };
+
+  const validate = () => {
+    let valid = true;
+
+    if (!oldPassword) {
+      setOldPasswordError("Old password is required.");
+      valid = false;
+    }
+
+    if (!newPassword) {
+      setNewPasswordError("New password is required.");
+      valid = false;
+    }
+
+    if (!confirmPassword) {
+      setConfirmPasswordError("Confirm password is required.");
+      valid = false;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordMatchError("New password and confirmation password do not match.");
+      valid = false;
+    }
+
+    return valid;
   };
 
   const handleChangePassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setUpdateError("");
     setUpdateSuccess("");
-    let valid = true;
-    if (newPassword !== confirmPassword) {
-      setPasswordMatchError(
-        "New password and confirmation password do not match"
-      );
-      valid = false;
-    }
 
-    if (!valid) {
+    if (!validate()) {
       return;
     }
+
     const data = { ...signupData, password: newPassword };
+
     updatePassword.mutate(data, {
       onSuccess: () => {
         setUpdateSuccess("Password updated successfully.");
-        toast.success("Password updated successfully")
         navigate("/");
+        setTimeout(() => {
+          setUpdateSuccess("");
+        }, 5000);
       },
       onError: () => {
         setUpdateError("Failed to update password. Please try again.");
+        setTimeout(() => {
+          setUpdateError("");
+        }, 5000);
       },
     });
   };
@@ -113,9 +145,7 @@ const ChangePassword = () => {
       className="flex flex-col items-center justify-center w-4/5 h-full text-center gap-9"
     >
       <div className="flex flex-col gap-2 px-4 py-8 text-center md:px-0">
-        <h2 className="text-base md:text-2xl font-primary">
-          Change Your Password
-        </h2>
+        <h2 className="text-base md:text-2xl font-primary">Change Your Password</h2>
         <p className="text-xs md:text-sm w-[300px] opacity-50 font-primary">
           The new password you set must be different from the previous one
         </p>
@@ -134,11 +164,7 @@ const ChangePassword = () => {
             onClick={toggleOldPasswordVisibility}
             className="absolute right-5 top-2 md:top-3 focus:outline-none"
           >
-            {showOldPassword ? (
-              <FaEyeSlash color="slate" />
-            ) : (
-              <FaEye color="slate" />
-            )}
+            {showOldPassword ? <FaEyeSlash color="slate" /> : <FaEye color="slate" />}
           </button>
           {oldPasswordError && (
             <p className="mt-1 text-xs text-red-500">{oldPasswordError}</p>
@@ -157,12 +183,11 @@ const ChangePassword = () => {
             onClick={toggleNewPasswordVisibility}
             className="absolute right-5 top-2 md:top-3 focus:outline-none"
           >
-            {showNewPassword ? (
-              <FaEyeSlash color="slate" />
-            ) : (
-              <FaEye color="slate" />
-            )}
+            {showNewPassword ? <FaEyeSlash color="slate" /> : <FaEye color="slate" />}
           </button>
+          {newPasswordError && (
+            <p className="mt-1 text-xs text-red-500">{newPasswordError}</p>
+          )}
         </div>
         <div className="relative">
           <Input
@@ -177,12 +202,11 @@ const ChangePassword = () => {
             onClick={toggleConfirmPasswordVisibility}
             className="absolute right-5 top-2 md:top-3 focus:outline-none"
           >
-            {showConfirmPassword ? (
-              <FaEyeSlash color="slate" />
-            ) : (
-              <FaEye color="slate" />
-            )}
+            {showConfirmPassword ? <FaEyeSlash color="slate" /> : <FaEye color="slate" />}
           </button>
+          {confirmPasswordError && (
+            <p className="mt-1 text-xs text-red-500">{confirmPasswordError}</p>
+          )}
           {passwordMatchError && (
             <p className="mt-1 text-xs text-red-500">{passwordMatchError}</p>
           )}
@@ -195,6 +219,11 @@ const ChangePassword = () => {
         <p className="mt-4 text-xs text-green-500">{updateSuccess}</p>
       )}
       <Button type="submit" className="w-[200px] md:w-[350px]">
+      <Loader2
+                className={
+                  updatePassword.isPending ? "block animate-spin" : "hidden"
+                }
+              />
         Change Password
       </Button>
     </form>

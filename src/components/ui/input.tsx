@@ -9,6 +9,7 @@ const inputVariants = cva(
       variant: {
         default: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[150px] md:w-[500px]",
         title:"bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[150px] md:w-[350px]",
+        search: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[100px] md:w-[500px]",
         destructive: "bg-red-100 text-red-900 border-red-500 focus:border-red-700",
         outline: "bg-transparent text-black dark:text-white border-gray-300 focus:border-primary",
         subtle: "bg-gray-100 text-gray-700 border-gray-200 focus:border-primary",

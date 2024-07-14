@@ -27,7 +27,7 @@ const Hero = () => {
         className="absolute z-0 bottom-5 md:bottom-0 right-0 w-[100px] md:w-[200px]"
         alt="bg2"
       />
-      <div className="flex flex-col w-screen h-auto px-5 py-5 md:flex-row md:px-0 bg-primarybg dark:bg-darkMode2 md:py-32">
+      <div className="flex flex-col w-screen h-auto gap-5 px-5 py-5 md:gap-0 md:flex-row md:px-0 bg-primarybg dark:bg-darkMode2 md:py-32">
         <div className="z-10 flex flex-col justify-center w-auto gap-5 md:items-center md:w-1/2">
           <div className="flex flex-col gap-10 px-10 mt-10 md:px-0 md:mt-0">
             <motion.div initial={{x: -500}} animate={{x :0}} transition={{duration:0.5, delay: 1}} className="text-3xl font-semibold text-black md:text-5xl font-primary dark:text-white">
@@ -52,7 +52,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <div className="z-10 flex flex-col items-center justify-center w-auto gap-5 md:justify-center md:w-1/2">
+        <div className="z-10 flex flex-col items-center justify-center w-[300px] h-[400px] md:h-auto gap-5 md:justify-center md:w-1/2">
         <PopularHightlight/>
         </div>
       </div>

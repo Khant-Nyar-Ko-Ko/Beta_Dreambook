@@ -50,7 +50,7 @@ const PopularHighlight = () => {
   };
 
   return (
-    <motion.div initial={{x: 500}} animate={{x :0}} transition={{ duration: 1.5}} className="relative flex flex-col items-center justify-center w-full h-full">
+    <motion.div initial={{x: 500}} animate={{x :0}} transition={{ duration: 1.5}} className="relative flex flex-col items-center justify-center w-full h-full gap-3">
       <button
         data-btn="prev"
         onClick={handlePrev}
@@ -75,7 +75,7 @@ const PopularHighlight = () => {
                 ? `left-[180px]`
                 : classNames === "after"
                 ? `right-[150px]`
-                : "left-[200px]";
+                : "md:left-[200px]";
 
             return (
               <div
@@ -105,7 +105,7 @@ const PopularHighlight = () => {
       >
         {">"}
       </button>
-      <p className="z-10 py-3 text-black font-primary dark:text-white">
+      <p className="z-10 py-3 text-sm text-black md:text-base font-primary dark:text-white">
         Most Popular Books This Week
       </p>
     </motion.div>

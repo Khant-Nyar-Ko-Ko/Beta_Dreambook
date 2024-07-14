@@ -36,7 +36,7 @@ const UserRouter: RouteObject[] = [
         path: "library/:categoryId?",
         element: (
           <LibraryProvider>
-            <LibraryPage />,
+            <LibraryPage />
           </LibraryProvider>
         ),
       },
