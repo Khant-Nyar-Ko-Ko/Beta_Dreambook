@@ -60,10 +60,19 @@ export const replyComment = async ({
   return result;
 };
 
-export const getComment = async ({ slug }: { slug: string }) => {
+export const getComment = async ({ slug, page }: { slug: string, page : number }) => {
+  let queryString = "";
+  if(slug){
+    queryString +=
+    (queryString ? "&" : "?") + `slug=${slug}`;
+  }
+  if(page){
+    queryString += 
+    (queryString ? "&" : "?") + `page=${page}`
+  }
   
   const response: Response = await fetch(
-    `${BaseURL}/comments/book?slug=${slug}`,
+    `${BaseURL}/comments/book${queryString}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

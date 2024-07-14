@@ -16,7 +16,6 @@ const SeeReplyComment = ({
   const { data: replyCmt } = useGetReply(parentId);
   const {data : countReply, isPending : countPending} = useCountReply(parentId);
   const [isSeeReply, setIsSeeReply] = useState<boolean>(false);
-  console.log(replyCmt);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
