@@ -87,9 +87,13 @@ export const getComment = async ({ slug, page }: { slug: string, page : number }
 
   const result = await response.json();
   if (!response.ok) {
-    throw new Error();
+    throw new Error(result.message);
   }
-  return result;
+
+  return {
+    items: result.items,
+    hasMore: result.items.length > 0,
+  };
 };
 
 export const getReply = async ({ parentId }: { parentId: number }) => {
