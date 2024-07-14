@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { countReply, deleteComment, getComment, getReply, postComment, replyComment } from "@/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
 export const usePostComment = () => {
   return useMutation({
@@ -16,11 +16,17 @@ export const useReplyComment = () => {
   });
 };
 
-export const useGetComment = (slug: string, page : number) =>
-  useQuery({
-    queryKey: ["comment", slug, page],
-    queryFn: () => getComment({ slug, page }),
+export const useGetComment = (slug: string) => {
+  return useInfiniteQuery({
+    queryKey: ['comments', slug],
+    queryFn: ({ pageParam = 1 }) => getComment({ slug, page: pageParam }),
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.hasMore ? pages.length + 1 : undefined;
+    },
+    initialPageParam: 1,
   });
+};
+
 
 export const useGetReply = (parentId : number) =>
   useQuery({
