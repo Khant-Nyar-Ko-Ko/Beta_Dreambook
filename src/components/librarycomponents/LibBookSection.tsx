@@ -1,23 +1,14 @@
-import { useFetchBooks } from "@/hooks/useBookApi";
 import BookSection from "./BookSection";
-import LibPagination from "./LibPagination";
-import Loading from "../Loading";
+// import LibPagination from "./LibPagination";
+// import { useLibraryContext } from "@/contexts/LibraryContext";
 
 const LibBookSection = () => {
-  const { data, isLoading } = useFetchBooks();
-  const pageCount = data?.meta?.totalPages;
-
-  if (isLoading)
-    return (
-      <div className="flex items-center justify-center w-full bg-white dark:bg-darkMode1">
-        <Loading variant="blue" />
-      </div>
-    );
+  
+  // const {pageCount} = useLibraryContext();
 
   return (
     <div className="flex flex-col w-full bg-white dark:bg-darkMode1">
       <BookSection />
-      <LibPagination pageCount={pageCount} />
     </div>
   );
 };
