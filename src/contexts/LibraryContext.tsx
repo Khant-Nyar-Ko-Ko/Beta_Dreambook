@@ -39,7 +39,7 @@ export const LibraryProvider = ({ children }: { children: ReactNode }) => {
         sort,
         setSort,
         selectedCategories,
-        setSelectedCategories
+        setSelectedCategories,
       }}
     >
       {children}
