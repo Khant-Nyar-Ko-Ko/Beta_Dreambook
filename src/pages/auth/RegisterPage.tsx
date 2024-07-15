@@ -93,7 +93,7 @@ const RegisterPage = () => {
             <form onSubmit={handleSubmit} className="flex flex-col gap-8">
               <div className="relative">
                 <Input
-                  variant="title"
+                  variant="auth"
                   type="email"
                   placeholder="Email"
                   value={signupData.email}
@@ -112,7 +112,7 @@ const RegisterPage = () => {
 
               <div className="relative">
                 <Input
-                  variant="title"
+                  variant="auth"
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={signupData.password}
@@ -137,7 +137,7 @@ const RegisterPage = () => {
               </div>
               <div className="relative">
                 <Input
-                  variant="title"
+                  variant="auth"
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
                   value={signupData.confirmPassword}

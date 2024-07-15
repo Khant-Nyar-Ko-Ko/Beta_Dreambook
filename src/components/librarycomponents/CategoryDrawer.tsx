@@ -27,7 +27,7 @@ const CategoryDrawer: React.FC<DrawerProps> = ({ isOpen, onClose, children }) =>
     >
       <div className="flex justify-end">
         <button onClick={onClose} className="text-xl">
-          <IoClose color="black dark:white" />
+          <IoClose color="#3A7AD5" />
         </button>
       </div>
       {children}

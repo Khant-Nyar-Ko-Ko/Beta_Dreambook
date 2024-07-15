@@ -59,7 +59,7 @@ const BookSection = () => {
       </div>
     );
   return (
-    <div className="w-full overflow-y-auto h-[400px] bg-white dark:bg-darkMode1">
+    <div className="w-full bg-white dark:bg-darkMode1">
       <div className="flex justify-between items-center mx-3 md:mx-[100px] my-5">
         <div className="z-10 flex items-center gap-5">
           <div className="p-[7px] border rounded hidden md:block">
@@ -78,7 +78,7 @@ const BookSection = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 py-5 mx-10 my-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mx-4">
+      <div className="grid grid-cols-1 gap-6 py-5 mx-10 my-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mx-4 overflow-y-auto h-[350px]">
         <LibraryBookCard books={books} />
       </div>
       <CategoryDrawer isOpen={isDrawerOpen} onClose={toggleDrawer}>

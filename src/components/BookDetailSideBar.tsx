@@ -6,10 +6,11 @@ import { IoLayers } from "react-icons/io5";
 import { Button } from "./ui/button";
 import logo from "../assets/images/Login/Vector 2.svg";
 
+
 const BookDetailSideBar = () => {
   return (
-    <div className="w-1/5 h-screen text-white bg-default">
-      <div className="flex flex-col ">
+    <div className="h-screen text-white md:w-1/5 bg-default">
+      <div className="flex-col hidden md:flex">
         <div className="w-full col-span-3 gap-7">
           <NavLink
             to={"/"}
