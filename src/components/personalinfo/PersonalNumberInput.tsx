@@ -26,7 +26,7 @@ const PersonalNumberInput: React.FC<PhoneCustomInputProps> = ({
     <div className="relative border rounded">
       <PhoneInput
         international
-        className=" w-[250px] md:w-[500px] bg-white dark:bg-darkMode1 px-4 py-1 rounded"
+        className=" w-[300px] md:w-[500px] bg-white dark:bg-darkMode1 px-4 py-1 rounded"
         defaultCountry="MM"
         value={phoneValue}
         onChange={setPhoneValue}

@@ -22,10 +22,10 @@ const HomePage = () => {
     }
   }, [location.search]);
 
-  const scrollToSection = (id : string) => {
+   const scrollToTop = (id : string) => {
     const section =  document.getElementById(id);
      if (section) {
-       section.scrollIntoView({ behavior: 'smooth' ,block: 'center'});
+       section.scrollIntoView({ behavior: 'smooth' ,block: 'start'});
      }
    };
    
@@ -72,7 +72,7 @@ const HomePage = () => {
         <Faq />
       </div>
       <div className="flex justify-end px-6 pb-5 md:px-32">
-      <IoIosArrowDropup onClick={() => scrollToSection('home')} className=" text-default" size="40px"/>
+      <IoIosArrowDropup onClick={() => scrollToTop('home')} className=" text-default" size="40px"/>
 
       </div>
     </div>

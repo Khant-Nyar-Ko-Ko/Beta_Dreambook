@@ -51,7 +51,6 @@ const LoginPage = () => {
     e.preventDefault();
     signinMutation.mutate(signinData);
     };
-console.log(signinMutation.isError);
 
     
     
@@ -76,7 +75,7 @@ console.log(signinMutation.isError);
             <form onSubmit={handleSubmit} className="flex flex-col gap-8 ">
               <div className="relative ">
                 <Input
-                 variant="title"
+                 variant="auth"
                   inputType="email"
                   placeholder="Username"
                   value={signinData.email}
@@ -95,7 +94,7 @@ console.log(signinMutation.isError);
 
               <div className="relative">
                 <Input
-                variant="title"
+                variant="auth"
                   inputType={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={signinData.password}

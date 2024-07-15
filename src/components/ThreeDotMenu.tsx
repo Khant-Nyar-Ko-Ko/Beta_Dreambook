@@ -49,7 +49,7 @@ const ThreeDotMenu = ({ id }: { id: number }) => {
   return (
     <div className="relative ">
       <Button
-        className="z-10 bg-white dark:bg-darkMode1 hover:bg-white hover:text-default"
+        className="z-10 hover:bg-white hover:text-default"
         onClick={toggleDropdown}
       >
         <BsThreeDotsVertical />

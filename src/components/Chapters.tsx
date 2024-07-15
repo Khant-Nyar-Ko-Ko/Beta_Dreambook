@@ -13,6 +13,7 @@ import { useState } from "react";
 import DOMPurify from "dompurify";
 import Loading from "./Loading";
 import BookStatusButton from "./BookStatusButton";
+import BookDetailMobile from "./BookDetailMobile";
 
 const Chapters: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -49,7 +50,8 @@ const Chapters: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col w-4/5 h-auto bg-white font-primary dark:bg-darkMode1">
+    <div className="flex flex-col w-full h-auto bg-white md:w-4/5 font-primary dark:bg-darkMode1">
+      <BookDetailMobile />
       <BookStatusButton text={"Chapters"} />
       <div className="flex flex-col items-center justify-start mx-auto text-center ">
         {chapters.length > 0 ? (
@@ -59,43 +61,57 @@ const Chapters: React.FC = () => {
                 key={chapter?.id}
                 className=" flex flex-col text-black dark:text-white max-h-[600px]"
               >
-                <Accordion type="multiple" className=" w-[1000px] overflow-y-auto ">
-                  <AccordionItem value={chapter?.id}>
+                <Accordion
+                  type="multiple"
+                  className=" w-[350px] md:w-[1000px] overflow-y-auto "
+                >
+                  <AccordionItem className="border border-gray-200" value={chapter?.id}>
                     <AccordionTrigger
-                      className="w-[1000px] flex justify-between border border-gray-200"
+                      className="w-full md:w-[1000px] flex justify-between"
                       onClick={() => toggleAccordion(chapter?.id)}
                     >
                       <div className="flex flex-col items-start gap-1">
                         {openAccordions[chapter?.id] ? (
-                        
-                           <div className="flex items-center justify-between w-full">
+                          <div className="flex items-center justify-between w-full">
                             <p className="pl-5 pr-1 text-sm text-start w-[900px]">
                               {chapter?.chapterNum} : {chapter?.title}
                             </p>
                             <ThreeDotMenu id={chapter.id} />
                           </div>
-                         
                         ) : (
-                         
-                             <div className="flex flex-col items-center justify-between w-full h-16">
-                              <div className="flex ">
-                              <p className="pl-5 pr-1 text-sm text-start w-[900px]">
-                              {chapter?.chapterNum} : {chapter?.title}
-                            </p>
-                            <ThreeDotMenu id={chapter.id} />
-                              </div>
-                          
+                          <div className="flex flex-col items-center justify-between w-full h-16">
+                            <div className="flex items-center justify-between h-10">
+                              <p className="md:pl-5 md:pr-1 text-[12px] md:text-sm text-start w-[270px] md:w-[900px]">
+                                {chapter?.chapterNum} : {chapter?.title}
+                              </p>
+                              <ThreeDotMenu id={chapter.id} />
+                            </div>
+
                             <div className="flex items-start justify-start">
-                               <p
-                                className="text-sm text-start w-[800px]"
+                              <p
+                                className="text-sm text-start hidden md:block md:w-[800px]"
                                 dangerouslySetInnerHTML={{
-                                  __html:DOMPurify.sanitize(`${chapter?.content.substring(0, 140)} ...see more`),
+                                  __html: DOMPurify.sanitize(
+                                    `<span className = "text-black text-start dark:text-white">${chapter?.content.substring(
+                                      0,
+                                      140
+                                    )} ...see more</span>`
+                                  ),
+                                }}
+                              ></p>
+                                <p
+                                className="text-[12px] text-start md:hidden block"
+                                dangerouslySetInnerHTML={{
+                                  __html: DOMPurify.sanitize(
+                                    `<span className = "text-black dark:text-white">${chapter?.content.substring(
+                                      0,
+                                      35
+                                    )} ...see more</span>`
+                                  ),
                                 }}
                               ></p>
                             </div>
                           </div>
-                           
-                         
                         )}
                       </div>
                     </AccordionTrigger>

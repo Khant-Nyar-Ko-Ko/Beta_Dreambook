@@ -36,7 +36,7 @@ const Categories = () => {
 
   return (
     <div className="">
-    <div className="grid gap-5 md:grid-cols-2 ">
+    <div className="grid gap-5 md:grid-cols-2 overflow-y-auto h-[350px]">
       {categories.map(({ id, title, icon }) => (
         <div
         key={id}

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import profile from "../assets/images/defaultcontact.jpeg";
 import BookStatusButton from "./BookStatusButton";
 import InfiniteScroll from "react-infinite-scroll-component";
+import BookDetailMobile from "./BookDetailMobile";
 
 const Comment = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -24,7 +25,8 @@ const Comment = () => {
   console.log("comments:", comments);
 
   return (
-    <div className="flex flex-col w-4/5 h-auto bg-white font-primary dark:bg-darkMode1">
+    <div className="flex flex-col w-full h-auto bg-white md:w-4/5 font-primary dark:bg-darkMode1">
+       <BookDetailMobile/>
       <BookStatusButton text={"Comments"} />
       <div
         id="scrollableDiv"
@@ -42,7 +44,7 @@ const Comment = () => {
               {comments?.map((comment: any) => (
                 <div
                   key={comment.id}
-                  className="w-[1000px] flex flex-col gap-3 text-black dark:text-white max-h-[600px] overflow-y-auto"
+                  className=" w-[350px] md:w-[1000px] flex flex-col gap-3 text-black dark:text-white max-h-[600px] overflow-y-auto"
                 >
                   <div className="flex flex-col h-auto gap-3 py-3 my-5 border rounded ">
                     <div className="flex items-center justify-between px-5">

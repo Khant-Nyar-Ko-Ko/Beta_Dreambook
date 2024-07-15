@@ -55,7 +55,7 @@ const TagInput: React.FC<TagInputProps> = ({
       </label>
       <Input
         id="keywords"
-        className="w-[300px] bg-white dark:bg-darkMode1 md:w-full p-1 border border-gray-200 rounded-lg outline-none"
+        className="w-[350px] bg-white dark:bg-darkMode1 md:w-full p-1 border border-gray-200 rounded-lg outline-none"
         value={inputValue}
         type="text"
         onChange={handleInputChange}

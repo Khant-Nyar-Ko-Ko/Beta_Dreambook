@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useCreateBook } from "@/hooks/useBookApi";
 import { useFetchCategories } from "@/hooks/useCategoryApi";
 import { getToken } from "@/service/authService";
@@ -14,6 +14,7 @@ import { IoCloseCircleSharp } from "react-icons/io5";
 const BookCraftingPage = () => {
   const bookCreateMutation = useCreateBook();
   const navigate = useNavigate();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { data: categories } = useFetchCategories();
 
@@ -33,7 +34,6 @@ const BookCraftingPage = () => {
     description: "",
     coverImg: "",
   });
-  
 
   const handleAddKeyword = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -73,7 +73,6 @@ const BookCraftingPage = () => {
     if (!description.trim()) newErrors.description = "Description is required";
     if (!coverImg) newErrors.coverImg = "Book cover is required";
 
-  
     setErrors(newErrors);
   
     return !Object.values(newErrors).some(error => error);
@@ -90,7 +89,7 @@ const BookCraftingPage = () => {
       categoryId,
       keywords,
       coverImg,
-      status : false
+      status: false
     };
 
     bookCreateMutation.mutate(bookData, {
@@ -121,36 +120,27 @@ const BookCraftingPage = () => {
 
       <form
         className="flex flex-col md:flex-row items-start px-10 pb-10 gap-x-16 w-screen md:w-[4/5]"
-        action=""
         onSubmit={onSubmit}
       >
         <div>
-          <Input className="hidden" type="text" value={status} readOnly />
-
-          <div>
-            <div
-              className="flex flex-col justify-center items-center w-[200px] h-[300px] border-2 border-gray-200 border-dotted rounded-lg py-5 px-10"
-              onClick={() => document.getElementById("fileInput")?.click()}
-            >
-              <img src={imagePreview as string} className="object-cover" />
-              {imagePreview === defaultImage ? (
-                <div className="text-[10px] text-gray-300 text-center">
-                  <p>Drop your images here or browse JPG, JPEG or PNG</p>
-                  <p>The size must be 123x123 px</p>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
+          <div
+            className="flex flex-col justify-center items-center w-[200px] h-[300px] border-2 border-gray-200 border-dotted rounded-lg py-5 px-10"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <img src={imagePreview as string} className="object-cover" />
+            {imagePreview === defaultImage && (
+              <div className="text-[10px] text-gray-300 text-center">
+                <p>Drop your images here or browse JPG, JPEG or PNG</p>
+                <p>The size must be 123x123 px</p>
+              </div>
+            )}
           </div>
           <input
-            id="fileInput"
+            ref={fileInputRef}
             className="hidden"
             type="file"
             accept="image/*"
-            onChange={(e) => {
-              handleImageChange(e);
-            }}
+            onChange={handleImageChange}
           />
           {errors.coverImg && <p className="text-sm text-red-500">{errors.coverImg}</p>}
           <p className="my-2 font-semibold text-center text-default">
@@ -165,13 +155,13 @@ const BookCraftingPage = () => {
             </label>
             <Input
               id="title"
-              className=" w-[300px] md:w-full p-1 border border-gray-200 rounded-lg outline-none w"
+              className="w-[300px] md:w-full p-1 border border-gray-200 rounded-lg outline-none"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Book Title"
             />
-             {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
+            {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
           </div>
 
           <div>
@@ -227,20 +217,20 @@ const BookCraftingPage = () => {
             </div>
           </div>
 
-          <div className=" w-[300px] md:w-[350px]">
+          <div className="w-[300px] md:w-[350px]">
             <p className="mb-1 font-semibold text-black dark:text-white">Description</p>
             <Toolbar
               value={description}
               onChange={(value) => setDescription(value)}
               isDisabled={false}
             />
-             {errors.description && <p className="text-sm text-red-500">{errors.description}</p>}
+            {errors.description && <p className="text-sm text-red-500">{errors.description}</p>}
           </div>
 
           <Button
             type="submit"
             className={`py-2 w-[300px] md:w-[350px] rounded text-white ${
-              bookCreateMutation.isPending ? "bg-default" : "bg-gray-400 "
+              bookCreateMutation.isPending ? "bg-default" : "bg-gray-400"
             }`}
           >
             <div className="flex items-center justify-center gap-x-3 font-primary">

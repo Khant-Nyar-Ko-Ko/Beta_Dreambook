@@ -1,22 +1,20 @@
 import { useState } from "react";
 import { Modal, Box, Typography, Button, IconButton } from "@mui/material";
 import { FaPlus } from "react-icons/fa";
-import CloseIcon from "@mui/icons-material/Close";
 import Toolbar from "./Toolbar";
 import { Input } from "./ui/input";
 import { useCreateChapter } from "@/hooks/useChapterApi";
 import { Loader2 } from "lucide-react";
+import { IoClose } from "react-icons/io5";
 
 const ChapterCreationModal = ({ slug }: { slug: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const { mutate: createBook , isPending } = useCreateChapter();
+  const { mutate: createBook, isPending } = useCreateChapter();
 
   const toggleModal = () => {
-    console.log("isOpen before toggle:", isOpen);
     setIsOpen(!isOpen);
-    console.log("isOpen after toggle:", !isOpen);
   };
 
   const handleSubmit = async () => {
@@ -27,12 +25,11 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
       priority: 1,
       status: true,
     };
-    console.log('Submitting data:', data);
+
     createBook(data, {
       onSuccess: () => {
-        console.log('Chapter created successfully');
         setIsOpen(false);
-        window.location.reload();
+        window.location.reload(); 
       },
       onError: (error) => {
         console.error('Error creating chapter:', error);
@@ -41,7 +38,7 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
   };
 
   return (
-    <div className="my-5 ">
+    <div className="my-5">
       <Button
         variant="contained"
         className="flex gap-2 mx-auto"
@@ -58,13 +55,14 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
         aria-describedby="modal-description"
       >
         <Box
-         className="bg-white dark:bg-darkMode1"
+          className="bg-white dark:bg-darkMode1"
           sx={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 400,
+            width: "95%",
+            maxWidth: 400, // Adjust the maximum width as needed
             bgcolor: "background.paper",
             boxShadow: 24,
             p: 4,
@@ -85,16 +83,29 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
               Creating A Chapter
             </Typography>
             <IconButton onClick={toggleModal}>
-              <CloseIcon />
+              <IoClose color="#3A7AD5"/>
             </IconButton>
           </Box>
           <Box component="form" sx={{ mt: 2 }}>
-            <div className="my-3 w-[350px]">
-              <label htmlFor="title" className="text-black dark:text-white">Title</label>
-              <Input id="title" className=" w-[200px]" variant="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <div className="my-3">
+              <label htmlFor="title" className="text-black dark:text-white">
+                Title
+              </label>
+              <Input
+                id="title"
+                className="w-full"
+                variant="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
-            <div className="my-3 w-[350px]">
-              <label htmlFor="content" className="text-black dark:text-white">Content</label>
+            <div className="my-3">
+              <label
+                htmlFor="content"
+                className="text-black dark:text-white"
+              >
+                Content
+              </label>
               <Toolbar
                 value={content}
                 onChange={(value) => setContent(value)}
@@ -102,16 +113,14 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
               />
             </div>
           </Box>
-          <Box display="flex" justifyContent="right" mt={3}>
+          <Box display="flex" justifyContent="flex-end" mt={3}>
             <Button
               variant="contained"
               onClick={handleSubmit}
               sx={{ minWidth: "100px" }}
             >
-               <Loader2
-                className={
-                  isPending ? "block animate-spin" : "hidden"
-                }
+              <Loader2
+                className={isPending ? "block animate-spin" : "hidden"}
               />
               Save
             </Button>
