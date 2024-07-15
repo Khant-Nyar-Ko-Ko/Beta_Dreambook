@@ -74,7 +74,7 @@ const History = () => {
         {!isBookHistoryArray || bookhistory.length === 0 ? (
           <EmptyBookPage />
         ) : (
-          <div className="grid items-center justify-center grid-cols-4 gap-10 mx-20 my-10">
+          <div className="grid  h-[600px] overflow-y-auto items-center justify-center grid-cols-1 gap-10 mx-5 my-10 md:mx-20 md:grid-cols-4">
             {bookhistory.map(
               ({
                 id,

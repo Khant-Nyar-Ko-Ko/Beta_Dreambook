@@ -118,7 +118,7 @@ const ChildBookdetail = () => {
   }
 
   return (
-    <div className="flex flex-col w-full h-auto bg-white md:h-screen md:w-4/5 dark:bg-darkMode1">
+    <div className="flex flex-col w-full h-auto bg-white md:w-4/5 font-primary dark:bg-darkMode1">
       <BookDetailMobile/>
       <BookStatusButton text="Book Details" />
       <form className="my-4" onSubmit={handleSubmit}>
@@ -181,7 +181,7 @@ const ChildBookdetail = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center w-full md:p-5 md:w-1/4">
+          <div className="flex flex-col items-center justify-center w-full p-0 md:p-5 md:w-1/4">
             <h1 className="py-5 text-center text-black md:py-0 font-primary dark:text-white">
               Cover Image
             </h1>
@@ -267,7 +267,7 @@ const ChildBookdetail = () => {
 
           </div>
         </div>
-        <div className="flex justify-end gap-3 mr-[50px] md:mr-[300px]">
+        <div className="flex justify-end gap-3 pr-5 w-screen md:pr-[300px]">
           {isEdit ? (
             <>
               <Button

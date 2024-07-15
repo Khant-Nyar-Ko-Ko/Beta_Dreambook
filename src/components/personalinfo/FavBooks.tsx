@@ -63,7 +63,7 @@ const FavBooks = () => {
 
   return (
     <div className="flex flex-col w-4/5 h-full px-3 my-5">
-      <div className="flex flex-col items-start justify-between w-full gap-2 md:flex-row md:items-center md:gap-5">
+      <div className="flex items-start justify-between w-full gap-2 md:flex-row md:items-center md:gap-5">
         <div className="flex items-center w-full gap-3 md:gap-5 md:w-auto">
           <div className="p-[7px] border rounded">
             <RiFilter3Line className="text-[16px] md:text-[24px]" />
@@ -82,7 +82,7 @@ const FavBooks = () => {
       {!favouriteBooks || favouriteBooks.length === 0 ? (
         <EmptyBookPage />
       ) : (
-        <div className="grid items-center justify-center grid-cols-4 gap-10 mx-20 my-10">
+        <div className="grid h-[600px] overflow-y-auto items-center justify-center grid-cols-1 gap-10 mx-5 my-10 md:mx-20 md:grid-cols-4">
           {favouriteBooks?.map(
             ({
               book: { id, title, coverImg, category, user, slug },
