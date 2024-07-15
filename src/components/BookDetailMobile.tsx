@@ -6,6 +6,8 @@ import { Button } from "./ui/button";
 import { PiBookOpenText } from "react-icons/pi";
 import { MdOutlineComment } from "react-icons/md";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import cover from "../assets/images/Login/Vector 2.svg";
+
 
 
 
@@ -39,10 +41,24 @@ const BookDetailMobile = () => {
         } md:hidden z-50`}
       >
         <div className="h-screen bg-default w-[250px]">
-          <div className="flex flex-col gap-4 p-4">
+          <div className="flex flex-col gap-4 py-5">
             <button onClick={toggleMenu} className="self-end text-3xl text-white">
               <IoClose />
             </button>
+            <NavLink
+            to={"/"}
+            className="flex items-center gap-2 px-3 py-4 border-b pl- border-indigo-300/50"
+          >
+            <img src={cover} className="w-8 md:w-16 " alt="" />
+            <div className=" w-[300px] md:w-[350px] flex flex-col gap-1 ">
+              <h3 className="font-bold text-white text-sx font-primary">
+                Dream Book
+              </h3>
+              <p className=" text-[10px] md:text-sx text-white font-primary">
+                Book Reading & Publishing Platform
+              </p>
+            </div>
+          </NavLink>
             <NavLink to={`/bookdetail/${slug}/childBookdetail`}>
               {({ isActive }) => (
                 <Button

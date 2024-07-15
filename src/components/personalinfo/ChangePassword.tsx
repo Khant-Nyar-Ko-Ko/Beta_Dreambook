@@ -7,17 +7,16 @@ import { getToken } from "@/service/authService";
 import { useUpdateUser } from "@/hooks/useAuthApi";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
-// import toast from "react-hot-toast";
 
 const ChangePassword = () => {
   const [showOldPassword, setOldShowPassword] = useState(false);
   const [showNewPassword, setNewShowPassword] = useState(false);
   const [showConfirmPassword, setConfirmShowPassword] = useState(false);
-  
+
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   const [oldPasswordError, setOldPasswordError] = useState("");
   const [newPasswordError, setNewPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -139,14 +138,16 @@ const ChangePassword = () => {
     setConfirmShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  const renderError = (error: string) => error && <p className="mt-1 text-xs text-red-500">{error}</p>;
+
   return (
     <form
       onSubmit={handleChangePassword}
-      className="flex flex-col items-center justify-center w-4/5 h-full text-center gap-9"
+      className="flex flex-col items-center justify-center w-4/5 h-[770px] overflow-y-auto text-center gap-9"
     >
-      <div className="flex flex-col gap-2 px-4 py-8 text-center md:px-0">
+      <div className="flex flex-col gap-2 px-4 py-0 text-center md:py-8 md:px-0">
         <h2 className="text-base md:text-2xl font-primary">Change Your Password</h2>
-        <p className="text-xs md:text-sm w-[300px] opacity-50 font-primary">
+        <p className="text-xs md:text-sm md:w-[300px] opacity-50 font-primary">
           The new password you set must be different from the previous one
         </p>
       </div>
@@ -163,12 +164,11 @@ const ChangePassword = () => {
             type="button"
             onClick={toggleOldPasswordVisibility}
             className="absolute right-5 top-2 md:top-3 focus:outline-none"
+            aria-label={showOldPassword ? "Hide old password" : "Show old password"}
           >
             {showOldPassword ? <FaEyeSlash color="slate" /> : <FaEye color="slate" />}
           </button>
-          {oldPasswordError && (
-            <p className="mt-1 text-xs text-red-500">{oldPasswordError}</p>
-          )}
+          {renderError(oldPasswordError)}
         </div>
         <div className="relative">
           <Input
@@ -182,12 +182,11 @@ const ChangePassword = () => {
             type="button"
             onClick={toggleNewPasswordVisibility}
             className="absolute right-5 top-2 md:top-3 focus:outline-none"
+            aria-label={showNewPassword ? "Hide new password" : "Show new password"}
           >
             {showNewPassword ? <FaEyeSlash color="slate" /> : <FaEye color="slate" />}
           </button>
-          {newPasswordError && (
-            <p className="mt-1 text-xs text-red-500">{newPasswordError}</p>
-          )}
+          {renderError(newPasswordError)}
         </div>
         <div className="relative">
           <Input
@@ -201,29 +200,24 @@ const ChangePassword = () => {
             type="button"
             onClick={toggleConfirmPasswordVisibility}
             className="absolute right-5 top-2 md:top-3 focus:outline-none"
+            aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
           >
             {showConfirmPassword ? <FaEyeSlash color="slate" /> : <FaEye color="slate" />}
           </button>
-          {confirmPasswordError && (
-            <p className="mt-1 text-xs text-red-500">{confirmPasswordError}</p>
-          )}
-          {passwordMatchError && (
-            <p className="mt-1 text-xs text-red-500">{passwordMatchError}</p>
-          )}
+          {renderError(confirmPasswordError)}
+          {renderError(passwordMatchError)}
         </div>
       </div>
-      {updateError && (
-        <p className="mt-4 text-xs text-red-500">{updateError}</p>
-      )}
+      {renderError(updateError)}
       {updateSuccess && (
         <p className="mt-4 text-xs text-green-500">{updateSuccess}</p>
       )}
       <Button type="submit" className="w-[200px] md:w-[350px]">
-      <Loader2
-                className={
-                  updatePassword.isPending ? "block animate-spin" : "hidden"
-                }
-              />
+        <Loader2
+          className={
+            updatePassword.isPending ? "block animate-spin" : "hidden"
+          }
+        />
         Change Password
       </Button>
     </form>

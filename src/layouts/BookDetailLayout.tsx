@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const BookDetailLayout = () => {
   return (
-    <div className="flex">
+    <div className="flex w-screen">
       <BookDetailSideBar />
       <Outlet />
     </div>
