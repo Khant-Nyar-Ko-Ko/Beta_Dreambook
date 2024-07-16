@@ -66,16 +66,21 @@ const BookCraftingPage = () => {
   };
 
   const validate = () => {
-    const newErrors = { title: "", categoryId: "", description: "", coverImg: "" };
-  
+    const newErrors = {
+      title: "",
+      categoryId: "",
+      description: "",
+      coverImg: "",
+    };
+
     if (!title.trim()) newErrors.title = "Title is required";
     if (!categoryId) newErrors.categoryId = "Category is required";
     if (!description.trim()) newErrors.description = "Description is required";
     if (!coverImg) newErrors.coverImg = "Book cover is required";
 
     setErrors(newErrors);
-  
-    return !Object.values(newErrors).some(error => error);
+
+    return !Object.values(newErrors).some((error) => error);
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -89,7 +94,7 @@ const BookCraftingPage = () => {
       categoryId,
       keywords,
       coverImg,
-      status: false
+      status: false,
     };
 
     bookCreateMutation.mutate(bookData, {
@@ -115,7 +120,9 @@ const BookCraftingPage = () => {
     <div className="md:p-[30px] select-none py-5 bg-white dark:bg-darkMode1">
       <div className="flex items-center mb-10 gap-x-5 font-primary">
         <BackButton backPath="/" />
-        <h1 className="text-2xl font-bold text-black dark:text-white">Creating A New Book</h1>
+        <h1 className="text-2xl font-bold text-black dark:text-white">
+          Creating A New Book
+        </h1>
       </div>
 
       <form
@@ -142,7 +149,9 @@ const BookCraftingPage = () => {
             accept="image/*"
             onChange={handleImageChange}
           />
-          {errors.coverImg && <p className="text-sm text-red-500">{errors.coverImg}</p>}
+          {errors.coverImg && (
+            <p className="text-sm text-red-500">{errors.coverImg}</p>
+          )}
           <p className="my-2 font-semibold text-center text-default">
             Select Book Cover
           </p>
@@ -150,7 +159,10 @@ const BookCraftingPage = () => {
 
         <div className="flex flex-col gap-y-5">
           <div>
-            <label htmlFor="title" className="mb-2 font-semibold text-black dark:text-white">
+            <label
+              htmlFor="title"
+              className="mb-2 font-semibold text-black dark:text-white"
+            >
               Title
             </label>
             <Input
@@ -161,11 +173,16 @@ const BookCraftingPage = () => {
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Book Title"
             />
-            {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
+            {errors.title && (
+              <p className="text-sm text-red-500">{errors.title}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="category" className="mb-2 font-semibold text-black dark:text-white">
+            <label
+              htmlFor="category"
+              className="mb-2 font-semibold text-black dark:text-white"
+            >
               Category
             </label>
             <select
@@ -174,7 +191,10 @@ const BookCraftingPage = () => {
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
             >
-              <option value="" className="text-sm w-[300px] md:w-full text-black dark:text-white">
+              <option
+                value=""
+                className="text-sm w-[300px] md:w-full text-black dark:text-white"
+              >
                 Select Category
               </option>
               {categories?.map((category) => (
@@ -183,11 +203,16 @@ const BookCraftingPage = () => {
                 </option>
               ))}
             </select>
-            {errors.categoryId && <p className="text-sm text-red-500">{errors.categoryId}</p>}
+            {errors.categoryId && (
+              <p className="text-sm text-red-500">{errors.categoryId}</p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="keywords" className="mb-1 font-semibold text-black dark:text-white">
+            <label
+              htmlFor="keywords"
+              className="mb-1 font-semibold text-black dark:text-white"
+            >
               Keywords
             </label>
             <Input
@@ -217,21 +242,25 @@ const BookCraftingPage = () => {
             </div>
           </div>
 
-          <div className="w-[300px] md:w-[350px]">
-            <p className="mb-1 font-semibold text-black dark:text-white">Description</p>
+          <div className="w-[300px] md:w-[350px] h-[250px]">
+            <p className="mb-1 font-semibold text-black dark:text-white">
+              Description
+            </p>
             <Toolbar
               value={description}
               onChange={(value) => setDescription(value)}
               isDisabled={false}
             />
-            {errors.description && <p className="text-sm text-red-500">{errors.description}</p>}
+            {errors.description && (
+              <p className="text-sm text-red-500">{errors.description}</p>
+            )}
           </div>
 
           <Button
             type="submit"
-            className={`py-2 w-[300px] md:w-[350px] rounded text-white ${
-              bookCreateMutation.isPending ? "bg-default" : "bg-gray-400"
-            }`}
+            className="py-2 w-[300px] md:w-[350px] rounded text-white 
+             bg-default
+            "
           >
             <div className="flex items-center justify-center gap-x-3 font-primary">
               <Loader2

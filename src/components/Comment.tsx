@@ -5,12 +5,17 @@ import profile from "../assets/images/defaultcontact.jpeg";
 import BookStatusButton from "./BookStatusButton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import BookDetailMobile from "./BookDetailMobile";
+import Loading from "./Loading";
+import CommentMenu from "./bookdetails/CommentMenu";
+import ReplyComment from "./ReplyComment";
+import { useCommentContext } from "@/contexts/CommentContext";
 
 const Comment = () => {
   const { slug } = useParams<{ slug: string }>();
 
   const { data, fetchNextPage, hasNextPage } = useGetComment(slug ?? "");
   const comments = data?.pages.flatMap((page) => page.items) || [];
+  const { reply } = useCommentContext();
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -26,7 +31,7 @@ const Comment = () => {
 
   return (
     <div className="flex flex-col w-full h-auto bg-white md:w-4/5 font-primary dark:bg-darkMode1">
-       <BookDetailMobile/>
+      <BookDetailMobile />
       <BookStatusButton text={"Comments"} />
       <div
         id="scrollableDiv"
@@ -35,10 +40,14 @@ const Comment = () => {
         {comments.length > 0 ? (
           <>
             <InfiniteScroll
-              dataLength={comments.length} 
+              dataLength={comments.length}
               next={fetchNextPage}
               hasMore={!!hasNextPage}
-              loader={<h4>Loading...</h4>}
+              loader={
+                <h4>
+                  <Loading />
+                </h4>
+              }
               scrollableTarget="scrollableDiv"
             >
               {comments?.map((comment: any) => (
@@ -64,6 +73,7 @@ const Comment = () => {
                             : "Unknown User"}
                         </p>
                       </div>
+                      <CommentMenu id={comment?.id} />
                     </div>
                     <p className="px-5 text-start font-primary">
                       {comment.text}
@@ -73,6 +83,9 @@ const Comment = () => {
                       {comment ? formatDate(comment.updatedAt) : "No date"}
                     </p>
                   </div>
+                  {reply.id === comment.id && reply.status && (
+                    <ReplyComment parentId={comment.id} />
+                  )}
                 </div>
               ))}
             </InfiniteScroll>

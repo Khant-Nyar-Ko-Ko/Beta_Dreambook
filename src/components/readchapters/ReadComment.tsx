@@ -36,10 +36,10 @@ const ReadComment = () => {
     setIsReply((prev) => ({ ...prev, [commentId]: !prev[commentId] }));
   };
 
-  const handleSendReply = (commentId: string) => {
-    console.log("Reply sent for comment ID:", commentId);
-    setIsReply((prev) => ({ ...prev, [commentId]: false }));
-  };
+  // const handleSendReply = (commentId: string) => {
+  //   console.log("Reply sent for comment ID:", commentId);
+  //   setIsReply((prev) => ({ ...prev, [commentId]: false }));
+  // };
 
   return (
     <div className="w-full my-10 select-none">
@@ -93,7 +93,7 @@ const ReadComment = () => {
                       />
                       <ReplyComment
                         parentId={comment.id}
-                        handleSendReply={() => handleSendReply(comment.id)}
+                        // handleSendReply={() => handleSendReply(comment.id)}
                       />
                     </div>
                   )}

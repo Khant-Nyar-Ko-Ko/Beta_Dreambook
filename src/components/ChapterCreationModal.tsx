@@ -23,7 +23,7 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
       content,
       slug,
       priority: 1,
-      status: true,
+      status: false,
     };
 
     createBook(data, {
@@ -99,7 +99,7 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
-            <div className="my-3">
+            <div className="my-3 h-[240px]">
               <label
                 htmlFor="content"
                 className="text-black dark:text-white"

@@ -123,7 +123,7 @@ const ChildBookdetail = () => {
       <BookStatusButton text="Book Details" />
       <form className="my-4" onSubmit={handleSubmit}>
         <div className="flex flex-col-reverse md:flex-row">
-          <div className="w-full px-5 pt-5 md:w-3/4">
+          <div className="w-full px-5 md:w-3/4">
             <div className="mt-2">
               <label
                 htmlFor="default"
@@ -181,7 +181,7 @@ const ChildBookdetail = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center w-full p-0 md:p-5 md:w-1/4">
+          <div className="flex flex-col items-center justify-center w-full p-0 border-l md:p-4 md:w-1/4">
             <h1 className="py-5 text-center text-black md:py-0 font-primary dark:text-white">
               Cover Image
             </h1>
@@ -267,7 +267,7 @@ const ChildBookdetail = () => {
 
           </div>
         </div>
-        <div className="flex justify-end gap-3 pr-5 w-screen md:pr-[300px]">
+        <div className="flex justify-end gap-3 pr-5 w-screen md:w-full md:pr-[300px]">
           {isEdit ? (
             <>
               <Button

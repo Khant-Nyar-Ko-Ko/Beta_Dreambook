@@ -14,21 +14,31 @@ import DOMPurify from "dompurify";
 import Loading from "./Loading";
 import BookStatusButton from "./BookStatusButton";
 import BookDetailMobile from "./BookDetailMobile";
+import { useChapterContext } from "@/contexts/ChapterContext";
+import EditChapter from "./bookdetails/EditChapter";
 
 const Chapters: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { edit } = useChapterContext();
+
   const {
     data: chapters = [],
     error,
     isPending,
   } = useGetChapter({ slug: slug ?? "" });
+
+  // const editChapterMutation = useUpdateChapter();
+
   const [openAccordions, setOpenAccordions] = useState<{
     [key: string]: boolean;
   }>({});
-
+  
   const toggleAccordion = (id: string) => {
     setOpenAccordions((prev) => ({ ...prev, [id]: !prev[id] }));
   };
+
+
+
 
   if (isPending) {
     return (
@@ -53,7 +63,7 @@ const Chapters: React.FC = () => {
     <div className="flex flex-col w-full h-auto bg-white md:w-4/5 font-primary dark:bg-darkMode1">
       <BookDetailMobile />
       <BookStatusButton text={"Chapters"} />
-      <div className="flex flex-col items-center justify-start mx-auto text-center ">
+      <div className="flex flex-col items-center justify-start mx-auto overflow-y-auto text-center h-[600px]">
         {chapters.length > 0 ? (
           <>
             {chapters.map((chapter: any) => (
@@ -65,7 +75,10 @@ const Chapters: React.FC = () => {
                   type="multiple"
                   className=" w-[350px] md:w-[1000px] overflow-y-auto "
                 >
-                  <AccordionItem className="border border-gray-200" value={chapter?.id}>
+                  <AccordionItem
+                    className="border border-gray-200"
+                    value={chapter?.id}
+                  >
                     <AccordionTrigger
                       className="w-full md:w-[1000px] flex justify-between"
                       onClick={() => toggleAccordion(chapter?.id)}
@@ -99,7 +112,7 @@ const Chapters: React.FC = () => {
                                   ),
                                 }}
                               ></p>
-                                <p
+                              <p
                                 className="text-[12px] text-start md:hidden block"
                                 dangerouslySetInnerHTML={{
                                   __html: DOMPurify.sanitize(
@@ -125,6 +138,35 @@ const Chapters: React.FC = () => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
+                {edit.id === chapter.id && edit.status && (
+                  // <div className="w-full md:w-[1000px] border border-black flex flex-col items-center gap-3 p-3 h-auto">
+                  //   <Input variant="edit" value={chapter?.title}/>
+                  //   <Toolbar
+                  //     variant="edit"
+                  //     value={chapter?.content}
+                  //     onChange={() => {}}
+                  //     isDisabled={false}
+                  //   />
+                  //   <div className="flex mt-[160px]">
+                  //     <Button
+                  //       variant="white"
+                  //       className="text-gray-600 dark:text-white"
+                  //       onClick={() => toggleEdit(chapter?.id)}
+                  //     >
+                  //       Cancel
+                  //     </Button>
+                  //     <Button variant="default" type="submit">
+                  //       <Loading />
+                  //       <span
+                  //       // className={bookUpdateMutation.isPending ? "hidden" : "block"}
+                  //       >
+                  //         Save
+                  //       </span>
+                  //     </Button>
+                  //   </div>
+                  // </div>
+                  <EditChapter id={chapter?.id} title={chapter.title} content={chapter.content}/>
+                )}
               </div>
             ))}
           </>
@@ -143,7 +185,9 @@ const Chapters: React.FC = () => {
             </p>
           </div>
         )}
-        <div>{slug && <ChapterCreationModal slug={slug} />}</div>
+      </div>
+      <div className="flex justify-center ">
+        {slug && <ChapterCreationModal slug={slug} />}
       </div>
     </div>
   );

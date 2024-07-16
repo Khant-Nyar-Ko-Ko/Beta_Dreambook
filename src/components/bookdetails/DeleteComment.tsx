@@ -2,11 +2,9 @@ import { Box, Modal, Typography } from "@mui/material";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { useDeleteComment } from "@/hooks/useCommentApi";
-import { useNavigate } from "react-router-dom";
 import Loading from "../Loading";
 
 const DeleteComment = ({ id }: { id: number }) => {
-    const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 //   const { mutate: deleteComment } = useDeleteComment();
@@ -32,9 +30,8 @@ const toggleModal = () => {
   useEffect(() => {
     if(deleteCommentMutation.isSuccess) {
     //   toggleModal();
-      navigate("/home")
     } 
-  },[deleteCommentMutation.isSuccess, navigate])
+  },[deleteCommentMutation.isSuccess])
 
   return (
     <div>

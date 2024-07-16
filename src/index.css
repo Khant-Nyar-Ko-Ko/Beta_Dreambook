@@ -9,12 +9,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.ql-snow {
-  border-radius: 5px;
+.custom-quill .ql-container {
+  @apply h-auto;
 }
 
-.ql-container .ql-editor {
-  height: 150px;
+.custom-quill .ql-editor {
+  @apply overflow-y-auto md:h-40; /* Adjust the height as needed */
 }
 
 .react-modal {
