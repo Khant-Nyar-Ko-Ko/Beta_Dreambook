@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ChapterContent from "@/components/readchapters/ChapterContent";
-import ChapterPagination from "@/components/readchapters/ChapterPagination";
+// import ChapterPagination from "@/components/readchapters/ChapterPagination";
 import ChapterSidebar from "@/components/readchapters/ChapterSidebar";
 
 const ReadChapterPage = () => {
@@ -9,7 +9,6 @@ const ReadChapterPage = () => {
       <ChapterSidebar />
       <div className="w-screen md:w-4/5">
         <ChapterContent />
-        <ChapterPagination />
       </div>
     </div>
   );

@@ -9,13 +9,18 @@ import Loading from "./Loading";
 import CommentMenu from "./bookdetails/CommentMenu";
 import ReplyComment from "./ReplyComment";
 import { useCommentContext } from "@/contexts/CommentContext";
+import SeeReplyComment from "./readchapters/SeeReplyComment";
+import { useUserApi } from "@/hooks/useUserApi";
+import { getToken } from "@/service/authService";
 
 const Comment = () => {
   const { slug } = useParams<{ slug: string }>();
-
+  const token = getToken();
+  
   const { data, fetchNextPage, hasNextPage } = useGetComment(slug ?? "");
   const comments = data?.pages.flatMap((page) => page.items) || [];
   const { reply } = useCommentContext();
+  const { data: user } = useUserApi(token ?? "");
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -53,7 +58,7 @@ const Comment = () => {
               {comments?.map((comment: any) => (
                 <div
                   key={comment.id}
-                  className=" w-[350px] md:w-[1000px] flex flex-col gap-3 text-black dark:text-white max-h-[600px] overflow-y-auto"
+                  className=" w-[350px] md:w-[1000px] flex flex-col gap-1 text-black dark:text-white max-h-[600px] overflow-y-auto"
                 >
                   <div className="flex flex-col h-auto gap-3 py-3 my-5 border rounded ">
                     <div className="flex items-center justify-between px-5">
@@ -86,6 +91,12 @@ const Comment = () => {
                   {reply.id === comment.id && reply.status && (
                     <ReplyComment parentId={comment.id} />
                   )}
+                  {reply && <SeeReplyComment
+                    profileImg={user?.profileImg}
+                    name={user?.name}
+                    parentId={comment.id}
+                  />}
+                  
                 </div>
               ))}
             </InfiniteScroll>

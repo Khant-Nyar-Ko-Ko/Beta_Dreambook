@@ -19,19 +19,17 @@ interface EditState {
 
 const ChapterContext = createContext<any>(null);
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useChapterContext = () => useContext(ChapterContext);
+
 export const ChapterProvider = ({ children }: { children: ReactNode }) => {
   const { slug, chapterNum } = useParams();
-
   const [chapters, setChapters] = useState([]);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(
-    chapterNum ? parseInt(chapterNum, 10) - 1 : 1
+    chapterNum ? parseInt(chapterNum, 10) - 1 : 0
   );
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { mutate: chapterProgress } = usePostChapterProgress();
-
   const [edit, setEdit] = useState<EditState>({ id: Number(chapterNum), status: false });
 
   useEffect(() => {
@@ -41,18 +39,22 @@ export const ChapterProvider = ({ children }: { children: ReactNode }) => {
         .then((chaptersData) => {
           setChapters(chaptersData);
           setLoading(false);
-          chapterProgress({ slug, chapterProgress: currentChapterIndex + 1 });
         })
         .catch((error) => {
           console.error("Failed to fetch chapters:", error);
           setLoading(false);
         });
     }
-  }, [slug, chapterProgress, currentChapterIndex]);
+  }, [slug]);
+
+  useEffect(() => {
+    if (slug) {
+      chapterProgress({ slug, chapterProgress: currentChapterIndex + 1 });
+    }
+  }, [slug, currentChapterIndex, chapterProgress]);
 
   const handleChapterClick = (index: number) => {
     setCurrentChapterIndex(index);
-    chapterProgress({ slug: slug ?? "", chapterProgress: index + 1 });
     navigate(`/readchapter/${slug}/${index + 1}`);
   };
 
@@ -82,7 +84,7 @@ export const ChapterProvider = ({ children }: { children: ReactNode }) => {
         handleNextChapter,
         loading,
         setEdit,
-        edit
+        edit,
       }}
     >
       {children}

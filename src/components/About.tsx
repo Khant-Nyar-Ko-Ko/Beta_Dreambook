@@ -33,7 +33,7 @@ const About = () => {
       {cardData.map(({ id, heading, subheading, desc }) => (
         <div
           key={id}
-          className="relative flex flex-col w-full h-[150px] gap-5 px-5 pt-5 pb-10 rounded-lg md:w-auto"
+          className="relative flex flex-col w-full h-[150px] transform hover:rotate-1 hover:scale-105 duration-300 gap-5 px-5 pt-5 pb-10 rounded-lg md:w-auto"
         >
           <p className="z-20 text-white font-primary">{heading}</p>
           <div className="z-20 flex flex-col">

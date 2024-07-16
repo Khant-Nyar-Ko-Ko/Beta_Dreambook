@@ -10,6 +10,7 @@ import LatestBook from "@/components/LatestBook";
 import { IoIosArrowDropup } from "react-icons/io";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import RecommendedBook from "@/components/RecommendedBook";
 
 const HomePage = () => {
   const location = useLocation();
@@ -62,6 +63,16 @@ const HomePage = () => {
         <ViewMore />
       </div>
       <LatestBook />
+      </div>
+       {/* Recommended Book */}
+       <div id="latest-books">
+      <div className="flex items-center justify-between w-screen px-10 md:px-[130px]">
+        <h4 className="text-lg text-black md:text-2xl font-primary dark:text-white">
+          Recommended Books
+        </h4>
+        <ViewMore />
+      </div>
+     <RecommendedBook/>
       </div>
       <NewPublishingBook />
       {/* FAQ */}

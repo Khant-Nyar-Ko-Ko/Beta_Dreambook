@@ -88,6 +88,20 @@ export const fetchPopularBook = async () => {
   return result;
 };
 
+export const fetchRecommendedBook = async () => {
+  const response: Response = await fetch(`${BaseURL}/books/recommended`, {
+    method: "GET",
+    mode: "cors",
+    redirect: "follow",
+  });
+
+  const result = await response.json();
+  if (!response.ok) {
+    throw new Error();
+  }
+  return result;
+};
+
 export const fetchBooksByLoginUser = async ({
   sort,
   title,
