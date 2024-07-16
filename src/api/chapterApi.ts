@@ -57,10 +57,10 @@ export const createChapter = async (data: { title: string, content: string, slug
   }
 };
 
-export const updateChapter = async (data : {title: string, content: string, slug: string, priority: number, status: boolean}) => {
-  const { title, content, slug, priority, status } = data;
+export const updateChapter = async (data : {title: string, content: string, chapterNum: number, priority: number, status: boolean}) => {
+  const { title, content, chapterNum, priority, status } = data;
 
-  const response: Response = await fetch(`${BaseURL}/chapters?slug=${slug}`, {
+  const response: Response = await fetch(`${BaseURL}/chapters/${chapterNum}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

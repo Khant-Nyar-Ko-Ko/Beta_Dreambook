@@ -8,6 +8,7 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[150px] md:w-[500px]",
+        edit: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[150px] md:w-[950px]",
         title:"bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[150px] md:w-[350px]",
         auth:"bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[300px] md:w-[350px]",
         userinfo:"bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[300px] md:w-[500px]",

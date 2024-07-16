@@ -8,6 +8,7 @@ import { AuthProvider } from "./contexts/AuthContext.tsx";
 import { FavouriteBooksProvider } from "./contexts/FavouriteBooksContext.tsx";
 import { CategoryProvider } from "./contexts/CategoryContext.tsx";
 import { ChapterProvider } from "./contexts/ChapterContext.tsx";
+import { CommentProvider } from "./contexts/CommentContext.tsx";
 
 const queryClient = new QueryClient();
 
@@ -18,9 +19,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <CategoryProvider>
           <FavouriteBooksProvider>
             <ChapterProvider>
-              <React.StrictMode>
-                <App />
-              </React.StrictMode>
+              <CommentProvider>
+                <React.StrictMode>
+                  <App />
+                </React.StrictMode>
+              </CommentProvider>
             </ChapterProvider>
           </FavouriteBooksProvider>
         </CategoryProvider>

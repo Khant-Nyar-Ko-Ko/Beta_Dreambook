@@ -7,6 +7,7 @@ import Toolbar from "./Toolbar";
 import CloseIcon from "@mui/icons-material/Close";
 import { useGetChapter } from "@/hooks/useChapterApi";
 import DeleteChapter from "./bookdetails/DeleteChapter";
+import { useChapterContext } from "@/contexts/ChapterContext";
 
 const ThreeDotMenu = ({ id }: { id: number }) => {
   console.log(id);
@@ -16,6 +17,7 @@ const ThreeDotMenu = ({ id }: { id: number }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const {setEdit} = useChapterContext();
 
   const {
     data,
@@ -34,6 +36,12 @@ const ThreeDotMenu = ({ id }: { id: number }) => {
     e.stopPropagation();
     setDropdownOpen((prev) => !prev);
   };
+
+  const toggleEdit = () => {
+    setEdit((prev: {id : number| null; status : boolean}) => ({
+      id, status : !prev.status
+    }))
+  }
 
   const handleSubmit = async () => {
     const data = {
@@ -66,7 +74,7 @@ const ThreeDotMenu = ({ id }: { id: number }) => {
             role="none"
           >
             <Button
-              onClick={toggleModal}
+              onClick={toggleEdit}
               className="block w-full px-4 py-2 text-sm rounded-none text-default hover:text-black hover:dark:text-white hover:bg-gray-100 hover:dark:bg-darkMode2"
               role="menuitem"
             >

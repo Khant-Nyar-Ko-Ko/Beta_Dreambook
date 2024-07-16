@@ -2,14 +2,13 @@ import { Box, Modal, Typography } from "@mui/material";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { useDeleteChapter } from "@/hooks/useChapterApi";
-import { useNavigate } from "react-router-dom";
 
 const DeleteChapter = ({ id }: { id: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
   const { mutate: deleteChapter } = useDeleteChapter();
 
-  const toggleModal = () => {
+  const toggleModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
     setIsModalOpen((prev) => !prev);
   };
 
@@ -17,8 +16,7 @@ const DeleteChapter = ({ id }: { id: number }) => {
     e.preventDefault();
     deleteChapter(id, {
       onSuccess: () => {
-        toggleModal();
-        navigate("/home");
+        toggleModal(e);
       },
     });
   };

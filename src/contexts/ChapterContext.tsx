@@ -10,6 +10,13 @@ import { getChapter } from "@/api";
 import { usePostChapterProgress } from "@/hooks/useChapterProgressApi";
 import { useNavigate, useParams } from "react-router-dom";
 
+
+interface EditState {
+  id: number | null;
+  status: boolean;
+}
+
+
 const ChapterContext = createContext<any>(null);
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -24,6 +31,8 @@ export const ChapterProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { mutate: chapterProgress } = usePostChapterProgress();
+
+  const [edit, setEdit] = useState<EditState>({ id: Number(chapterNum), status: false });
 
   useEffect(() => {
     if (slug) {
@@ -72,6 +81,8 @@ export const ChapterProvider = ({ children }: { children: ReactNode }) => {
         handlePrevChapter,
         handleNextChapter,
         loading,
+        setEdit,
+        edit
       }}
     >
       {children}
