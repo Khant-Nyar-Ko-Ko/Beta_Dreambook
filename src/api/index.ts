@@ -11,6 +11,7 @@ import {
   fetchRelatedBooks,
   updateBook,
   deleteBook,
+  fetchRecommendedBook
 } from "./bookApi";
 import {
   addFavourite,
@@ -65,4 +66,5 @@ export {
   deleteBook,
   deleteChapter,
   deleteComment,
+  fetchRecommendedBook
 };

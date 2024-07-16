@@ -9,7 +9,7 @@ import { getToken } from "@/service/authService";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const  token  = getToken();
+  const token = getToken();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,7 +19,10 @@ const Navbar = () => {
     <div className=" w-screen h-[80px] flex justify-between select-none items-center px-4 md:px-[130px] bg-white dark:bg-darkMode1 shadow sticky top-0 left-0 z-30">
       <div className="flex items-center gap-2">
         <div className="flex md:hidden">
-          <button onClick={toggleMenu} className="text-3xl text-black dark:text-white">
+          <button
+            onClick={toggleMenu}
+            className="text-3xl text-black dark:text-white"
+          >
             <IoMenu />
           </button>
         </div>
@@ -33,7 +36,9 @@ const Navbar = () => {
             <Button
               variant="menu"
               className={
-                isActive ? "text-white bg-default" : "text-black dark:text-white bg-transparent"
+                isActive
+                  ? "text-white bg-default"
+                  : "text-black dark:text-white bg-transparent"
               }
             >
               Home
@@ -45,7 +50,9 @@ const Navbar = () => {
             <Button
               variant="menu"
               className={
-                isActive ? "text-white bg-default" : "text-black dark:text-white bg-transparent"
+                isActive
+                  ? "text-white bg-default"
+                  : "text-black dark:text-white bg-transparent"
               }
             >
               Library
@@ -90,7 +97,9 @@ const Navbar = () => {
             <Button variant="ghost">
               <div className="flex flex-col items-center gap-1">
                 <FaHeart color="red" size="20" />
-                <p className="text-black dark:text-white font-primary">Fav Books</p>
+                <p className="text-black dark:text-white font-primary">
+                  Fav Books
+                </p>
               </div>
             </Button>
           </NavLink>
@@ -123,14 +132,20 @@ const Navbar = () => {
       >
         <div className="h-screen bg-white dark:bg-darkMode1 w-[250px]">
           <div className="flex flex-col gap-4 p-4">
-            <button onClick={toggleMenu} className="self-end text-3xl text-black dark:text-white">
+            <button
+              onClick={toggleMenu}
+              className="self-end text-3xl text-black dark:text-white"
+            >
               <IoClose />
             </button>
             <NavLink to="/home">
               {({ isActive }) => (
                 <Button
                   variant="menu"
-                  className={isActive ? "text-default" : "text-black dark:text-white"}
+                  className={
+                    isActive ? "text-default" : "text-black dark:text-white"
+                  }
+                  onClick={toggleMenu}
                 >
                   Home
                 </Button>
@@ -140,7 +155,10 @@ const Navbar = () => {
               {({ isActive }) => (
                 <Button
                   variant="menu"
-                  className={isActive ? "text-default" : "text-black dark:text-white"}
+                  className={
+                    isActive ? "text-default" : "text-black dark:text-white"
+                  }
+                  onClick={toggleMenu}
                 >
                   Library
                 </Button>
@@ -150,7 +168,10 @@ const Navbar = () => {
               {({ isActive }) => (
                 <Button
                   variant="menu"
-                  className={isActive ? "text-default" : "text-black dark:text-white"}
+                  className={
+                    isActive ? "text-default" : "text-black dark:text-white"
+                  }
+                  onClick={toggleMenu}
                 >
                   Book crafting
                 </Button>
@@ -165,7 +186,9 @@ const Navbar = () => {
             <Button variant="ghost">
               <div className="flex flex-col items-center gap-1">
                 <FaHeart color="red" size="15" />
-                <p className="text-sm text-black dark:text-white font-primary">Fav Books</p>
+                <p className="text-sm text-black dark:text-white font-primary">
+                  Fav Books
+                </p>
               </div>
             </Button>
           </NavLink>

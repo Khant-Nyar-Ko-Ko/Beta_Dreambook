@@ -1,3 +1,4 @@
+// ChapterPagination.tsx
 import { useChapterContext } from "@/contexts/ChapterContext";
 import { Button } from "../ui/button";
 
@@ -10,7 +11,7 @@ const ChapterPagination = () => {
   } = useChapterContext();
 
   return (
-    <div className="flex items-center justify-between px-20">
+    <div className="flex items-center justify-between px-5 md:px-20">
       <Button
         onClick={handlePrevChapter}
         className={currentChapterIndex === 0 ? "invisible" : "visible"}

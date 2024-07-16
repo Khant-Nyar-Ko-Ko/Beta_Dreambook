@@ -7,7 +7,6 @@ import CardLoading from "./Loading/CardLoading";
 
 const PopularBookCard = () => {
   const { data: popularBook, error, isLoading } = useFetchPopularBook();
-  
 
   if (isLoading) {
     return <CardLoading />;
@@ -22,58 +21,55 @@ const PopularBookCard = () => {
   }
 
   return (
-    <>
-      <Swiper
-        spaceBetween={20}
-        slidesPerView={1.4}
-        breakpoints={{
-          768: {
-            slidesPerView: 1.4,
-          },
-          1024: {
-            slidesPerView: 5,
-          },
-        }}
-      >
-        {popularBook.map(
-          ({
-            id,
-            title,
-            coverImg,
-            category,
-            user,
-            slug
-          }: {
-            id: any;
-            title: string;
-            coverImg: string;
-            category: any;
-            user: any;
-            slug: string
-          }) => {
-            const { name, profileImg, id : authorId } = user;
-            
+    <Swiper
+      spaceBetween={30}
+      slidesPerView={1.4}
+      breakpoints={{
+        768: {
+          slidesPerView: 1.4,
+        },
+        1024: {
+          slidesPerView: 5,
+        },
+      }}
+    >
+      {popularBook.map(
+        ({
+          id,
+          title,
+          coverImg,
+          category,
+          user,
+          slug
+        }: {
+          id: any;
+          title: string;
+          coverImg: string;
+          category: any;
+          user: any;
+          slug: string;
+        }) => {
+          const { name, profileImg, id: authorId } = user;
 
-            return (
-              <SwiperSlide key={id}>
-                <Card
-                  key={id}
-                  id={id}
-                  slug={slug}
-                  title={title}
-                  image={coverImg}
-                  categorylogo={category?.icon}
-                  categorytitle={category?.title}
-                  author={name}
-                  authorprofile={profileImg}
-                  authorId = {authorId}
-                />
-              </SwiperSlide>
-            );
-          }
-        )}
-      </Swiper>
-    </>
+          return (
+            <SwiperSlide key={id}>
+              <Card
+                key={id}
+                id={id}
+                slug={slug}
+                title={title}
+                image={coverImg}
+                categorylogo={category?.icon}
+                categorytitle={category?.title}
+                author={name}
+                authorprofile={profileImg}
+                authorId={authorId}
+              />
+            </SwiperSlide>
+          );
+        }
+      )}
+    </Swiper>
   );
 };
 

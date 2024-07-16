@@ -35,6 +35,7 @@ const Profile = () => {
     navigate("/");
   };
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -57,6 +58,10 @@ const Profile = () => {
     });
   }, [theme]);
 
+  const handleDropdownOpen = () => {
+    setIsOpen(!isOpen);
+  }
+
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTheme = e.target.value;
     setTheme(newTheme);
@@ -66,7 +71,7 @@ const Profile = () => {
   return (
     <div className="select-none ">
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger onClick={handleDropdownOpen}>
           <div className="flex items-center gap-1">
             <img
               src={user?.profileImg == null ? profile : user.profileImg}
@@ -76,7 +81,7 @@ const Profile = () => {
             <RiArrowDropDownLine size="30" className="dark:text-white" />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white w-[250px] md:w-[300px] rounded px-4 py-2 shadow dark:bg-darkMode1">
+        {isOpen &&         <DropdownMenuContent className="bg-white w-[250px] md:w-[300px] rounded px-4 py-2 shadow dark:bg-darkMode1">
           <DropdownMenuLabel>
             <div className="flex items-center gap-2 py-3">
               <img
@@ -103,7 +108,7 @@ const Profile = () => {
             </DropdownMenuLabel>
             <NavLink to="/personalinfo">
               <DropdownMenuItemWrapper>
-                <div className="flex items-center gap-1 text-gray-500 dark:text-white">
+                <div onClick={handleDropdownOpen} className="flex items-center gap-1 text-gray-500 dark:text-white">
                   <IoPersonSharp />
                   <p>Profile</p>
                 </div>
@@ -111,7 +116,7 @@ const Profile = () => {
             </NavLink>
             <NavLink to="/personalinfo/book-lists">
               <DropdownMenuItemWrapper>
-                <div className="flex items-center gap-1 text-gray-500 dark:text-white">
+                <div onClick={handleDropdownOpen} className="flex items-center gap-1 text-gray-500 dark:text-white">
                   <PiBooks />
                   <p>Book Lists</p>
                 </div>
@@ -119,7 +124,7 @@ const Profile = () => {
             </NavLink>
             <NavLink to="/personalinfo/fav-books">
               <DropdownMenuItemWrapper>
-                <div className="flex items-center gap-1 text-gray-500 dark:text-white">
+                <div onClick={handleDropdownOpen} className="flex items-center gap-1 text-gray-500 dark:text-white">
                   <FaHeart />
                   <p>Favourite Books</p>
                 </div>
@@ -169,7 +174,8 @@ const Profile = () => {
               </Button>
             </NavLink>
           </div>
-        </DropdownMenuContent>
+        </DropdownMenuContent>}
+
       </DropdownMenu>
     </div>
   );

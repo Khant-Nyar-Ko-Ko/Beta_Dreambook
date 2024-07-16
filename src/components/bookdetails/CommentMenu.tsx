@@ -15,10 +15,11 @@ const CommentMenu = ({id} : {id:number}) => {
         setDropdownOpen((prev) => !prev);
       };
 
-      const toggleReply = () => {
+      const toggleReply = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setReply((prev: {id : number| null; status : boolean}) => ({
             id, status : !prev.status
           }))
+          toggleDropdown(e)
       }
       
   return (

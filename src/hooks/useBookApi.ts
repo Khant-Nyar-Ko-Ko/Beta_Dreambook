@@ -5,6 +5,7 @@ import {
   fetchBooks,
   fetchBooksByLoginUser,
   fetchPopularBook,
+  fetchRecommendedBook,
   fetchRelatedBooks,
   fetchSingleBook,
   updateBook,
@@ -36,6 +37,14 @@ export const useFetchPopularBook = () => {
   return useQuery({
     queryKey: ["popular"],
     queryFn: () => fetchPopularBook(),
+    staleTime: 10 * 60 * 1000,
+  });
+};
+
+export const useFetchRecommendedBook = () => {
+  return useQuery({
+    queryKey: ["popular"],
+    queryFn: () => fetchRecommendedBook(),
     staleTime: 10 * 60 * 1000,
   });
 };
