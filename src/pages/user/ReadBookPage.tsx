@@ -1,137 +1,217 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button } from "@/components/ui/button";
-import { useFetchBooks } from "@/hooks/useBookApi";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { IoIosArrowRoundBack } from "react-icons/io";
-import authorprofile from "../../assets/images/Author.png";
+import { usePostHistory } from "@/hooks/useHistoryApi";
+import { useFetchSingleBook } from "@/hooks/useBookApi";
+import ProgressBar from "@ramonak/react-progress-bar";
+import { getChapter } from "@/api";
+import DOMPurify from "dompurify";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Card from "@/components/Card";
+import BackButton from "@/components/BackButton";
+import ReadComment from "@/components/readchapters/ReadComment";
+import RelatedBooks from "@/components/RelatedBooks";
+import authorprofile from "../../assets/images/Author.png";
+import { usePostComment } from "@/hooks/useCommentApi";
+import Loading from "@/components/Loading";
+import { useGetChapterProgress } from "@/hooks/useChapterProgressApi";
+import toast from "react-hot-toast";
 
 const ReadBookPage = () => {
-  const { id } = useParams();
-  const [book, setBook] = useState<any>(null);
+  const { slug } = useParams<{ slug: string }>();
+  const [comment, setComment] = useState<string>("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [chapters, setChapters] = useState<any[]>([]);
   const navigate = useNavigate();
-  const [relateBook, setRelateBook] = useState<any>([]);
 
-  const { data: books } = useFetchBooks();
+  const { data: singleBook, isLoading: isSingleBookLoading } =
+    useFetchSingleBook(slug ?? "");
+  const { data: progress, refetch: progressRefetch } = useGetChapterProgress(
+    slug ?? ""
+  );
 
-  const handleBack = () => {
-    navigate(-1);
-  };
+
+  const {
+    mutate: postComment,
+    isSuccess: isCommentSuccess,
+    isPending: isPendingComment,
+  } = usePostComment();
+  const {
+    mutate: updateHistory,
+    isSuccess: isHistorySuccess,
+    isPending: isPendingHistory,
+  } = usePostHistory();
 
   useEffect(() => {
-    if (books) {
-      const selectedBook = books?.items.find(
-        (book: any) => book?.id === Number(id)
-      );
-      setBook(selectedBook || null);
-
-      const relatedBook = books?.items.filter(
-        (book: any) =>
-          book.categoryId === selectedBook.categoryId &&
-          book.id !== selectedBook.id
-      );
-      setRelateBook(relatedBook);
+    if (isCommentSuccess) {
+      // refetchComments();
+      setComment("");
     }
-  }, [books, id]);
+  }, [isCommentSuccess]);
+
+  useEffect(() => {
+    if (isHistorySuccess) {
+      navigate(`/readchapter/${slug}/${currentBook.chapterProgress ?? 1}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isHistorySuccess, navigate, slug]);
+
+  useEffect(() => {
+    progressRefetch();
+  }, [progress, progressRefetch]);
+
+  useEffect(() => {
+    if (slug) {
+      getChapter({ slug })
+        .then((chaptersData) => setChapters(chaptersData))
+        .catch((error) => console.error("Failed to fetch chapters:", error));
+    }
+  }, [slug]);
+
+  if (isSingleBookLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen text-black bg-white dark:text-white dark:bg-darkMode1">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!singleBook || !progress) {
+    return <div>No data available</div>;
+  }
+
+  const currentBook =
+    progress && progress.length > 0 ? progress[0] : { chapterProgress: 1 };
+  const percentageProgress =
+    (Number(currentBook.chapterProgress) / chapters.length) * 100;
+
+  const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setComment(e.target.value);
+
+  const handleHistoryUpdate = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    updateHistory({ bookSlug: slug ?? "" });
+  };
+
+  const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (comment.trim() === "") {
+      return toast.error("Comment Shouldn't be Empty!");
+    }
+    postComment({ bookSlug: slug ?? "", text: comment });
+  };
 
   return (
-    <div className="flex">
-      <div className="  sticky top-[100px] flex flex-col w-3/4 px-[150px] py-5 h-full ">
-        <div
-          className="flex items-center justify-start cursor-pointer text-default"
-          onClick={handleBack}
-        >
-          <IoIosArrowRoundBack size="30" />
-          <Button variant="ghost" className="text-default">
-            Back
-          </Button>
-        </div>
-        {book && (
-          <div className="relative flex justify-between py-3">
-            <div className="absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-0 px-20"></div>
+    <div className="flex flex-col w-screen bg-white select-none md:flex-row dark:bg-darkMode1">
+      <div className="sticky md:top-[100px] flex flex-col w-full md:w-4/5 px-10 md:px-[90px] py-5 h-[700px] overflow-y-scroll">
+        <BackButton backPath={`/library`} />
+        {singleBook && (
+          <div className="relative flex flex-col items-center py-3 select-none px-[50px] md:items-start md:justify-between md:flex-row">
+            <div className="hidden md:block absolute rounded-full bg-light w-44 h-44 z-[-1] top-5 left-22 px-20"></div>
             <img
-              src={book.coverImg as string}
-              alt={book?.title}
-              className="w-40 h-auto ps-3"
+              src={singleBook.coverImg as string}
+              alt={singleBook?.title}
+              className="w-40 h-auto md:ps-3"
             />
             <div>
-              <div className="flex flex-col gap-5">
-                <h1 className="mt-4 text-2xl font-bold">{book?.title}</h1>
+              <div className="flex flex-col justify-center w-[300px] md:w-auto gap-5">
+                <h1 className="mt-4 text-2xl font-bold text-black dark:text-white">
+                  {singleBook?.title}
+                </h1>
                 <div className="flex items-center gap-1">
                   <img
                     src={authorprofile}
                     className="w-6 h-6 rounded-full"
                     alt="author"
                   />
-                  <p className="text-sm font-primary">By {book?.user?.name}</p>
+                  <p className="text-sm text-black font-primary dark:text-white">
+                    By {singleBook?.user?.name}
+                  </p>
                 </div>
                 <div className="flex flex-col gap-3">
-                  <div className="flex items-center gap-1">
-                    <p> Category : </p>
+                  <div className="flex items-center gap-1 text-black dark:text-white">
+                    <p>Category :</p>
                     <img
-                      src={book?.category?.icon}
+                      src={singleBook?.category?.icon}
                       className="w-4 h-4"
                       alt=""
                     />
-                    <p>{book?.category?.title}</p>
+                    <p>{singleBook?.category?.title}</p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <p> Keywords : </p>
-                    <p>{book?.keywords}</p>
+                  <div className="flex items-center gap-2 text-black dark:text-white">
+                    <p>
+                      Keywords:{" "}
+                      {singleBook?.keywords
+                        ?.map((keyword: string) => keyword)
+                        .join(", ")}
+                    </p>
                   </div>
                 </div>
-                <Button>Start Reading</Button>
+                {currentBook.chapterProgress !== 1 && (
+                  <div className="flex items-center gap-2">
+                    <ProgressBar
+                      completed={percentageProgress}
+                      bgColor="#3A7AD5"
+                      animateOnRender={true}
+                      height="10px"
+                      isLabelVisible={false}
+                      width="200px"
+                    />
+                    <p className="text-black select-none dark:text-white font-primary">
+                      {currentBook.chapterProgress}/{chapters.length}
+                    </p>
+                  </div>
+                )}
+                <Button
+                  className="w-full md:w-[250px]"
+                  onClick={handleHistoryUpdate}
+                >
+                  {isPendingHistory ? (
+                    <Loading />
+                  ) : (
+                    <span>
+                      {currentBook.chapterProgress < 2
+                        ? "Start Reading"
+                        : "Continue Reading"}
+                    </span>
+                  )}
+                </Button>
               </div>
             </div>
           </div>
         )}
-        <div className="flex flex-col gap-3 my-10">
+        <div className="flex flex-col gap-3 my-10 text-black select-none dark:text-white">
           <p className="text-xl font-semibold font-primary">Book Overview</p>
-          <p>{book?.description}</p>
+          <div
+            className="font-primary"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(singleBook?.description),
+            }}
+          ></div>
         </div>
-        <hr />
-        <div className="flex flex-col gap-5 my-5">
+        <hr className="md:w-[900px] border-white dark:border-slate-700" />
+        <div className="flex flex-col gap-5 my-5 text-black select-none dark:text-white">
           <p>Leave a comment</p>
-          <Input />
-          <Button className=" w-[150px]">Post Comment</Button>
+          <form className="flex flex-col gap-5" onSubmit={handleCommentSubmit}>
+            <Input
+              className="w-full md:w-[250px] bg-white dark:bg-darkMode1 text-black dark:text-white"
+              value={comment}
+              onChange={handleCommentChange}
+            />
+            <Button
+              className={`w-full md:w-[150px] ${
+                isPendingComment && "disabled:"
+              }`}
+              type="submit"
+            >
+              {isPendingComment ? <Loading /> : "Post Comment"}
+            </Button>
+          </form>
+          <ReadComment />
         </div>
       </div>
-      <div className="flex flex-col gap-3 overflow-scroll border-l-2">
-        <p className="py-5 font-semibold px-28 font-primary">Related Books</p>
-        <div className="flex flex-col gap-5 px-28">
-          {relateBook.map(
-            ({
-              id,
-              title,
-              coverImg,
-              category,
-              user,
-            }: {
-              id: any;
-              title: string;
-              coverImg: string;
-              category: any;
-              user: any;
-            }) => {
-              const { name } = user;
-
-              return (
-                <Card
-                  key={id}
-                  id={id}
-                  title={title}
-                  image={coverImg}
-                  categorylogo={category?.icon}
-                  categorytitle={category?.title}
-                  author={name}
-                />
-              );
-            }
-          )}
-        </div>
-      </div>
+      <RelatedBooks slug={singleBook.slug} />
     </div>
   );
 };

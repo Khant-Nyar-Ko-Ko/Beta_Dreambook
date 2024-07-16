@@ -1,111 +1,63 @@
-import digitalmarket from "../assets/images/categories/digitalmarket.png";
-import personaldev from "../assets/images/categories/personaldev.png";
-import technology from "../assets/images/categories/tech.png";
-import timemanagement from "../assets/images/categories/timemanage.png";
-import health from "../assets/images/categories/health.png";
-import contentmarketing from "../assets/images/categories/content.png";
-import selfmanagement from "../assets/images/categories/selfmanage.png";
-import success from "../assets/images/categories/success.png";
-import productivity from "../assets/images/categories/productivity.png";
-import bussiness from "../assets/images/categories/bussiness.png";
+import React, { useEffect, useState } from "react";
+import { useFetchCategories } from "@/hooks/useCategoryApi";
+interface CustomDropdownProps {
+  categoryId?: string;
+  onChange: (value: string) => void;
+  isDisabled?: boolean;
+}
 
-import React, { useState } from "react";
+const CustomDropdown: React.FC<CustomDropdownProps> = ({
+  categoryId,
+  onChange,
+  isDisabled,
+}) => {
+  const [selectedValue, setSelectedValue] = useState<string | undefined>("");
 
-type Option = {
-  label: string;
-  value: string;
-  image: string;
-};
+  useEffect(() => {
+    setSelectedValue(categoryId);
+  }, [categoryId]);
 
-const options: Option[] = [
-  {
-    label: "Digital Marketing",
-    value: "Digital Marketing",
-    image: digitalmarket,
-  },
-  {
-    label: "Personal Development",
-    value: "Personal Development",
-    image: personaldev,
-  },
-  {
-    label: "Technology",
-    value: "Technology",
-    image: technology,
-  },
-  {
-    label: "Time Management",
-    value: "Time Management",
-    image: timemanagement,
-  },
-  {
-    label: "Health",
-    value: "Health",
-    image: health,
-  },
-  {
-    label: "Content Marketing",
-    value: "Content Marketing",
-    image: contentmarketing,
-  },
-  {
-    label: "Self-Management",
-    value: "Self-Management",
-    image: selfmanagement,
-  },
-  {
-    label: "Success",
-    value: "Success",
-    image: success,
-  },
-  {
-    label: "Productivity",
-    value: "Productivity",
-    image: productivity,
-  },
-  {
-    label: "Bussiness",
-    value: "Bussiness",
-    image: bussiness,
-  },
-];
-
-const CustomDropdown: React.FC = () => {
-  const [selectedValue, setSelectedValue] = useState<string>("");
+  const { data: categories } = useFetchCategories();
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(event.target.value);
+    const value = event.target.value;
+    setSelectedValue(value);
+    onChange(value)
   };
 
-  const selectedOption = options.find(
-    (option) => option.value === selectedValue
+  const selectedOption = categories?.find(
+    (category) => category.id === selectedValue
   );
 
-  return (
+  // useEffect(() => {
+  //   console.log("Category ID:", categoryId);
+  // }, [categoryId]);
 
+  return (
     <div className="relative inline-block w-full">
       <select
-        className="w-full p-3 bg-white border border-gray-300 rounded"
-        value={selectedValue || ""}
+        className="w-full p-3 text-black bg-white border border-gray-300 rounded dark:text-white dark:bg-darkMode2"
+        value={selectedValue}
         onChange={handleChange}
+        disabled={isDisabled}
       >
-        <option value="" disabled>
+        <option value="" className="text-black dark:text-white" disabled>
           Select an option
         </option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value} className="p-10 m-2">
-            {option.label}
+        {categories?.map((category) => (
+          <option key={category.id} value={category.id} className="p-10 m-2 text-black dark:text-white">
+            {category.title}
           </option>
         ))}
       </select>
       {selectedOption && (
-        <div className="flex items-center p-3 mt-2 border border-gray-300 rounded shadow bg-sky-100">
+        <div className="flex items-center p-3 mt-2 border border-gray-300 rounded shadow bg-sky-100 dark:bg-darkMode2">
           <img
-            src={selectedOption.image}
-            alt={selectedOption.label}
+            src={selectedOption.icon}
+            alt={selectedOption.title}
             className="w-6 h-6 mr-2"
           />
-          <span>{selectedOption.label}</span>
+          <span className="text-black dark:text-white">{selectedOption.title}</span>
         </div>
       )}
     </div>

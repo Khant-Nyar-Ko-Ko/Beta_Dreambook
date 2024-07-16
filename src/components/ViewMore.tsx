@@ -8,7 +8,7 @@ const ViewMore = () => {
       <NavLink to={"/library"}>
         <Button
           variant="white"
-          className="flex items-center gap-2 text-center text-black hover:text-black hover:bg-transparent"
+          className="flex items-center gap-2 text-center text-black dark:text-white hover:text-black hover:dark:text-white hover:bg-transparent"
         >
           View More <IoIosArrowForward />
         </Button>

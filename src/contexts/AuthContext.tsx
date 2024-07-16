@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import React from "react";
 import * as authService from "@/service/authService";
+import toast from "react-hot-toast";
 
 interface AuthContextType {
   token: string | null;
@@ -18,34 +19,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = async (token: string) => {
     authService.login(token);
+    toast.success('Login successfully');
   };
 
   const logout = () => {
     authService.logout();
   };
-
-  // const fetchUserProfile = async (token: string): Promise<User> => {
-  //   const response = await fetch(`${BaseURL}/users/me`, {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  //   if (!response.ok) {
-  //     throw new Error("Failed to fetch");
-  //   }
-  //   return response.json();
-  // };
-
-  // useEffect(() => {
-  //   const storedToken = authService.getToken();
-  //   if (storedToken) {
-  //     setToken(storedToken);
-  //     if (token) {
-  //       fetchUserProfile(token).then(setUser).catch(console.error);
-  //     }
-  //   }
-  // }, [token, user]);
-
 
   return (
     <AuthContext.Provider value={{ token, login, logout }}>

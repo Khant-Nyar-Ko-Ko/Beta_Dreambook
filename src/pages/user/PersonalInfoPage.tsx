@@ -2,7 +2,7 @@ import PersonalInfoLayout from "@/layouts/PersonalInfoLayout"
 
 const PersonalInfoPage = () => {
   return (
-    <div>
+    <div className="select-none ">
         <PersonalInfoLayout/>
     </div>
   )

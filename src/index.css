@@ -1,11 +1,40 @@
 
 /* src/index.css */
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
-@import 'react-phone-number-input/style.css';
-
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import "react-phone-number-input/style.css";
+/* @import 'react-modal/styles/ReactModal.css'; */
 
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.custom-quill .ql-container {
+  @apply h-auto;
+}
+
+.custom-quill .ql-editor {
+  @apply overflow-y-auto md:h-40; /* Adjust the height as needed */
+}
+
+.react-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  width: 500px;
+  max-width: 90%;
+}
+
+.react-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}

@@ -1,34 +1,59 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Checkbox } from "@radix-ui/react-checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 import { RiFilter3Line } from "react-icons/ri";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { NavLink } from "react-router-dom";
-import { useFetchBooks } from "@/hooks/useBookApi";
 import Card from "../Card";
+import EmptyBookPage from "../EmptyBookPage";
 import { useFetchFavourite } from "@/hooks/useFavouriteApi";
+import { useEffect, useState } from "react";
+import SortDropdown from "../SortDropdown";
+import Loading from "../Loading";
+import { useDebounce } from "react-use";
+import SearchInput from "../SearchInput";
+import { useSearchParams } from "react-router-dom";
 
 const FavBooks = () => {
-  const { data: books, error, isLoading } = useFetchBooks();
-  const { data: favourite } = useFetchFavourite();
+  const [searchParams, setSearchParams] = useSearchParams({
+    sort: "latest",
+    title: "",
+  })
+  const [searchInput, setSearchInput] = useState("");
+  const [searchTitle, setSearchTitle] = useState(searchParams.get("title") || "");
+  const [sort, setSort] = useState(searchParams.get("sort") || "latest");
+  
+  useDebounce(() => setSearchTitle(searchInput), 1000, [searchInput]);
+  const {
+    data: favouriteBooks,
+    isLoading,
+    error,
+    refetch,
+  } = useFetchFavourite(sort, searchTitle);
+  console.log(favouriteBooks);
 
-  console.log(favourite);
+  useEffect(() => {
+    setSearchParams({
+      sort,
+      title: searchTitle,
+    });
+  }, [sort, searchTitle, setSearchParams]);
 
-  const favoriteBookIds = favourite?.map((fav: any) => fav.bookId);
+  const handleSearchInputChange = (value: string) => {
+    setSearchInput(value);
+  };
 
-  const favouriteBooks = books?.items.filter((book: any) =>
-    favoriteBookIds?.includes(book.id)
-  );
+  const handleSortChange = (sortOrder: string | undefined) => {
+    setSort(sortOrder ?? "");
+  };
+
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favouriteBooks]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className=" flex justify-center items-center h-[500px] w-[1110px]">
+        <Loading variant="blue" />
+      </div>
+    );
   }
 
   if (error) {
@@ -36,99 +61,57 @@ const FavBooks = () => {
     return <div>Error loading books</div>;
   }
 
-  if (!books.items || books.items.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center mt-20 md:mt-0">
-        <iframe
-          src="https://lottie.host/embed/8866455b-434f-412d-863b-334f6c5c5724/EzyvqFxRUM.json"
-          className="w-full h-32 md:h-96"
-          title="Animation"
-        ></iframe>
-        <p className="mt-3 text-center opacity-50 font-primary">
-          "Discover literary treasures: Explore our curated book lists
-          collection today."
-        </p>
-      </div>
-    );
-  }
-
-  // console.log("Books:", favourite);
-
   return (
     <div className="flex flex-col w-4/5 h-full px-3 my-5">
-      <div className="flex flex-col items-start justify-between w-full gap-2 md:flex-row md:items-center md:gap-5">
+      <div className="flex items-start justify-between w-full gap-2 md:flex-row md:items-center md:gap-5">
         <div className="flex items-center w-full gap-3 md:gap-5 md:w-auto">
           <div className="p-[7px] border rounded">
             <RiFilter3Line className="text-[16px] md:text-[24px]" />
           </div>
-          <div className="px-1 py-2 border rounded md:px-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm">
-                <p>Sort by default</p>
-                <IoIosArrowDown />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Checkbox /> <p className="px-2">Sort by random</p>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Checkbox /> <p className="px-2">Sort by latest</p>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Checkbox /> <p className="px-2">Sort by A-Z</p>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-          <NavLink to="/bookcrafting">
-            <Button className="flex gap-2">
-              <p className="text-xs md:text-base">Search</p>
-            </Button>
-          </NavLink>
+          <SortDropdown sort={sort} setSort={handleSortChange} />
         </div>
         <div className="order-2 w-full mt-3 md:order-1 md:mt-0 md:w-auto">
-          <div className="relative">
-            <IoIosSearch
-              className="absolute left-2 top-2 md:top-[10px] text-[16px] md:text-[24px]"
-              color="gray"
-            />
-            <Input
-              type="search"
-              className="w-full pl-7 md:pl-12 md:w-auto"
-              placeholder="Search"
-            />
-          </div>
+          <SearchInput
+            value={searchInput}
+            onChange={handleSearchInputChange}
+            placeholder="Search"
+            ariaLabel="Search books"
+          />
         </div>
       </div>
-      <div className="grid items-center justify-center grid-cols-4 gap-10 mx-20 my-10">
-        {favouriteBooks.map(
-          ({
-            id,
-            title,
-            coverImg,
-            category,
-            user,
-          }: {
-            id: any;
-            title: string;
-            coverImg: string;
-            category: any;
-            user: any;
-          }) => {
-            return (
+      {!favouriteBooks || favouriteBooks.length === 0 ? (
+        <EmptyBookPage />
+      ) : (
+        <div className="grid h-[600px] overflow-y-auto items-center md:items-start justify-center grid-cols-1 gap-10 mx-5 my-10 md:mx-20 md:grid-cols-4">
+          {favouriteBooks?.map(
+            ({
+              book: { id, title, coverImg, category, user, slug },
+            }: {
+              book: {
+                id: any;
+                title: string;
+                coverImg: string;
+                category: any;
+                user: any;
+                slug: string;
+              };
+            }) => (
               <Card
                 key={id}
                 id={id}
+                slug={slug}
                 title={title}
                 image={coverImg}
                 categorylogo={category?.icon}
                 categorytitle={category?.title}
                 author={user?.name}
+                authorprofile={user?.profileImg}
+                authorId={user?.id}
               />
-            );
-          }
-        )}
-      </div>
+            )
+          )}
+        </div>
+      )}
     </div>
   );
 };

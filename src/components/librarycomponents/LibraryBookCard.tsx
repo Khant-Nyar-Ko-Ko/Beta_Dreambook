@@ -2,7 +2,7 @@
 import Card from "../Card";
 
 
-const LibraryBookCard = ({books} : {books : any}) => {
+const LibraryBookCard = ({books} : {books : any[]}) => {
 
   return (
     <>
@@ -13,24 +13,29 @@ const LibraryBookCard = ({books} : {books : any}) => {
           coverImg,
           category,
           user,
+          slug
         }: {
           id: any;
           title: string;
           coverImg: string;
           category: any;
           user: any;
+          slug: string
         }) => {
-          const { name } = user;
+          const { name, profileImg, id: authorId } = user;
 
           return (
             <Card
               key={id}
               id={id}
+              slug={slug}
               title={title}
               image={coverImg}
               categorylogo={category?.icon}
               categorytitle={category?.title}
               author={name}
+              authorprofile={profileImg}
+              authorId={authorId}
             />
           );
         }

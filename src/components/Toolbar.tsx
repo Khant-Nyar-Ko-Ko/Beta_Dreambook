@@ -1,101 +1,68 @@
-import "@blocknote/core/fonts/inter.css";
-import { BlockNoteView } from "@blocknote/mantine";
-import "@blocknote/mantine/style.css";
-import {
-  BasicTextStyleButton,
-  BlockTypeSelect,
-  ColorStyleButton,
-  CreateLinkButton,
-  FileCaptionButton,
-  FileReplaceButton,
-  FormattingToolbar,
-  FormattingToolbarController,
-  NestBlockButton,
-  TextAlignButton,
-  UnnestBlockButton,
-  useCreateBlockNote,
-} from "@blocknote/react";
+import React from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { cn } from "@/lib/utils";
+import { cva, VariantProps } from "class-variance-authority";
 
-import { BlueButton } from "./BlueButton";
-
-export default function App() {
-  // Creates a new editor instance.
-  const editor = useCreateBlockNote({
-    initialContent: [
-
-      {
-        type: "paragraph",
-        content: "Write your Book Decription",
+const toolbarVariants = cva(
+  "block border-black rounded-md duration-300",
+  {
+    variants: {
+      variant: {
+        default: "text-black bg-white dark:text-white dark:bg-darkMode1",
+        edit: "text-blue-500 bg-gray-200 dark:text-blue-300 dark:bg-gray-700 w-[950px]",
+        custom2: "text-red-500 bg-yellow-200 dark:text-red-300 dark:bg-yellow-700",
       },
-      {
-        type: "paragraph",
+      size: {
+        sm: "h-8 text-xs",
+        md: "h-10 text-sm",
+        lg: "h-12 text-lg",
       },
-    ],
-  });
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "md",
+    },
+  }
+);
 
-  // Renders the editor instance.
-  return (
-    <BlockNoteView
-      editor={editor}
-      formattingToolbar={false}
-      theme={"light"}
-      className="w-full border border-gray-300"
-    >
-      <FormattingToolbarController
-        formattingToolbar={() => (
-          <FormattingToolbar>
-            <BlockTypeSelect key={"blockTypeSelect"} />
-
-            {/* Extra button to toggle blue text & background */}
-            <BlueButton key={"customButton"} />
-
-            <FileCaptionButton key={"fileCaptionButton"} />
-            <FileReplaceButton key={"replaceFileButton"} />
-
-            <BasicTextStyleButton
-              basicTextStyle={"bold"}
-              key={"boldStyleButton"}
-            />
-            <BasicTextStyleButton
-              basicTextStyle={"italic"}
-              key={"italicStyleButton"}
-            />
-            <BasicTextStyleButton
-              basicTextStyle={"underline"}
-              key={"underlineStyleButton"}
-            />
-            <BasicTextStyleButton
-              basicTextStyle={"strike"}
-              key={"strikeStyleButton"}
-            />
-            {/* Extra button to toggle code styles */}
-            <BasicTextStyleButton
-              key={"codeStyleButton"}
-              basicTextStyle={"code"}
-            />
-
-            <TextAlignButton
-              textAlignment={"left"}
-              key={"textAlignLeftButton"}
-            />
-            <TextAlignButton
-              textAlignment={"center"}
-              key={"textAlignCenterButton"}
-            />
-            <TextAlignButton
-              textAlignment={"right"}
-              key={"textAlignRightButton"}
-            />
-
-            <ColorStyleButton key={"colorStyleButton"} />
-
-            <NestBlockButton key={"nestBlockButton"} />
-            <UnnestBlockButton key={"unnestBlockButton"} />
-
-            <CreateLinkButton key={"createLinkButton"} />
-          </FormattingToolbar>
-        )}
-      />
-    </BlockNoteView>
-  );
+interface ToolbarProps extends VariantProps<typeof toolbarVariants> {
+  value: string;
+  onChange: (value: string) => void;
+  isDisabled: boolean;
 }
+
+const Toolbar: React.FC<ToolbarProps> = ({ value, onChange, isDisabled, variant, size }) => {
+
+  const toolbarOptions = [
+    ["bold", "italic", "underline"],
+    [{ align: "" }, { align: "center" }, { align: "right" }, { align: "justify" }],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["clean"],
+  ];
+
+  const modules = {
+    toolbar: toolbarOptions,
+  };
+
+  const handleChange = (content: string) => {
+    if (onChange) {
+      onChange(content);
+    }
+  };
+
+  return (
+    <div className="custom-quill">
+      <ReactQuill
+        modules={modules}
+        theme="snow"
+        value={value}
+        onChange={handleChange}
+        readOnly={isDisabled}
+        className={cn(toolbarVariants({ variant, size }))}
+      />
+    </div>
+  );
+};
+
+export default Toolbar;

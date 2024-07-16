@@ -3,13 +3,14 @@ import { useFetchBooks } from "@/hooks/useBookApi";
 import Card from "./Card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import CardLoading from "./Loading/CardLoading";
 
 const LatestBookCard = () => {
   const { data, error, isLoading } = useFetchBooks();
   const latestBook = data?.items;
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <CardLoading />;
   }
 
   if (error) {
@@ -20,52 +21,58 @@ const LatestBookCard = () => {
     return <div>No popular books available</div>;
   }
   return (
-     <>
-     <Swiper
-       spaceBetween={20}
-       slidesPerView={1.4}
-       breakpoints={{
-         768: {
-           slidesPerView: 1.4,
-         },
-         1024: {
-           slidesPerView: 5,
-         },
-       }}
-     >
-       {latestBook.map(
-         ({
-           id,
-           title,
-           coverImg,
-           category,
-           user,
-         }: {
-           id: any;
-           title: string;
-           coverImg: string;
-           category: any;
-           user: any;
-         }) => {
-           const { name } = user;
+    <>
+      <Swiper
+        spaceBetween={20}
+        slidesPerView={1.4}
+        breakpoints={{
+          768: {
+            slidesPerView: 1.4,
+          },
+          1024: {
+            slidesPerView: 5,
+          },
+        }}
+      >
+        {latestBook.map(
+          ({
+            id,
+            title,
+            coverImg,
+            category,
+            user,
+            slug
+          }: {
+            id: any;
+            title: string;
+            coverImg: string;
+            category: any;
+            user: any;
+            slug: string
+          }) => {
+            const { name, profileImg, id : authorId } = user;
+            
 
-           return (
-             <SwiperSlide>
-               <Card
-                 key={id}
-                 id={id}
-                 title={title}
-                 image={coverImg}
-                 categorylogo={category?.icon}
-                 categorytitle={category?.title}
-                 author={name}
-               />
-             </SwiperSlide>
-           );
-         }
-       )}
-     </Swiper>
-   </>
+            return (
+              <SwiperSlide key={id}>
+                <Card
+                  key={id}
+                  id={id}
+                  slug={slug}
+                  title={title}
+                  image={coverImg}
+                  categorylogo={category?.icon}
+                  categorytitle={category?.title}
+                  author={name}
+                  authorprofile={profileImg}
+                  authorId={authorId}
+                />
+              </SwiperSlide>
+            );
+          }
+        )}
+      </Swiper>
+    </>
   );
 };
 

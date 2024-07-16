@@ -23,7 +23,7 @@ const PersonalInfoSidebar = () => {
   };
 
   return (
-    <div className="w-1/5 max-h-full border">
+    <div className="w-1/5 h-[765px] md:h-[700px] bg-white border border-white dark:border-slate-700 dark:bg-darkMode1">
       <div className="flex flex-col items-center justify-center gap-10 py-2 my-10 md:py-0 md:my-20 md:gap-14">
         <div className="flex flex-col items-center gap-3 md:flex-row">
           <img
@@ -31,7 +31,7 @@ const PersonalInfoSidebar = () => {
             className="object-cover w-10 h-10 rounded-full md:w-16 md:h-16"
             alt="profile"
           />
-          <p className="text-xs md:text-lg font-primary">{user?.name}</p>
+          <p className="text-xs text-black dark:text-white md:text-lg font-primary">{user?.name}</p>
         </div>
         <div className="flex flex-col gap-5">
           <NavLink to="info">
@@ -41,11 +41,11 @@ const PersonalInfoSidebar = () => {
                 className={
                   isActive
                     ? "text-white bg-default"
-                    : "text-black bg-transparent"
+                    : "text-black dark:text-white bg-transparent"
                 }
               >
                 <IoPersonSharp />
-                <p className="hidden font-primary md:block">
+                <p className="hidden font-primary md:block dark:text-white">
                   {" "}
                   Personal Information
                 </p>
@@ -62,11 +62,11 @@ const PersonalInfoSidebar = () => {
                 className={
                   isActive
                     ? "text-white bg-default"
-                    : "text-black bg-transparent"
+                    : "text-black dark:text-white bg-transparent"
                 }
               >
                 <PiBooks />
-                <p className="hidden font-primary md:block"> Book Lists</p>
+                <p className="hidden font-primary md:block "> Book Lists</p>
 
                 <IoIosArrowForward className="hidden font-primary md:block" />
               </Button>
@@ -80,7 +80,7 @@ const PersonalInfoSidebar = () => {
                 className={
                   isActive
                     ? "text-white bg-default"
-                    : "text-black bg-transparent"
+                    : "text-black dark:text-white bg-transparent"
                 }
               >
                 <CiHeart />
@@ -98,7 +98,7 @@ const PersonalInfoSidebar = () => {
                 className={
                   isActive
                     ? "text-white bg-default"
-                    : "text-black bg-transparent"
+                    : "text-black dark:text-white bg-transparent"
                 }
               >
                 <LuBookMarked />
@@ -116,7 +116,7 @@ const PersonalInfoSidebar = () => {
                 className={
                   isActive
                     ? "text-white bg-default"
-                    : "text-black bg-transparent"
+                    : "text-black dark:text-white bg-transparent"
                 }
               >
                 <IoPersonSharp />
@@ -131,10 +131,10 @@ const PersonalInfoSidebar = () => {
         <Button
           variant="personalinfo"
           onClick={handleLogout}
-          className="justify-center gap-3 py-10 border-t border-gray-300 rounded-none font-primary"
+          className="justify-center gap-3 py-10 text-black border-t border-gray-300 rounded-none font-primary dark:text-white"
         >
           <IoExitOutline size="30" />
-          <p className="hidden font-primary md:block">Sign Out</p>
+          <p className="hidden font-primary md:block ">Sign Out</p>
         </Button>
       </div>
     </div>

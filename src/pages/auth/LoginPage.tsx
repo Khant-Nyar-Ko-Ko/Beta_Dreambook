@@ -7,14 +7,14 @@ import { IoPerson } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSignInUser } from "@/hooks/useAuthApi";
-import { Loader2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext"; 
 import { getToken } from "@/service/authService";
+import Loading from "@/components/Loading";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signinData, setSigninData] = useState({
-    email: "walterwhite@gmail.com",
+    email: "admin1@gmail.com",
     password: "asdffdsa",
   });
 
@@ -50,8 +50,10 @@ const LoginPage = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signinMutation.mutate(signinData);
-  };
+    };
 
+    
+    
   return (
     <div className="relative w-screen h-screen">
       <img
@@ -73,7 +75,7 @@ const LoginPage = () => {
             <form onSubmit={handleSubmit} className="flex flex-col gap-8 ">
               <div className="relative ">
                 <Input
-                  className="w-full"
+                 variant="auth"
                   inputType="email"
                   placeholder="Username"
                   value={signinData.email}
@@ -92,7 +94,7 @@ const LoginPage = () => {
 
               <div className="relative">
                 <Input
-                  className="w-full"
+                variant="auth"
                   inputType={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={signinData.password}
@@ -114,10 +116,11 @@ const LoginPage = () => {
                     <FaEye color="slate" />
                   )}
                 </button>
+              {signinMutation.isError && <p className="pt-2 text-xs text-red-500">Your Email or Password is invalid</p>} 
               </div>
               <div className="flex justify-center w-full">
                 <Button type="submit" className=" w-[300px] md:w-[350px]">
-                  {signinMutation.isPending ? <Loader2 /> : "Login"}
+                  {signinMutation.isPending ? <Loading variant="white"/> : "Login"}
                 </Button>
               </div>
             </form>

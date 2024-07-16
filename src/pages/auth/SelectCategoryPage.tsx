@@ -1,14 +1,8 @@
-import { Button } from "@/components/ui/button";
 import background from "../../assets/images/AuthBgImage.avif";
-import { NavLink } from "react-router-dom";
 import Categories from "@/components/Categories";
 import Logo from "@/components/Logo";
-import { useSelectCategory } from "@/hooks/useSelectCategoryApi";
 
 const SelectCategoryPage = () => {
-  const {data} = useSelectCategory();
-  console.log(data);
-  
   return (
     <div className="relative w-screen h-screen">
       {/* background */}
@@ -26,12 +20,7 @@ const SelectCategoryPage = () => {
             Select Your Interested Category
           </h2>
           <div className="flex flex-col text-center gap-7">
-            <div className="grid gap-5 md:grid-cols-2 ">
-              <Categories />
-            </div>
-            <NavLink to={"/library"}>
-              <Button className="w-full ">Finish</Button>
-            </NavLink>
+            <Categories />
           </div>
         </div>
       </div>

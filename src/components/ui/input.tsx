@@ -3,21 +3,27 @@ import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 
 const inputVariants = cva(
-  "block rounded-md text-xs md:text-sm font-primary py-0 md:py-2 duration-300 border",
+  "block rounded-md text-xs md:text-sm font-primary py-0 md:py-2 duration-300 ",
   {
     variants: {
       variant: {
-        default: "bg-white text-black border-gray-300 focus:border-primary w-[150px] md:w-[350px]",
+        default: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[150px] md:w-[500px]",
+        edit: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[150px] md:w-[950px]",
+        title:"bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[150px] md:w-[350px]",
+        auth:"bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[300px] md:w-[350px]",
+        userinfo:"bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[300px] md:w-[500px]",
+        search: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[100px] md:w-[500px]",
         destructive: "bg-red-100 text-red-900 border-red-500 focus:border-red-700",
-        outline: "bg-transparent text-black border-gray-300 focus:border-primary",
+        outline: "bg-transparent text-black dark:text-white border-gray-300 focus:border-primary",
         subtle: "bg-gray-100 text-gray-700 border-gray-200 focus:border-primary",
-        ghost: "bg-transparent text-black focus:border-primary",
-        info: " w-[250px] md:w-[500px] focus:border-primary",
-        phone: "bg-white text-black border-gray-300 focus:border-primary w-[150px] md:w-[270px] ml-[20px]",
+        ghost: "bg-transparent text-black dark:text-white focus:border-primary",
+        info: " w-[250px] md:w-[500px] border focus:border-primary bg-white dark:bg-darkMode1",
+        phone: "bg-white text-black dark:text-white border-gray-300 border focus:border-none w-[150px] md:w-[270px] ml-[20px]",
+        reply:"bg-white dark:bg-darkMode1 text-black dark:text-white w-[500px] border-none"
       },
       inputSize: {
         default: "h-8 md:h-10 py-2 px-1 md:px-4",
-        sm: "h-8 px-2 rounded-md",
+        sm: "h-8 px-2 rounded-lg",
         lg: "h-12 px-5 rounded-md w-[150px] md:w-full",
       },
       inputType: {
