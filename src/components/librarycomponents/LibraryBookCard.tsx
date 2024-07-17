@@ -13,14 +13,18 @@ const LibraryBookCard = ({books} : {books : any[]}) => {
           coverImg,
           category,
           user,
-          slug
+          slug,
+          favouriteCount,
+          chapterNum
         }: {
           id: any;
           title: string;
           coverImg: string;
           category: any;
           user: any;
-          slug: string
+          slug: string;
+          favouriteCount: number;
+          chapterNum: number;
         }) => {
           const { name, profileImg, id: authorId } = user;
 
@@ -36,6 +40,8 @@ const LibraryBookCard = ({books} : {books : any[]}) => {
               author={name}
               authorprofile={profileImg}
               authorId={authorId}
+              favouriteCount={favouriteCount}
+              chapterNum={chapterNum}
             />
           );
         }

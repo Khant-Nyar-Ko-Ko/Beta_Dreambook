@@ -40,7 +40,9 @@ const PopularBookCard = () => {
           coverImg,
           category,
           user,
-          slug
+          slug,
+          favouriteCount,
+          chapterNum
         }: {
           id: any;
           title: string;
@@ -48,6 +50,8 @@ const PopularBookCard = () => {
           category: any;
           user: any;
           slug: string;
+          favouriteCount: number;
+          chapterNum: number;
         }) => {
           const { name, profileImg, id: authorId } = user;
 
@@ -64,6 +68,8 @@ const PopularBookCard = () => {
                 author={name}
                 authorprofile={profileImg}
                 authorId={authorId}
+                favouriteCount={favouriteCount}
+                chapterNum={chapterNum}
               />
             </SwiperSlide>
           );

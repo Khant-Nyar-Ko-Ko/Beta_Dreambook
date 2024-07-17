@@ -1,11 +1,13 @@
 import { Box, Modal, Typography } from "@mui/material";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDeleteChapter } from "@/hooks/useChapterApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 const DeleteChapter = ({ id }: { id: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { mutate: deleteChapter } = useDeleteChapter();
+  const { mutate: deleteChapter, isSuccess: isDeleteChapterSuccess} = useDeleteChapter();
+  const queryClient = useQueryClient();
 
   const toggleModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
@@ -21,12 +23,19 @@ const DeleteChapter = ({ id }: { id: number }) => {
     });
   };
 
+  useEffect(() => {
+    if(isDeleteChapterSuccess){
+      queryClient.invalidateQueries({queryKey: ['chapters']})
+    }
+  },[isDeleteChapterSuccess, queryClient])
+
   return (
     <div>
       <Button
         onClick={toggleModal}
         className="block w-full px-4 py-2 text-sm text-red-500 bg-transparent rounded-none hover:text-red-800 hover:dark:text-white hover:bg-gray-100 hover:dark:bg-darkMode2"
         role="menuitem"
+        variant="destructive"
       >
         Delete
       </Button>

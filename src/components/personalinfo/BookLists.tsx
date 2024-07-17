@@ -81,15 +81,19 @@ const BookLists = () => {
               category,
               user,
               slug,
-              status
+              status,
+              favouriteCount,
+              chapterNum
             }: {
               id: string;
               title: string;
               coverImg: string;
               category: { icon: string; title: string };
               user: { name: string; profileImg: string };
-              slug: string,
-              status: boolean
+              slug: string;
+              status: boolean;
+              favouriteCount: number;
+              chapterNum: number;
             }) => {
               return (
                 <CardUser
@@ -103,6 +107,8 @@ const BookLists = () => {
                   categorytitle={category.title}
                   author={user.name}
                   authorprofile={user.profileImg}
+                  favouriteCount={favouriteCount}
+                  chapterNum={chapterNum}
                 />
               );
             }

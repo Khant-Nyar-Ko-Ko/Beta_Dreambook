@@ -7,6 +7,8 @@ import { NavLink } from "react-router-dom";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 import { getToken } from "@/service/authService";
 import toast from "react-hot-toast";
+import { RiUserHeartLine } from "react-icons/ri";
+import { GrChapterAdd } from "react-icons/gr";
 
 interface CardProps {
     id: number;
@@ -18,7 +20,9 @@ interface CardProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     authorprofile: any;
     slug: string;
-    status?: boolean
+    status?: boolean;
+    favouriteCount?: number;
+    chapterNum?: number
   }
 
 const CardUser: React.FC<CardProps> = ({
@@ -30,7 +34,9 @@ const CardUser: React.FC<CardProps> = ({
     author,
     authorprofile,
     slug,
-    status
+    status,
+    favouriteCount,
+    chapterNum
   }) => {
     const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } =
     useFavouriteBooks();
@@ -108,16 +114,28 @@ const CardUser: React.FC<CardProps> = ({
           {categorytitle}
         </p>
       </div>
-      <div className="flex items-center gap-2 ">
-        <img
-          src={authorprofile === null ? profile : authorprofile}
-          className="w-6 h-6 rounded-full "
-          alt="author"
-        />
-        <p className="text-sm text-black font-primary dark:text-white">
-          By {author === null ? "Unknown User" : author}
-        </p>
-      </div>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2 ">
+          <img
+            src={authorprofile === null ? profile : authorprofile}
+            className="w-6 h-6 rounded-full "
+            alt="author"
+          />
+          <p className="text-sm text-black font-primary dark:text-white">
+            By {author === null ? "Unknown User" : author}
+          </p>
+        </div>
+        <div className="flex items-center gap-2 ">
+        <div className="flex items-center gap-1">
+          <RiUserHeartLine className="text-red-500"/>
+          <p className="text-sm text-black font-primary dark:text-white">{favouriteCount ? favouriteCount : 0}</p>
+        </div>
+        <div className="flex items-center gap-1">
+          <GrChapterAdd className="text-default"/>
+          <p className="text-sm text-black font-primary dark:text-white">{chapterNum ? chapterNum : 0}</p>
+        </div>
+        </div>
+    </div>
     </div>
   </div>
   )
