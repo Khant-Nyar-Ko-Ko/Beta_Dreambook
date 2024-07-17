@@ -66,6 +66,7 @@ const Profile = () => {
     const newTheme = e.target.value;
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
+    handleDropdownOpen();
   };
 
   return (

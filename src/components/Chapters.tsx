@@ -32,13 +32,10 @@ const Chapters: React.FC = () => {
   const [openAccordions, setOpenAccordions] = useState<{
     [key: string]: boolean;
   }>({});
-  
+
   const toggleAccordion = (id: string) => {
     setOpenAccordions((prev) => ({ ...prev, [id]: !prev[id] }));
   };
-
-
-
 
   if (isPending) {
     return (
@@ -139,33 +136,11 @@ const Chapters: React.FC = () => {
                   </AccordionItem>
                 </Accordion>
                 {edit.id === chapter.id && edit.status && (
-                  // <div className="w-full md:w-[1000px] border border-black flex flex-col items-center gap-3 p-3 h-auto">
-                  //   <Input variant="edit" value={chapter?.title}/>
-                  //   <Toolbar
-                  //     variant="edit"
-                  //     value={chapter?.content}
-                  //     onChange={() => {}}
-                  //     isDisabled={false}
-                  //   />
-                  //   <div className="flex mt-[160px]">
-                  //     <Button
-                  //       variant="white"
-                  //       className="text-gray-600 dark:text-white"
-                  //       onClick={() => toggleEdit(chapter?.id)}
-                  //     >
-                  //       Cancel
-                  //     </Button>
-                  //     <Button variant="default" type="submit">
-                  //       <Loading />
-                  //       <span
-                  //       // className={bookUpdateMutation.isPending ? "hidden" : "block"}
-                  //       >
-                  //         Save
-                  //       </span>
-                  //     </Button>
-                  //   </div>
-                  // </div>
-                  <EditChapter id={chapter?.id} title={chapter.title} content={chapter.content}/>
+                  <EditChapter
+                    id={chapter?.id}
+                    title={chapter.title}
+                    content={chapter.content}
+                  />
                 )}
               </div>
             ))}

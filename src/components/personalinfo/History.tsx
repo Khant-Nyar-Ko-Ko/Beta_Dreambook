@@ -74,7 +74,7 @@ const History = () => {
         {!isBookHistoryArray || bookhistory.length === 0 ? (
           <EmptyBookPage />
         ) : (
-          <div className="grid  h-[600px] overflow-y-auto items-center md:items-start justify-center grid-cols-1 gap-10 mx-5 my-10 md:mx-20 md:grid-cols-4">
+          <div className="grid  h-[600px] overflow-y-auto items-center md:items-start justify-center grid-cols-1 mx-5 my-10 md:mx-20 md:grid-cols-4">
             {bookhistory.map(
               ({
                 id,
@@ -90,6 +90,8 @@ const History = () => {
                   coverImg: string;
                   slug: string;
                   category: { title: string; icon: string };
+                  favouriteCount: number;
+                  chapterNum: number
                 };
                 user: { name: string; profileImg: string; id: number };
               }) => {
@@ -105,6 +107,8 @@ const History = () => {
                     author={user.name}
                     authorprofile={user.profileImg}
                     authorId={user.id}
+                    favouriteCount={book?.favouriteCount}
+                    chapterNum={book?.chapterNum}
                   />
                 );
               }

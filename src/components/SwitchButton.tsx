@@ -15,17 +15,22 @@ const SwitchButton = () => {
 
 
   const handlePublish = () => {
-    setIsPublish(!isPublish);
-    const bookData = {
-      ...createdBook,
-      status: !isPublish,
-    };
-    bookUpdateMutation.mutate(bookData, {
-      onSuccess: () => {
-        toast(!isPublish ? "Published" : "Drafted");
-        queryClient.invalidateQueries({ queryKey: ['singleBook'] });
-      },
-    });
+    if(createdBook.chapterNum > 0){
+      setIsPublish(!isPublish);
+      const bookData = {
+        ...createdBook,
+        status: !isPublish,
+      };
+      bookUpdateMutation.mutate(bookData, {
+        onSuccess: () => {
+          toast(!isPublish ? "Published" : "Drafted");
+          queryClient.invalidateQueries({ queryKey: ['singleBook'] });
+        },
+      });
+    }else{
+      toast.error("Please create at least 'One' chapter")
+    }
+  
   };
 
   return (

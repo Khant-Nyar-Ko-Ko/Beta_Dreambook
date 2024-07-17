@@ -41,7 +41,9 @@ const RecommendedBookCard = () => {
         coverImg,
         category,
         user,
-        slug
+        slug,
+        favouriteCount,
+        chapterNum
       }: {
         id: any;
         title: string;
@@ -49,6 +51,8 @@ const RecommendedBookCard = () => {
         category: any;
         user: any;
         slug: string;
+        favouriteCount: number;
+        chapterNum: number;
       }) => {
         const { name, profileImg, id: authorId } = user;
 
@@ -65,6 +69,8 @@ const RecommendedBookCard = () => {
               author={name}
               authorprofile={profileImg}
               authorId={authorId}
+              favouriteCount={favouriteCount}
+              chapterNum={chapterNum}
             />
           </SwiperSlide>
         );

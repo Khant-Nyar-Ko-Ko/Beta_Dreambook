@@ -9,6 +9,8 @@ import { getToken } from "@/service/authService";
 import toast from "react-hot-toast";
 import emptybook from "../assets/images/Empty Book.jpg";
 import { useUserApi } from "@/hooks/useUserApi";
+import { RiUserHeartLine } from "react-icons/ri";
+import { GrChapterAdd } from "react-icons/gr";
 
 interface CardProps {
   id: number;
@@ -21,6 +23,8 @@ interface CardProps {
   authorprofile: any;
   slug: string;
   authorId: number;
+  favouriteCount?: number;
+  chapterNum? : number
 }
 
 const Card: React.FC<CardProps> = ({
@@ -33,6 +37,8 @@ const Card: React.FC<CardProps> = ({
   authorprofile,
   slug,
   authorId,
+  favouriteCount,
+  chapterNum
 }) => {
   const token = getToken();
   const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } =
@@ -117,6 +123,7 @@ const Card: React.FC<CardProps> = ({
             {categorytitle}
           </p>
         </div>
+        <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 ">
           <img
             src={authorprofile === null ? profile : authorprofile}
@@ -127,6 +134,17 @@ const Card: React.FC<CardProps> = ({
             By {author === null ? "Unknown User" : author}
           </p>
         </div>
+        <div className="flex items-center gap-2 ">
+        <div className="flex items-center gap-1">
+          <RiUserHeartLine className="text-red-500"/>
+          <p className="text-sm text-black font-primary dark:text-white">{favouriteCount ? favouriteCount : 0}</p>
+        </div>
+        <div className="flex items-center gap-1">
+          <GrChapterAdd className="text-default"/>
+          <p className="text-sm text-black font-primary dark:text-white">{chapterNum ? chapterNum : 0}</p>
+        </div>
+        </div>
+    </div>
       </div>
     </div>
   );

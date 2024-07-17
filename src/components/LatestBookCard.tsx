@@ -41,14 +41,18 @@ const LatestBookCard = () => {
             coverImg,
             category,
             user,
-            slug
+            slug,
+            favouriteCount,
+            chapterNum
           }: {
             id: any;
             title: string;
             coverImg: string;
             category: any;
             user: any;
-            slug: string
+            slug: string;
+            favouriteCount: number;
+            chapterNum: number;
           }) => {
             const { name, profileImg, id : authorId } = user;
             
@@ -66,6 +70,8 @@ const LatestBookCard = () => {
                   author={name}
                   authorprofile={profileImg}
                   authorId={authorId}
+                  favouriteCount={favouriteCount}
+                  chapterNum={chapterNum}
                 />
               </SwiperSlide>
             );

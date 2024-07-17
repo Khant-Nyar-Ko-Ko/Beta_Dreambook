@@ -15,6 +15,7 @@ import { usePostComment } from "@/hooks/useCommentApi";
 import Loading from "@/components/Loading";
 import { useGetChapterProgress } from "@/hooks/useChapterProgressApi";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ReadBookPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -28,6 +29,8 @@ const ReadBookPage = () => {
   const { data: progress, refetch: progressRefetch } = useGetChapterProgress(
     slug ?? ""
   );
+
+  const queryClient = useQueryClient();
 
 
   const {
@@ -45,6 +48,7 @@ const ReadBookPage = () => {
     if (isCommentSuccess) {
       // refetchComments();
       setComment("");
+      queryClient.invalidateQueries({queryKey: ['comments']})
     }
   }, [isCommentSuccess]);
 

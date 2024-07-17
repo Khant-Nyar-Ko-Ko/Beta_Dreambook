@@ -85,7 +85,7 @@ const FavBooks = () => {
         <div className="grid h-[600px] overflow-y-auto items-center md:items-start justify-center grid-cols-1 gap-10 mx-5 my-10 md:mx-20 md:grid-cols-4">
           {favouriteBooks?.map(
             ({
-              book: { id, title, coverImg, category, user, slug },
+              book: { id, title, coverImg, category, user, slug, favouriteCount, chapterNum },
             }: {
               book: {
                 id: any;
@@ -94,6 +94,8 @@ const FavBooks = () => {
                 category: any;
                 user: any;
                 slug: string;
+                favouriteCount: number;
+                chapterNum: number;
               };
             }) => (
               <Card
@@ -107,6 +109,8 @@ const FavBooks = () => {
                 author={user?.name}
                 authorprofile={user?.profileImg}
                 authorId={user?.id}
+                favouriteCount={favouriteCount}
+                chapterNum={chapterNum}
               />
             )
           )}
