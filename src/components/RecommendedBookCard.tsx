@@ -2,7 +2,8 @@
 import { useFetchRecommendedBook } from "@/hooks/useBookApi";
 import CardLoading from "./Loading/CardLoading";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import "../../node_modules/swiper/swiper-bundle.min.css";
+import { Mousewheel } from "swiper/modules";
 import Card from "./Card";
 
 const RecommendedBookCard = () => {
@@ -23,8 +24,10 @@ const RecommendedBookCard = () => {
 
   return (
     <Swiper
+    modules={[ Mousewheel]}
     spaceBetween={30}
     slidesPerView={1.4}
+    mousewheel={true}
     breakpoints={{
       768: {
         slidesPerView: 1.4,

@@ -16,6 +16,8 @@ export const LibraryProvider = ({ children }: { children: ReactNode }) => {
   const [searchTitle, setSearchTitle] = useState(searchParams.get("title") || "");
   const [sort, setSort] = useState(searchParams.get("sort") || "latest");
   const [selectedCategories, setSelectedCategories] = useState<string[]>(JSON.parse(searchParams.get("categoryIds") || "[]"));
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
 
   useEffect(() => {
     setSearchParams({
@@ -25,6 +27,11 @@ export const LibraryProvider = ({ children }: { children: ReactNode }) => {
       categoryIds: JSON.stringify(selectedCategories),
     });
   }, [sort, currentPage, searchTitle, selectedCategories, setSearchParams]);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
 
 
   return (
@@ -40,6 +47,8 @@ export const LibraryProvider = ({ children }: { children: ReactNode }) => {
         setSort,
         selectedCategories,
         setSelectedCategories,
+        toggleDrawer,
+        isDrawerOpen
       }}
     >
       {children}

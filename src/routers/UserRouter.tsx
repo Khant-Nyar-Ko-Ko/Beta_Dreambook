@@ -18,6 +18,7 @@ import ReadChapterPage from "@/pages/user/ReadChapterPage";
 import { ChapterProvider } from "@/contexts/ChapterContext";
 import { LibraryProvider } from "@/contexts/LibraryContext";
 import { PersonalInfoProvider } from "@/contexts/PersonalInfoContext";
+import AuthorProfile from "@/pages/user/AuthorProfile";
 
 const UserRouter: RouteObject[] = [
   {
@@ -113,6 +114,10 @@ const UserRouter: RouteObject[] = [
           },
         ],
       },
+      {
+        path: "author-profile/:author",
+        element: <AuthorProfile/>
+      }
     ],
   },
 ];
