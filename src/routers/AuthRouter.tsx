@@ -3,7 +3,8 @@ import LoginPage from "@/pages/auth/LoginPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import SelectCategoryPage from "@/pages/auth/SelectCategoryPage";
 import UserInfoPage from "@/pages/auth/UserInfoPage";
-import { RouteObject } from "react-router-dom";
+import ProtectedAuthRoutes from "@/utils/ProtectedAuthRoutes";
+import { Navigate, RouteObject } from "react-router-dom";
 
 const AuthRouter: RouteObject[] = [
   {
@@ -12,19 +13,23 @@ const AuthRouter: RouteObject[] = [
     children: [
       {
         path: "login",
-        element: <LoginPage />,
+        element: <ProtectedAuthRoutes element={<LoginPage />}/> ,
       },
       {
         path: "register",
-        element: <RegisterPage />,
+        element: <ProtectedAuthRoutes element={<RegisterPage />}/>,
       },
       {
         path: "userinfo",
-        element: <UserInfoPage />,
+        element:<ProtectedAuthRoutes element={<UserInfoPage />}/>,
       },
       {
         path: "selectcategory",
-        element: <SelectCategoryPage />,
+        element:<ProtectedAuthRoutes element={<SelectCategoryPage />}/>,
+      },
+      {
+        path: '*',
+        element: <Navigate to="/home" replace />,
       },
     ],
   },
