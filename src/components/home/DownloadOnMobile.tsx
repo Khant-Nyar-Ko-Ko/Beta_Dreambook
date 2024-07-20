@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import applestore from "../assets/images/landing/App Store.png";
-import playstore from "../assets/images/landing/Play Store.png";
+import applestore from "../../assets/images/landing/App Store.png";
+import playstore from "../../assets/images/landing/Play Store.png";
 import { motion } from "framer-motion";
 
 

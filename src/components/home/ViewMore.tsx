@@ -1,8 +1,8 @@
 import { IoIosArrowForward } from "react-icons/io";
-import { Button } from "./ui/button";
 import { NavLink } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Button } from "../ui/button";
 
 const ViewMore = () => {
   const ref = useRef(null);

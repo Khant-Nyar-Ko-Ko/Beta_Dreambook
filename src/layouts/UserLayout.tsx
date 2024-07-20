@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/home/ScrollToTop";
 import Navbar from "@/components/Navbar";
-import ScrollToTop from "@/components/ScrollToTop";
 import { matchPath, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const UserLayout = () => {

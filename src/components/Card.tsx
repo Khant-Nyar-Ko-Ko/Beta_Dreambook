@@ -78,7 +78,7 @@ const Card: React.FC<CardProps> = ({
       key={id}
       className="flex flex-col w-[230px] gap-5 h-[260px] pb-3 bg-white dark:bg-darkMode2 border my-2 duration-300 hover:border-lighter border-slate-200 dark:border-darkMode1 rounded transform hover:scale-105"
     >
-      <div className="relative w-[200px] flex justify-center px-10 h-[150px] py-3 mx-3 mt-3 overflow-y-auto bg-slate-200 dark:bg-darkMode3 group">
+      <div className="relative flex justify-center px-10 h-[150px] py-3 mx-3 mt-3 overflow-x-hidden bg-slate-200 dark:bg-darkMode3 group">
         <div className="absolute flex flex-col gap-3 duration-200 transform translate-x-10 group-hover:translate-x-0 right-3 top-5">
           {favouriteBookIds.includes(id) ? (
             <button
@@ -141,7 +141,7 @@ const Card: React.FC<CardProps> = ({
                 alt="author"
               />
               <p className="text-xs text-black font-primary dark:text-white">
-                By {author === null ? "Unknown User" : author.substring(0, 12)} {author?.length > 10 ? "..." :  ""}
+                By {author === null ? "Unknown User" : author?.substring(0, 12)} {author?.length > 10 ? "..." :  ""}
               </p>
             </div>
           </NavLink>

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFetchRecommendedBook } from "@/hooks/useBookApi";
-import CardLoading from "./Loading/CardLoading";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "../../node_modules/swiper/swiper-bundle.min.css";
+import "../../../node_modules/swiper/swiper-bundle.min.css";
 import { Mousewheel } from "swiper/modules";
-import Card from "./Card";
+import CardLoading from "../Loading/CardLoading";
+import Card from "../Card";
 
 const RecommendedBookCard = () => {
     const { data: recommendedBooks, error, isLoading } = useFetchRecommendedBook();

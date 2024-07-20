@@ -1,4 +1,4 @@
-import aboutbg from "../assets/images/aboutbg.avif";
+import aboutbg from "../../assets/images/aboutbg.avif";
 import { motion } from "framer-motion";
 
 const cardData = [
