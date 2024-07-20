@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFetchPopularBook } from "@/hooks/useBookApi";
-import Card from "./Card";
 import { Swiper, SwiperSlide } from "swiper/react";
-import CardLoading from "./Loading/CardLoading";
 import { Mousewheel } from "swiper/modules";
-import "../../node_modules/swiper/swiper-bundle.min.css";
+import "../../../node_modules/swiper/swiper-bundle.min.css";
+import CardLoading from "../Loading/CardLoading";
+import Card from "../Card";
 
 const PopularBookCard = () => {
   const { data: popularBook, error, isLoading } = useFetchPopularBook();

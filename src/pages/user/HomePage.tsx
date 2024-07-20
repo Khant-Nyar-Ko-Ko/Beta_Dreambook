@@ -1,17 +1,17 @@
-import About from "@/components/About";
-import Faq from "@/components/Faq";
-import Hero from "@/components/Hero";
-import NewPublishingBook from "@/components/NewPublishingBook";
+import Faq from "@/components/home/Faq";
 import TrendingCategory from "@/components/TrendingCategory";
-import ViewMore from "@/components/ViewMore";
 import "swiper/css";
-import PopularBook from "@/components/PopularBook";
-import LatestBook from "@/components/LatestBook";
 import { IoIosArrowDropup } from "react-icons/io";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import RecommendedBook from "@/components/RecommendedBook";
 import { motion } from "framer-motion";
+import About from "@/components/home/About";
+import LatestBook from "@/components/home/LatestBook";
+import NewPublishingBook from "@/components/home/NewPublishingBook";
+import Hero from "@/components/home/Hero";
+import PopularBook from "@/components/home/PopularBook";
+import ViewMore from "@/components/home/ViewMore";
+import RecommendedBook from "@/components/home/RecommendedBook";
 
 const HomePage = () => {
   const location = useLocation();

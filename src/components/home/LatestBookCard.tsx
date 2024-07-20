@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFetchBooks } from "@/hooks/useBookApi";
-import Card from "./Card";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "../../node_modules/swiper/swiper-bundle.min.css";
+import "../../../node_modules/swiper/swiper-bundle.min.css";
 import { Mousewheel } from "swiper/modules";
-import CardLoading from "./Loading/CardLoading";
+import CardLoading from "../Loading/CardLoading";
+import Card from "../Card";
 
 const LatestBookCard = () => {
   const { data, error, isLoading } = useFetchBooks();

@@ -1,9 +1,9 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 // import landing1 from "../assets/images/landing/landingphoto1.png";
 
-import bg1 from "../assets/images/landing/bg1.png";
-import bg2 from "../assets/images/landing/bg2.png";
-import pot from "../assets/images/landing/daisypot.png";
+import bg1 from "../../assets/images/landing/bg1.png";
+import bg2 from "../../assets/images/landing/bg2.png";
+import pot from "../../assets/images/landing/daisypot.png";
 import DownloadOnMobile from "./DownloadOnMobile";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";

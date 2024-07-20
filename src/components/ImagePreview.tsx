@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useRef } from "react";
-import profile from "../assets/images/contact.jpeg";
+import { useUserApi } from "@/hooks/useUserApi";
+import { getToken } from "@/service/authService";
 
 interface ImagePreviewProps {
   profileImg: any;
@@ -8,8 +9,10 @@ interface ImagePreviewProps {
 }
 
 const ImagePreview: React.FC<ImagePreviewProps> = ({ profileImg, onProfileImgChange }) => {
+  const token = getToken() || "";
   const [imageUrl, setImageUrl] = useState<any>(profileImg);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { data: user } = useUserApi(token);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -29,15 +32,20 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({ profileImg, onProfileImgCha
 
   return (
     <div className="flex flex-col items-center">
+       {/* <img
+            src={user?.profileImg == null ? profile : user.profileImg}
+            className="object-cover w-10 h-10 rounded-full md:w-20 md:h-20"
+            alt="profile"
+          /> */}
       <img
-        src={imageUrl ? URL.createObjectURL(imageUrl) : profile}
+        src={imageUrl ? URL.createObjectURL(imageUrl) : user?.profileImg}
         alt="Profile"
         className="object-cover w-20 h-20 rounded-full cursor-pointer"
         onClick={handleImageClick}
       />
       <label
         htmlFor="img"
-        className="px-4 py-2 text-white duration-300 rounded-lg cursor-pointer font-primary hover:text-default"
+        className="px-4 py-2 mt-3 text-white duration-300 rounded-lg cursor-pointer bg-default font-primary hover:text-gray-300"
       >
         Upload Photo
       </label>

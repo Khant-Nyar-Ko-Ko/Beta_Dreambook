@@ -1,4 +1,4 @@
-import DownloadOnMobile from "./DownloadOnMobile";
+import DownloadOnMobile from "./home/DownloadOnMobile";
 import Logo from "./Logo";
 import { Button } from "./ui/button";
 

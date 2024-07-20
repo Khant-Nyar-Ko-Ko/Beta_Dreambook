@@ -1,8 +1,8 @@
-import background from "../assets/images/AuthBgImage.avif";
-import { Button } from "./ui/button";
-import newPublishingBook from "../assets/images/NewPublishingBook.png";
+import background from "../../assets/images/AuthBgImage.avif";
+import newPublishingBook from "../../assets/images/NewPublishingBook.png";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Button } from "../ui/button";
 
 const NewPublishingBook = () => {
   return (
