@@ -19,6 +19,7 @@ import { ChapterProvider } from "@/contexts/ChapterContext";
 import { LibraryProvider } from "@/contexts/LibraryContext";
 import { PersonalInfoProvider } from "@/contexts/PersonalInfoContext";
 import AuthorProfile from "@/pages/user/AuthorProfile";
+import ProtectedRoutes from "@/utils/ProtectedRoutes";
 
 const UserRouter: RouteObject[] = [
   {
@@ -43,23 +44,23 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "bookcrafting",
-        element: <BookCraftingPage />,
+        element: <ProtectedRoutes element={<BookCraftingPage/>}/>,
       },
       {
         path: "readbook/:slug",
-        element: <ReadBookPage />,
+        element:  <ProtectedRoutes element={<ReadBookPage/>}/>,
       },
       {
         path: "readchapter/:slug/:chapterNum",
         element: (
           <ChapterProvider>
-            <ReadChapterPage />
+             <ProtectedRoutes element={<ReadChapterPage/>}/>
           </ChapterProvider>
         ),
       },
       {
         path: "bookdetail/:slug",
-        element: <BookDetailPage />,
+        element:  <ProtectedRoutes element={<BookDetailPage/>}/>,
         children: [
           {
             index: true,
@@ -81,7 +82,7 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "personalinfo",
-        element: <PersonalInfoPage />,
+        element:  <ProtectedRoutes element={<PersonalInfoPage/>}/>,
         children: [
           {
             index: true,
@@ -116,8 +117,12 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "author-profile/:author",
-        element: <AuthorProfile/>
-      }
+        element: <ProtectedRoutes element={<AuthorProfile/>}/>
+      },
+      {
+        path: '*',
+        element: <Navigate to="/home" replace />,
+      },
     ],
   },
 ];

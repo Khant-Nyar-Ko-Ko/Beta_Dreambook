@@ -23,7 +23,7 @@ const PersonalNumberInput: React.FC<PhoneCustomInputProps> = ({
   setPhoneValue,
 }: PhoneCustomInputProps) => {
   return (
-    <div className="relative border rounded">
+    <div className="relative bg-white border rounded">
       <PhoneInput
         international
         className=" w-[250px] md:w-[500px] bg-white dark:bg-darkMode1 px-4 py-1 rounded"
@@ -50,7 +50,7 @@ const InputForPhone = React.forwardRef<HTMLInputElement, InputForPhoneProps>(
           leadicon={<FiPhone />}
           ref={ref}
           {...rest}
-          className="md:pl-[200px] focus:ring-0 border-none bg-white dark:bg-darkMode1 text-black dark:text-white"
+          className="text-black bg-white border-none focus:ring-0 dark:bg-darkMode1 dark:text-white"
         />
       </div>
     );
