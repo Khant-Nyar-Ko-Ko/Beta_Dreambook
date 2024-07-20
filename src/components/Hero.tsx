@@ -52,7 +52,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <div className="z-10 flex flex-col items-center justify-center w-[300px] h-[400px] md:h-auto gap-5 md:justify-center md:w-1/2">
+        <div className="z-10 flex flex-col items-center justify-center w-full h-[400px] md:h-auto gap-5 md:justify-center md:w-1/2">
         <PopularHightlight/>
         </div>
       </div>

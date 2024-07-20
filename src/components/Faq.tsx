@@ -7,6 +7,8 @@ import {
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
 
 const Faq = () => {
   const [openAccordions, setOpenAccordions] = useState<{
@@ -42,7 +44,7 @@ const Faq = () => {
   ];
 
   return (
-    <div className="mx-10 md:mx-[130px] text-black dark:text-white">
+    <motion.div initial={{opacity: 0}} whileInView={{opacity: 1}} transition={{duration:2}} className="mx-10 md:mx-[130px] text-black dark:text-white">
       <Accordion type="multiple">
         {data?.map((item) => (
           <AccordionItem
@@ -68,7 +70,7 @@ const Faq = () => {
           </AccordionItem>
         ))}
       </Accordion>
-    </div>
+    </motion.div>
   );
 };
 

@@ -33,7 +33,7 @@ const LatestBookCard = () => {
             slidesPerView: 1.4,
           },
           1024: {
-            slidesPerView: 5,
+            slidesPerView: 4.7,
           },
         }}
       >

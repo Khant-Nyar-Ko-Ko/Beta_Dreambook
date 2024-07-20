@@ -7,33 +7,35 @@ const cardData = [
     heading: "About Us",
     subheading: "Our Story",
     desc: "Dedicated to spreading the love of literature.",
+    duration: 2,
   },
   {
     id: 2,
     heading: "Featured",
     subheading: "Explore",
     desc: "Discover your favorite books from everywhere and at any time.",
+    duration: 1.5,
   },
   {
     id: 3,
     heading: "Visit Now",
     subheading: "Browse",
     desc: "Experience the magic of books.",
+    duration: 1,
   },
 ];
 
 const About = () => {
   return (
-    <motion.div
-      initial={{ x: -300, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
-      transition={{ duration: 1 }}
-      className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-3 px-10 py-10 md:px-[140px]"
-    >
-      {cardData.map(({ id, heading, subheading, desc }) => (
-        <div
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-3 px-10 py-10 md:px-[140px]">
+      {cardData.map(({ id, heading, subheading, desc, duration }) => (
+        <motion.div
           key={id}
-          className="relative flex flex-col w-full h-[150px] transform hover:rotate-1 hover:scale-105 duration-300 gap-5 px-5 pt-5 pb-10 rounded-lg md:w-auto"
+          initial={{ x: -300, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          whileHover={{ rotateY: 20, rotateX: 20}}
+          transition={{ duration }}
+          className="relative flex cursor-pointer flex-col w-full h-[150px] transform hover:rotate-1 hover:scale-105 duration-300 gap-5 px-5 pt-5 pb-10 rounded-lg md:w-auto"
         >
           <p className="z-20 text-white font-primary">{heading}</p>
           <div className="z-20 flex flex-col">
@@ -46,9 +48,9 @@ const About = () => {
             className="absolute w-full h-[150px] rounded-lg top-0 left-0 z-0 overflow-hidden"
             alt=""
           />
-        </div>
+        </motion.div>
       ))}
-    </motion.div>
+    </div>
   );
 };
 

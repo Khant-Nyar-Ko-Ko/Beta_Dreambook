@@ -12,6 +12,8 @@ import { useUserApi } from "@/hooks/useUserApi";
 import { RiUserHeartLine } from "react-icons/ri";
 import { GrChapterAdd } from "react-icons/gr";
 import { useQueryClient } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+
 
 interface CardProps {
   id: number;
@@ -69,7 +71,10 @@ const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <div
+    <motion.div
+    initial={{opacity: 0}}
+    whileInView={{ opacity: 1}}
+    transition={{ duration: 1 }}
       key={id}
       className="flex flex-col w-[230px] gap-5 h-[260px] pb-3 bg-white dark:bg-darkMode2 border my-2 duration-300 hover:border-lighter border-slate-200 dark:border-darkMode1 rounded transform hover:scale-105"
     >
@@ -156,7 +161,7 @@ const Card: React.FC<CardProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

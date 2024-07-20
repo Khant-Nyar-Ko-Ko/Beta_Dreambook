@@ -58,7 +58,7 @@ const PopularHighlight = () => {
       >
         {"<"}
       </button>
-      <div className="relative flex items-center justify-center w-4/5 overflow-hidden h-80">
+      <div className="relative flex items-center justify-center w-full overflow-hidden md:w-4/5 h-80">
         {popularBook &&
           popularBook.map((book: any, index: number) => {
             const classNames = getClassNames(index);
