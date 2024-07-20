@@ -10,7 +10,7 @@
 @tailwind utilities;
 
 .custom-quill .ql-container {
-  @apply h-auto;
+  @apply h-[170px];
 }
 
 .custom-quill .ql-editor {

@@ -10,6 +10,7 @@ import BackButton from "@/components/BackButton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { IoCloseCircleSharp } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 const BookCraftingPage = () => {
   const bookCreateMutation = useCreateBook();
@@ -117,24 +118,44 @@ const BookCraftingPage = () => {
   }, [bookCreateMutation.isError]);
 
   return (
-    <div className="md:p-[50px] select-none py-5 bg-white dark:bg-darkMode1">
+    <motion.div 
+      className="md:p-[50px] select-none py-5 bg-white dark:bg-darkMode1"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="flex items-center mb-10 gap-x-5 md:gap-x-10 font-primary">
         <BackButton backPath="/" />
-        <h1 className="font-bold text-center text-black md:text-2xl dark:text-white">
+        <motion.h1 
+          className="font-bold text-center text-black md:text-2xl dark:text-white"
+          initial={{ x: -100 }}
+          animate={{ x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           Creating A New Book
-        </h1>
+        </motion.h1>
       </div>
 
       <form
         className="flex flex-col md:flex-row justify-center md:justify-start ml-0 md:ml-36 items-start px-10 pb-10 gap-x-16 md:gap-x-40 w-screen md:w-[4/5]"
         onSubmit={onSubmit}
       >
-        <div>
+        <motion.div
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <div
-            className="flex flex-col justify-center items-center w-[200px] h-[300px] ml-12 md:ml-0   border-2 border-gray-200 border-dotted rounded-lg py-5 px-10"
+            className="flex flex-col justify-center items-center w-[200px] h-[300px] ml-12 md:ml-0 border-2 border-gray-200 border-dotted rounded-lg py-5 px-10"
             onClick={() => fileInputRef.current?.click()}
           >
-            <img src={imagePreview as string} className="object-cover" />
+            <motion.img 
+              src={imagePreview as string} 
+              className="object-cover"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            />
             {imagePreview === defaultImage && (
               <div className="text-[10px] text-gray-300 text-center">
                 <p>Drop your images here or browse JPG, JPEG or PNG</p>
@@ -155,10 +176,14 @@ const BookCraftingPage = () => {
           <p className="my-2 font-semibold text-center text-default">
             Select Book Cover
           </p>
-        </div>
+        </motion.div>
 
         <div className="flex flex-col gap-y-5">
-          <div>
+          <motion.div 
+            initial={{ x: -100 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <label
               htmlFor="title"
               className="mb-2 font-semibold text-black dark:text-white"
@@ -168,7 +193,6 @@ const BookCraftingPage = () => {
             <Input
               variant="craft"
               id="title"
-              // className="w-[300px] md:w-full p-1 border border-gray-200 rounded-lg outline-none"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -177,9 +201,13 @@ const BookCraftingPage = () => {
             {errors.title && (
               <p className="text-sm text-red-500">{errors.title}</p>
             )}
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            initial={{ x: -100 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <label
               htmlFor="category"
               className="mb-2 font-semibold text-black dark:text-white"
@@ -207,9 +235,13 @@ const BookCraftingPage = () => {
             {errors.categoryId && (
               <p className="text-sm text-red-500">{errors.categoryId}</p>
             )}
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            initial={{ x: -100 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <label
               htmlFor="keywords"
               className="mb-1 font-semibold text-black dark:text-white"
@@ -241,9 +273,14 @@ const BookCraftingPage = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="w-[300px] md:w-[350px] h-[250px]">
+          <motion.div
+            className="w-[300px] md:w-[350px] h-[250px]"
+            initial={{ x: -100 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <p className="mb-1 font-semibold text-black dark:text-white">
               Description
             </p>
@@ -257,26 +294,30 @@ const BookCraftingPage = () => {
             {errors.description && (
               <p className="text-sm text-red-500">{errors.description}</p>
             )}
-          </div>
+          </motion.div>
 
-          <Button
-            type="submit"
-            className="py-2 w-[300px] md:w-[600px] rounded text-white 
-             bg-default
-            "
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
           >
-            <div className="flex items-center justify-center gap-x-3 font-primary">
-              <Loader2
-                className={
-                  bookCreateMutation.isPending ? "block animate-spin" : "hidden"
-                }
-              />
-              Create Now
-            </div>
-          </Button>
+            <Button
+              type="submit"
+              className="py-2 mt-4 w-[300px] md:w-[600px] rounded text-white bg-default"
+            >
+              <div className="flex items-center justify-center gap-x-3 font-primary">
+                <Loader2
+                  className={
+                    bookCreateMutation.isPending ? "block animate-spin" : "hidden"
+                  }
+                />
+                Create Now
+              </div>
+            </Button>
+          </motion.div>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

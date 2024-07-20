@@ -10,14 +10,14 @@ const toolbarVariants = cva(
     variants: {
       variant: {
         default: "text-black bg-white dark:text-white dark:bg-darkMode1",
-        craft: "text-black bg-white dark:text-white dark:bg-darkMode1 md:w-[600px]",
+        craft: "text-black bg-white dark:text-white dark:bg-darkMode1 h-[150px] md:w-[600px]",
         edit: "text-blue-500 bg-gray-200 dark:text-blue-300 dark:bg-gray-700 w-[950px]",
         custom2: "text-red-500 bg-yellow-200 dark:text-red-300 dark:bg-yellow-700",
       },
       size: {
         sm: "h-8 text-xs",
         md: "h-10 text-sm",
-        lg: "h-12 text-lg",
+        lg: "h-[150px] text-lg",
       },
     },
     defaultVariants: {
