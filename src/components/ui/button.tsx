@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default: "bg-default text-white hover:bg-dark dark:text-white dark:bg-dark",
         active: "text-white bg-default",
         white: "text-default hover:text-white hover:bg-default rounded-full",
-        menu: "text-black hover:text-white bg-transparent hover:bg-default rounded-full dark:text-white",
+        menu: "text-black hover:text-white bg-transparent hover:bg-default hover:bg-opacity-70 rounded-full dark:text-white",
         destructive: "bg-red-500 text-white hover:bg-red-900",
         outline:
           "bg-transparent text-default dark:text-default border dark:border-default border-default hover:bg-dark hover:text-white",
