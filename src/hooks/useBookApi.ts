@@ -17,11 +17,12 @@ export const useFetchBooks = (
   page?: number,
   title?: string,
   categoryId?: string[] | null,
-  sort?: string
+  sort?: string,
+  author? : string
 ) =>
   useQuery({
-    queryKey: ["books", page, title, categoryId, sort],
-    queryFn: () => fetchBooks(page, title, categoryId, sort),
+    queryKey: ["books", page, title, categoryId, sort, author],
+    queryFn: () => fetchBooks(page, title, categoryId, sort, author),
     staleTime: 5 * 60 * 1000,
   });
 

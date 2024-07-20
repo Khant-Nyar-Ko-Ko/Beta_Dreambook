@@ -8,7 +8,8 @@ export const fetchBooks = async (
   page?: number,
   title?: string,
   categoryIds?: string[] | null,
-  sort?: string
+  sort?: string,
+  author?: string
 ) => {
   let queryString = "";
   if (page) {
@@ -23,9 +24,11 @@ export const fetchBooks = async (
     queryString +=
       (queryString ? "&" : "?") + `categoryIds=${encodedCategoryIds}`;
   }
-
   if (sort) {
     queryString += (queryString ? "&" : "?") + `sort=${sort}`;
+  }
+  if (author) {
+    queryString += (queryString ? "&" : "?") + `author=${author}`;
   }
   const response: Response = await fetch(`${BaseURL}/books${queryString}`, {
     method: "GET",

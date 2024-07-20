@@ -12,19 +12,23 @@ const EditChapter = ({
   id,
   title,
   content,
+  chapterNum,
 }: {
   id: number;
   title: string;
   content: string;
+  chapterNum: number;
 }) => {
   const { slug } = useParams<{ slug: string }>();
   console.log(slug);
 
   const [editTitle, setEditTitle] = useState(title);
   const [editContent, setEditContent] = useState(content);
+  const [editChapterNum, setEditChapterNum] = useState(chapterNum);
+
   const { setEdit } = useChapterContext();
   const editChapterMutation = useUpdateChapter();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const toggleEdit = (id: number) => {
     setEdit((prev: { id: number | null; status: boolean }) => ({
@@ -41,12 +45,17 @@ const EditChapter = ({
     setEditContent(value);
   };
 
+  const handleChapterNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    setEditChapterNum(value);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const editData = {
       title: editTitle,
       content: editContent,
-      chapterNum: id,
+      chapterNum: editChapterNum,
       priority: 1,
       status: false,
     };
@@ -56,7 +65,7 @@ const EditChapter = ({
   useEffect(() => {
     if (editChapterMutation.isSuccess) {
       toggleEdit(id);
-      queryClient.invalidateQueries({queryKey: ['chapters']})
+      queryClient.invalidateQueries({ queryKey: ["chapters"] });
     }
   }, [editChapterMutation.isSuccess, id]);
 
@@ -65,7 +74,15 @@ const EditChapter = ({
       onSubmit={handleSubmit}
       className="w-full md:w-[1000px] border border-black flex flex-col items-center gap-3 p-3 h-auto"
     >
-      <Input variant="edit" onChange={handleTitleChange} value={editTitle} />
+      <div className="flex w-[950px] justify-between">
+        <Input
+          variant="chapterNum"
+          type="number"
+          onChange={handleChapterNumChange}
+          value={editChapterNum}
+        />
+        <Input variant="edit" onChange={handleTitleChange} value={editTitle} />
+      </div>
       <Toolbar
         variant="edit"
         value={editContent}

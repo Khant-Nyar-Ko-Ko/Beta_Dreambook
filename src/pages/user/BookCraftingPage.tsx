@@ -117,21 +117,21 @@ const BookCraftingPage = () => {
   }, [bookCreateMutation.isError]);
 
   return (
-    <div className="md:p-[30px] select-none py-5 bg-white dark:bg-darkMode1">
-      <div className="flex items-center mb-10 gap-x-5 font-primary">
+    <div className="md:p-[50px] select-none py-5 bg-white dark:bg-darkMode1">
+      <div className="flex items-center mb-10 gap-x-5 md:gap-x-10 font-primary">
         <BackButton backPath="/" />
-        <h1 className="text-2xl font-bold text-black dark:text-white">
+        <h1 className="font-bold text-center text-black md:text-2xl dark:text-white">
           Creating A New Book
         </h1>
       </div>
 
       <form
-        className="flex flex-col md:flex-row items-start px-10 pb-10 gap-x-16 w-screen md:w-[4/5]"
+        className="flex flex-col md:flex-row justify-center md:justify-start ml-0 md:ml-36 items-start px-10 pb-10 gap-x-16 md:gap-x-40 w-screen md:w-[4/5]"
         onSubmit={onSubmit}
       >
         <div>
           <div
-            className="flex flex-col justify-center items-center w-[200px] h-[300px] border-2 border-gray-200 border-dotted rounded-lg py-5 px-10"
+            className="flex flex-col justify-center items-center w-[200px] h-[300px] ml-12 md:ml-0   border-2 border-gray-200 border-dotted rounded-lg py-5 px-10"
             onClick={() => fileInputRef.current?.click()}
           >
             <img src={imagePreview as string} className="object-cover" />
@@ -166,8 +166,9 @@ const BookCraftingPage = () => {
               Title
             </label>
             <Input
+              variant="craft"
               id="title"
-              className="w-[300px] md:w-full p-1 border border-gray-200 rounded-lg outline-none"
+              // className="w-[300px] md:w-full p-1 border border-gray-200 rounded-lg outline-none"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -187,7 +188,7 @@ const BookCraftingPage = () => {
             </label>
             <select
               id="category"
-              className="w-[300px] md:w-full p-1 py-2 text-black dark:text-gray-500 border bg-white dark:bg-darkMode1 border-gray-200 rounded-lg outline-none"
+              className="w-[300px] md:w-full px-1 py-2 text-black dark:text-gray-500 border bg-white dark:bg-darkMode1 border-gray-200 rounded-lg outline-none"
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
             >
@@ -247,9 +248,11 @@ const BookCraftingPage = () => {
               Description
             </p>
             <Toolbar
+              variant="craft"
               value={description}
               onChange={(value) => setDescription(value)}
               isDisabled={false}
+              size="lg"
             />
             {errors.description && (
               <p className="text-sm text-red-500">{errors.description}</p>
@@ -258,7 +261,7 @@ const BookCraftingPage = () => {
 
           <Button
             type="submit"
-            className="py-2 w-[300px] md:w-[350px] rounded text-white 
+            className="py-2 w-[300px] md:w-[600px] rounded text-white 
              bg-default
             "
           >

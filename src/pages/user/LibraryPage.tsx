@@ -17,13 +17,13 @@ const LibraryPage = () => {
         <div className="absolute top-0 left-0 z-10 w-full h-full opacity-20 bg-default dark:bg-darker"></div>
         <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full">
           <div className="flex flex-col items-center justify-center gap-5">
-            <h3 className="text-3xl font-semibold text-white font-primary">
+            <h3 className="text-2xl font-semibold text-white md:text-3xl font-primary">
               Library
             </h3>
-            <p className="text-white font-primary">
+            <p className="text-sm text-white md:text-base font-primary">
               Explore your favorite books
             </p>
-            <p className="text-white font-primary">
+            <p className="text-sm text-white md:text-base font-primary">
               Reading is the best for get idea, Keep Reading
             </p>
           </div>

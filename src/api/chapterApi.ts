@@ -68,7 +68,7 @@ export const updateChapter = async (data : {title: string, content: string, chap
     method: "PATCH",
     mode: "cors",
     redirect: "follow",
-    body: JSON.stringify({ title, content,  priority, status}),
+    body: JSON.stringify({ title, content, chapterNum,  priority, status}),
   });
 
   const result = await response.json();

@@ -2,8 +2,9 @@
 import { useFetchPopularBook } from "@/hooks/useBookApi";
 import Card from "./Card";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import CardLoading from "./Loading/CardLoading";
+import { Mousewheel } from "swiper/modules";
+import "../../node_modules/swiper/swiper-bundle.min.css";
 
 const PopularBookCard = () => {
   const { data: popularBook, error, isLoading } = useFetchPopularBook();
@@ -22,8 +23,12 @@ const PopularBookCard = () => {
 
   return (
     <Swiper
+      modules={[ Mousewheel]}
       spaceBetween={30}
+      loop={true}
       slidesPerView={1.4}
+      mousewheel={true}
+      direction={"horizontal"}
       breakpoints={{
         768: {
           slidesPerView: 1.4,
@@ -42,7 +47,7 @@ const PopularBookCard = () => {
           user,
           slug,
           favouriteCount,
-          chapterNum
+          chapterNum,
         }: {
           id: any;
           title: string;

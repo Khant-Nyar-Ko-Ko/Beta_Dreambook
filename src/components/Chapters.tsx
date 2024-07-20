@@ -140,6 +140,7 @@ const Chapters: React.FC = () => {
                     id={chapter?.id}
                     title={chapter.title}
                     content={chapter.content}
+                    chapterNum={chapter?.chapterNum}
                   />
                 )}
               </div>

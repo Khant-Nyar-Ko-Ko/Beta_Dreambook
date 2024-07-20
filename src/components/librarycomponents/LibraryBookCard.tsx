@@ -1,8 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Card from "../Card";
+import { useDebounce } from "react-use";
+import { useLibraryContext } from "@/contexts/LibraryContext";
 
 
 const LibraryBookCard = ({books} : {books : any[]}) => {
+  const {
+    setCurrentPage,
+    searchInput,
+    setSearchTitle,
+  } = useLibraryContext();
+  
+  useDebounce(
+    () => {
+      setSearchTitle(searchInput), setCurrentPage("1");
+    },
+    1000,
+    [searchInput]
+  );
 
   return (
     <>

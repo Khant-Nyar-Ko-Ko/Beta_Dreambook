@@ -80,7 +80,9 @@ const ReadBookPage = () => {
   }
 
   if (!singleBook || !progress) {
-    return <div>No data available</div>;
+    return <div className="flex items-center justify-center h-screen">
+      <Loading/>
+    </div>;
   }
 
   const currentBook =

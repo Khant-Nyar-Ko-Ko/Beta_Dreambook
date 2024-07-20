@@ -2,7 +2,8 @@
 import { useFetchBooks } from "@/hooks/useBookApi";
 import Card from "./Card";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import "../../node_modules/swiper/swiper-bundle.min.css";
+import { Mousewheel } from "swiper/modules";
 import CardLoading from "./Loading/CardLoading";
 
 const LatestBookCard = () => {
@@ -23,8 +24,10 @@ const LatestBookCard = () => {
   return (
     <>
       <Swiper
+       modules={[ Mousewheel]}
         spaceBetween={20}
         slidesPerView={1.4}
+        mousewheel={true}
         breakpoints={{
           768: {
             slidesPerView: 1.4,

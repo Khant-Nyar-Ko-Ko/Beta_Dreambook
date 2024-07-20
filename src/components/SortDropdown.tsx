@@ -21,7 +21,8 @@ const SortDropdown: React.FC<SortDropdownProps> = ({ sort, setSort }) => {
     <div className="px-1 py-1 md:py-2 border rounded md:px-2 w-[100px] md:w-[200px]">
       <DropdownMenu>
         <DropdownMenuTrigger className="flex items-center w-[80px] md:w-[150px] select-none justify-between gap-1 text-xs md:px-2 md:gap-5 md:text-sm text-black dark:text-white z-10">
-          <p>{sort === "a-z" ? "Sort by A-Z" : "Sort by latest"}</p>
+          <p className="hidden  md:block">{sort === "a-z" ? "Sort by A-Z" : "Sort by latest"}</p>
+          <p className="block  md:hidden">{sort === "a-z" ? "A-Z" : "latest"}</p>
           <IoIosArrowDown />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="bg-white dark:bg-darkMode1 w-[150px] flex flex-col gap-3 select-none border px-4 rounded py-2 text-black dark:text-white z-20">

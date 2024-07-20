@@ -11,6 +11,7 @@ import emptybook from "../assets/images/Empty Book.jpg";
 import { useUserApi } from "@/hooks/useUserApi";
 import { RiUserHeartLine } from "react-icons/ri";
 import { GrChapterAdd } from "react-icons/gr";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CardProps {
   id: number;
@@ -24,7 +25,7 @@ interface CardProps {
   slug: string;
   authorId: number;
   favouriteCount?: number;
-  chapterNum? : number
+  chapterNum?: number;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -38,9 +39,10 @@ const Card: React.FC<CardProps> = ({
   slug,
   authorId,
   favouriteCount,
-  chapterNum
+  chapterNum,
 }) => {
   const token = getToken();
+  const queryClient = useQueryClient();
   const { favouriteBookIds, addFavouriteBook, removeFavouriteBook } =
     useFavouriteBooks();
   const { data: user } = useUserApi(token ?? "");
@@ -49,15 +51,17 @@ const Card: React.FC<CardProps> = ({
   const handleAddFavouriteBook = (id: number) => {
     if (token) {
       addFavouriteBook(id);
+      queryClient.invalidateQueries({ queryKey: ["books"] });
       toast.success("Added to favourites");
     } else {
       navigate("/auth/login");
     }
   };
-  
+
   const handleRemoveFavouriteBook = (id: number) => {
     if (token) {
       removeFavouriteBook(id);
+      queryClient.invalidateQueries({ queryKey: ["books"] });
       toast.success("Removed from favourites");
     } else {
       navigate("/auth/login");
@@ -124,27 +128,33 @@ const Card: React.FC<CardProps> = ({
           </p>
         </div>
         <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 ">
-          <img
-            src={authorprofile === null ? profile : authorprofile}
-            className="w-6 h-6 rounded-full "
-            alt="author"
-          />
-          <p className="text-sm text-black font-primary dark:text-white">
-            By {author === null ? "Unknown User" : author}
-          </p>
+          <NavLink to={`/author-profile/${author}`}>
+            <div className="flex items-center gap-2 ">
+              <img
+                src={authorprofile === null ? profile : authorprofile}
+                className="w-6 h-6 rounded-full "
+                alt="author"
+              />
+              <p className="text-sm text-black font-primary dark:text-white">
+                By {author === null ? "Unknown User" : author}
+              </p>
+            </div>
+          </NavLink>
+          <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-1">
+              <RiUserHeartLine className="text-red-500" />
+              <p className="text-sm text-black font-primary dark:text-white">
+                {favouriteCount ? favouriteCount : 0}
+              </p>
+            </div>
+            <div className="flex items-center gap-1">
+              <GrChapterAdd className="text-default" />
+              <p className="text-sm text-black font-primary dark:text-white">
+                {chapterNum ? chapterNum : 0}
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center gap-2 ">
-        <div className="flex items-center gap-1">
-          <RiUserHeartLine className="text-red-500"/>
-          <p className="text-sm text-black font-primary dark:text-white">{favouriteCount ? favouriteCount : 0}</p>
-        </div>
-        <div className="flex items-center gap-1">
-          <GrChapterAdd className="text-default"/>
-          <p className="text-sm text-black font-primary dark:text-white">{chapterNum ? chapterNum : 0}</p>
-        </div>
-        </div>
-    </div>
       </div>
     </div>
   );
