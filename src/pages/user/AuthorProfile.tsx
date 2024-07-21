@@ -3,8 +3,8 @@ import { useFetchBooks } from "@/hooks/useBookApi";
 import { useParams } from "react-router-dom";
 import { BiLogoGmail } from "react-icons/bi";
 import { FaPhoneVolume } from "react-icons/fa";
-import Card from "@/components/Card";
-import BackButton from "@/components/BackButton";
+import Card from "@/components/tools/Card";
+import BackButton from "@/components/tools/BackButton";
 
 const AuthorProfile = () => {
   const { author } = useParams();

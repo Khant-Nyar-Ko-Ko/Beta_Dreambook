@@ -2,14 +2,14 @@ import { Input } from "@/components/ui/input";
 import background from "../../assets/images/AuthBgImage.avif";
 import { Button } from "@/components/ui/button";
 import { NavLink, useNavigate } from "react-router-dom";
-import Logo from "@/components/Logo";
 import { IoPerson } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSignInUser } from "@/hooks/useAuthApi";
 import { useAuth } from "@/contexts/AuthContext"; 
 import { getToken } from "@/service/authService";
-import Loading from "@/components/Loading";
+import Loading from "@/components/Loading/Loading";
+import Logo from "@/components/tools/Logo";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);

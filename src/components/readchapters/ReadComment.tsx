@@ -7,7 +7,7 @@ import SeeReplyComment from "./SeeReplyComment";
 import { getToken } from "@/service/authService";
 import { useUserApi } from "@/hooks/useUserApi";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Loading from "../Loading";
+import Loading from "../Loading/Loading";
 
 interface Comment {
   id: string;

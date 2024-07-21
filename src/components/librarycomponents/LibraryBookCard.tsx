@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Card from "../Card";
+import Card from "../tools/Card";
 import { useDebounce } from "react-use";
 import { useLibraryContext } from "@/contexts/LibraryContext";
 

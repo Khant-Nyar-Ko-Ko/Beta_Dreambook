@@ -2,15 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import { useCreateBook } from "@/hooks/useBookApi";
 import { useFetchCategories } from "@/hooks/useCategoryApi";
 import { getToken } from "@/service/authService";
-import Toolbar from "@/components/Toolbar";
+import Toolbar from "@/components/tools/Toolbar";
 import defaultImage from "../../assets/images/bookCrafting/bookImg.png";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
-import BackButton from "@/components/BackButton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { motion } from "framer-motion";
+import BackButton from "@/components/tools/BackButton";
 
 const BookCraftingPage = () => {
   const bookCreateMutation = useCreateBook();

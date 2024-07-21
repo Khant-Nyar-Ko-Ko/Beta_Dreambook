@@ -1,6 +1,7 @@
-import DownloadOnMobile from "./home/DownloadOnMobile";
+import DownloadOnMobile from "../home/DownloadOnMobile";
+import { Button } from "../ui/button";
 import Logo from "./Logo";
-import { Button } from "./ui/button";
+
 
 type FooterProps = {
   onButtonClick: (id: string) => void;

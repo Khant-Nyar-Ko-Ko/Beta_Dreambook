@@ -6,7 +6,7 @@ import CategoryDrawer from "./CategoryDrawer";
 import CheckboxWithText from "../CheckboxWithText";
 import LibPagination from "./LibPagination";
 import LibraryHeader from "./LibraryHeader";
-import Loading from "../Loading";
+import Loading from "../Loading/Loading";
 
 const BookSection = () => {
   const { currentPage, searchTitle, sort, isDrawerOpen, toggleDrawer } =

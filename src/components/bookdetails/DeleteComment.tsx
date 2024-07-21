@@ -2,7 +2,7 @@ import { Box, Modal, Typography } from "@mui/material";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { useDeleteComment } from "@/hooks/useCommentApi";
-import Loading from "../Loading";
+import Loading from "../Loading/Loading";
 
 const DeleteComment = ({ id }: { id: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

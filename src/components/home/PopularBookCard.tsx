@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel } from "swiper/modules";
 import "../../../node_modules/swiper/swiper-bundle.min.css";
 import CardLoading from "../Loading/CardLoading";
-import Card from "../Card";
+import Card from "../tools/Card";
 
 const PopularBookCard = () => {
   const { data: popularBook, error, isLoading } = useFetchPopularBook();

@@ -1,9 +1,9 @@
 // ChapterContent.tsx
 import { useChapterContext } from "@/contexts/ChapterContext";
-import Loading from "../Loading";
+import Loading from "../Loading/Loading";
 import DOMPurify from "dompurify";
 import ChapterPagination from "./ChapterPagination";
-import BackButton from "../BackButton";
+import BackButton from "../tools/BackButton";
 import { useParams } from "react-router-dom";
 
 const ChapterContent = () => {

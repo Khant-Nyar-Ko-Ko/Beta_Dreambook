@@ -3,7 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import Loading from "./Loading";
+import Loading from "./Loading/Loading";
 import { FaReply } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useCommentContext } from "@/contexts/CommentContext";

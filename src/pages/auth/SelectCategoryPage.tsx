@@ -1,6 +1,6 @@
+import Logo from "@/components/tools/Logo";
 import background from "../../assets/images/AuthBgImage.avif";
 import Categories from "@/components/Categories";
-import Logo from "@/components/Logo";
 
 const SelectCategoryPage = () => {
   return (

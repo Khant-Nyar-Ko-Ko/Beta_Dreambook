@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useChapterContext } from "@/contexts/ChapterContext";
-import BackButton from "../BackButton";
+import BackButton from "../tools/BackButton";
 import { useParams } from "react-router-dom";
 
 const ChapterSidebar = () => {

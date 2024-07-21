@@ -2,7 +2,7 @@ import React from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline, IoHeart } from "react-icons/io5";
 import { TiEdit } from "react-icons/ti";
-import profile from "../assets/images/Author.png";
+import profile from "../../assets/images/Author.png";
 import { NavLink } from "react-router-dom";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 import { getToken } from "@/service/authService";
