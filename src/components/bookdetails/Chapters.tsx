@@ -8,14 +8,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import ThreeDotMenu from "./ThreeDotMenu";
 import { useState } from "react";
 import DOMPurify from "dompurify";
-import Loading from "./Loading/Loading";
+import Loading from "../Loading/Loading";
 import BookStatusButton from "./BookStatusButton";
 import BookDetailMobile from "./BookDetailMobile";
 import { useChapterContext } from "@/contexts/ChapterContext";
-import EditChapter from "./bookdetails/EditChapter";
+import EditChapter from "./EditChapter";
+import ThreeDotMenu from "./ThreeDotMenu";
 
 const Chapters: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();

@@ -15,7 +15,7 @@ const toolbarVariants = cva(
         custom2: "text-red-500 bg-yellow-200 dark:text-red-300 dark:bg-yellow-700",
       },
       size: {
-        sm: "h-8 text-xs",
+        sm: "h-10 text-xs",
         md: "h-10 text-sm",
         lg: "h-[150px] text-lg",
       },

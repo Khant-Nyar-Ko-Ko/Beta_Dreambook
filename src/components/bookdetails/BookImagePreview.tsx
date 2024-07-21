@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, ChangeEvent, useEffect } from "react";
-import bookImg from "../assets/images/bookCrafting/bookImg.png";
-import authorprofile from "../assets/images/Author.png";
+import bookImg from "../../assets/images/bookCrafting/bookImg.png";
+import authorprofile from "../../assets/images/Author.png";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
 import { TiEdit } from "react-icons/ti";

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import React from "react";
 

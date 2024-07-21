@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { getToken } from "@/service/authService";
 import { useUserApi } from "@/hooks/useUserApi";
 import { useUpdateUser } from "@/hooks/useAuthApi";
-import ImagePreview from "../ImagePreview";
+import ImagePreview from "../additional/ImagePreview";
 import PersonalNumberInput from "./PersonalNumberInput";
 import "react-phone-number-input/style.css";
 import { motion } from "framer-motion";

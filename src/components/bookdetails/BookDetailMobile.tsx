@@ -1,12 +1,12 @@
 import { IoClose, IoLayers, IoMenu } from "react-icons/io5";
 import { NavLink, useParams } from "react-router-dom";
-import logo from "../assets/images/Logo.svg";
+import logo from "../../assets/images/Logo.svg";
 import { useState } from "react";
-import { Button } from "./ui/button";
 import { PiBookOpenText } from "react-icons/pi";
 import { MdOutlineComment } from "react-icons/md";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import cover from "../assets/images/Login/Vector 2.svg";
+import cover from "../../assets/images/Login/Vector 2.svg";
+import { Button } from "../ui/button";
 
 const BookDetailMobile = () => {
   const { slug } = useParams();

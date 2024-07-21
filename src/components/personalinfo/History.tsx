@@ -4,7 +4,7 @@ import { useFetchHistory } from "@/hooks/useHistoryApi";
 import Card from "../tools/Card";
 import SortDropdown from "../tools/SortDropdown";
 import { useDebounce } from "react-use";
-import SearchInput from "../SearchInput";
+import SearchInput from "../additional/SearchInput";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CardLoading from "../Loading/CardLoading";

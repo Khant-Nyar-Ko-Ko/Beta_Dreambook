@@ -6,7 +6,7 @@ import { useFetchFavourite } from "@/hooks/useFavouriteApi";
 import { useEffect, useState } from "react";
 import SortDropdown from "../tools/SortDropdown";
 import { useDebounce } from "react-use";
-import SearchInput from "../SearchInput";
+import SearchInput from "../additional/SearchInput";
 import { useSearchParams } from "react-router-dom";
 import CardLoading from "../Loading/CardLoading";
 import { motion } from "framer-motion";

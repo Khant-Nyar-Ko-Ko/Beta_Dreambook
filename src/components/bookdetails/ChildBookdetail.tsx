@@ -3,19 +3,19 @@ import { useEffect, useState, FormEvent } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
 import { TiEdit } from "react-icons/ti";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import TagInput from "./TagForm";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useFetchSingleBook, useUpdateBook } from "@/hooks/useBookApi";
-import Toolbar from "./tools/Toolbar";
-import Loading from "./Loading/Loading";
-import CustomDropdown from "./customDropDown";
+import Toolbar from "../tools/Toolbar";
+import Loading from "../Loading/Loading";
+import CustomDropdown from "../additional/customDropDown";
 import { useFetchCategories } from "@/hooks/useCategoryApi";
-import bookImg from "../assets/images/bookCrafting/bookImg.png";
-import authorprofile from "../assets/images/Author.png";
+import bookImg from "../../assets/images/bookCrafting/bookImg.png";
+import authorprofile from "../../assets/images/Author.png";
 import { Loader2 } from "lucide-react";
 import BookStatusButton from "./BookStatusButton";
-import DeleteBook from "./bookdetails/DeleteBook";
+import DeleteBook from "./DeleteBook";
 import BookDetailMobile from "./BookDetailMobile";
 
 const ChildBookdetail = () => {
@@ -172,8 +172,9 @@ const ChildBookdetail = () => {
               >
                 Description
               </label>
-              <div className="w-full mb-5 border">
+              <div className="w-full mb-5">
                 <Toolbar
+                  size="sm"
                   value={bookDescription}
                   onChange={setBookDescription}
                   isDisabled={!isEdit}
@@ -237,8 +238,8 @@ const ChildBookdetail = () => {
                 </div>
                 <div className="flex flex-col gap-2 mx-3">
                   <p className="text-xs font-semibold text-black md:text-base font-primary text-start dark:text-white">
-                    {title.substring(0, 15)}
-                    {title.length > 15 ? "" : "..."}
+                    {title.substring(0, 18)}
+                    {title.length > 18 ? "..." : ""}
                   </p>
                   {selectedCategory && (
                     <div className="flex gap-1">
@@ -267,7 +268,7 @@ const ChildBookdetail = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-end gap-3 pr-5 w-screen mt-20 md:mt-0 md:w-full md:pr-[300px]">
+        <div className="flex justify-end gap-3 pr-5 w-screen mt-[200px] md:mt-10 md:w-full md:pr-[300px]">
           {isEdit ? (
             <>
               <Button

@@ -1,6 +1,6 @@
 import React from "react";
 import { IoIosSearch } from "react-icons/io";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 
 interface SearchInputProps {
   value: string;

@@ -3,7 +3,7 @@ import { useLibraryContext } from "@/contexts/LibraryContext";
 import { useFetchBooks } from "@/hooks/useBookApi";
 import LibraryBookCard from "./LibraryBookCard";
 import CategoryDrawer from "./CategoryDrawer";
-import CheckboxWithText from "../CheckboxWithText";
+import CheckboxWithText from "./CheckboxWithText";
 import LibPagination from "./LibPagination";
 import LibraryHeader from "./LibraryHeader";
 import Loading from "../Loading/Loading";
