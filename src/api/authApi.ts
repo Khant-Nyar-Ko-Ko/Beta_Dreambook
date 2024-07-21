@@ -56,7 +56,6 @@ export const signInUser = async ({
 
   const result = await response.json();
   const token = result.access_token;
-  console.log(token);
   
 
   if (response.ok) {

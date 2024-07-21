@@ -20,6 +20,7 @@ import ProtectedRoutes from "@/utils/ProtectedRoutes";
 import ChildBookdetail from "@/components/bookdetails/ChildBookdetail";
 import Chapters from "@/components/bookdetails/Chapters";
 import Comment from "@/components/additional/Comment";
+import ProtectedBookRoutes from "@/utils/ProtectedBookRoutes";
 
 const UserRouter: RouteObject[] = [
   {
@@ -44,23 +45,31 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "bookcrafting",
-        element: <ProtectedRoutes element={<BookCraftingPage/>}/>,
+        element: <ProtectedRoutes element={<BookCraftingPage />} />,
       },
       {
         path: "readbook/:slug",
-        element:  <ProtectedRoutes element={<ReadBookPage/>}/>,
+        element: <ProtectedRoutes element={<ReadBookPage />} />,
       },
       {
         path: "readchapter/:slug/:chapterNum",
         element: (
           <ChapterProvider>
-             <ProtectedRoutes element={<ReadChapterPage/>}/>
+            <ProtectedRoutes element={<ReadChapterPage />} />
           </ChapterProvider>
         ),
       },
       {
         path: "bookdetail/:slug",
-        element:  <ProtectedRoutes element={<BookDetailPage/>}/>,
+        element: (
+          <ProtectedRoutes
+            element={
+              <ProtectedBookRoutes>
+                <BookDetailPage />{" "}
+              </ProtectedBookRoutes>
+            }
+          />
+        ),
         children: [
           {
             index: true,
@@ -82,7 +91,7 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "personalinfo",
-        element:  <ProtectedRoutes element={<PersonalInfoPage/>}/>,
+        element: <ProtectedRoutes element={<PersonalInfoPage />} />,
         children: [
           {
             index: true,
@@ -117,10 +126,10 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "author-profile/:author",
-        element: <ProtectedRoutes element={<AuthorProfile/>}/>
+        element: <ProtectedRoutes element={<AuthorProfile />} />,
       },
       {
-        path: '*',
+        path: "*",
         element: <Navigate to="/home" replace />,
       },
     ],

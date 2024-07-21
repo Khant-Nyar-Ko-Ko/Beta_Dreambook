@@ -3,10 +3,15 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { useDeleteChapter } from "@/hooks/useChapterApi";
 import { useQueryClient } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 
 const DeleteChapter = ({ id }: { id: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { mutate: deleteChapter, isSuccess: isDeleteChapterSuccess} = useDeleteChapter();
+  const {
+    mutate: deleteChapter,
+    isSuccess: isDeleteChapterSuccess,
+    isPending: isDeletePending,
+  } = useDeleteChapter();
   const queryClient = useQueryClient();
 
   const toggleModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -24,10 +29,10 @@ const DeleteChapter = ({ id }: { id: number }) => {
   };
 
   useEffect(() => {
-    if(isDeleteChapterSuccess){
-      queryClient.invalidateQueries({queryKey: ['chapters']})
+    if (isDeleteChapterSuccess) {
+      queryClient.invalidateQueries({ queryKey: ["chapters"] });
     }
-  },[isDeleteChapterSuccess, queryClient])
+  }, [isDeleteChapterSuccess, queryClient, deleteChapter]);
 
   return (
     <div>
@@ -52,24 +57,30 @@ const DeleteChapter = ({ id }: { id: number }) => {
         >
           <Typography
             variant="h6"
-            className="mb-8 text-center text-black font-primary dark:text-white"
+            className="flex flex-col gap-3 mb-8 text-center"
           >
-            Are you sure you want to delete this chapter?
+            <span className="text-xl text-red-600 font-primary">
+              Are you sure want to delete?
+            </span>
+            <span className="text-sm text-black dark:text-white font-primary">
+              {" "}
+              The book will be deleted permanently and will not be recovered.
+            </span>
           </Typography>
-          <div className="flex justify-center gap-5 mt-8">
+          <div className="flex justify-end gap-5 mt-8">
+            <Button variant="ghost" onClick={toggleModal}>
+              Cancel
+            </Button>
             <Button
               variant="destructive"
               className="text-white bg-red-600 hover:bg-red-700"
               onClick={handleDelete}
             >
-              Delete
-            </Button>
-            <Button
-              variant="outline"
-              className="text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white"
-              onClick={toggleModal}
-            >
-              Cancel
+              {" "}
+              <Loader2
+                className={isDeletePending ? "block animate-spin" : "hidden"}
+              />
+              Yes! Delete
             </Button>
           </div>
         </Box>
