@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import Logo from "@/components/Logo";
 import ImagePreview from "@/components/ImagePreview";
 import PersonalNumberInput from "@/components/personalinfo/PersonalNumberInput";
 import { useUpdateUser } from "@/hooks/useAuthApi";
 import { getToken, login } from "@/service/authService";
-import Loading from "@/components/Loading";
+import Loading from "@/components/Loading/Loading";
 import background from "../../assets/images/AuthBgImage.avif";
+import Logo from "@/components/tools/Logo";
 
 const UserInfoPage = () => {
   const authToken = getToken();
@@ -68,7 +68,6 @@ const UserInfoPage = () => {
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-background opacity-80"></div>
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
         <div className="flex flex-col items-center gap-4">
-          {/* logo */}
           <Logo />
           <div className="flex flex-col gap-1 text-center">
             <h2 className="text-xl text-white font-primary">Create an account</h2>

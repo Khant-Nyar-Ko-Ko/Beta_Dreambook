@@ -2,10 +2,10 @@ import { useState } from "react";
 import { IoPersonCircle, IoMenu, IoClose } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
-import logo from "../assets/images/Logo.svg";
-import Profile from "./Profile";
+import logo from "../../assets/images/Logo.svg";
 import { FaHeart } from "react-icons/fa";
 import { getToken } from "@/service/authService";
+import Profile from "../Profile";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

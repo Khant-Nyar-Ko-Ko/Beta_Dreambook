@@ -2,7 +2,7 @@
 import { useCountReply, useGetReply } from "@/hooks/useCommentApi";
 import { useState } from "react";
 import { BsArrowReturnRight, BsFillReplyFill } from "react-icons/bs";
-import Loading from "../Loading";
+import Loading from "../Loading/Loading";
 
 const SeeReplyComment = ({
   profileImg,

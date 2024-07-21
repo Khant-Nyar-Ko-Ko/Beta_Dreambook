@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import Loading from "../Loading";
+import Loading from "../Loading/Loading";
 
 const ReplyComment = ({ parentId, handleSendReply }: { parentId: number, handleSendReply: () => void }) => {
     const [replyText, setReplyText] = useState("");

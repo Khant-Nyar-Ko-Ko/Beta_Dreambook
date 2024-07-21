@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Modal, Box, Typography, Button, IconButton } from "@mui/material";
 import { FaPlus } from "react-icons/fa";
-import Toolbar from "./Toolbar";
+import Toolbar from "./tools/Toolbar";
 import { Input } from "./ui/input";
 import { useCreateChapter } from "@/hooks/useChapterApi";
 import { Loader2 } from "lucide-react";

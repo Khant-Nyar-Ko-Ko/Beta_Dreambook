@@ -11,7 +11,7 @@ import {
 import ThreeDotMenu from "./ThreeDotMenu";
 import { useState } from "react";
 import DOMPurify from "dompurify";
-import Loading from "./Loading";
+import Loading from "./Loading/Loading";
 import BookStatusButton from "./BookStatusButton";
 import BookDetailMobile from "./BookDetailMobile";
 import { useChapterContext } from "@/contexts/ChapterContext";

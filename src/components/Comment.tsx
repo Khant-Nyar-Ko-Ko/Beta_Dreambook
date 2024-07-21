@@ -5,7 +5,7 @@ import profile from "../assets/images/defaultcontact.jpeg";
 import BookStatusButton from "./BookStatusButton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import BookDetailMobile from "./BookDetailMobile";
-import Loading from "./Loading";
+import Loading from "./Loading/Loading";
 import CommentMenu from "./bookdetails/CommentMenu";
 import ReplyComment from "./ReplyComment";
 import { useCommentContext } from "@/contexts/CommentContext";

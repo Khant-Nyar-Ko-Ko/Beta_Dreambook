@@ -1,6 +1,6 @@
 import { useChapterContext } from "@/contexts/ChapterContext";
-import Loading from "../Loading";
-import Toolbar from "../Toolbar";
+import Loading from "../Loading/Loading";
+import Toolbar from "../tools/Toolbar";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useUpdateChapter } from "@/hooks/useChapterApi";

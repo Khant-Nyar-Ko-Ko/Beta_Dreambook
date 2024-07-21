@@ -1,5 +1,5 @@
 import { Button } from "../ui/button"
-import SortDropdown from "../SortDropdown"
+import SortDropdown from "../tools/SortDropdown"
 import SearchInput from "../SearchInput"
 import { useLibraryContext } from "@/contexts/LibraryContext"
 

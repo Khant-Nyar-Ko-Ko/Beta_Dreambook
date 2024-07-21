@@ -7,15 +7,15 @@ import { getChapter } from "@/api";
 import DOMPurify from "dompurify";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import BackButton from "@/components/BackButton";
 import ReadComment from "@/components/readchapters/ReadComment";
 import RelatedBooks from "@/components/RelatedBooks";
 import authorprofile from "../../assets/images/Author.png";
 import { usePostComment } from "@/hooks/useCommentApi";
-import Loading from "@/components/Loading";
+import Loading from "@/components/Loading/Loading";
 import { useGetChapterProgress } from "@/hooks/useChapterProgressApi";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import BackButton from "@/components/tools/BackButton";
 
 const ReadBookPage = () => {
   const { slug } = useParams<{ slug: string }>();
