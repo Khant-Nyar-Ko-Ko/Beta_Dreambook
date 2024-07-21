@@ -1,5 +1,4 @@
 import Faq from "@/components/home/Faq";
-import TrendingCategory from "@/components/TrendingCategory";
 import "swiper/css";
 import { IoIosArrowDropup } from "react-icons/io";
 import { useLocation } from "react-router-dom";
@@ -12,6 +11,7 @@ import Hero from "@/components/home/Hero";
 import PopularBook from "@/components/home/PopularBook";
 import ViewMore from "@/components/home/ViewMore";
 import RecommendedBook from "@/components/home/RecommendedBook";
+import TrendingCategory from "@/components/home/TrendingCategory";
 
 const HomePage = () => {
   const location = useLocation();
@@ -56,7 +56,7 @@ const HomePage = () => {
       </div>
       <div className="flex justify-center mb-10">
         <div className="grid justify-center grid-cols-1 my-5 gap-7 md:grid-cols-3">
-          <TrendingCategory />
+          <TrendingCategory/>
         </div>
       </div>
       {/* Latest Book */}

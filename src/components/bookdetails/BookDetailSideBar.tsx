@@ -3,8 +3,8 @@ import { MdOutlineComment } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { PiBookOpenText } from "react-icons/pi";
 import { IoLayers } from "react-icons/io5";
-import { Button } from "./ui/button";
-import logo from "../assets/images/Login/Vector 2.svg";
+import logo from "../../assets/images/Login/Vector 2.svg";
+import { Button } from "../ui/button";
 
 
 const BookDetailSideBar = () => {

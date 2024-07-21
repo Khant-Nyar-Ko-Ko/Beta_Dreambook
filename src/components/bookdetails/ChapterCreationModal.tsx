@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Modal, Box, Typography, Button, IconButton } from "@mui/material";
 import { FaPlus } from "react-icons/fa";
-import Toolbar from "./tools/Toolbar";
-import { Input } from "./ui/input";
 import { useCreateChapter } from "@/hooks/useChapterApi";
 import { Loader2 } from "lucide-react";
 import { IoClose } from "react-icons/io5";
+import { Input } from "../ui/input";
+import Toolbar from "../tools/Toolbar";
 
 const ChapterCreationModal = ({ slug }: { slug: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,7 +96,7 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
                 className="w-full"
                 variant="title"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
               />
             </div>
             <div className="my-3 h-[240px]">
@@ -108,7 +108,7 @@ const ChapterCreationModal = ({ slug }: { slug: string }) => {
               </label>
               <Toolbar
                 value={content}
-                onChange={(value) => setContent(value)}
+                onChange={(value: string) => setContent(value)}
                 isDisabled={false}
               />
             </div>

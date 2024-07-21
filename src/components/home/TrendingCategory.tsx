@@ -1,8 +1,8 @@
 import { useFetchTrendingCategories } from "@/hooks/useCategoryApi";
-import CategoryLoading from "./Loading/CategoryLoading";
 import { useCategory } from "@/contexts/CategoryContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import CategoryLoading from "../Loading/CategoryLoading";
 
 
 const TrendingCategory = () => {

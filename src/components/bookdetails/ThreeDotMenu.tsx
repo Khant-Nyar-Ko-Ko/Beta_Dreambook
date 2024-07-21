@@ -6,9 +6,9 @@ import { useParams } from "react-router-dom";
 // import Toolbar from "./Toolbar";
 // import CloseIcon from "@mui/icons-material/Close";
 import { useGetChapter } from "@/hooks/useChapterApi";
-import DeleteChapter from "./bookdetails/DeleteChapter";
 import { useChapterContext } from "@/contexts/ChapterContext";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
+import DeleteChapter from "./DeleteChapter";
 
 const ThreeDotMenu = ({ id }: { id: number }) => {
   console.log(id);

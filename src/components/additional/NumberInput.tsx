@@ -2,7 +2,7 @@ import React from "react";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { FiPhone } from "react-icons/fi";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 
 type E164Number = string;
 

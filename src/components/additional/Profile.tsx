@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import profile from "../assets/images/contact.jpeg";
+import profile from "../../assets/images/contact.jpeg";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import {
   IoExitOutline,
@@ -17,10 +17,10 @@ import {
 import { PiBooks } from "react-icons/pi";
 import { FaHeart } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
 import { getToken, logout } from "@/service/authService";
 import { useUserApi } from "@/hooks/useUserApi";
 import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
 
 const DropdownMenuItemWrapper = ({ children }: { children: any }) => (
   <div className="px-2 py-1 cursor-pointer">{children}</div>

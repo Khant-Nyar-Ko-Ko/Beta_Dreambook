@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetComment } from "@/hooks/useCommentApi";
 import { useParams } from "react-router-dom";
-import profile from "../assets/images/defaultcontact.jpeg";
-import BookStatusButton from "./BookStatusButton";
+import profile from "../../assets/images/defaultcontact.jpeg";
 import InfiniteScroll from "react-infinite-scroll-component";
-import BookDetailMobile from "./BookDetailMobile";
-import Loading from "./Loading/Loading";
-import CommentMenu from "./bookdetails/CommentMenu";
-import ReplyComment from "./ReplyComment";
+import Loading from "../Loading/Loading";
+import CommentMenu from "../bookdetails/CommentMenu";
+// import ReplyComment from "./ReplyComment";
 import { useCommentContext } from "@/contexts/CommentContext";
-import SeeReplyComment from "./readchapters/SeeReplyComment";
+import SeeReplyComment from "../readchapters/SeeReplyComment";
 import { useUserApi } from "@/hooks/useUserApi";
 import { getToken } from "@/service/authService";
+import ReplyComment from "../bookdetails/ReplyComment";
+import BookDetailMobile from "../bookdetails/BookDetailMobile";
+import BookStatusButton from "../bookdetails/BookStatusButton";
 
 const Comment = () => {
   const { slug } = useParams<{ slug: string }>();

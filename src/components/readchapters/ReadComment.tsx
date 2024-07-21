@@ -2,12 +2,12 @@ import { useGetComment } from "@/hooks/useCommentApi";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "../ui/button";
-import ReplyComment from "../ReplyComment";
 import SeeReplyComment from "./SeeReplyComment";
 import { getToken } from "@/service/authService";
 import { useUserApi } from "@/hooks/useUserApi";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../Loading/Loading";
+import ReplyComment from "../bookdetails/ReplyComment";
 
 interface Comment {
   id: string;

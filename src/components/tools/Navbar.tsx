@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/Logo.svg";
 import { FaHeart } from "react-icons/fa";
 import { getToken } from "@/service/authService";
-import Profile from "../Profile";
+import Profile from "../additional/Profile";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

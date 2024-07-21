@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFetchRelatedBooks } from "@/hooks/useBookApi";
-import Card from "./tools/Card";
+import Card from "../tools/Card";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RelatedBooks = ({ slug }: { slug: string }) => {

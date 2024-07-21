@@ -1,12 +1,12 @@
 import { useReplyComment } from "@/hooks/useCommentApi";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import Loading from "./Loading/Loading";
 import { FaReply } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useCommentContext } from "@/contexts/CommentContext";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import Loading from "../Loading/Loading";
 
 const ReplyComment = ({ parentId }: { parentId: number}) => {
     const {id} = useParams();
@@ -35,7 +35,7 @@ const ReplyComment = ({ parentId }: { parentId: number}) => {
 
     return (
         <form onSubmit={onSendReply} className="flex items-center justify-between gap-1 px-2 py-1 border rounded">
-            <Input variant="reply" value={replyText} placeholder="Reply" onChange={e => setReplyText(e.target.value)} />
+            <Input variant="reply" value={replyText} placeholder="Reply" onChange={(e : React.ChangeEvent<HTMLInputElement>) => setReplyText(e.target.value)} />
             <div className="flex items-center gap-2">
             <Button size="sm" onClick={toggleReply} variant="outline">Cancel</Button>
             <Button type="submit" size="sm">

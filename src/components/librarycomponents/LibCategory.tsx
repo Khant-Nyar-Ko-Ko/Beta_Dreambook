@@ -1,4 +1,4 @@
-import CheckboxWithText from "../CheckboxWithText";
+import CheckboxWithText from "./CheckboxWithText";
 
 const LibCategory = () => {
   return (

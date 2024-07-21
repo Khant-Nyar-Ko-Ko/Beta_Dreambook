@@ -1,6 +1,6 @@
 import { Button } from "../ui/button"
 import SortDropdown from "../tools/SortDropdown"
-import SearchInput from "../SearchInput"
+import SearchInput from "../additional/SearchInput"
 import { useLibraryContext } from "@/contexts/LibraryContext"
 
 const LibraryHeader = () => {

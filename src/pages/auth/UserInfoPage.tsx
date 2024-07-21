@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import ImagePreview from "@/components/ImagePreview";
+import ImagePreview from "@/components/additional/ImagePreview";
 import PersonalNumberInput from "@/components/personalinfo/PersonalNumberInput";
 import { useUpdateUser } from "@/hooks/useAuthApi";
 import { getToken, login } from "@/service/authService";

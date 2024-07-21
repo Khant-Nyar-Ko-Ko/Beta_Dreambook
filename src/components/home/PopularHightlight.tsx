@@ -4,10 +4,11 @@ import { gsap } from "gsap";
 import { useFetchPopularBook } from "@/hooks/useBookApi";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-
+import { Box, Skeleton } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 const PopularHighlight = () => {
-  const { data: popularBook } = useFetchPopularBook();
+  const { data: popularBook, isLoading } = useFetchPopularBook();
   const [currentIndex, setCurrentIndex] = useState(2);
   const navigate = useNavigate();
 
@@ -49,8 +50,26 @@ const PopularHighlight = () => {
     navigate(`/readbook/${slug}`);
   };
 
+  if (isLoading) {
+    return (
+      <div>
+        {" "}
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Box sx={{ width: "200px", marginBottom: 2 }}>
+            <Skeleton variant="rectangular" height="300px" />
+          </Box>
+        </Grid>
+      </div>
+    );
+  }
+
   return (
-    <motion.div initial={{x: 500}} animate={{x :0}} transition={{ duration: 1.5}} className="relative flex flex-col items-center justify-center w-full h-full gap-3">
+    <motion.div
+      initial={{ x: 500 }}
+      animate={{ x: 0 }}
+      transition={{ duration: 1.5 }}
+      className="relative flex flex-col items-center justify-center w-full h-full gap-3"
+    >
       <button
         data-btn="prev"
         onClick={handlePrev}
