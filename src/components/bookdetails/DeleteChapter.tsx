@@ -52,7 +52,8 @@ const DeleteChapter = ({ id }: { id: number }) => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 500,
+            width: "80%",
+            maxWidth: "500px"
           }}
         >
           <Typography
@@ -64,7 +65,7 @@ const DeleteChapter = ({ id }: { id: number }) => {
             </span>
             <span className="text-sm text-black dark:text-white font-primary">
               {" "}
-              The book will be deleted permanently and will not be recovered.
+              The chapter will be deleted permanently and will not be recovered.
             </span>
           </Typography>
           <div className="flex justify-end gap-5 mt-8">

@@ -11,7 +11,7 @@ const toolbarVariants = cva(
       variant: {
         default: "text-black bg-white dark:text-white dark:bg-darkMode1",
         craft: "text-black bg-white dark:text-white dark:bg-darkMode1 h-[150px] md:w-[600px]",
-        edit: "text-blue-500 bg-gray-200 dark:text-blue-300 dark:bg-gray-700 w-[950px]",
+        edit: "text-blue-500 bg-white dark:text-white-300 dark:bg-slate-400 w-[300px] h-full md:w-[950px]",
         custom2: "text-red-500 bg-yellow-200 dark:text-red-300 dark:bg-yellow-700",
       },
       size: {
@@ -53,7 +53,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ value, onChange, isDisabled, variant,
   };
 
   return (
-    <div className="custom-quill">
+    <div className="custom-quill ql-color-blue">
       <ReactQuill
         modules={modules}
         theme="snow"

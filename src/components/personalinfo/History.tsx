@@ -128,8 +128,7 @@ const History = () => {
             {bookHistory.map(
               ({
                 id,
-                book: { id: bookId, title, coverImg, slug, category, favouriteCount, chapterNum },
-                user: { id: userId, name, profileImg },
+                book: { id: bookId, title, coverImg, slug, category, favouriteCount, chapterNum, user: { id: userId, name, profileImg }}     
               }: {
                 id: number;
                 book: {
@@ -140,8 +139,8 @@ const History = () => {
                   category: { title: string; icon: string };
                   favouriteCount: number;
                   chapterNum: number;
+                  user: { id: number; name: string; profileImg: string };
                 };
-                user: { id: number; name: string; profileImg: string };
               }) => (
                 <motion.div
                   key={id}

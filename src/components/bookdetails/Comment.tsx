@@ -3,22 +3,22 @@ import { useGetComment } from "@/hooks/useCommentApi";
 import { useParams } from "react-router-dom";
 import profile from "../../assets/images/defaultcontact.jpeg";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Loading from "../Loading/Loading";
-import CommentMenu from "../bookdetails/CommentMenu";
+import CommentMenu from "./CommentMenu";
 // import ReplyComment from "./ReplyComment";
 import { useCommentContext } from "@/contexts/CommentContext";
 import SeeReplyComment from "../readchapters/SeeReplyComment";
 import { useUserApi } from "@/hooks/useUserApi";
 import { getToken } from "@/service/authService";
-import ReplyComment from "../bookdetails/ReplyComment";
-import BookDetailMobile from "../bookdetails/BookDetailMobile";
-import BookStatusButton from "../bookdetails/BookStatusButton";
+import ReplyComment from "./ReplyComment";
+import BookDetailMobile from "./BookDetailMobile";
+import BookStatusButton from "./BookStatusButton";
+import { Loader2 } from "lucide-react";
 
 const Comment = () => {
   const { slug } = useParams<{ slug: string }>();
   const token = getToken();
   
-  const { data, fetchNextPage, hasNextPage } = useGetComment(slug ?? "");
+  const { data, isPending, fetchNextPage, hasNextPage } = useGetComment(slug ?? "");
   const comments = data?.pages.flatMap((page) => page.items) || [];
   const { reply } = useCommentContext();
   const { data: user } = useUserApi(token ?? "");
@@ -33,7 +33,13 @@ const Comment = () => {
     return date.toLocaleDateString("en-US", options);
   };
 
-  console.log("comments:", comments);
+  if (isPending) {
+    return (
+      <div className="flex justify-center items-center w-full h-[700px]">
+         <Loader2 className="animate-spin" color="default"/>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col w-full h-auto bg-white md:w-4/5 font-primary dark:bg-darkMode1">
@@ -51,7 +57,7 @@ const Comment = () => {
               hasMore={!!hasNextPage}
               loader={
                 <h4>
-                  <Loading />
+                  <Loader2 className="animate-spin" />
                 </h4>
               }
               scrollableTarget="scrollableDiv"

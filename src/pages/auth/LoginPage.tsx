@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { useSignInUser } from "@/hooks/useAuthApi";
 import { useAuth } from "@/contexts/AuthContext"; 
 import { getToken } from "@/service/authService";
-import Loading from "@/components/Loading/Loading";
 import Logo from "@/components/tools/Logo";
+import { Loader2 } from "lucide-react";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -120,7 +120,7 @@ const LoginPage = () => {
               </div>
               <div className="flex justify-center w-full">
                 <Button type="submit" className=" w-[300px] md:w-[350px]">
-                  {signinMutation.isPending ? <Loading variant="white"/> : "Login"}
+                  {signinMutation.isPending ? <Loader2 className="animate-spin"/> : "Login"}
                 </Button>
               </div>
             </form>

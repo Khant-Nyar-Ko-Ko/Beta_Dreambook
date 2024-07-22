@@ -15,11 +15,11 @@ const RecommendedBookCard = () => {
       }
     
       if (error) {
-        return <div>Error loading books</div>;
+        return <CardLoading />;
       }
 
       if (!recommendedBooks || recommendedBooks.length === 0) {
-        return <div>No Recommended books for You</div>;
+        return <CardLoading />;
       }
 
   return (

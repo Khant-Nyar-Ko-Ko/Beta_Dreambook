@@ -19,8 +19,8 @@ import AuthorProfile from "@/pages/user/AuthorProfile";
 import ProtectedRoutes from "@/utils/ProtectedRoutes";
 import ChildBookdetail from "@/components/bookdetails/ChildBookdetail";
 import Chapters from "@/components/bookdetails/Chapters";
-import Comment from "@/components/additional/Comment";
 import ProtectedBookRoutes from "@/utils/ProtectedBookRoutes";
+import Comment from "@/components/bookdetails/Comment";
 
 const UserRouter: RouteObject[] = [
   {

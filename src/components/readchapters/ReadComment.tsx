@@ -6,8 +6,8 @@ import SeeReplyComment from "./SeeReplyComment";
 import { getToken } from "@/service/authService";
 import { useUserApi } from "@/hooks/useUserApi";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Loading from "../Loading/Loading";
 import ReplyComment from "../bookdetails/ReplyComment";
+import { Loader2 } from "lucide-react";
 
 interface Comment {
   id: string;
@@ -63,7 +63,7 @@ const ReadComment = () => {
             dataLength={comments.length}
             next={fetchNextPage}
             hasMore={!!hasNextPage}
-            loader={<Loading />}
+            loader={<Loader2 className="animate-spin" />}
             scrollableTarget="scrollableDiv"
           >
             {comments.map((comment) => (

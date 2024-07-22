@@ -17,6 +17,12 @@
   @apply overflow-y-auto md:h-40; /* Adjust the height as needed */
 }
 
+.custom-quill .ql-color-blue {
+  @apply text-default
+}
+
+
+
 .react-modal {
   position: fixed;
   top: 50%;

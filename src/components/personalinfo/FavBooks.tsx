@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { RiFilter3Line } from "react-icons/ri";
 import Card from "../tools/Card";
 import EmptyBookPage from "../tools/EmptyBookPage";
 import { useFetchFavourite } from "@/hooks/useFavouriteApi";
@@ -58,9 +57,6 @@ const FavBooks = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="flex items-center w-full gap-3 md:gap-5 md:w-auto">
-            <div className="p-[7px] border rounded">
-              <RiFilter3Line className="text-[16px] md:text-[24px]" />
-            </div>
             <SortDropdown sort={sort} setSort={handleSortChange} />
           </div>
           <SearchInput
@@ -90,7 +86,7 @@ const FavBooks = () => {
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="flex items-start justify-between w-full gap-2 md:flex-row md:items-center md:gap-5"
+        className="flex items-start justify-between w-full gap-2 my-2 md:flex-row md:items-center md:gap-5"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -118,8 +114,7 @@ const FavBooks = () => {
         >
           {favouriteBooks?.map(
             ({
-              book: { id, title, coverImg, category, slug, favouriteCount, chapterNum },
-              user: { profileImg, name, id: userId },
+              book: { id, title, coverImg, category, slug, favouriteCount, chapterNum, user: { profileImg, name, id: userId } },
             }: {
               book: {
                 id: any;
@@ -129,12 +124,12 @@ const FavBooks = () => {
                 slug: string;
                 favouriteCount: number;
                 chapterNum: number;
-              };
-              user: {
-                profileImg: string;
-                name: string;
-                id: any;
-              };
+                user: {
+                  profileImg: string;
+                  name: string;
+                  id: any;
+                };
+              };        
             })  => (
               <motion.div
                 key={id}

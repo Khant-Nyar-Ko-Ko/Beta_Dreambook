@@ -9,6 +9,8 @@ import { getToken } from "@/service/authService";
 import toast from "react-hot-toast";
 import { RiUserHeartLine } from "react-icons/ri";
 import { GrChapterAdd } from "react-icons/gr";
+import emptybook from "../../assets/images/Empty Book.jpg";
+
 
 interface CardProps {
     id: number;
@@ -99,8 +101,8 @@ const CardUser: React.FC<CardProps> = ({
         <span className="absolute inline-flex items-center px-2 py-1 text-xs font-medium text-white bg-yellow-600 rounded-full font-primary top-1 right-1 ring-1 ring-inset ring-yellow-600/20">draft</span>
     }
       <img
-        src={image}
-        alt={title}
+        src={image || emptybook}
+        alt={title + title}
         className="my-2 duration-200 group-hover:scale-105"
       />
     </div>

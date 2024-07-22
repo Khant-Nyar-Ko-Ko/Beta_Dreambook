@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import Loading from "../Loading/Loading";
+import { Loader2 } from "lucide-react";
 
 const ReplyComment = ({ parentId, handleSendReply }: { parentId: number, handleSendReply: () => void }) => {
     const [replyText, setReplyText] = useState("");
@@ -26,7 +26,7 @@ const ReplyComment = ({ parentId, handleSendReply }: { parentId: number, handleS
         <form onSubmit={onSendReply} className="flex items-center gap-1 px-2 py-1 border rounded">
             <Input variant="reply" value={replyText} onChange={e => setReplyText(e.target.value)} />
             <Button type="submit" size="sm">
-                {isPendingReply ? <Loading/> : "Send"}
+                {isPendingReply ? <Loader2 className="animate-spin"/> : "Send"}
             </Button>
         </form>
     );

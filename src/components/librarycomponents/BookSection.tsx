@@ -6,7 +6,7 @@ import CategoryDrawer from "./CategoryDrawer";
 import CheckboxWithText from "./CheckboxWithText";
 import LibPagination from "./LibPagination";
 import LibraryHeader from "./LibraryHeader";
-import Loading from "../Loading/Loading";
+import { Loader2 } from "lucide-react";
 
 const BookSection = () => {
   const { currentPage, searchTitle, sort, isDrawerOpen, toggleDrawer } =
@@ -26,7 +26,7 @@ const BookSection = () => {
   if (isLoading) {
     return (
       <div className=" flex justify-center items-center h-[1000px]">
-        <Loading />;
+        <Loader2 className="animate-spin" />;
       </div>
     );
   }

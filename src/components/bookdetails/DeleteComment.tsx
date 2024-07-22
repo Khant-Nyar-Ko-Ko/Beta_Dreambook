@@ -2,7 +2,7 @@ import { Box, Modal, Typography } from "@mui/material";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { useDeleteComment } from "@/hooks/useCommentApi";
-import Loading from "../Loading/Loading";
+import { Loader2 } from "lucide-react";
 
 const DeleteComment = ({ id }: { id: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,7 +67,7 @@ const toggleModal = () => {
               className="text-white bg-red-600 hover:bg-red-700"
               onClick={handleDelete}
             >
-                {deleteCommentMutation.isPending ? <Loading/> : "Delete"}
+                {deleteCommentMutation.isPending ? <Loader2 className="animate-spin"/> : "Delete"}
             </Button>
             <Button
               variant="outline"
