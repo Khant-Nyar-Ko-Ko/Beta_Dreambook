@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useRef } from "react";
-import { useUserApi } from "@/hooks/useUserApi";
-import { getToken } from "@/service/authService";
+import contact from "../../assets/images/contact.jpeg"
 
 interface ImagePreviewProps {
   profileImg: any;
@@ -9,10 +8,8 @@ interface ImagePreviewProps {
 }
 
 const ImagePreview: React.FC<ImagePreviewProps> = ({ profileImg, onProfileImgChange }) => {
-  const token = getToken() || "";
   const [imageUrl, setImageUrl] = useState<any>(profileImg);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { data: user } = useUserApi(token);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -38,7 +35,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({ profileImg, onProfileImgCha
             alt="profile"
           /> */}
       <img
-        src={imageUrl ? URL.createObjectURL(imageUrl) : user?.profileImg}
+        src={imageUrl ? URL.createObjectURL(imageUrl) : contact}
         alt="Profile"
         className="object-cover w-20 h-20 rounded-full cursor-pointer"
         onClick={handleImageClick}

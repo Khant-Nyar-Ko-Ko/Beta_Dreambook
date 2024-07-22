@@ -43,10 +43,8 @@ const RegisterPage = () => {
     const handleSuccess = async () => {
       if (signupMutation.isSuccess) {
         const authToken = getToken();
-        if (authToken) {
-          login(authToken);
+        if (authToken) login(authToken);
           navigate("/auth/userinfo");
-        }
       }
     };
     if (signupMutation.isSuccess) {

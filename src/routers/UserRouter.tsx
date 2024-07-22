@@ -21,6 +21,7 @@ import ChildBookdetail from "@/components/bookdetails/ChildBookdetail";
 import Chapters from "@/components/bookdetails/Chapters";
 import ProtectedBookRoutes from "@/utils/ProtectedBookRoutes";
 import Comment from "@/components/bookdetails/Comment";
+import NotFound from "@/components/error/NotFound";
 
 const UserRouter: RouteObject[] = [
   {
@@ -129,8 +130,13 @@ const UserRouter: RouteObject[] = [
         element: <ProtectedRoutes element={<AuthorProfile />} />,
       },
       {
+        path: "error",
+        element: <NotFound/>
+      }
+      ,
+      {
         path: "*",
-        element: <Navigate to="/home" replace />,
+        element: <Navigate to="/error" replace />,
       },
     ],
   },
