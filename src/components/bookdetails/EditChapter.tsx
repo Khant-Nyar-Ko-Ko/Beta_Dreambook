@@ -68,6 +68,7 @@ const EditChapter = ({
       toggleEdit(id);
       queryClient.invalidateQueries({ queryKey: ["chapters"] });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editChapterMutation.isSuccess, id]);
 
   return (

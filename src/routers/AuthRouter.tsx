@@ -1,10 +1,11 @@
+import NotFound from "@/components/error/NotFound";
 import AuthLayout from "@/layouts/AuthLayout";
 import LoginPage from "@/pages/auth/LoginPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import SelectCategoryPage from "@/pages/auth/SelectCategoryPage";
 import UserInfoPage from "@/pages/auth/UserInfoPage";
 import ProtectedAuthRoutes from "@/utils/ProtectedAuthRoutes";
-import { Navigate, RouteObject } from "react-router-dom";
+import { RouteObject } from "react-router-dom";
 
 const AuthRouter: RouteObject[] = [
   {
@@ -17,19 +18,19 @@ const AuthRouter: RouteObject[] = [
       },
       {
         path: "register",
-        element: <ProtectedAuthRoutes element={<RegisterPage />}/>,
+        element:<RegisterPage />,
       },
       {
         path: "userinfo",
-        element:<ProtectedAuthRoutes element={<UserInfoPage />}/>,
+        element:<UserInfoPage/>,
       },
       {
         path: "selectcategory",
-        element:<ProtectedAuthRoutes element={<SelectCategoryPage />}/>,
+        element:<SelectCategoryPage />,
       },
       {
         path: '*',
-        element: <Navigate to="/home" replace />,
+        element: <NotFound/>,
       },
     ],
   },

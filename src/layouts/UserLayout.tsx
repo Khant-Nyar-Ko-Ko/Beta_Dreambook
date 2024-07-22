@@ -7,8 +7,8 @@ const UserLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const noFooterRoutes = ["/personalinfo/*", "/bookdetail/*", "/readbook/*","/readchapter/*"];
-  const noNavbarRoutes = ["/bookdetail/*"];
+  const noNavbarRoutes = ["/bookdetail/*", "/error"];
+  const noFooterRoutes = ["/personalinfo/*", "/bookdetail/*", "/readbook/*","/readchapter/*", "/error"];
 
   const hideFooter = noFooterRoutes.some((route) =>
     matchPath(route, location.pathname)
