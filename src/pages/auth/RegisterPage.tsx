@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { useSignUpUser } from "@/hooks/useAuthApi";
 import { useAuth } from "@/contexts/AuthContext";
 import { getToken } from "@/service/authService";
-import Loading from "@/components/Loading/Loading";
 import Logo from "@/components/tools/Logo";
+import { Loader2 } from "lucide-react";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -176,7 +176,7 @@ const RegisterPage = () => {
                     signupMutation.isPending
                   }
                 >
-                  {signupMutation.isPending ? <Loading variant="white"/> : "Create an account"}
+                  {signupMutation.isPending ? <Loader2 className="animate-spin"/> : "Create an account"}
                 </Button>
               </div>
             </form>

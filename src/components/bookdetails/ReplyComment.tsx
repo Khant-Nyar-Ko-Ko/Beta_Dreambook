@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useCommentContext } from "@/contexts/CommentContext";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import Loading from "../Loading/Loading";
+import { Loader2 } from "lucide-react";
 
 const ReplyComment = ({ parentId }: { parentId: number}) => {
     const {id} = useParams();
@@ -39,7 +39,7 @@ const ReplyComment = ({ parentId }: { parentId: number}) => {
             <div className="flex items-center gap-2">
             <Button size="sm" onClick={toggleReply} variant="outline">Cancel</Button>
             <Button type="submit" size="sm">
-                {isPendingReply ? <Loading/> : "Send"}
+                {isPendingReply ? <Loader2 className="animate-spin"/> : "Send"}
                 <FaReply />
             </Button>
             </div>

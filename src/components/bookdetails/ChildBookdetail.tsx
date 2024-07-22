@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
 import { TiEdit } from "react-icons/ti";
@@ -8,7 +8,6 @@ import TagInput from "./TagForm";
 import { Button } from "../ui/button";
 import { useFetchSingleBook, useUpdateBook } from "@/hooks/useBookApi";
 import Toolbar from "../tools/Toolbar";
-import Loading from "../Loading/Loading";
 import CustomDropdown from "../additional/customDropDown";
 import { useFetchCategories } from "@/hooks/useCategoryApi";
 import bookImg from "../../assets/images/bookCrafting/bookImg.png";
@@ -82,7 +81,7 @@ const ChildBookdetail = () => {
     }
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const bookData = {
       ...createdBook,
@@ -104,7 +103,7 @@ const ChildBookdetail = () => {
   if (isPending) {
     return (
       <div className="flex justify-center items-center w-full h-[700]">
-        <Loading variant="blue" />
+        <Loader2 className="animate-spin" color="default" />
       </div>
     );
   }
@@ -121,7 +120,7 @@ const ChildBookdetail = () => {
     <div className="flex flex-col w-full h-auto bg-white md:w-4/5 font-primary dark:bg-darkMode1">
       <BookDetailMobile />
       <BookStatusButton text="Book Details" />
-      <form className="my-4" onSubmit={handleSubmit}>
+      <form className="flex flex-col my-4" onSubmit={handleSubmit}>
         <div className="flex flex-col-reverse md:flex-row">
           <div className="w-full px-5 md:w-3/4">
             <div className="mt-2">
@@ -268,7 +267,7 @@ const ChildBookdetail = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-end gap-3 pr-5 w-screen mt-[200px] md:mt-10 md:w-full md:pr-[300px]">
+        <div className="flex justify-end gap-3 pr-5 w-screen mt-[200px] md:mt-5 md:w-full md:pr-[300px]">
           {isEdit ? (
             <>
               <Button

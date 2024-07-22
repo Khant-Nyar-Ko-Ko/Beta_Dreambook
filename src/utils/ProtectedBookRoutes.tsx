@@ -5,7 +5,7 @@ import { Navigate, Outlet, useParams } from "react-router-dom";
 
 const ProtectedBookRoutes = ({ children }: { children: React.ReactNode }) => {
   const { slug } = useParams();
-  const { isOwner, loading, error } = useBookOwnership(slug);
+  const { isOwner, loading, error } = useBookOwnership({slug});
 
   if (loading) {
     return (

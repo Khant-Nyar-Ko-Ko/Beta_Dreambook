@@ -11,6 +11,7 @@ interface CreateChapterData {
   }
 
   interface EditChapterData {
+    id: number;
     title: string;
     content: string;
     chapterNum: number;

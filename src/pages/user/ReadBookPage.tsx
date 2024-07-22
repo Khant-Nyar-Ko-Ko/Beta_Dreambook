@@ -10,12 +10,12 @@ import { Input } from "@/components/ui/input";
 import ReadComment from "@/components/readchapters/ReadComment";
 import authorprofile from "../../assets/images/Author.png";
 import { usePostComment } from "@/hooks/useCommentApi";
-import Loading from "@/components/Loading/Loading";
 import { useGetChapterProgress } from "@/hooks/useChapterProgressApi";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import BackButton from "@/components/tools/BackButton";
 import RelatedBooks from "@/components/readbooks/RelatedBooks";
+import { Loader2 } from "lucide-react";
 
 const ReadBookPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -81,7 +81,7 @@ const ReadBookPage = () => {
 
   if (!singleBook || !progress) {
     return <div className="flex items-center justify-center h-screen">
-      <Loading/>
+      <Loader2 className="animate-spin"/>
     </div>;
   }
 
@@ -174,7 +174,7 @@ const ReadBookPage = () => {
                   onClick={handleHistoryUpdate}
                 >
                   {isPendingHistory ? (
-                    <Loading />
+                     <Loader2 className="animate-spin"/>
                   ) : (
                     <span>
                       {currentBook.chapterProgress < 2
@@ -211,7 +211,7 @@ const ReadBookPage = () => {
               }`}
               type="submit"
             >
-              {isPendingComment ? <Loading /> : "Post Comment"}
+              {isPendingComment ? <Loader2 className="animate-spin" /> : "Post Comment"}
             </Button>
           </form>
           <ReadComment />

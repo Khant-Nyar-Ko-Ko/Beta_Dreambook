@@ -14,11 +14,11 @@ const PopularBookCard = () => {
   }
 
   if (error) {
-    return <div>Error loading books</div>;
+    return <CardLoading />;
   }
 
   if (!popularBook || popularBook.length === 0) {
-    return <div>No popular books available</div>;
+    return <CardLoading />;
   }
 
   return (

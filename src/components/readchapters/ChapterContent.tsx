@@ -1,10 +1,10 @@
 // ChapterContent.tsx
 import { useChapterContext } from "@/contexts/ChapterContext";
-import Loading from "../Loading/Loading";
 import DOMPurify from "dompurify";
 import ChapterPagination from "./ChapterPagination";
 import BackButton from "../tools/BackButton";
 import { useParams } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 const ChapterContent = () => {
   const {slug} = useParams();
@@ -14,7 +14,7 @@ const ChapterContent = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <Loading variant="blue" />
+        <Loader2 className="animate-spin"/>
       </div>
     );
   }

@@ -7,9 +7,9 @@ import ImagePreview from "@/components/additional/ImagePreview";
 import PersonalNumberInput from "@/components/personalinfo/PersonalNumberInput";
 import { useUpdateUser } from "@/hooks/useAuthApi";
 import { getToken, login } from "@/service/authService";
-import Loading from "@/components/Loading/Loading";
 import background from "../../assets/images/AuthBgImage.avif";
 import Logo from "@/components/tools/Logo";
+import { Loader2 } from "lucide-react";
 
 const UserInfoPage = () => {
   const authToken = getToken();
@@ -106,7 +106,7 @@ const UserInfoPage = () => {
               />
             </div>
             <Button type="submit" className="w-full">
-              {updateUserMutation.isPending ? <Loading /> : "Create an account"}
+              {updateUserMutation.isPending ? <Loader2 className="animate-spin" /> : "Create an account"}
             </Button>
           </form>
         </div>

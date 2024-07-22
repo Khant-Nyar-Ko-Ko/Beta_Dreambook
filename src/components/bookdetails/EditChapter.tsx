@@ -1,5 +1,4 @@
 import { useChapterContext } from "@/contexts/ChapterContext";
-import Loading from "../Loading/Loading";
 import Toolbar from "../tools/Toolbar";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -7,6 +6,7 @@ import { useUpdateChapter } from "@/hooks/useChapterApi";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 
 const EditChapter = ({
   id,
@@ -53,6 +53,7 @@ const EditChapter = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const editData = {
+        id,
       title: editTitle,
       content: editContent,
       chapterNum: editChapterNum,
@@ -72,9 +73,9 @@ const EditChapter = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full md:w-[1000px] border border-black flex flex-col items-center gap-3 p-3 h-auto"
+      className="w-full md:w-[1000px] flex flex-col items-start md:items-center gap-3 p-3 h-auto"
     >
-      <div className="flex w-[950px] justify-between">
+      <div className="flex w-[300px] md:w-[950px] gap-1 justify-between">
         <Input
           variant="chapterNum"
           type="number"
@@ -89,7 +90,7 @@ const EditChapter = ({
         onChange={handleContentChange}
         isDisabled={false}
       />
-      <div className="flex mt-[160px]">
+      <div className="flex mt-[200px] md:mt-[180px]">
         <Button
           variant="white"
           className="text-gray-600 dark:text-white"
@@ -98,7 +99,7 @@ const EditChapter = ({
           Cancel
         </Button>
         <Button variant="default" type="submit">
-          {editChapterMutation.isPending && <Loading />}
+          {editChapterMutation.isPending && <Loader2 className="animate-spin"/>}
           Save
         </Button>
       </div>

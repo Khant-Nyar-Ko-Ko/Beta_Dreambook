@@ -18,7 +18,7 @@ const BookDetailMobile = () => {
 
   return (
     <>
-      <nav className="flex justify-between px-4 py-2 border border-t-0 border-b border-x-0 md:hidden border-slate-600">
+      <nav className="sticky top-0 left-0 z-10 flex justify-between px-4 py-2 bg-white border border-t-0 border-b dark:bg-darkMode1 border-x-0 md:hidden border-slate-600">
         <button
           onClick={toggleMenu}
           className="text-3xl text-black dark:text-white"

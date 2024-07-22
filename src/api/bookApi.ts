@@ -46,10 +46,10 @@ export const fetchBooks = async (
 };
 
 export const fetchSingleBook = async ({ slug }: { slug: string }) => {
-  if (!slug) {
-    console.error("Invalid book ID");
-    throw new Error("Invalid book ID");
-  }
+  // if (!slug) {
+  //   console.error("Invalid book ID");
+  //   throw new Error("Invalid book ID");
+  // }
   try {
     const response: Response = await fetch(
       `${BaseURL}/books/searchBook/${slug}`,
