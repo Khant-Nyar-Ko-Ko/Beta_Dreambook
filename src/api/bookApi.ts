@@ -2,7 +2,6 @@
 import { BaseURL } from "@/service/ApiEndpoints";
 import { getToken } from "@/service/authService";
 import { BookDataType } from "@/utils/type";
-const token = getToken();
 
 export const fetchBooks = async (
   page?: number,
@@ -11,6 +10,7 @@ export const fetchBooks = async (
   sort?: string,
   author?: string
 ) => {
+  const token = getToken();
   let queryString = "";
   if (page) {
     queryString += `?page=${page}`;
@@ -34,22 +34,22 @@ export const fetchBooks = async (
     method: "GET",
     mode: "cors",
     redirect: "follow",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
   });
 
-  const result = response.json();
-
   if (!response.ok) {
-    throw new Error();
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message || 'Failed to fetch books');
   }
 
-  return result;
+  return response.json();
 };
 
 export const fetchSingleBook = async ({ slug }: { slug: string }) => {
-  // if (!slug) {
-  //   console.error("Invalid book ID");
-  //   throw new Error("Invalid book ID");
-  // }
+  const token = getToken();
   try {
     const response: Response = await fetch(
       `${BaseURL}/books/searchBook/${slug}`,
@@ -78,31 +78,43 @@ export const fetchSingleBook = async ({ slug }: { slug: string }) => {
 };
 
 export const fetchPopularBook = async () => {
+  const token = getToken();
   const response: Response = await fetch(`${BaseURL}/books/popular`, {
     method: "GET",
     mode: "cors",
     redirect: "follow",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
   });
 
-  const result = await response.json();
   if (!response.ok) {
-    throw new Error();
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message || 'Failed to fetch popular books');
   }
-  return result;
+
+  return response.json();
 };
 
 export const fetchRecommendedBook = async () => {
+  const token = getToken();
   const response: Response = await fetch(`${BaseURL}/books/recommended`, {
     method: "GET",
     mode: "cors",
     redirect: "follow",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
   });
 
-  const result = await response.json();
   if (!response.ok) {
-    throw new Error();
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message || 'Failed to fetch recommended books');
   }
-  return result;
+
+  return response.json();
 };
 
 export const fetchBooksByLoginUser = async ({
@@ -112,6 +124,7 @@ export const fetchBooksByLoginUser = async ({
   sort?: string;
   title?: string | undefined;
 }) => {
+  const token = getToken();
   let queryString = "";
   if (sort) {
     queryString += (queryString ? "&" : "?") + `sort=${sort}`;
@@ -134,14 +147,16 @@ export const fetchBooksByLoginUser = async ({
     }
   );
 
-  const result = await response.json();
   if (!response.ok) {
-    throw new Error();
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message || 'Failed to fetch user books');
   }
-  return result;
+
+  return response.json();
 };
 
 export const fetchRelatedBooks = async ({ slug }: { slug: string }) => {
+  const token = getToken();
   const queryString = `?slug=${slug}`;
   const response: Response = await fetch(
     `${BaseURL}/books/related${queryString}`,
@@ -149,19 +164,23 @@ export const fetchRelatedBooks = async ({ slug }: { slug: string }) => {
       method: "GET",
       mode: "cors",
       redirect: "follow",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     }
   );
 
-  const result = await response.json();
   if (!response.ok) {
-    throw new Error();
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message || 'Failed to fetch related books');
   }
-  return result;
+
+  return response.json();
 };
 
-export const createBooks = async (
-  data: BookDataType
-): Promise<BookDataType> => {
+export const createBooks = async (data: BookDataType): Promise<BookDataType> => {
+  const token = getToken();
   const formData = new FormData();
   formData.append("title", data.title);
   formData.append("coverImg", data.coverImg);
@@ -174,21 +193,21 @@ export const createBooks = async (
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    mode: "cors",
     method: "POST",
-    redirect: "follow",
     body: formData,
   });
 
-  const result = await response.json();
   if (!response.ok) {
-    throw new Error(response.statusText);
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message || 'Failed to create book');
   }
 
-  return result;
+  return response.json();
 };
 
+
 export const updateBook = async (data: BookDataType) => {
+  const token = getToken();
   const formData = new FormData();
   formData.append("title", data.title);
   if (data.coverImg instanceof File) {
@@ -209,15 +228,16 @@ export const updateBook = async (data: BookDataType) => {
     body: formData,
   });
 
-  const result = await response.json();
   if (!response.ok) {
-    throw new Error(response.statusText);
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message || 'Failed to update book');
   }
 
-  return result;
+  return response.json();
 };
 
 export const deleteBook = async ({ slug }: { slug: string }) => {
+  const token = getToken();
   const queryString = `?slug=${slug}`;
 
   try {
@@ -233,9 +253,9 @@ export const deleteBook = async ({ slug }: { slug: string }) => {
     });
 
     if (!response.ok) {
-      const result = await response.json();
-      console.error("Delete book failed:", result);
-      throw new Error(result.message || "Failed to delete book");
+      const errorResponse = await response.json();
+      console.error("Delete book failed:", errorResponse);
+      throw new Error(errorResponse.message || "Failed to delete book");
     }
 
     return await response.json();
