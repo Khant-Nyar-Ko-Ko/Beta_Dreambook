@@ -63,7 +63,7 @@ const ReadComment = () => {
             dataLength={comments.length}
             next={fetchNextPage}
             hasMore={!!hasNextPage}
-            loader={<Loader2 className="animate-spin" />}
+            loader={<Loader2 className="animate-spin" color="blue" />}
             scrollableTarget="scrollableDiv"
           >
             {comments.map((comment) => (

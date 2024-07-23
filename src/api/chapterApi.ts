@@ -5,7 +5,12 @@ const token = getToken();
 
 
 export const getChapter = async ({ slug }: { slug: string }) => {
-  const queryString = `?slug=${slug}`;
+  let queryString = "";
+    queryString += (queryString ? "&" : "?") + "sort=a-z";
+  if (slug) {
+    queryString +=
+      (queryString ? "&" : "?") + `slug=${slug}`;
+  }
   const response: Response = await fetch(`${BaseURL}/chapters/books${queryString}`, {
     headers: {
       Authorization: `Bearer ${token}`,

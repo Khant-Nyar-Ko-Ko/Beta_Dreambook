@@ -50,7 +50,7 @@ export const useFetchRecommendedBook = () => {
   });
 };
 
-export const useFetchBooksByLoginUser = (sort?: string, title?: string) => {
+export const useFetchBooksByLoginUser = (sort?: string, title?: string | undefined) => {
   return useQuery({
     queryKey: ["loginUserBooks",sort, title],
     queryFn: () => fetchBooksByLoginUser({sort, title}),

@@ -61,7 +61,7 @@ const SeeReplyComment = ({
                     alt={reply?.user?.name}
                   />
                   <div className="flex flex-col items-start gap-2 text-black dark:text-white">
-                    <div>
+                    <div className="flex items-center gap-2">
                       <p className="text-sm font-primary">
                         {reply?.user?.name}
                       </p>

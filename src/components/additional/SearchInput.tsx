@@ -3,7 +3,7 @@ import { IoIosSearch } from "react-icons/io";
 import { Input } from "../ui/input";
 
 interface SearchInputProps {
-  value: string;
+  value: string | undefined;
   onChange: (value: string) => void;
   placeholder?: string;
   ariaLabel?: string;
