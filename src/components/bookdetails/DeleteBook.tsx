@@ -4,16 +4,18 @@ import { Box, Modal, Typography } from "@mui/material";
 import { useDeleteBook } from "@/hooks/useBookApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 
 const DeleteBook = () => {
   const { slug } = useParams<{ slug: string }>();
   const queryClient = useQueryClient();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { mutate: deleteBook } = useDeleteBook();
+  const { mutate: deleteBook, isPending } = useDeleteBook();
   const navigate = useNavigate();
 
-  const toggleModal = () => {
+  const toggleModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     setIsModalOpen(!isModalOpen);
   };
 
@@ -25,7 +27,7 @@ const DeleteBook = () => {
     e.preventDefault();
     deleteBook(slug ?? "", {
       onSuccess: () => {
-        toggleModal();
+        toggleModal(e);
         refetchBook();
         navigate("/home");
       },
@@ -42,20 +44,27 @@ const DeleteBook = () => {
       </Button>
       <Modal open={isModalOpen}>
         <Box
-          className="p-8 text-sm bg-white rounded-md shadow-md dark:bg-darkMode2"
+          className="p-4 text-sm bg-white rounded-md shadow-md md:p-8 dark:bg-darkMode2"
           style={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 500,
+            width: "80%",
+            maxWidth: "500px"
           }}
         >
           <Typography
             variant="h6"
-            className="mb-8 text-center text-black font-primary dark:text-white"
+            className="flex flex-col gap-3 mb-8 text-center text-black font-primary dark:text-white"
           >
-            Are you sure you want to delete this book?
+            <span className="text-base text-red-600 md:text-xl font-primary">
+              Are you sure want to delete?
+            </span>
+            <span className="text-xs text-black md:text-sm dark:text-white font-primary">
+              {" "}
+              The book will be deleted permanently and will not be recovered.
+            </span>
           </Typography>
           <div className="flex justify-center gap-5 mt-8">
             <Button
@@ -63,7 +72,10 @@ const DeleteBook = () => {
               className="text-white bg-red-600 hover:bg-red-700"
               onClick={handleDelete}
             >
-              Delete
+               <Loader2
+                className={isPending ? "block animate-spin" : "hidden"}
+              />
+              Yes! Delete
             </Button>
             <Button
               variant="outline"

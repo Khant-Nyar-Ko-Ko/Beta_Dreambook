@@ -1,14 +1,14 @@
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import ScrollToTop from "@/components/ScrollToTop";
+import ScrollToTop from "@/components/home/ScrollToTop";
+import Footer from "@/components/tools/Footer";
+import Navbar from "@/components/tools/Navbar";
 import { matchPath, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const UserLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const noFooterRoutes = ["/personalinfo/*", "/bookdetail/*", "/readbook/*","/readchapter/*"];
-  const noNavbarRoutes = ["/bookdetail/*"];
+  const noNavbarRoutes = ["/bookdetail/*", "/error"];
+  const noFooterRoutes = ["/personalinfo/*", "/bookdetail/*", "/readbook/*","/readchapter/*", "/error"];
 
   const hideFooter = noFooterRoutes.some((route) =>
     matchPath(route, location.pathname)

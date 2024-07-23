@@ -1,4 +1,4 @@
-import BookDetailSideBar from "@/components/BookDetailSideBar";
+import BookDetailSideBar from "@/components/bookdetails/BookDetailSideBar";
 import { Outlet } from "react-router-dom";
 
 const BookDetailLayout = () => {

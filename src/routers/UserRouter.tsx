@@ -6,18 +6,22 @@ import History from "@/components/personalinfo/History";
 import PersonalInformation from "@/components/personalinfo/PersonalInformation";
 import UserLayout from "@/layouts/UserLayout";
 import BookDetailPage from "@/pages/user/BookDetailPage";
-import ChildBookDetail from "@/components/ChildBookdetail";
 import BookCraftingPage from "@/pages/user/BookCraftingPage";
 import HomePage from "@/pages/user/HomePage";
 import LibraryPage from "@/pages/user/LibraryPage";
 import PersonalInfoPage from "@/pages/user/PersonalInfoPage";
-import Chapters from "@/components/Chapters";
-import Comment from "@/components/Comment";
 import ReadBookPage from "@/pages/user/ReadBookPage";
 import ReadChapterPage from "@/pages/user/ReadChapterPage";
 import { ChapterProvider } from "@/contexts/ChapterContext";
 import { LibraryProvider } from "@/contexts/LibraryContext";
 import { PersonalInfoProvider } from "@/contexts/PersonalInfoContext";
+import AuthorProfile from "@/pages/user/AuthorProfile";
+import ProtectedRoutes from "@/utils/ProtectedRoutes";
+import ChildBookdetail from "@/components/bookdetails/ChildBookdetail";
+import Chapters from "@/components/bookdetails/Chapters";
+import ProtectedBookRoutes from "@/utils/ProtectedBookRoutes";
+import Comment from "@/components/bookdetails/Comment";
+import NotFound from "@/components/error/NotFound";
 
 const UserRouter: RouteObject[] = [
   {
@@ -42,23 +46,31 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "bookcrafting",
-        element: <BookCraftingPage />,
+        element: <ProtectedRoutes element={<BookCraftingPage />} />,
       },
       {
         path: "readbook/:slug",
-        element: <ReadBookPage />,
+        element: <ProtectedRoutes element={<ReadBookPage />} />,
       },
       {
         path: "readchapter/:slug/:chapterNum",
         element: (
           <ChapterProvider>
-            <ReadChapterPage />
+            <ProtectedRoutes element={<ReadChapterPage />} />
           </ChapterProvider>
         ),
       },
       {
         path: "bookdetail/:slug",
-        element: <BookDetailPage />,
+        element: (
+          <ProtectedRoutes
+            element={
+              <ProtectedBookRoutes>
+                <BookDetailPage />{" "}
+              </ProtectedBookRoutes>
+            }
+          />
+        ),
         children: [
           {
             index: true,
@@ -66,7 +78,7 @@ const UserRouter: RouteObject[] = [
           },
           {
             path: "childBookdetail",
-            element: <ChildBookDetail />,
+            element: <ChildBookdetail />,
           },
           {
             path: "chapters",
@@ -80,7 +92,7 @@ const UserRouter: RouteObject[] = [
       },
       {
         path: "personalinfo",
-        element: <PersonalInfoPage />,
+        element: <ProtectedRoutes element={<PersonalInfoPage />} />,
         children: [
           {
             index: true,
@@ -112,6 +124,19 @@ const UserRouter: RouteObject[] = [
             element: <ChangePassword />,
           },
         ],
+      },
+      {
+        path: "author-profile/:author",
+        element: <ProtectedRoutes element={<AuthorProfile />} />,
+      },
+      {
+        path: "error",
+        element: <NotFound/>
+      }
+      ,
+      {
+        path: "*",
+        element: <Navigate to="/error" replace />,
       },
     ],
   },

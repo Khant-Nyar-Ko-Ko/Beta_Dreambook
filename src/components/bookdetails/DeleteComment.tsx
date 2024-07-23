@@ -2,7 +2,7 @@ import { Box, Modal, Typography } from "@mui/material";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { useDeleteComment } from "@/hooks/useCommentApi";
-import Loading from "../Loading";
+import { Loader2 } from "lucide-react";
 
 const DeleteComment = ({ id }: { id: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,7 +29,7 @@ const toggleModal = () => {
 
   useEffect(() => {
     if(deleteCommentMutation.isSuccess) {
-    //   toggleModal();
+      toggleModal();
     } 
   },[deleteCommentMutation.isSuccess])
 
@@ -52,12 +52,13 @@ const toggleModal = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 500,
+            width: "80%",
+            maxWidth: "500px",
           }}
         >
           <Typography
             variant="h6"
-            className="mb-8 text-center text-black font-primary dark:text-white"
+            className="mb-8 text-xs text-center text-black md:text-base font-primary dark:text-white"
           >
             Are you sure you want to delete this book?
           </Typography>
@@ -67,7 +68,7 @@ const toggleModal = () => {
               className="text-white bg-red-600 hover:bg-red-700"
               onClick={handleDelete}
             >
-                {deleteCommentMutation.isPending ? <Loading/> : "Delete"}
+                {deleteCommentMutation.isPending ? <Loader2 className="animate-spin"/> : "Delete"}
             </Button>
             <Button
               variant="outline"

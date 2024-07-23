@@ -1,15 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useGetComment } from "@/hooks/useCommentApi";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "../ui/button";
-import ReplyComment from "../ReplyComment";
 import SeeReplyComment from "./SeeReplyComment";
 import { getToken } from "@/service/authService";
 import { useUserApi } from "@/hooks/useUserApi";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Loading from "../Loading";
+import ReplyComment from "../bookdetails/ReplyComment";
+import { Loader2 } from "lucide-react";
+
+interface Comment {
+  id: string;
+  text: string;
+  updatedAt: string;
+  user: {
+    profileImg: string;
+    name: string;
+  };
+}
 
 const ReadComment = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -18,7 +26,7 @@ const ReadComment = () => {
 
   const { data, fetchNextPage, hasNextPage } = useGetComment(slug ?? "");
 
-  const comments = data?.pages.flatMap((page) => page.items) || [];
+  const comments: Comment[] = data?.pages.flatMap((page) => page.items) || [];
 
   const { data: user } = useUserApi(token ?? "");
 
@@ -55,21 +63,21 @@ const ReadComment = () => {
             dataLength={comments.length}
             next={fetchNextPage}
             hasMore={!!hasNextPage}
-            loader={<Loading />}
+            loader={<Loader2 className="animate-spin" color="blue" />}
             scrollableTarget="scrollableDiv"
           >
-            {comments.map((comment: any) => (
-              <div key={comment?.id} className="flex gap-3 my-3">
+            {comments.map((comment) => (
+              <div key={comment.id} className="flex gap-3 my-3">
                 <img
-                  src={comment?.user?.profileImg}
+                  src={comment.user.profileImg}
                   className="w-12 h-12 rounded-full"
-                  alt={comment?.user?.name}
+                  alt={comment.user.name}
                 />
                 <div className="flex flex-col items-start gap-2 text-black dark:text-white">
                   <div>
-                    <p className="text-lg font-primary">{comment?.user?.name}</p>
+                    <p className="text-lg font-primary">{comment.user.name}</p>
                     <p className="text-sm text-gray-600 dark:text-gray-300 font-primary">
-                      {comment ? formatDate(comment.updatedAt) : "No date"}
+                      {formatDate(comment.updatedAt)}
                     </p>
                   </div>
                   <p className="text-xs md:text-base font-primary">
@@ -86,13 +94,13 @@ const ReadComment = () => {
                   ) : (
                     <div className="flex items-center gap-2">
                       <img
-                        src={comment.user?.profileImg}
+                        src={comment.user.profileImg}
                         className="w-8 h-8 rounded-full"
                         onClick={() => handleReplyToggle(comment.id)}
                         alt=""
                       />
                       <ReplyComment
-                        parentId={comment.id}
+                        parentId={Number(comment.id)}
                         // handleSendReply={() => handleSendReply(comment.id)}
                       />
                     </div>
@@ -101,7 +109,7 @@ const ReadComment = () => {
                     <SeeReplyComment
                       profileImg={user?.profileImg}
                       name={user?.name}
-                      parentId={comment.id}
+                      parentId={Number(comment.id)}
                     />
                   )}
                 </div>

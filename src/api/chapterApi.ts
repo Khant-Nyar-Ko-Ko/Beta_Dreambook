@@ -5,7 +5,12 @@ const token = getToken();
 
 
 export const getChapter = async ({ slug }: { slug: string }) => {
-  const queryString = `?slug=${slug}`;
+  let queryString = "";
+    queryString += (queryString ? "&" : "?") + "sort=a-z";
+  if (slug) {
+    queryString +=
+      (queryString ? "&" : "?") + `slug=${slug}`;
+  }
   const response: Response = await fetch(`${BaseURL}/chapters/books${queryString}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -57,10 +62,10 @@ export const createChapter = async (data: { title: string, content: string, slug
   }
 };
 
-export const updateChapter = async (data : {title: string, content: string, chapterNum: number, priority: number, status: boolean}) => {
-  const { title, content, chapterNum, priority, status } = data;
+export const updateChapter = async (data : {id: number, title: string, content: string, chapterNum: number, priority: number, status: boolean}) => {
+  const { id, title, content, chapterNum, priority, status } = data;
 
-  const response: Response = await fetch(`${BaseURL}/chapters/${chapterNum}`, {
+  const response: Response = await fetch(`${BaseURL}/chapters/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -68,7 +73,7 @@ export const updateChapter = async (data : {title: string, content: string, chap
     method: "PATCH",
     mode: "cors",
     redirect: "follow",
-    body: JSON.stringify({ title, content,  priority, status}),
+    body: JSON.stringify({ title, content, chapterNum,  priority, status}),
   });
 
   const result = await response.json();

@@ -2,14 +2,14 @@ import { Input } from "@/components/ui/input";
 import background from "../../assets/images/AuthBgImage.avif";
 import { Button } from "@/components/ui/button";
 import { NavLink, useNavigate } from "react-router-dom";
-import Logo from "@/components/Logo";
 import { IoPerson } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSignUpUser } from "@/hooks/useAuthApi";
 import { useAuth } from "@/contexts/AuthContext";
 import { getToken } from "@/service/authService";
-import Loading from "@/components/Loading";
+import Logo from "@/components/tools/Logo";
+import { Loader2 } from "lucide-react";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -43,10 +43,8 @@ const RegisterPage = () => {
     const handleSuccess = async () => {
       if (signupMutation.isSuccess) {
         const authToken = getToken();
-        if (authToken) {
-          login(authToken);
+        if (authToken) login(authToken);
           navigate("/auth/userinfo");
-        }
       }
     };
     if (signupMutation.isSuccess) {
@@ -176,7 +174,7 @@ const RegisterPage = () => {
                     signupMutation.isPending
                   }
                 >
-                  {signupMutation.isPending ? <Loading variant="white"/> : "Create an account"}
+                  {signupMutation.isPending ? <Loader2 className="animate-spin"/> : "Create an account"}
                 </Button>
               </div>
             </form>

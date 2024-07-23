@@ -2,7 +2,7 @@ import BookDetailLayout from "@/layouts/BookDetailLayout";
 
 const BookDetailPage = () => {
   return (
-    <div className="w-screen select-none">
+    <div className="w-screen bg-white select-none dark:bg-darkMode1">
       <BookDetailLayout />
     </div>
   );

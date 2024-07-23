@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCountReply, useGetReply } from "@/hooks/useCommentApi";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { BsArrowReturnRight, BsFillReplyFill } from "react-icons/bs";
-import Loading from "../Loading";
 
 const SeeReplyComment = ({
   profileImg,
@@ -32,7 +32,7 @@ const SeeReplyComment = ({
   };
 
   if (countPending) {
-    return <Loading />;
+    return <Loader2 className="animate-spin" />;
   }
 
   return (
@@ -61,7 +61,7 @@ const SeeReplyComment = ({
                     alt={reply?.user?.name}
                   />
                   <div className="flex flex-col items-start gap-2 text-black dark:text-white">
-                    <div>
+                    <div className="flex items-center gap-2">
                       <p className="text-sm font-primary">
                         {reply?.user?.name}
                       </p>

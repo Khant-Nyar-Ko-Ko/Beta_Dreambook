@@ -9,6 +9,7 @@ import { FavouriteBooksProvider } from "./contexts/FavouriteBooksContext.tsx";
 import { CategoryProvider } from "./contexts/CategoryContext.tsx";
 import { ChapterProvider } from "./contexts/ChapterContext.tsx";
 import { CommentProvider } from "./contexts/CommentContext.tsx";
+import ThemeProvider from "./contexts/ThemeProvider.tsx";
 
 const queryClient = new QueryClient();
 
@@ -20,9 +21,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <FavouriteBooksProvider>
             <ChapterProvider>
               <CommentProvider>
-                <React.StrictMode>
-                  <App />
-                </React.StrictMode>
+                <ThemeProvider>
+                  <React.StrictMode>
+                    <App />
+                  </React.StrictMode>
+                </ThemeProvider>
               </CommentProvider>
             </ChapterProvider>
           </FavouriteBooksProvider>

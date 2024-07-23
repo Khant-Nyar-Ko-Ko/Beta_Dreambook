@@ -7,7 +7,7 @@ export const fetchFavourite = async ({
   title,
 }: {
   sort?: string;
-  title?: string;}) => {
+  title?: string | undefined;}) => {
   let queryString = "";
   if (sort) {
     queryString += (queryString ? "&" : "?") + `sort=${sort}`;

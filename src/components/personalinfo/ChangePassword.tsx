@@ -7,6 +7,7 @@ import { getToken } from "@/service/authService";
 import { useUpdateUser } from "@/hooks/useAuthApi";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const ChangePassword = () => {
   const [showOldPassword, setOldShowPassword] = useState(false);
@@ -141,18 +142,36 @@ const ChangePassword = () => {
   const renderError = (error: string) => error && <p className="mt-1 text-xs text-red-500">{error}</p>;
 
   return (
-    <form
+    <motion.form
       onSubmit={handleChangePassword}
-      className="flex flex-col items-center justify-center w-4/5 h-[770px] overflow-y-auto text-center gap-9"
+      className="flex flex-col items-center justify-center w-4/5 h-[670px] overflow-y-auto text-center gap-9"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
     >
-      <div className="flex flex-col gap-2 px-4 py-0 text-center md:py-8 md:px-0">
+      <motion.div
+        className="flex flex-col gap-2 px-4 py-0 text-center md:py-8 md:px-0"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0 }}
+      >
         <h2 className="text-base md:text-2xl font-primary">Change Your Password</h2>
         <p className="text-xs md:text-sm md:w-[300px] opacity-50 font-primary">
           The new password you set must be different from the previous one
         </p>
-      </div>
-      <div className="flex flex-col gap-8">
-        <div className="relative">
+      </motion.div>
+      <motion.div
+        className="flex flex-col gap-8"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <motion.div
+          className="relative"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <Input
             className="w-[200px] md:w-[350px]"
             inputType={showOldPassword ? "text" : "password"}
@@ -169,8 +188,13 @@ const ChangePassword = () => {
             {showOldPassword ? <FaEyeSlash color="slate" /> : <FaEye color="slate" />}
           </button>
           {renderError(oldPasswordError)}
-        </div>
-        <div className="relative">
+        </motion.div>
+        <motion.div
+          className="relative"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           <Input
             className="w-[200px] md:w-[350px]"
             inputType={showNewPassword ? "text" : "password"}
@@ -187,8 +211,13 @@ const ChangePassword = () => {
             {showNewPassword ? <FaEyeSlash color="slate" /> : <FaEye color="slate" />}
           </button>
           {renderError(newPasswordError)}
-        </div>
-        <div className="relative">
+        </motion.div>
+        <motion.div
+          className="relative"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
           <Input
             className="w-[200px] md:w-[350px]"
             inputType={showConfirmPassword ? "text" : "password"}
@@ -206,21 +235,29 @@ const ChangePassword = () => {
           </button>
           {renderError(confirmPasswordError)}
           {renderError(passwordMatchError)}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       {renderError(updateError)}
       {updateSuccess && (
-        <p className="mt-4 text-xs text-green-500">{updateSuccess}</p>
+        <motion.p
+          className="mt-4 text-xs text-green-500"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          {updateSuccess}
+        </motion.p>
       )}
-      <Button type="submit" className="w-[200px] md:w-[350px]">
+      <Button
+        type="submit"
+        className="w-[200px] md:w-[350px]"
+      >
         <Loader2
-          className={
-            updatePassword.isPending ? "block animate-spin" : "hidden"
-          }
+          className={updatePassword.isPending ? "block animate-spin" : "hidden"}
         />
         Change Password
       </Button>
-    </form>
+    </motion.form>
   );
 };
 

@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import Logo from "@/components/Logo";
-import ImagePreview from "@/components/ImagePreview";
+import ImagePreview from "@/components/additional/ImagePreview";
 import PersonalNumberInput from "@/components/personalinfo/PersonalNumberInput";
 import { useUpdateUser } from "@/hooks/useAuthApi";
 import { getToken, login } from "@/service/authService";
-import Loading from "@/components/Loading";
 import background from "../../assets/images/AuthBgImage.avif";
+import Logo from "@/components/tools/Logo";
+import { Loader2 } from "lucide-react";
 
 const UserInfoPage = () => {
   const authToken = getToken();
@@ -68,7 +68,6 @@ const UserInfoPage = () => {
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-background opacity-80"></div>
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
         <div className="flex flex-col items-center gap-4">
-          {/* logo */}
           <Logo />
           <div className="flex flex-col gap-1 text-center">
             <h2 className="text-xl text-white font-primary">Create an account</h2>
@@ -91,7 +90,7 @@ const UserInfoPage = () => {
                 name="gender"
                 value={signupData.gender}
                 onChange={handleGenderChange}
-                className="w-[300px] md:w-[500px] p-2 text-sm border bg-white dark:bg-darkMode1 dark:text-white border-gray-200 rounded-lg shadow-sm text-slate-800 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="w-[300px] md:w-[500px] p-2 text-sm border bg-white border-gray-200 rounded-lg shadow-sm text-slate-800 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               >
                 <option value="" disabled>Gender</option>
                 <option value="Male">Male</option>
@@ -107,7 +106,7 @@ const UserInfoPage = () => {
               />
             </div>
             <Button type="submit" className="w-full">
-              {updateUserMutation.isPending ? <Loading /> : "Create an account"}
+              {updateUserMutation.isPending ? <Loader2 className="animate-spin" /> : "Create an account"}
             </Button>
           </form>
         </div>

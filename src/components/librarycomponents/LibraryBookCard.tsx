@@ -1,8 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Card from "../Card";
+import Card from "../tools/Card";
+import { useDebounce } from "react-use";
+import { useLibraryContext } from "@/contexts/LibraryContext";
 
 
 const LibraryBookCard = ({books} : {books : any[]}) => {
+  const {
+    setCurrentPage,
+    searchInput,
+    setSearchTitle,
+  } = useLibraryContext();
+  
+  useDebounce(
+    () => {
+      setSearchTitle(searchInput), setCurrentPage("1");
+    },
+    1000,
+    [searchInput]
+  );
 
   return (
     <>
@@ -13,14 +28,18 @@ const LibraryBookCard = ({books} : {books : any[]}) => {
           coverImg,
           category,
           user,
-          slug
+          slug,
+          favouriteCount,
+          chapterNum
         }: {
           id: any;
           title: string;
           coverImg: string;
           category: any;
           user: any;
-          slug: string
+          slug: string;
+          favouriteCount: number;
+          chapterNum: number;
         }) => {
           const { name, profileImg, id: authorId } = user;
 
@@ -36,6 +55,8 @@ const LibraryBookCard = ({books} : {books : any[]}) => {
               author={name}
               authorprofile={profileImg}
               authorId={authorId}
+              favouriteCount={favouriteCount}
+              chapterNum={chapterNum}
             />
           );
         }

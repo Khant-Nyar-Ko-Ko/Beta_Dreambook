@@ -12,14 +12,15 @@ const buttonVariants = cva(
         default: "bg-default text-white hover:bg-dark dark:text-white dark:bg-dark",
         active: "text-white bg-default",
         white: "text-default hover:text-white hover:bg-default rounded-full",
-        menu: "text-black hover:text-white bg-transparent hover:bg-default rounded-full dark:text-white",
+        menu: "text-black hover:text-white bg-transparent hover:bg-default hover:bg-opacity-70 rounded-full dark:text-white",
         destructive: "bg-red-500 text-white hover:bg-red-900",
         outline:
           "bg-transparent text-default dark:text-default border dark:border-default border-default hover:bg-dark hover:text-white",
         subtle: "bg-green-100 text-blue-100 hover:bg-blue-200",
         ghost: "bg-transparent text-white",
         personalinfo:
-          "  w-12 md:w-[250px] flex justify-between font-primary hover:text-white hover:bg-blue-500 active:bg-default active:text-white",
+          "  w-12 md:w-[250px] flex justify-between font-primary hover:text-white hover:bg-transparent active:bg-default active:text-white",
+          
         detail:
           "w-[250px] flex justify-start gap-5 text-center hover:bg-blue-400 w-full rounded-none active:border-r-4 border-blue-300 duration-100",
       },

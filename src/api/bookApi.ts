@@ -8,7 +8,8 @@ export const fetchBooks = async (
   page?: number,
   title?: string,
   categoryIds?: string[] | null,
-  sort?: string
+  sort?: string,
+  author?: string
 ) => {
   let queryString = "";
   if (page) {
@@ -23,9 +24,11 @@ export const fetchBooks = async (
     queryString +=
       (queryString ? "&" : "?") + `categoryIds=${encodedCategoryIds}`;
   }
-
   if (sort) {
     queryString += (queryString ? "&" : "?") + `sort=${sort}`;
+  }
+  if (author) {
+    queryString += (queryString ? "&" : "?") + `author=${author}`;
   }
   const response: Response = await fetch(`${BaseURL}/books${queryString}`, {
     method: "GET",
@@ -43,10 +46,10 @@ export const fetchBooks = async (
 };
 
 export const fetchSingleBook = async ({ slug }: { slug: string }) => {
-  if (!slug) {
-    console.error("Invalid book ID");
-    throw new Error("Invalid book ID");
-  }
+  // if (!slug) {
+  //   console.error("Invalid book ID");
+  //   throw new Error("Invalid book ID");
+  // }
   try {
     const response: Response = await fetch(
       `${BaseURL}/books/searchBook/${slug}`,
@@ -107,7 +110,7 @@ export const fetchBooksByLoginUser = async ({
   title,
 }: {
   sort?: string;
-  title?: string;
+  title?: string | undefined;
 }) => {
   let queryString = "";
   if (sort) {

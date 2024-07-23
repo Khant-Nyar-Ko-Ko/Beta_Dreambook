@@ -1,8 +1,10 @@
+import NotFound from "@/components/error/NotFound";
 import AuthLayout from "@/layouts/AuthLayout";
 import LoginPage from "@/pages/auth/LoginPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import SelectCategoryPage from "@/pages/auth/SelectCategoryPage";
 import UserInfoPage from "@/pages/auth/UserInfoPage";
+import ProtectedAuthRoutes from "@/utils/ProtectedAuthRoutes";
 import { RouteObject } from "react-router-dom";
 
 const AuthRouter: RouteObject[] = [
@@ -12,19 +14,23 @@ const AuthRouter: RouteObject[] = [
     children: [
       {
         path: "login",
-        element: <LoginPage />,
+        element: <ProtectedAuthRoutes element={<LoginPage />}/> ,
       },
       {
         path: "register",
-        element: <RegisterPage />,
+        element:<RegisterPage />,
       },
       {
         path: "userinfo",
-        element: <UserInfoPage />,
+        element:<UserInfoPage/>,
       },
       {
         path: "selectcategory",
-        element: <SelectCategoryPage />,
+        element:<SelectCategoryPage />,
+      },
+      {
+        path: '*',
+        element: <NotFound/>,
       },
     ],
   },

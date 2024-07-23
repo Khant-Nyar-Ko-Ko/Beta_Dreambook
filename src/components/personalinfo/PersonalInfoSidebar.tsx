@@ -1,26 +1,42 @@
 import profile from "../../assets/images/contact.jpeg";
 import { Button } from "../ui/button";
-import { IoPersonSharp } from "react-icons/io5";
+import { IoPersonSharp, IoExitOutline } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
 import { PiBooks } from "react-icons/pi";
 import { CiHeart } from "react-icons/ci";
 import { LuBookMarked } from "react-icons/lu";
-import { IoExitOutline } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getToken, logout } from "@/service/authService";
 import { useUserApi } from "@/hooks/useUserApi";
 
 const PersonalInfoSidebar = () => {
-
   const token = getToken() || "";
   const navigate = useNavigate();
-
-  const {data : user} = useUserApi(token);
+  const { data: user } = useUserApi(token);
 
   const handleLogout = () => {
-    navigate('/');
+    navigate("/");
     logout();
   };
+
+  const renderNavLink = (to: string, icon: React.ReactNode, text: string) => (
+    <NavLink to={to}>
+      {({ isActive }) => (
+        <Button
+          variant="personalinfo"
+          className={
+            isActive
+              ? "text-white bg-default"
+              : "text-black dark:text-white bg-transparent"
+          }
+        >
+          {icon}
+          <p className="hidden font-primary md:block">{text}</p>
+          <IoIosArrowForward className="hidden font-primary md:block" />
+        </Button>
+      )}
+    </NavLink>
+  );
 
   return (
     <div className="w-1/5 h-[765px] md:h-[700px] bg-white border border-white dark:border-slate-700 dark:bg-darkMode1">
@@ -31,110 +47,24 @@ const PersonalInfoSidebar = () => {
             className="object-cover w-10 h-10 rounded-full md:w-16 md:h-16"
             alt="profile"
           />
-          <p className="text-xs text-black dark:text-white md:text-lg font-primary">{user?.name}</p>
+          <p className="text-xs text-black dark:text-white md:text-lg font-primary">
+            {user?.name}
+          </p>
         </div>
         <div className="flex flex-col gap-5">
-          <NavLink to="info">
-            {({ isActive }) => (
-              <Button
-                variant="personalinfo"
-                className={
-                  isActive
-                    ? "text-white bg-default"
-                    : "text-black dark:text-white bg-transparent"
-                }
-              >
-                <IoPersonSharp />
-                <p className="hidden font-primary md:block dark:text-white">
-                  {" "}
-                  Personal Information
-                </p>
-
-                <IoIosArrowForward className="hidden font-primary md:block" />
-              </Button>
-            )}
-          </NavLink>
-
-          <NavLink to="book-lists">
-            {({ isActive }) => (
-              <Button
-                variant="personalinfo"
-                className={
-                  isActive
-                    ? "text-white bg-default"
-                    : "text-black dark:text-white bg-transparent"
-                }
-              >
-                <PiBooks />
-                <p className="hidden font-primary md:block "> Book Lists</p>
-
-                <IoIosArrowForward className="hidden font-primary md:block" />
-              </Button>
-            )}
-          </NavLink>
-
-          <NavLink to="fav-books">
-            {({ isActive }) => (
-              <Button
-                variant="personalinfo"
-                className={
-                  isActive
-                    ? "text-white bg-default"
-                    : "text-black dark:text-white bg-transparent"
-                }
-              >
-                <CiHeart />
-                <p className="hidden font-primary md:block"> Favorite Books</p>
-
-                <IoIosArrowForward className="hidden font-primary md:block" />
-              </Button>
-            )}
-          </NavLink>
-
-          <NavLink to="history">
-            {({ isActive }) => (
-              <Button
-                variant="personalinfo"
-                className={
-                  isActive
-                    ? "text-white bg-default"
-                    : "text-black dark:text-white bg-transparent"
-                }
-              >
-                <LuBookMarked />
-                <p className="hidden font-primary md:block"> History</p>
-
-                <IoIosArrowForward className="hidden font-primary md:block" />
-              </Button>
-            )}
-          </NavLink>
-
-          <NavLink to="change-pw">
-            {({ isActive }) => (
-              <Button
-                variant="personalinfo"
-                className={
-                  isActive
-                    ? "text-white bg-default"
-                    : "text-black dark:text-white bg-transparent"
-                }
-              >
-                <IoPersonSharp />
-                <p className="hidden font-primary md:block"> Change Password</p>
-
-                <IoIosArrowForward className="hidden font-primary md:block" />
-              </Button>
-            )}
-          </NavLink>
+          {renderNavLink("info", <IoPersonSharp />, "Personal Information")}
+          {renderNavLink("book-lists", <PiBooks />, "Book Lists")}
+          {renderNavLink("fav-books", <CiHeart />, "Favorite Books")}
+          {renderNavLink("history", <LuBookMarked />, "History")}
+          {renderNavLink("change-pw", <IoPersonSharp />, "Change Password")}
         </div>
-
         <Button
           variant="personalinfo"
           onClick={handleLogout}
           className="justify-center gap-3 py-10 text-black border-t border-gray-300 rounded-none font-primary dark:text-white"
         >
           <IoExitOutline size="30" />
-          <p className="hidden font-primary md:block ">Sign Out</p>
+          <p className="hidden font-primary md:block">Sign Out</p>
         </Button>
       </div>
     </div>

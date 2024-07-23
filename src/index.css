@@ -10,12 +10,18 @@
 @tailwind utilities;
 
 .custom-quill .ql-container {
-  @apply h-auto;
+  @apply h-[170px];
 }
 
 .custom-quill .ql-editor {
   @apply overflow-y-auto md:h-40; /* Adjust the height as needed */
 }
+
+.custom-quill .ql-color-blue {
+  @apply text-default
+}
+
+
 
 .react-modal {
   position: fixed;
