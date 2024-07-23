@@ -15,7 +15,7 @@ const RelatedBooks = ({ slug }: { slug: string }) => {
       <p className="px-5 py-5 font-semibold text-black font-primary dark:text-white">
         Related Books
       </p>
-      <div className="flex flex-col gap-5 mx-5 overflow-y-scroll h-[600px]">
+      <div className="flex flex-col gap-5 mx-5 items-center md:items-start overflow-y-scroll h-[600px]">
         {relatedBooks.map(
           ({
             id,

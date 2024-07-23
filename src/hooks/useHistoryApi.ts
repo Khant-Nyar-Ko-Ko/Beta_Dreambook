@@ -7,7 +7,7 @@ export const usePostHistory = () =>
   });
 
 
-export const useFetchHistory = (sort?: string, title?: string) => {
+export const useFetchHistory = (sort?: string, title?: string | undefined) => {
     return useQuery({
         queryKey: ["history",sort, title],
         queryFn: () => fetchHistory({sort, title}),

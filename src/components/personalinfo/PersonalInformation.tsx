@@ -10,6 +10,7 @@ import ImagePreview from "../additional/ImagePreview";
 import PersonalNumberInput from "./PersonalNumberInput";
 import "react-phone-number-input/style.css";
 import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 
 interface FormData {
   name: string;
@@ -151,6 +152,7 @@ const PersonalInformation = () => {
         transition={{ duration: 0.5, delay: 0.6 }}
       >
         <Button type="submit" className="w-full">
+          {updateUserMutation.isPending && <Loader2 className="animate-spin"/>}
           Update
         </Button>
       </motion.div>

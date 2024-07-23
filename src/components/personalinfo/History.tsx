@@ -15,15 +15,21 @@ const History = () => {
     sort: "latest",
     title: "",
   });
-  const [searchInput, setSearchInput] = useState("");
-  const [searchTitle, setSearchTitle] = useState(searchParams.get("title") || "");
-  const [sort, setSort] = useState(searchParams.get("sort") || "latest");
-
+  const [searchInput, setSearchInput] = useState<string | undefined>(
+    searchParams.get("title") || undefined
+  );
+  const [searchTitle, setSearchTitle] = useState<string | undefined>(
+    searchParams.get("title") || undefined
+  );
+  const [sort, setSort] = useState<string>(
+    searchParams.get("sort") || "latest"
+  );
   useEffect(() => {
-    setSearchParams({
-      sort,
-      title: searchTitle,
-    });
+    const params: Record<string, string> = { sort };
+    if (searchTitle) {
+      params.title = searchTitle;
+    }
+    setSearchParams(params);
   }, [sort, searchTitle, setSearchParams]);
 
   useDebounce(() => setSearchTitle(searchInput), 1000, [searchInput]);

@@ -110,7 +110,7 @@ export const fetchBooksByLoginUser = async ({
   title,
 }: {
   sort?: string;
-  title?: string;
+  title?: string | undefined;
 }) => {
   let queryString = "";
   if (sort) {

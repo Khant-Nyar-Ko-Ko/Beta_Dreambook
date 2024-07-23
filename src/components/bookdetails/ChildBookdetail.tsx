@@ -103,7 +103,7 @@ const ChildBookdetail = () => {
   if (isPending) {
     return (
       <div className="flex justify-center items-center w-full h-[700]">
-        <Loader2 className="animate-spin" color="default" />
+        <Loader2 className="animate-spin" color="blue"/>
       </div>
     );
   }

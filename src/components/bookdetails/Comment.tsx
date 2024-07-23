@@ -17,9 +17,13 @@ import { Loader2 } from "lucide-react";
 const Comment = () => {
   const { slug } = useParams<{ slug: string }>();
   const token = getToken();
-  
-  const { data, isPending, fetchNextPage, hasNextPage } = useGetComment(slug ?? "");
+
+  const { data, isPending, fetchNextPage, hasNextPage } = useGetComment(
+    slug ?? ""
+  );
   const comments = data?.pages.flatMap((page) => page.items) || [];
+  console.log(comments);
+  
   const { reply } = useCommentContext();
   const { data: user } = useUserApi(token ?? "");
 
@@ -36,7 +40,7 @@ const Comment = () => {
   if (isPending) {
     return (
       <div className="flex justify-center items-center w-full h-[700px]">
-         <Loader2 className="animate-spin" color="default"/>
+        <Loader2 className="animate-spin" color="blue" />
       </div>
     );
   }
@@ -98,12 +102,13 @@ const Comment = () => {
                   {reply.id === comment.id && reply.status && (
                     <ReplyComment parentId={comment.id} />
                   )}
-                  {reply && <SeeReplyComment
-                    profileImg={user?.profileImg}
-                    name={user?.name}
-                    parentId={comment.id}
-                  />}
-                  
+                  {reply && (
+                    <SeeReplyComment
+                      profileImg={user?.profileImg}
+                      name={user?.name}
+                      parentId={comment.id}
+                    />
+                  )}
                 </div>
               ))}
             </InfiniteScroll>
