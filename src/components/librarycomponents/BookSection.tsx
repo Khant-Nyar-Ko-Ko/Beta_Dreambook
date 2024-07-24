@@ -6,7 +6,7 @@ import CategoryDrawer from "./CategoryDrawer";
 import CheckboxWithText from "./CheckboxWithText";
 import LibPagination from "./LibPagination";
 import LibraryHeader from "./LibraryHeader";
-import { Loader2 } from "lucide-react";
+import CardLoading from "../Loading/CardLoading";
 
 const BookSection = () => {
   const { currentPage, searchTitle, sort, isDrawerOpen, toggleDrawer } =
@@ -25,8 +25,10 @@ const BookSection = () => {
 
   if (isLoading) {
     return (
-      <div className=" flex justify-center items-center h-[600px]">
-        <Loader2 className="animate-spin" color="blue" />;
+      <div className=" flex flex-col h-[600px]">
+         <LibraryHeader />
+        <CardLoading/>
+        <CardLoading/>
       </div>
     );
   }

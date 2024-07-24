@@ -4,6 +4,23 @@ import { useFetchCategories } from "@/hooks/useCategoryApi";
 import { categoryType } from "@/utils/type";
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { Box, Grid, Skeleton } from "@mui/material";
+
+const SkeletonBox = () => (
+  <Grid container wrap="nowrap" className="flex flex-col gap-2">
+    <Box sx={{ width: 200, marginRight: 2, marginBottom: 2 }}>
+      <Skeleton variant="rectangular" height={20} />
+    </Box>
+  </Grid>
+);
+
+const SkeletonList = () => (
+  <div className="flex flex-col">
+    {[...Array(10)].map((_, index) => (
+      <SkeletonBox key={index} />
+    ))}
+  </div>
+);
 
 const CheckboxWithText = () => {
   const { categoryId } = useParams();
@@ -17,7 +34,7 @@ const CheckboxWithText = () => {
 
   useEffect(() => {
     if (categoryId) {
-      setSelectedCategories([categoryId]); 
+      setSelectedCategories([categoryId]);
     }
   }, [categoryId, setSelectedCategories]);
 
@@ -56,10 +73,11 @@ const CheckboxWithText = () => {
       setIsAllChecked(true);
     }
   }, [categories, selectedCategories]);
-
+  
   if (isLoading) {
-    return <div className="text-black dark:text-white">Loading...</div>;
+    return <SkeletonList />;
   }
+  
 
   if (error) {
     return (
