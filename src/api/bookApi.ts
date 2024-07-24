@@ -180,30 +180,40 @@ export const fetchRelatedBooks = async ({ slug }: { slug: string }) => {
 };
 
 export const createBooks = async (data: BookDataType): Promise<BookDataType> => {
-  const token = getToken();
-  const formData = new FormData();
-  formData.append("title", data.title);
-  formData.append("coverImg", data.coverImg);
-  formData.append("description", data.description);
-  formData.append("keywords", JSON.stringify(data.keywords));
-  formData.append("status", JSON.stringify(data.status));
-  formData.append("categoryId", data.categoryId);
+  try {
+    const token = getToken();
+    if (!token) {
+      throw new Error('No token available');
+    }
 
-  const response: Response = await fetch(`${BaseURL}/books`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    method: "POST",
-    body: formData,
-  });
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("coverImg", data.coverImg);
+    formData.append("description", data.description);
+    formData.append("keywords", JSON.stringify(data.keywords));
+    formData.append("status", JSON.stringify(data.status));
+    formData.append("categoryId", data.categoryId);
 
-  if (!response.ok) {
-    const errorResponse = await response.json();
-    throw new Error(errorResponse.message || 'Failed to create book');
+    const response: Response = await fetch(`${BaseURL}/books`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message || 'Failed to create book');
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error creating book:', error);
+    throw error;
   }
-
-  return response.json();
 };
+
 
 
 export const updateBook = async (data: BookDataType) => {
