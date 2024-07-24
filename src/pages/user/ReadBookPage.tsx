@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { usePostHistory } from "@/hooks/useHistoryApi";
 import { useFetchSingleBook } from "@/hooks/useBookApi";
 import ProgressBar from "@ramonak/react-progress-bar";
@@ -8,7 +8,6 @@ import DOMPurify from "dompurify";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ReadComment from "@/components/readchapters/ReadComment";
-import authorprofile from "../../assets/images/Author.png";
 import { usePostComment } from "@/hooks/useCommentApi";
 import { useGetChapterProgress } from "@/hooks/useChapterProgressApi";
 import toast from "react-hot-toast";
@@ -32,6 +31,7 @@ const ReadBookPage = () => {
 
   const queryClient = useQueryClient();
 
+  console.log(singleBook);
 
   const {
     mutate: postComment,
@@ -48,8 +48,9 @@ const ReadBookPage = () => {
     if (isCommentSuccess) {
       // refetchComments();
       setComment("");
-      queryClient.invalidateQueries({queryKey: ['comments']})
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCommentSuccess]);
 
   useEffect(() => {
@@ -80,9 +81,11 @@ const ReadBookPage = () => {
   }
 
   if (!singleBook || !progress) {
-    return <div className="flex items-center justify-center h-screen">
-      <Loader2 className="animate-spin"/>
-    </div>;
+    return (
+      <div className="flex items-center justify-center h-screen bg-white dark:bg-darkMode1">
+        <Loader2 className="animate-spin" />
+      </div>
+    );
   }
 
   const currentBook =
@@ -125,16 +128,18 @@ const ReadBookPage = () => {
                 <h1 className="mt-4 text-2xl font-bold text-black dark:text-white">
                   {singleBook?.title}
                 </h1>
-                <div className="flex items-center gap-1">
-                  <img
-                    src={authorprofile}
-                    className="w-6 h-6 rounded-full"
-                    alt="author"
-                  />
-                  <p className="text-sm text-black font-primary dark:text-white">
-                    By {singleBook?.user?.name}
-                  </p>
-                </div>
+                <NavLink to={`/author-profile/${singleBook?.user?.name}`}>
+                  <div className="flex items-center gap-1">
+                    <img
+                      src={singleBook?.user?.profileImg}
+                      className="w-6 h-6 rounded-full"
+                      alt={singleBook?.user?.name}
+                    />
+                    <p className="text-sm text-black font-primary dark:text-white">
+                      By {singleBook?.user?.name}
+                    </p>
+                  </div>
+                </NavLink>
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-1 text-black dark:text-white">
                     <p>Category :</p>
@@ -174,7 +179,7 @@ const ReadBookPage = () => {
                   onClick={handleHistoryUpdate}
                 >
                   {isPendingHistory ? (
-                     <Loader2 className="animate-spin"/>
+                    <Loader2 className="animate-spin" />
                   ) : (
                     <span>
                       {currentBook.chapterProgress < 2
@@ -188,9 +193,9 @@ const ReadBookPage = () => {
           </div>
         )}
         <div className="flex flex-col gap-3 my-10 text-black select-none dark:text-white">
-          <p className="text-xl font-semibold font-primary">Book Overview</p>
+          <p className="font-semibold md:text-xl font-primary">Book Overview</p>
           <div
-            className="font-primary"
+            className="text-xs font-primary md:text-base"
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(singleBook?.description),
             }}
@@ -211,7 +216,11 @@ const ReadBookPage = () => {
               }`}
               type="submit"
             >
-              {isPendingComment ? <Loader2 className="animate-spin" /> : "Post Comment"}
+              {isPendingComment ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "Post Comment"
+              )}
             </Button>
           </form>
           <ReadComment />
