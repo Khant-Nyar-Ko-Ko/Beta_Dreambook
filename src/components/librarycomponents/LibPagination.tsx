@@ -31,12 +31,12 @@ const LibPagination = ({ pageCount }: { pageCount: number }) => {
       previousLinkClassName={
         currentPage === 1
           ? ""
-          : " mr-2 py-1 px-2 bg-default rounded-full active:bg-default active:text-white transition-colors duration-200 text-black dark:text-white"
+          : " mr-2 py-1 px-2 bg-default rounded-full active:bg-default active:text-white transition-colors duration-200 text-white"
       }
       nextLinkClassName={
         currentPage === pageCount
           ? ""
-          : "px-2 py-1 ml-2 bg-default rounded-full active:bg-default active:text-white transition-colors duration-200 text-black dark:text-white"
+          : "px-2 py-1 ml-2 bg-default rounded-full active:bg-default active:text-white transition-colors duration-200 text-white"
       }
       breakLinkClassName="px-3 py-1 text-black dark:text-white rounded active:bg-default active:text-white transition-colors duration-200"
       activeLinkClassName="bg-default text-white px-3 py-1 border"

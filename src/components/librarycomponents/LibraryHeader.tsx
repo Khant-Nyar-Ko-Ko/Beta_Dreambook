@@ -18,7 +18,7 @@ const LibraryHeader = () => {
       };
 
   return (
-    <div className="flex items-center justify-between gap-3 mx-6 my-5 md:gap-0">
+    <div className="flex items-center justify-between gap-2 px-4 my-5 md:gap-0 md:px-20">
     <div className="z-10 flex items-center gap-5">
       <Button className="block w-32 h-8 text-xs md:hidden" onClick={toggleDrawer}>
         Select Category
