@@ -1,7 +1,7 @@
 # Dream Book : React + TypeScript + Vite
 Front-End
-- Production Link : [https://beta-dreambook-hiby-dnbea3630-khantnyarkokos-projects.vercel.app/](https://beta-dreambook.vercel.app/)
-- Demo Link : [https://beta-dreambook.vercel.app/](https://beta-dreambook-hiby.vercel.app/)
+- Production Link : [https://beta-dreambook.vercel.app](https://beta-dreambook.vercel.app/)
+- Demo Link : [https://beta-dreambook-hiby.vercel.app](https://beta-dreambook-hiby.vercel.app/)
 - -------------------------------------------------------------------------------------------------------------------------------------
 UI/UX
 - UI Design : https://www.figma.com/design/8rG5DSZSeSXrx2Sb3NcqwB/Dreambook?node-id=591-16392&t=dwmoG5QYnkW6EL97-1
