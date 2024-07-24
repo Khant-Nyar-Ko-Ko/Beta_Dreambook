@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ChapterContent from "@/components/readchapters/ChapterContent";
-// import ChapterPagination from "@/components/readchapters/ChapterPagination";
 import ChapterSidebar from "@/components/readchapters/ChapterSidebar";
 
 const ReadChapterPage = () => {

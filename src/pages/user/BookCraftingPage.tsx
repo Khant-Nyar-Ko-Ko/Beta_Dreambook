@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { motion } from "framer-motion";
 import BackButton from "@/components/tools/BackButton";
+import { FaPlus } from "react-icons/fa";
 
 const BookCraftingPage = () => {
   const bookCreateMutation = useCreateBook();
@@ -43,6 +44,16 @@ const BookCraftingPage = () => {
         setKeywords([...keywords, inputValue.trim()]);
         setInputValue("");
       }
+    }
+  };
+
+  const handleAddKeywordButton = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    if (inputValue.trim() && !keywords.includes(inputValue.trim())) {
+      setKeywords([...keywords, inputValue.trim()]);
+      setInputValue("");
     }
   };
 
@@ -118,7 +129,7 @@ const BookCraftingPage = () => {
   }, [bookCreateMutation.isError]);
 
   return (
-    <motion.div 
+    <motion.div
       className="md:p-[50px] select-none py-5 bg-white dark:bg-darkMode1"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -126,7 +137,7 @@ const BookCraftingPage = () => {
     >
       <div className="flex items-center mb-10 gap-x-5 md:gap-x-10 font-primary">
         <BackButton backPath="/" />
-        <motion.h1 
+        <motion.h1
           className="font-bold text-center text-black md:text-2xl dark:text-white"
           initial={{ x: -100 }}
           animate={{ x: 0 }}
@@ -149,8 +160,8 @@ const BookCraftingPage = () => {
             className="flex flex-col justify-center items-center w-[200px] h-[300px] ml-12 md:ml-0 border-2 border-gray-200 border-dotted rounded-lg py-5 px-10"
             onClick={() => fileInputRef.current?.click()}
           >
-            <motion.img 
-              src={imagePreview as string} 
+            <motion.img
+              src={imagePreview as string}
               className="object-cover"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -179,7 +190,7 @@ const BookCraftingPage = () => {
         </motion.div>
 
         <div className="flex flex-col gap-y-5">
-          <motion.div 
+          <motion.div
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             transition={{ duration: 0.5 }}
@@ -248,15 +259,24 @@ const BookCraftingPage = () => {
             >
               Keywords
             </label>
-            <Input
-              id="keywords"
-              className="w-[300px] md:w-full p-1 border border-gray-200 rounded-lg outline-none"
-              value={inputValue}
-              type="text"
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="keywords"
-              onKeyDown={handleAddKeyword}
-            />
+            <div className="flex items-center gap-2">
+              <Input
+                id="keywords"
+                className="w-[300px] md:w-full p-1 border border-gray-200 rounded-lg outline-none"
+                value={inputValue}
+                variant="keyword"
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="keywords"
+                onKeyDown={handleAddKeyword}
+              />
+              <button
+                className="block p-1 text-white rounded-full cursor-pointer bg-default md:hidden"
+                onClick={handleAddKeywordButton}
+              >
+                <FaPlus />
+              </button>
+            </div>
+
             <div className="flex items-center my-2 gap-x-3">
               {keywords?.map((k, i) => (
                 <div
@@ -308,7 +328,9 @@ const BookCraftingPage = () => {
               <div className="flex items-center justify-center gap-x-3 font-primary">
                 <Loader2
                   className={
-                    bookCreateMutation.isPending ? "block animate-spin" : "hidden"
+                    bookCreateMutation.isPending
+                      ? "block animate-spin"
+                      : "hidden"
                   }
                 />
                 Create Now

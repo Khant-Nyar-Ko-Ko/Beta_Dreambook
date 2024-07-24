@@ -8,6 +8,7 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[150px] md:w-[500px]",
+        keyword: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[100px] md:w-[500px]",
         craft: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[300px] md:w-[600px]",
         edit: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[200px] md:w-[800px]",
         chapterNum: "bg-white dark:bg-darkMode1 text-black dark:text-white border border-gray-300 focus:border-primary w-[100px] md:w-[100px]",
