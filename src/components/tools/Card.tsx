@@ -6,7 +6,6 @@ import profile from "../../assets/images/Author.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useFavouriteBooks } from "@/contexts/FavouriteBooksContext";
 import { getToken } from "@/service/authService";
-import toast from "react-hot-toast";
 import emptybook from "../../assets/images/Empty Book.jpg";
 import { useUserApi } from "@/hooks/useUserApi";
 import { RiUserHeartLine } from "react-icons/ri";
@@ -54,7 +53,6 @@ const Card: React.FC<CardProps> = ({
     if (token) {
       addFavouriteBook(id);
       queryClient.invalidateQueries({ queryKey: ["books"] });
-      toast.success("Added to favourites");
     } else {
       navigate("/auth/login");
     }
@@ -64,7 +62,6 @@ const Card: React.FC<CardProps> = ({
     if (token) {
       removeFavouriteBook(id);
       queryClient.invalidateQueries({ queryKey: ["books"] });
-      toast.success("Removed from favourites");
     } else {
       navigate("/auth/login");
     }

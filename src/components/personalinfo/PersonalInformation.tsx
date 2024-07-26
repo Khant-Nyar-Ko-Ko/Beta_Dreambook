@@ -113,6 +113,7 @@ const PersonalInformation = () => {
         <PersonalNumberInput
           phoneValue={formData.phone}
           setPhoneValue={handlePhoneChange}
+          variant="personalInfo"
         />
       </motion.div>
       <motion.div

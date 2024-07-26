@@ -3,12 +3,14 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { useDeleteComment } from "@/hooks/useCommentApi";
 import { Loader2 } from "lucide-react";
+// import { useQueryClient } from "@tanstack/react-query";
 
 const DeleteComment = ({ id }: { id: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 //   const { mutate: deleteComment } = useDeleteComment();
 const deleteCommentMutation = useDeleteComment();
+// const queryclient = useQueryClient();
 
 useEffect(() => {
   console.log(deleteCommentMutation.status);
@@ -30,6 +32,8 @@ const toggleModal = () => {
   useEffect(() => {
     if(deleteCommentMutation.isSuccess) {
       toggleModal();
+      // queryclient.invalidateQueries({queryKey: ['chapters']})
+      window.location.reload();
     } 
   },[deleteCommentMutation.isSuccess])
 

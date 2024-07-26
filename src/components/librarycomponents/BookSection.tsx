@@ -26,9 +26,9 @@ const BookSection = () => {
   if (isLoading) {
     return (
       <div className=" flex flex-col h-[600px]">
-         <LibraryHeader />
-        <CardLoading/>
-        <CardLoading/>
+        <LibraryHeader />
+        <CardLoading />
+        <CardLoading />
       </div>
     );
   }
