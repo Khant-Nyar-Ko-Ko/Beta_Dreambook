@@ -97,7 +97,7 @@ const HomePage = () => {
       <div className="flex justify-end px-6 pb-5 md:px-32">
         <IoIosArrowDropup
           onClick={() => scrollToTop("home")}
-          className=" text-default"
+          className="cursor-pointer  text-default"
           size="40px"
         />
       </div>

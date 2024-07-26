@@ -22,6 +22,7 @@ const inputVariants = cva(
         ghost: "bg-transparent text-black dark:text-white focus:border-primary",
         info: " w-[250px] md:w-[500px] border focus:border-primary bg-white dark:bg-darkMode1",
         phone: "bg-white text-black border-gray-300 border focus:border-none w-[150px] md:w-[270px]",
+        phone2: "bg-white dark:bg-darkMode1 text-black dark:text-white border-gray-300 border focus:border-none w-[150px] md:w-[270px]",
         reply:"bg-white dark:bg-darkMode1 text-black dark:text-white w-[500px] border-none"
       },
       inputSize: {

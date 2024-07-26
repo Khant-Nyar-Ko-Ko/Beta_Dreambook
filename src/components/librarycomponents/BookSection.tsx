@@ -6,7 +6,7 @@ import CategoryDrawer from "./CategoryDrawer";
 import CheckboxWithText from "./CheckboxWithText";
 import LibPagination from "./LibPagination";
 import LibraryHeader from "./LibraryHeader";
-import { Loader2 } from "lucide-react";
+import CardLoading from "../Loading/CardLoading";
 
 const BookSection = () => {
   const { currentPage, searchTitle, sort, isDrawerOpen, toggleDrawer } =
@@ -25,8 +25,10 @@ const BookSection = () => {
 
   if (isLoading) {
     return (
-      <div className=" flex justify-center items-center h-[1000px]">
-        <Loader2 className="animate-spin" />;
+      <div className=" flex flex-col h-[600px]">
+        <LibraryHeader />
+        <CardLoading />
+        <CardLoading />
       </div>
     );
   }
@@ -46,7 +48,7 @@ const BookSection = () => {
     <div className="w-full bg-white dark:bg-darkMode1">
       <LibraryHeader />
       <div className="overflow-y-auto md:h-auto h-[500px] my-5">
-        <div className="grid w-full grid-cols-1 gap-1 px-20 md:px-0 md:mx-4 md:gap-6 md:py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid justify-center w-full grid-cols-1 gap-1 px-20 md:px-15 md:mx-0 md:gap-6 md:py-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <LibraryBookCard books={books} />
         </div>
 

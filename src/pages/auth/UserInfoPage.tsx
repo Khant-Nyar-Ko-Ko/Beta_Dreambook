@@ -26,7 +26,9 @@ const UserInfoPage = () => {
   const [signupData, setSignupData] = useState(initialFormData);
   const [profileImg, setProfileImg] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setSignupData((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -46,7 +48,7 @@ const UserInfoPage = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const updatedData = { ...signupData, profileImg };
-  
+
     updateUserMutation.mutate(updatedData, {
       onSuccess: () => {
         if (authToken) {
@@ -55,27 +57,38 @@ const UserInfoPage = () => {
         }
       },
       onError: (error) => {
-        console.error('Update user failed:', error);
+        console.error("Update user failed:", error);
       },
     });
   };
-  
 
   return (
     <div className="relative w-screen h-screen">
       {/* background */}
-      <img src={background} className="absolute top-0 left-0 object-cover w-full h-full" alt="Background" />
+      <img
+        src={background}
+        className="absolute top-0 left-0 object-cover w-full h-full"
+        alt="Background"
+      />
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-background opacity-80"></div>
       <div className="absolute top-0 left-0 z-20 flex items-center justify-center w-full h-full ">
         <div className="flex flex-col items-center gap-4">
           <Logo />
           <div className="flex flex-col gap-1 text-center">
-            <h2 className="text-xl text-white font-primary">Create an account</h2>
+            <h2 className="text-xl text-white font-primary">
+              Create an account
+            </h2>
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col text-center gap-7">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col text-center gap-7"
+          >
             <div className="flex flex-col gap-5 ">
               <div className="flex items-center justify-center gap-4">
-                <ImagePreview profileImg={profileImg} onProfileImgChange={handleProfileImgChange} />
+                <ImagePreview
+                  profileImg={profileImg}
+                  onProfileImgChange={handleProfileImgChange}
+                />
               </div>
               <Input
                 variant="userinfo"
@@ -84,7 +97,11 @@ const UserInfoPage = () => {
                 value={signupData.name}
                 onChange={handleChange}
               />
-              <PersonalNumberInput phoneValue={signupData.phone} setPhoneValue={handlePhoneChange} />
+              <PersonalNumberInput
+                phoneValue={signupData.phone}
+                setPhoneValue={handlePhoneChange}
+                variant="userInfo"
+              />
               <select
                 id="gender"
                 name="gender"
@@ -92,7 +109,9 @@ const UserInfoPage = () => {
                 onChange={handleGenderChange}
                 className="w-[300px] md:w-[500px] p-2 text-sm border bg-white border-gray-200 rounded-lg shadow-sm text-slate-800 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               >
-                <option value="" disabled>Gender</option>
+                <option value="" disabled>
+                  Gender
+                </option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
@@ -106,7 +125,11 @@ const UserInfoPage = () => {
               />
             </div>
             <Button type="submit" className="w-full">
-              {updateUserMutation.isPending ? <Loader2 className="animate-spin" /> : "Create an account"}
+              {updateUserMutation.isPending ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "Create an account"
+              )}
             </Button>
           </form>
         </div>
